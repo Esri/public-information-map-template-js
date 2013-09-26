@@ -130,10 +130,10 @@ function (
             if (layers && layers.length) {
                 for (var i = 0; i < layers.length; i++) {
                     var layer = layers[i];
-                    var resourceInfo = layer.resourceInfo;
+                    var layerInfos = layer.layerObject.layerInfos;
                     var sublayers;
-                    if(this.get("sublayers") && resourceInfo && resourceInfo.layers && resourceInfo.layers.length){
-                        sublayers = resourceInfo.layers;
+                    if(this.get("sublayers") && layerInfos && layerInfos.length){
+                        sublayers = layer.layerObject.layerInfos;
                         console.log(sublayers);
                     }
                     var firstLayer = '', selected = '', visible = '', checked = '';
@@ -307,9 +307,12 @@ function (
                 // get all layers
                 for (var i = 0; i < layers.length; i++) {
                     var layer = layers[i];
+                    // sublayers visible
+                    var visibleLayers = layer.layerObject.visibleLayers;
                     // layer object with layers/sublayers and visibility
                     var obj = {
                         layers: [],
+                        visibleLayers: visibleLayers,
                         visibility: layer.visibility
                     };
                     // if it is a featurecollection with sublayers
