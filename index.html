@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Impact Map</title>
+    <meta charset="utf-8">
+    <!--Define the versions of IE that will be used to render the page. See Microsoft documentation for details. Optional.-->
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+	<!--Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol-->
+    <link rel="stylesheet" href="//js.arcgis.com/3.7/js/dojo/dijit/themes/claro/claro.css">
+	<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css">
+	<!--Load any application specific styles-->
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/LayerLegend.css">
+	<link rel="stylesheet" href="css/fontello.css">
+	<link rel="stylesheet" href="css/HomeButton.css">
+	<link rel="stylesheet" href="css/LocateButton.css">
+	<link rel="stylesheet" href="css/BasemapToggle.css">
+	<link rel="stylesheet" href="css/SimpleSlider.css">
+	<link rel="stylesheet" href="css/popup.css">
+	<!--[if IE 7]><link rel="stylesheet" href="css/fontello-ie7.css"><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="claro">
+   <!--The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. --> 
+    <div id="bc_outer">
+        <div id="cp_outer_left">
+            <div id="drawer_menu">
+                <div class="item item-first item-selected" data-menu="legend_panel">
+                    <div class="item-container">
+                        <div id="legend_name" class="title"></div>
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+                <div class="item" data-menu="features_panel">
+                    <div class="item-container">
+                        <div id="impact_name" class="title"></div>
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div id="drawer_panels">
+                <div class="panel panel-selected" id="legend_panel">
+                    <div id="LayerLegend"></div>
+                </div>
+                <div class="panel" id="features_panel">
+                    
+                </div>
+            </div>
+        </div>
+        <div id="cp_outer_center">
+            <div id="bc_inner">
+                <div id="cp_inner_top">
+                    <div class="topBar">
+                        <div id="hamburger_button" class="toggle-grey toggle-grey-on">
+                            <div class="icon-menu-1"></div>
+                        </div>
+                        <div id="title"></div>
+                        <div id="AboutDialog"></div>
+                        <div id="ShareDialog"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div id="cp_inner_center">
+                    <div id="mapDiv" dir="ltr">
+                        <div id="mapButtons">
+                            <div id="LocateButton"></div>
+                            <div id="HomeButton"></div>
+                        </div>
+                        <div id="BasemapToggle"></div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+    var dojoConfig = {
+    	//The location.pathname.replace() logic below may look confusing but all its doing is 
+    	// enabling us to load the api from a CDN and load local modules from the correct location.
+        packages:[
+        { 
+            name: "application",
+            location: package_path + '/js' 
+         },
+         { 
+            name: "modules",
+            location: package_path + '/js' 
+         },
+         { 
+            name: "views",
+            location: package_path + '/views' 
+         },{
+            name: "config",
+            location: package_path + '/config'                     
+         }
+        ]
+    };
+    </script>
+    <script type="text/javascript" src="//js.arcgis.com/3.7/"></script>
+    <script type="text/javascript">
+    	require([
+            "dojo/on",
+    		"application/main",
+    		"application/template",
+    		"dojo/domReady!"
+    	], function(
+            on,
+    		Main,
+    		Template
+    	){
+            //create the template. This will take care of all the logic required for template applciations 
+            //If you need localization set the supportsLocalization value to true to get the localized strings 
+            //from the javascript/nls/resource files. 
+            //Note that we've included a placeholder nls folder and a resource file with one error string
+            //to show how to setup the strings file. 
+            var supportsLocalization = true; //defaults to false
+            var myTemplate = new Template(supportsLocalization);
+            on(myTemplate, "ready", function(config){
+                //The config object contains the following properties: helper services, (optionally) 
+                //i18n, appid, webmap and any custom values defined by the applcation. 
+                //In this example we have one called theme. 
+                Main(config);
+            });
+    	});
+    </script> 	
+</body>
+</html>

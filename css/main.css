@@ -1,0 +1,205 @@
+html,body {
+	padding:0;
+	margin:0;
+	height:100%;
+	width:100%;
+	font-family:'Lato',sans-serif;
+}
+
+#bc_inner,#bc_outer {
+	width:100%;
+	height:100%;
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+#cp_inner_top {
+	width:100%;
+	height:34px;
+	padding:0;
+	margin:0;
+	border:0;
+	border-bottom:1px solid #ddd;
+	overflow:hidden;
+	z-index:3;
+}
+
+#cp_outer_left {
+	width:280px;
+	max-width:280px;
+	height:100%;
+	padding:0;
+	margin:0;
+	border:0;
+	border-right:1px solid #ddd;
+	background:#f8f8f8;
+	overflow:auto;
+	overflow-x:hidden;
+}
+
+#cp_inner_center,#cp_outer_center {
+	width:100%;
+	height:100%;
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+#mapDiv {
+	padding:0;
+	margin:0;
+	width:100%;
+	height:100%;
+	position:relative;
+}
+
+#BasemapToggle {
+	position:absolute;
+	top:20px;
+	right:20px;
+	z-index:35;
+}
+
+#mapButtons {
+	position:absolute;
+	top:92px;
+	left:20px;
+	z-index:35;
+}
+
+#HomeButton {
+	margin-top:6px;
+}
+
+.esriRtl label {
+/*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
+}
+
+#drawer_panels .panel {
+	display:none;
+}
+
+#drawer_panels .panel-selected {
+	display:block;
+}
+
+#drawer_menu {
+	background-color:#007ac2;
+	font-size:18px;
+	line-height:18px;
+	text-align:center;
+	overflow:visible;
+	width:280px;
+}
+
+#drawer_menu .item {
+	width:50%;
+	text-align:center;
+	color:#b9e0f7;
+	float:left;
+	cursor:pointer;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;
+}
+
+#drawer_menu .item-container {
+	position:relative;
+	overflow:visible;
+	padding:7px 0;
+}
+
+#drawer_menu .item .title {
+	padding:7px 5%;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width:90%;
+}
+
+#drawer_menu .item-first .title {
+	border-right:1px solid #5fa8d4;
+}
+
+#drawer_menu .item-selected {
+	color:#fff;
+	cursor:default;
+}
+
+#drawer_menu .arrow {
+	display:none;
+}
+
+#drawer_menu .item-selected .arrow {
+	display:block;
+	position:absolute;
+	bottom:-2px;
+	left:0;
+	z-index:2;
+	height:9px;
+	width:100%;
+	background:url(../images/selected-arrow.png) no-repeat center bottom;
+}
+
+.topBar {
+	background:#f8f8f8;
+	height:34px;
+}
+
+#title {
+	color:#007ac2;
+	padding:6px 0;
+	line-height:22px;
+	font-size:18px;
+}
+
+#hamburger_button {
+	float:left;
+	padding:4px 0;
+	cursor:pointer;
+	height:25px;
+	font-size:25px;
+	line-height:25px;
+}
+
+.toggle-grey {
+	color:#999;
+}
+
+.toggle-grey:hover,.toggle-grey:active {
+	color:#333;
+}
+
+.toggle-grey-on {
+	color:#007ac2;
+}
+
+.toggle-grey-on:hover,.toggle-grey-on:active {
+	color:#333;
+}
+
+#title {
+	float:left;
+}
+
+.icon-right {
+	float:right;
+	cursor:pointer;
+	height:22px;
+	font-size:18px;
+	padding:6px;
+	line-height:22px;
+	margin:0;
+}
+
+.menuList {
+	list-style:none;
+	padding:0;
+	text-align:left;
+	margin:0;
+}
+
+.clear {
+	clear:both;
+}

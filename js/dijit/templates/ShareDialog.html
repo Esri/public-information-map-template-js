@@ -1,0 +1,17 @@
+<div class="${theme}" role="presentation">
+    <div data-dojo-attach-point="_buttonNode" title="${_i18n.widgets.ShareDialog.title}" role="button" data-dojo-attach-event="ondijitclick:toggle" class="${_css.container} ${_css.button}">
+        <div class="${_css.icon}"></div>
+    </div>
+    <div data-dojo-attach-point="_dialogNode">
+        <div>${_i18n.widgets.ShareDialog.heading}</div>
+        <div>Twitter, Facebook, Google+, Email</div>
+        <div>${_i18n.widgets.ShareDialog.url}</div>
+        <div>${_i18n.widgets.ShareDialog.embed}</div>
+        <div data-dojo-attach-point="_embedNode" class="${_css.embed}"></div>
+        <div>${_i18n.widgets.ShareDialog.size}
+            <select>
+                <option>100% x 500px</option>
+            </select>
+        </div>
+    </div>
+</div>

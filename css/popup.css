@@ -1,0 +1,158 @@
+/*-------------------------------------------------- */
+/* POP UP */
+/*-------------------------------------------------- */
+#mapDiv .calcite {
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	font-family:'Lato',sans-serif;
+	font-size:12px;
+	line-height:16px;
+}
+
+#mapDiv .calcite .titlePane {
+	background:#f8f8f8;
+	font-size:12px;
+	line-height:12px;
+	padding:10px;
+	color:#333;
+	font-weight:700;
+	border:0;
+	border-bottom:1px solid #eee;
+	-webkit-border-radius:1px 1px 0 0;
+	border-radius:1px 1px 0 0;
+}
+
+#mapDiv .calcite .titlePane .spinner {
+	margin-top:6px;
+	background:url(../images/ajax-loader.gif) no-repeat;
+}
+
+#mapDiv .calcite .titleButton {
+	background:none;
+	font-family:"fontello";
+	font-style:normal;
+	font-weight:400;
+	speak:none;
+	display:inline-block;
+	text-decoration:inherit;
+	text-align:center;
+	font-variant:normal;
+	text-transform:none;
+	font-size:14px;
+	line-height:16px;
+	width:16px;
+	padding:10px 5px;
+	color:#999;
+}
+
+#mapDiv .calcite .titleButton:hover {
+	color:#333;
+}
+
+#mapDiv .calcite .titleButton:active {
+	color:#007ac2;
+}
+
+#mapDiv .calcite .titleButton.close {
+	top:0;
+	right:0;
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe80c;&nbsp;');
+}
+
+#mapDiv .calcite .titleButton.close:before {
+	content:'\e80c';
+}
+
+#mapDiv .calcite .titleButton.next {
+	top:0;
+	right:52px;
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe807;&nbsp;');
+}
+
+#mapDiv .calcite .titleButton.next:before {
+	content:'\e807';
+}
+
+#mapDiv .calcite .titleButton.prev {
+	top:0;
+	right:78px;
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe80a;&nbsp;');
+}
+
+#mapDiv .calcite .titleButton.prev:before {
+	content:'\e80a';
+}
+
+#mapDiv .calcite .titleButton.maximize {
+	top:0;
+	right:26px;
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe817;&nbsp;');
+}
+
+#mapDiv .calcite .titleButton.maximize:before {
+	content:'\e817';
+}
+
+#mapDiv .calcite .titleButton.restore {
+	top:0;
+	right:26px;
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe817;&nbsp;');
+}
+
+#mapDiv .calcite .titleButton.restore:before {
+	content:'\e817';
+}
+
+#mapDiv .calcite .contentPane {
+	background:#fff;
+	padding:10px;
+	color:#333;
+	font-size:12px;
+	line-height:16px;
+}
+
+#mapDiv .calcite .esriViewPopup .hzLine {
+	border-top:1px solid #eee;
+}
+
+#mapDiv .calcite .actionsPane {
+	color:#333;
+	background:#fff;
+	-webkit-border-radius:0 0 1px 1px;
+	border-radius:0 0 1px 1px;
+}
+
+#mapDiv .calcite .contentPane,#mapDiv .calcite .actionsPane {
+	border:0;
+	font-size:12px;
+	line-height:16px;
+}
+
+#mapDiv .calcite .actionsPane .actionList a {
+	cursor:pointer;
+	text-decoration:none;
+	display:inline-block;
+	line-height:16px;
+	height:16px;
+}
+
+#mapDiv .calcite .actionsPane .actionList a:hover,#mapDiv .calcite .actionsPane .actionList a:focus {
+}
+
+#mapDiv .calcite .actionsPane .actionList {
+	display:inline-block;
+	height:16px;
+	padding:0;
+	margin:0;
+	vertical-align:top;
+	margin-right:5px;
+}
+
+#mapDiv .calcite .titlePane .pageInfo {
+	display:inline-block;
+}
+
+#mapDiv .calcite .titlePane .titleInfo {
+	display:inline-block;
+	margin-right:5px;
+}
