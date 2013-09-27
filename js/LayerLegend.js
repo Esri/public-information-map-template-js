@@ -259,6 +259,7 @@ function (
                             }]
                         }, legendDiv);
                         legend.startup();
+                        this._legends.push(legend);
                     } else {
                         // no legend to create
                         legendDiv.innerHTML = this._i18n.LayerLegend.noLegend;
@@ -310,9 +311,16 @@ function (
                     this._layerEvents[i].remove();
                 }
             }
+            // legend widgets
+            if (this._legends && this._legends.length) {
+                for (i = 0; i < this._legends.length; i++) {
+                    this._legends[i].destroy();
+                }
+            }
             this._titleEvents = [];
             this._checkEvents = [];
             this._layerEvents = [];
+            this._legends = [];
         },
         _toggleVisibleSublayer: function(layerIndex, sublayerIndex, visible) {
             // update checkbox and layer visibility classes
@@ -404,6 +412,8 @@ function (
                             this._toggleVisibleSublayer(layerIndex, sublayerIndex, newVis);
                             // update visible
                             layerObject.setVisibleLayers(visibleLayers);
+                            // refresh legend widget
+                            this._legends[layerIndex].refresh();
                         } else {
                             newVis = !layer.layerObject.visible;
                             layer.visibility = newVis;
