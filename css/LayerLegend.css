@@ -42,7 +42,8 @@
 
 .LayerLegend .LL_Text,.LayerLegend .LL_SublayerText {
 	display:inline-block;
-	margin:12px 0;
+	padding:12px 0;
+    margin:0;
 	text-overflow:ellipsis;
 	width:225px;
 	white-space:nowrap;
@@ -54,7 +55,7 @@
 }
 
 .LayerLegend .LL_SublayerText {
-	margin:3px 0;
+	padding:3px 0;
 	width:210px;
 }
 
