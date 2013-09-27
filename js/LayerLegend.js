@@ -130,13 +130,16 @@ function (
             if (layers && layers.length) {
                 for (var i = 0; i < layers.length; i++) {
                     var layer = layers[i];
-                    var layerInfos = layer.layerObject.layerInfos;
+                    var layerInfos;
                     var sublayers;
-                    if(this.get("sublayers") && layerInfos && layerInfos.length){
-                        sublayers = layer.layerObject.layerInfos;
-                        console.log(sublayers);
-                    }
                     var firstLayer = '', selected = '', visible = '', checked = '';
+                    if(layer.layerObject){
+                        layerInfos = layer.layerObject.layerInfos;
+                        if(this.get("sublayers") && layerInfos && layerInfos.length){
+                            sublayers = layer.layerObject.layerInfos;
+                            console.log(sublayers);
+                        }
+                    }
                     if (i === (layers.length - 1)) {
                         firstLayer = this._css.firstLayer;
                         selected = this._css.selected;
@@ -259,7 +262,7 @@ function (
                     // create click event
                     this._checkboxEvent(i);
                 }
-                this._setLayerObjects();
+                this._setLayerEvents();
             }
         },
         _removeEvents: function(){
@@ -299,54 +302,49 @@ function (
             }));
             this._layerEvents.push(visChange);
         },
-        _setLayerObjects: function() {
-            // this function gets all the layer objects for each layer and sublayers.
+        _setLayerEvents: function() {
+            // this function sets up all the events for layers
             var layers = this.get("layers");
-            this._layerObjects = [];
             if (layers && layers.length) {
                 // get all layers
                 for (var i = 0; i < layers.length; i++) {
                     var layer = layers[i];
-                    // sublayers visible
-                    var visibleLayers = layer.layerObject.visibleLayers;
-                    // layer object with layers/sublayers and visibility
-                    var obj = {
-                        layers: [],
-                        visibleLayers: visibleLayers,
-                        visibility: layer.visibility
-                    };
-                    // if it is a featurecollection with sublayers
+                    // if it is a feature collection with layers
                     if (layer.featureCollection && layer.featureCollection.layers && layer.featureCollection.layers.length) {
-                        var sublayers = layer.featureCollection.layers;
-                        for (var j = 0; j < sublayers.length; j++) {
-                            var sublayerObject = sublayers[j].layerObject;
+                        var fclayers = layer.featureCollection.layers;
+                        for (var j = 0; j < fclayers.length; j++) {
+                            var sublayerObject = fclayers[j].layerObject;
                             this._layerEvent(sublayerObject, i);
-                            obj.layers.push(sublayerObject);
                         }
                     } else {
                         // 1 layer object
                         var layerObject = layer.layerObject;
                         this._layerEvent(layerObject, i);
-                        obj.layers.push(layerObject);
                     }
-                    this._layerObjects.push(obj);
                 }
             }
-            console.log(this._layerObjects);
         },
         _toggleLayer: function(index) {
             // all layers
-            if (this._layerObjects && this._layerObjects.length) {
-                var layerObject = this._layerObjects[index];
+            if (this.layers && this.layers.length) {
+                var layer = this.layers[index];
+                var layerObject = layer.layerObject;
+                var featureCollection = layer.featureCollection;
                 // toggle visibility
-                layerObject.visibility = !layerObject.visibility;
-                var layers = this._layerObjects[index].layers;
-                // all layers/sublayers
-                if (layers && layers.length) {
-                    for (var i = 0; i < layers.length; i++) {
-                        var layer = layers[i];
-                        // toggle to new visibility
-                        layer.setVisibility(layerObject.visibility);
+                layer.visibility = !layer.visibility;
+                if(featureCollection){
+                    // toggle all feature collection layers
+                    if (featureCollection.layers && featureCollection.layers.length) {
+                        for (var i = 0; i < featureCollection.layers.length; i++) {
+                            layerObject = featureCollection.layers[i].layerObject;
+                            // toggle to new visibility
+                            layerObject.setVisibility(layer.visibility);
+                        }
+                    }
+                }
+                else{
+                    if(layerObject){
+                        layerObject.setVisibility(layer.visibility);
                     }
                 }
             }
