@@ -42,7 +42,7 @@ function (
             map: null,
             layers: null,
             visible: true,
-            sublayers: true
+            sublayers: false
         },
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
@@ -61,6 +61,8 @@ function (
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
             this.watch("layers", this.refresh);
+            this.watch("sublayers", this.refresh);
+            this.watch("map", this.refresh);
             // classes
             this._css = {
                 container: "LL_Container",
@@ -116,7 +118,7 @@ function (
         hide: function() {
             this.set("visible", false);
         },
-        refresh: function(){
+        refresh: function() {
             this._createLegends();
         },
         /* ---------------- */
@@ -135,19 +137,21 @@ function (
                     var layer = layers[i];
                     var layerInfos;
                     var sublayers;
-                    var firstLayer = '', selected = '', visible = '', checked = '';
+                    var firstLayer = '',
+                        selected = '',
+                        visible = '',
+                        checked = '';
                     var sublayerNodes = [];
-                    if(layer.layerObject){
+                    if (layer.layerObject) {
                         layerInfos = layer.layerObject.layerInfos;
-                        if(this.get("sublayers") && layerInfos && layerInfos.length){
+                        if (this.get("sublayers") && layerInfos && layerInfos.length) {
                             sublayers = layer.layerObject.layerInfos;
-                            console.log(sublayers);
                         }
                     }
                     if (i === (layers.length - 1)) {
                         firstLayer = this._css.firstLayer;
                         selected = this._css.selected;
-                    }   
+                    }
                     if (layer.visibility) {
                         visible = this._css.visible;
                         checked = this._css.checkboxCheck;
@@ -189,16 +193,17 @@ function (
                         className: this._css.legend
                     });
                     domConstruct.place(legendDiv, contentDiv, "first");
-                    if(sublayers && sublayers.length){
+                    // if sublayer and not a tile service
+                    if (sublayers && sublayers.length && !layer.layerObject.tileInfo) {
                         var sublayerContainerDiv = domConstruct.create("div", {
                             className: this._css.sublayerContainer
                         });
                         domConstruct.place(sublayerContainerDiv, contentDiv, "first");
-                        for(var j = 0; j < sublayers.length; j++){
+                        for (var j = 0; j < sublayers.length; j++) {
                             var sublayer = sublayers[j];
                             var sublayerchecked = '';
                             var sublayerVisible = '';
-                            if(sublayer.defaultVisibility){
+                            if (sublayer.defaultVisibility) {
                                 sublayerchecked = this._css.checkboxCheck;
                                 sublayerVisible = this._css.sublayerVisible;
                             }
@@ -275,8 +280,8 @@ function (
                     // create click event
                     this._checkboxEvent(i);
                     // set up sublayer events
-                    if(sublayerNodes && sublayerNodes.length){
-                        for(var k = 0; k < sublayerNodes.length; k++){
+                    if (sublayerNodes && sublayerNodes.length) {
+                        for (var k = 0; k < sublayerNodes.length; k++) {
                             // create click event
                             this._sublayerCheckboxEvent(i, k);
                         }
@@ -285,23 +290,23 @@ function (
                 this._setLayerEvents();
             }
         },
-        _removeEvents: function(){
+        _removeEvents: function() {
             var i;
             // title click events
-            if(this._titleEvents && this._titleEvents.length){
-                for(i = 0; i < this._titleEvents.length; i++){
+            if (this._titleEvents && this._titleEvents.length) {
+                for (i = 0; i < this._titleEvents.length; i++) {
                     this._titleEvents[i].remove();
                 }
             }
             // checkbox click events
-            if(this._checkEvents && this._checkEvents.length){
-                for(i = 0; i < this._checkEvents.length; i++){
+            if (this._checkEvents && this._checkEvents.length) {
+                for (i = 0; i < this._checkEvents.length; i++) {
                     this._checkEvents[i].remove();
                 }
             }
             // layer visibility events
-            if(this._layerEvents && this._layerEvents.length){
-                for(i = 0; i < this._layerEvents.length; i++){
+            if (this._layerEvents && this._layerEvents.length) {
+                for (i = 0; i < this._layerEvents.length; i++) {
                     this._layerEvents[i].remove();
                 }
             }
@@ -309,7 +314,7 @@ function (
             this._checkEvents = [];
             this._layerEvents = [];
         },
-        _toggleVisibleSublayer: function(layerIndex, sublayerIndex, visible){
+        _toggleVisibleSublayer: function(layerIndex, sublayerIndex, visible) {
             // update checkbox and layer visibility classes
             domClass.toggle(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerDiv, this._css.sublayerVisible, visible);
             domClass.toggle(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerCheckboxDiv, this._css.checkboxCheck, visible);
@@ -352,48 +357,63 @@ function (
         _toggleLayer: function(layerIndex, sublayerIndex) {
             // all layers
             if (this.layers && this.layers.length) {
+                var newVis;
                 var layer = this.layers[layerIndex];
                 var layerObject = layer.layerObject;
                 var featureCollection = layer.featureCollection;
-                // toggle visibility
-                layer.visibility = !layer.visibility;
-                if(featureCollection){
+                if (featureCollection) {
+                    newVis = !layer.visibility;
+                    layer.visibility = newVis;
                     // toggle all feature collection layers
                     if (featureCollection.layers && featureCollection.layers.length) {
                         for (var i = 0; i < featureCollection.layers.length; i++) {
                             layerObject = featureCollection.layers[i].layerObject;
                             // toggle to new visibility
-                            layerObject.setVisibility(layer.visibility);
+                            layerObject.setVisibility(newVis);
                         }
                     }
-                }
-                else{
-                    if(layerObject){
-                        if(typeof sublayerIndex !== 'undefined' && layerObject.hasOwnProperty('visibleLayers')){
+                } else {
+                    if (layerObject) {
+                        if (typeof sublayerIndex !== 'undefined' && layerObject.hasOwnProperty('visibleLayers')) {
+                            // layers visible
                             var visibleLayers = layerObject.visibleLayers;
+                            // remove -1 from visible layers if its there
+                            var negative = array.lastIndexOf(visibleLayers, -1);
+                            if (negative !== -1) {
+                                visibleLayers.splice(negative, 1);
+                            }
+                            // find sublayer index in visible layers
                             var found = array.lastIndexOf(visibleLayers, sublayerIndex);
-                            var visible;
-                            if(found !== -1){
+                            if (found !== -1) {
                                 // found position
                                 visibleLayers.splice(found, 1);
-                                visible = false;
-                            }
-                            else{
+                                // set invisible
+                                newVis = false;
+                            } else {
                                 // position not found
                                 visibleLayers.push(sublayerIndex);
-                                visible = true;
+                                // set visible
+                                newVis = true;
                             }
+                            // if visible layers is empty we need -1 in there
+                            if (visibleLayers.length === 0) {
+                                visibleLayers.push(-1);
+                            }
+                            layer.visibility = newVis;
+                            // toggle checkbox
+                            this._toggleVisibleSublayer(layerIndex, sublayerIndex, newVis);
+                            // update visible
                             layerObject.setVisibleLayers(visibleLayers);
-                            this._toggleVisibleSublayer(layerIndex, sublayerIndex, visible);
-                        }
-                        else{
-                            layerObject.setVisibility(layer.visibility);
+                        } else {
+                            newVis = !layer.layerObject.visible;
+                            layer.visibility = newVis;
+                            layerObject.setVisibility(newVis);
                         }
                     }
                 }
             }
         },
-        _sublayerCheckboxEvent: function(layerIndex, sublayerIndex){
+        _sublayerCheckboxEvent: function(layerIndex, sublayerIndex) {
             // when checkbox is clicked
             var checkEvent = on(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerCheckboxDiv, 'click', lang.hitch(this, function(evt) {
                 // update visible layers for this layer with sublayer
