@@ -19,30 +19,29 @@ define([
     "dojo/on"
 ],
 function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, on) {
-    var Widget = declare("modules.flickr", null, {
+    var Widget = declare("modules.Flickr", null, {
         constructor: function (options) {
-            var _self = this;
             this.options = {
                 filterUsers: [],
                 filterWords: [],
                 autopage: true,
+                visible: true,
                 maxpage: 2,
                 limit: 100,
-                title: '',
+                title: 'Flickr',
                 id: 'flickr',
                 datePattern: "MMM d, yyyy",
                 timePattern: "h:mma",
                 searchTerm: '',
-                symbolUrl: '',
-                symbolHeight: 22.5,
-                symbolWidth: 18.75,
-                popupHeight: 200,
-                popupWidth: 290,
+                symbol: new PictureMarkerSymbol('images/map/flickr25x30.png', 18.75, 22.5),
+                infoTemplate: new InfoTemplate('Flickr', '<div class="flContent"><a tabindex="0" class="flImgA" href="${location.protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="title">${title}</div><div class="username"><a tabindex="0" href="${location.protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="content">${description._content}</div><div class="date">${dateformatted}</div></div>'),
                 dateFrom: '',
                 dateTo: '',
-                apikey: ''
+                apiKey: ''
             };
-            declare.safeMixin(this.options, options);
+            lang.mixin(this.options, options);
+            
+            
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
             }
@@ -51,6 +50,7 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
             } else {
                 this.baseurl = "http://api.flickr.com/services/rest/";
             }
+            
             this.featureCollection = {
                 layerDefinition: {
                     "geometryType": "esriGeometryPoint",
@@ -59,47 +59,14 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                             "type": "simple",
                             "symbol": {
                                 "type": "esriPMS",
-                                "url": this.options.symbolUrl,
-                                "contentType": "image/" + this.options.symbolUrl.substring(this.options.symbolUrl.lastIndexOf(".") + 1),
-                                "width": this.options.symbolWidth,
-                                "height": this.options.symbolHeight
+                                "url": this.options.symbol.url,
+                                "contentType": "image/" + this.options.symbol.url.substring(this.options.symbol.url.lastIndexOf(".") + 1),
+                                "width": this.options.symbol.width,
+                                "height": this.options.symbol.height
                             }
                         }
                     },
-                    "fields": [{
-                        "name": "OBJECTID",
-                        "type": "esriFieldTypeOID"
-                    }, {
-                        "name": "smType",
-                        "type": "esriFieldTypeString",
-                        "alias": "smType",
-                        "length": 100
-                    }, {
-                        "name": "id",
-                        "type": "esriFieldTypeString",
-                        "alias": "id",
-                        "length": 100
-                    }, {
-                        "name": "owner",
-                        "type": "esriFieldTypeString",
-                        "alias": "User",
-                        "length": 100
-                    }, {
-                        "name": "latitude",
-                        "type": "esriFieldTypeDouble",
-                        "alias": "latitude",
-                        "length": 1073741822
-                    }, {
-                        "name": "longitude",
-                        "type": "esriFieldTypeDouble",
-                        "alias": "longitude",
-                        "length": 1073741822
-                    }, {
-                        "name": "title",
-                        "type": "esriFieldTypeString",
-                        "alias": "Title",
-                        "length": 1073741822
-                    }],
+                    "fields": [],
                     "globalIdField": "id",
                     "displayField": "title"
                 },
@@ -108,51 +75,32 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                     "geometryType": "esriGeometryPoint"
                 }
             };
-            this.infoTemplate = new InfoTemplate();
-            this.infoTemplate.setTitle(function () {
-                return _self.options.title;
-            });
-            this.infoTemplate.setContent(function (graphic) {
-                return _self.getWindowContent(graphic);
-            });
+
+            
             this.featureLayer = new FeatureLayer(this.featureCollection, {
                 id: this.options.id,
+                title: this.options.title,
                 outFields: ["*"],
-                infoTemplate: this.infoTemplate,
-                visible: true
+                infoTemplate: this.options.infoTemplate,
+                visible: this.options.visible
             });
             this.options.map.addLayer(this.featureLayer);
-            on(this.featureLayer, "click", lang.hitch(this, function (evt) {
-                event.stop(evt);
-                var query = new QueryTask();
-                query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
-                var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
-                this.options.map.infoWindow.setFeatures([deferred]);
-                setTimeout(function () { _self.options.map.infoWindow.show(evt.graphic.geometry); }, 500);
-                this.adjustPopupSize(this.options.map);
+            
+            
+            on(this.options.map, "extent-change", lang.hitch(this, function () {
+                this.update();
             }));
-            this.stats = {
-                geoPoints: 0,
-                geoNames: 0,
-                noGeo: 0
-            };
+            
+
+
             this.dataPoints = [];
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
-            on(window, "resize", lang.hitch(this, function (evt) {
-                event.stop(evt);
-                this.adjustPopupSize(this.options.map);
-            }));
+            this.update();
         },
-        update: function (options) {
-            declare.safeMixin(this.options, options);
+        update: function () {
             this.constructQuery(this.options.searchTerm);
-        },
-        pointToExtent: function (map, point, toleranceInPixel) {
-            var pixelWidth = map.extent.getWidth() / map.width;
-            var toleraceInMapCoords = toleranceInPixel * pixelWidth;
-            return new Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
         },
         clear: function () {
             // cancel any outstanding requests
@@ -170,29 +118,15 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
             if (this.featureLayer.graphics.length > 0) {
                 this.featureLayer.applyEdits(null, null, this.featureLayer.graphics);
             }
-            // clear data
-            this.stats = {
-                geoPoints: 0,
-                noGeo: 0,
-                geoNames: 0
-            };
             this.dataPoints = [];
             this.geocoded_ids = {};
             this.onClear();
-        },
-        getStats: function () {
-            var x = this.stats;
-            x.total = this.stats.geoPoints + this.stats.noGeo + this.stats.geoNames;
-            return x;
         },
         // Parse Links
         parseURL: function (text) {
             return text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (url) {
                 return '<a target="_blank" href="' + url + '">' + url + '</a>';
             });
-        },
-        getPoints: function () {
-            return this.dataPoints;
         },
         show: function () {
             this.featureLayer.setVisibility(true);
@@ -220,19 +154,6 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                 });
             }
         },
-        adjustPopupSize: function(map) {
-            var box = domGeom.getContentBox(map.container);
-            var width = 270, height = 300, // defaults
-            newWidth = Math.round(box.w * 0.60),             
-            newHeight = Math.round(box.h * 0.45);     
-            if (newWidth < width) {
-                width = newWidth;
-            }
-            if (newHeight < height) {
-                height = newHeight;
-            }
-            map.infoWindow.resize(width, height);
-        },
         getRadius: function () {
             var map = this.options.map;
             var extent = this.options.map.extent;
@@ -251,22 +172,6 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                 minPoint: minPoint,
                 maxPoint: maxPoint
             };
-        },
-        getWindowContent: function (graphic) {
-            var date = new Date(parseInt(graphic.attributes.dateupload * 1000, 10));
-            var html = '';
-            html += '<div class="flContent">';
-            html += '<a tabindex="0" class="flImgA" href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/' + graphic.attributes.id + '/in/photostream" target="_blank">';
-            html += '<img width="' + graphic.attributes.width_s + '" height="' + graphic.attributes.height_s + '" src="' + graphic.attributes.url_s + '">';
-            html += '</a>';
-            html += '<h3 class="title">' + graphic.attributes.title + '</h3>';
-            html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/" target="_blank">' + graphic.attributes.ownername + '</a></div>';
-            if (graphic.attributes.description._content) {
-                html += '<div class="content">' + graphic.attributes.description._content + '</div>';
-            }
-            html += '<div class="date">' + this.formatDate(date) + '</div>';
-            html += '</div>';
-            return html;
         },
         constructQuery: function (searchValue) {
             var search = lang.trim(searchValue);
@@ -417,27 +322,25 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                     geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
                 }
                 if (geoPoint) {
-                    if (isNaN(geoPoint.x) || isNaN(geoPoint.y)) {
-                        this.stats.noGeo++;
-                    } else {
+                    if (!isNaN(geoPoint.x) & !isNaN(geoPoint.y)) {
                         // convert the Point to WebMercator projection
                         var a = new webMercatorUtils.geographicToWebMercator(geoPoint);
                         // make the Point into a Graphic
                         var graphic = new Graphic(a);
                         graphic.setAttributes(result);
                         b.push(graphic);
+                        var date = new Date(parseInt(result.dateupload * 1000, 10));
+                        result.dateformatted = this.formatDate(date);
+                        result.location = location;
                         this.dataPoints.push({
                             geometry: {
                                 x: a.x,
                                 y: a.y
                             },
-                            symbol: PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
+                            symbol: this.options.symbol,
                             attributes: result
                         });
-                        this.stats.geoPoints++;
                     }
-                } else {
-                    this.stats.noGeo++;
                 }
 
             }));

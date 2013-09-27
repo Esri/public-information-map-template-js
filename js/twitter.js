@@ -21,7 +21,7 @@ define([
     "dojo/on"
 ],
 function (dojo, script, declare, domGeom, arr, lang, event, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale, on) {
-    var Widget = declare("modules.twitter", null, {
+    var Widget = declare("modules.Twitter", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
@@ -31,16 +31,14 @@ function (dojo, script, declare, domGeom, arr, lang, event, ioQuery, InfoTemplat
                 autopage: true,
                 maxpage: 2,
                 limit: 100,
-                title: '',
+                title: 'Twitter',
                 id: 'twitter',
                 datePattern: "MMM d, yyyy",
                 timePattern: "h:mma",
                 searchTerm: '',
-                symbolUrl: '',
+                symbolUrl: 'images/map/twitter25x30.png',
                 symbolHeight: 22.5,
                 symbolWidth: 18.75,
-                popupHeight: 200,
-                popupWidth: 290,
                 result_type: 'recent'
             };
             declare.safeMixin(this.options, options);

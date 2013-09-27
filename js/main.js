@@ -33,7 +33,8 @@ define([
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapToggle",
     "dijit/Dialog",
-    "esri/dijit/Popup"
+    "esri/dijit/Popup",
+    "modules/SocialLayers"
 ],
 function(
     ready, 
@@ -63,7 +64,8 @@ function(
     LayerLegend, AboutDialog, ShareDialog,
     HomeButton, LocateButton, BasemapToggle,
     Dialog,
-    Popup
+    Popup,
+    SocialLayers
 ) {
     return declare("", null, {
         config: {},
@@ -289,6 +291,8 @@ function(
                 this.item = response.itemInfo.item;
                 
                 console.log(this);
+                
+                new SocialLayers(this);
                 
                 if (this.map.loaded) {
                     this._init();
