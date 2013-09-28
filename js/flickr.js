@@ -42,6 +42,8 @@ function (
             datePattern: "MMM d, yyyy",
             timePattern: "h:mma",
             searchTerm: '',
+            minScale: 1200000,
+            maxScale: null,
             symbol: null,
             infoTemplate: null,
             dateFrom: '',
@@ -70,7 +72,10 @@ function (
             this.set("dateFrom", this.options.dateFrom);
             this.set("dateTo", this.options.dateTo);
             this.set("key", this.options.key);
+            this.set("minScale", this.options.minScale);
+            this.set("maxScale", this.options.maxScale);
             this.set("graphics", []);
+            this.set("noGeo", []);
             // listeners
             this.watch("searchTerm", this.update);
             this.watch("visible", this._visible);
@@ -102,7 +107,7 @@ function (
             }
             // default symbol
             if (!this.symbol) {
-                this.set("symbol", new PictureMarkerSymbol('images/map/flickr25x30.png', 18.75, 22.5));
+                this.set("symbol", new PictureMarkerSymbol('images/map/flickr25x30.png', 25, 30));
             }
             // default infoTemplate
             if (!this.infoTemplate) {
@@ -115,13 +120,7 @@ function (
                     "drawingInfo": {
                         "renderer": {
                             "type": "simple",
-                            "symbol": {
-                                "type": "esriPMS",
-                                "url": this.symbol.url,
-                                "contentType": "image/" + this.symbol.url.substring(this.symbol.url.lastIndexOf(".") + 1),
-                                "width": this.symbol.width,
-                                "height": this.symbol.height
-                            }
+                            "symbol": this.symbol
                         }
                     },
                     "fields": [{
@@ -140,6 +139,8 @@ function (
             this.featureLayer = new FeatureLayer(this.featureCollection, {
                 id: this.id,
                 title: this.title,
+                minScale: this.minScale,
+                maxScale: this.maxScale,
                 outFields: ["*"],
                 infoTemplate: this.infoTemplate,
                 visible: this.visible
@@ -178,12 +179,14 @@ function (
             this.map.removeLayer(this.featureLayer);
         },
         update: function () {
-            if(this._refreshTimer){
-                clearTimeout(this._refreshTimer);
+            if(this.featureLayer && this.featureLayer.visible){
+                if(this._refreshTimer){
+                    clearTimeout(this._refreshTimer);
+                }
+                this._refreshTimer = setTimeout(lang.hitch(this, function() {
+                    this.constructQuery();
+                }), this.refreshTime);
             }
-            this._refreshTimer = setTimeout(lang.hitch(this, function() {
-                this.constructQuery();
-            }), this.refreshTime);
         },
         clear: function () {
             // remove timer
@@ -280,7 +283,7 @@ function (
             var deferred = esriRequest({
                 url: url,
                 handleAs: "json",
-                timeout: 6000,
+                timeout: 8000,
                 content: content,
                 callbackParamName: "jsoncallback",
                 preventCache: true,
@@ -339,12 +342,19 @@ function (
                 return;
             }
             var b = [];
+            var c = [];
             var k = j.photos.photo;
             array.forEach(k, lang.hitch(this, function (result) {
+                // add social media type/id for filtering
                 result.smType = this.id;
                 result.filterType = 4;
                 result.filterContent = 'http://www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
                 result.filterAuthor = result.owner;
+                // add date to result
+                var date = new Date(parseInt(result.dateupload * 1000, 10));
+                result.dateformatted = this.formatDate(date);
+                // add location protocol to result
+                result.location = location;
                 // eliminate geo photos which we already have on the map
                 if (this._dataIds[result.id]) {
                     return;
@@ -383,27 +393,31 @@ function (
                     var g = [result.latitude, result.longitude];
                     geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
                 }
-                if (geoPoint) {
-                    if (!isNaN(geoPoint.x) && !isNaN(geoPoint.y)) {
-                        // add date to result
-                        var date = new Date(parseInt(result.dateupload * 1000, 10));
-                        result.dateformatted = this.formatDate(date);
-                        // add location protocol to result
-                        result.location = location;
-                        // convert the Point to WebMercator projection
-                        var a = webMercatorUtils.geographicToWebMercator(geoPoint);
-                        // make the Point into a Graphic
-                        var graphic = new Graphic(a, null, result, null);
-                        b.push(graphic);
-                    }
+                if (geoPoint && geoPoint.hasOwnProperty('x') && geoPoint.hasOwnProperty('y')) {
+                    // convert the Point to WebMercator projection
+                    var a = webMercatorUtils.geographicToWebMercator(geoPoint);
+                    // make the Point into a Graphic
+                    var graphic = new Graphic(a, this.symbol, result, this.infoTemplate);
+                    b.push(graphic);
+                }
+                else{
+                    c.push(result);
                 }
             }));
+            // add new graphics to widget
             var graphics = this.get("graphics");
             graphics.concat(b);
             this.set("graphics", graphics);
+            // add non geocode results to noGeo
+            var noGeo = this.get("noGeo");
+            noGeo.concat(c);
+            this.set("noGeo", noGeo);
+            // add new graphics to layer
             this.featureLayer.applyEdits(b, null, null);
+            // update event with new graphics
             this.emit("update", {
-                graphics: b
+                graphics: b,
+                noGeo: c
             });
         },
         _visible: function() {
