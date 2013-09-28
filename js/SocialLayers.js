@@ -36,7 +36,7 @@ function(
             var flickr = new Flickr({
                 map: this.map,
                 visible: true,
-                apiKey: "404ebea7d5bc27aa5251d1207620e99b"
+                key: "404ebea7d5bc27aa5251d1207620e99b"
             });
             this.map.addLayer(flickr.featureLayer);
             this.layers.push({

@@ -3,6 +3,8 @@ define([
     "dojo/_base/array",
     "dojo/_base/lang",
     "dojo/_base/event",
+    "dojo/Stateful",
+    "dojo/Evented",
     "dojo/dom-geometry",
     "dojo/io-query",
     "dojo/date/locale",
@@ -18,39 +20,88 @@ define([
     "esri/symbols/PictureMarkerSymbol",
     "dojo/on"
 ],
-function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, on) {
-    var Widget = declare("modules.Flickr", null, {
+function (
+    declare, array, lang, event,
+    Stateful, Evented,
+    domGeom,
+    ioQuery,
+    locale,
+    InfoTemplate,
+    FeatureLayer,
+    QueryTask,
+    Extent,
+    mathUtils,
+    webMercatorUtils,
+    Point,
+    esriRequest,
+    Graphic,
+    PictureMarkerSymbol,
+    on
+) {
+    return declare("modules.Flickr", [Stateful, Evented], {
+        options: {
+            map: null,
+            filterUsers: [],
+            filterWords: [],
+            autopage: true,
+            visible: true,
+            maxpage: 2,
+            limit: 100,
+            title: 'Flickr',
+            id: 'flickr',
+            datePattern: "MMM d, yyyy",
+            timePattern: "h:mma",
+            searchTerm: '',
+            symbol: new PictureMarkerSymbol('images/map/flickr25x30.png', 18.75, 22.5),
+            infoTemplate: new InfoTemplate('Flickr', '<div class="flContent"><a tabindex="0" class="flImgA" href="${location.protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="title">${title}</div><div class="username"><a tabindex="0" href="${location.protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="content">${description._content}</div><div class="date">${dateformatted}</div></div>'),
+            dateFrom: '',
+            dateTo: '',
+            key: ''
+        },
         constructor: function (options) {
-            this.options = {
-                filterUsers: [],
-                filterWords: [],
-                autopage: true,
-                visible: true,
-                maxpage: 2,
-                limit: 100,
-                title: 'Flickr',
-                id: 'flickr',
-                datePattern: "MMM d, yyyy",
-                timePattern: "h:mma",
-                searchTerm: '',
-                symbol: new PictureMarkerSymbol('images/map/flickr25x30.png', 18.75, 22.5),
-                infoTemplate: new InfoTemplate('Flickr', '<div class="flContent"><a tabindex="0" class="flImgA" href="${location.protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="title">${title}</div><div class="username"><a tabindex="0" href="${location.protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="content">${description._content}</div><div class="date">${dateformatted}</div></div>'),
-                dateFrom: '',
-                dateTo: '',
-                apiKey: ''
+            // mixin options
+            declare.safeMixin(this.options, options);
+            // properties
+            this.set("map", this.options.map);
+            this.set("filterUsers", this.options.filterUsers);
+            this.set("filterWords", this.options.filterWords);
+            this.set("autopage", this.options.autopage);
+            this.set("visible", this.options.visible);
+            this.set("maxpage", this.options.maxpage);
+            this.set("limit", this.options.limit);
+            this.set("title", this.options.title);
+            this.set("id", this.options.id);
+            this.set("datePattern", this.options.datePattern);
+            this.set("timePattern", this.options.timePattern);
+            this.set("searchTerm", this.options.searchTerm);
+            this.set("symbol", this.options.symbol);
+            this.set("infoTemplate", this.options.infoTemplate);
+            this.set("dateFrom", this.options.dateFrom);
+            this.set("dateTo", this.options.dateTo);
+            this.set("key", this.options.key);
+            this.set("dataPoints", []);
+            this.set("dataIds", {});
+            // listeners
+            //this.watch("searchTerm", this.refresh);
+            // classes
+            this._css = {
+                
             };
-            lang.mixin(this.options, options);
-            
-            
-            if (this.options.map === null) {
-                throw 'Reference to esri.Map object required';
+            // map required
+            if (!this.map) {
+                console.log('Reference to esri.Map object required');
+                return;
             }
+
+            // api url
             if (location.protocol === "https:") {
-                this.baseurl = "https://secure.flickr.com/services/rest/";
+                this.set("baseurl", "https://secure.flickr.com/services/rest/");
             } else {
-                this.baseurl = "http://api.flickr.com/services/rest/";
+                this.set("baseurl", "http://api.flickr.com/services/rest/");
             }
             
+            
+            // layer
             this.featureCollection = {
                 layerDefinition: {
                     "geometryType": "esriGeometryPoint",
@@ -66,7 +117,10 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                             }
                         }
                     },
-                    "fields": [],
+                    "fields": [{
+                        "name": "OBJECTID",
+                        "type": "esriFieldTypeOID"
+                    }],
                     "globalIdField": "id",
                     "displayField": "title"
                 },
@@ -76,7 +130,7 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                 }
             };
 
-            
+            // layer
             this.featureLayer = new FeatureLayer(this.featureCollection, {
                 id: this.options.id,
                 title: this.options.title,
@@ -93,11 +147,13 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
             
 
 
-            this.dataPoints = [];
             this.deferreds = [];
-            this.geocoded_ids = {};
-            this.loaded = true;
-            this.update();
+            this.dataIds = {};
+            
+  
+            this.set("loaded", true);
+            this.emit("load", {});
+
         },
         update: function () {
             this.constructQuery(this.options.searchTerm);
@@ -105,7 +161,7 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
         clear: function () {
             // cancel any outstanding requests
             this.query = null;
-            arr.forEach(this.deferreds, function (def) {
+            array.forEach(this.deferreds, function (def) {
                 def.cancel();
             });
             if (this.deferreds) {
@@ -119,8 +175,8 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                 this.featureLayer.applyEdits(null, null, this.featureLayer.graphics);
             }
             this.dataPoints = [];
-            this.geocoded_ids = {};
-            this.onClear();
+            this.dataIds = {};
+            this.emit("clear", {});
         },
         // Parse Links
         parseURL: function (text) {
@@ -188,7 +244,7 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                 content_type: 1,
                 tags: search,
                 method: "flickr.photos.search",
-                api_key: this.options.apiKey,
+                api_key: this.options.key,
                 has_geo: 1,
                 page: 1,
                 format: "json"
@@ -219,18 +275,18 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                                 this.query.page++;
                                 this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
                             } else {
-                                this.onUpdateEnd();
+                                this._updateEnd();
                             }
                         } else {
                             // No results found, try another search term
-                            this.onUpdateEnd();
+                            this._updateEnd();
                         }
                     } else {
                         if (data.code === 100) {
                             console.log(data.code + ' - ' + this.options.title + ': ' + data.message);
                         }
                         // No results found, try another search term
-                        this.onUpdateEnd();
+                        this._updateEnd();
                     }
                 }),
                 error: lang.hitch(this, function (e) {
@@ -239,14 +295,14 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                     } else {
                         console.log('Search error' + ": " + e.message.toString());
                     }
-                    this.onError(e);
+                    this._error(e);
                 })
             });
             this.deferreds.push(deferred);
         },
         unbindDef: function (dfd) {
             // if deferred has already finished, remove from deferreds array
-            var index = arr.indexOf(this.deferreds, dfd);
+            var index = array.indexOf(this.deferreds, dfd);
             if (index === -1) {
                 return; // did not find
             }
@@ -273,18 +329,18 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
             var _self = this;
             if (j.error) {
                 console.log("mapResults error: " + j.error);
-                this.onError(j.error);
+                this._error(j.error);
                 return;
             }
             var b = [];
             var k = j.photos.photo;
-            arr.forEach(k, lang.hitch(this, function (result) {
+            array.forEach(k, lang.hitch(this, function (result) {
                 result.smType = this.options.id;
                 result.filterType = 4;
                 result.filterContent = 'http://www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
                 result.filterAuthor = result.owner;
                 // eliminate geo photos which we already have on the map
-                if (this.geocoded_ids[result.id]) {
+                if (this.dataIds[result.id]) {
                     return;
                 }
 				// filter variable
@@ -315,7 +371,7 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
 				if(filter){
 					return;
 				}
-                this.geocoded_ids[result.id] = true;
+                this.dataIds[result.id] = true;
                 var geoPoint = null;
                 if (result.latitude) {
                     var g = [result.latitude, result.longitude];
@@ -344,17 +400,16 @@ function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, Fea
                 }
 
             }));
-            this.featureLayer.applyEdits(b, null, null);
-            this.onUpdate();
+            this.featureLayer.applyEdits(b, null, null);;
+            this.emit("update", {});
         },
-        onClear: function () {},
-        onError: function () {
-            this.onUpdateEnd();
+        _error: function(e){
+            this._updateEnd();
+            this.emit("error", e);
         },
-        onUpdate: function () {},
-        onUpdateEnd: function () {
+        _updateEnd: function () {
             this.query = null;
+            this.emit("update-end", {});
         }
     });
-    return Widget;
 });
