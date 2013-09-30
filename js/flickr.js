@@ -283,7 +283,7 @@ function (
             var deferred = esriRequest({
                 url: url,
                 handleAs: "json",
-                timeout: 8000,
+                timeout: 10000,
                 content: content,
                 callbackParamName: "jsoncallback",
                 preventCache: true,

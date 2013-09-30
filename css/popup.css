@@ -103,6 +103,10 @@
 	content:'\e817';
 }
 
+#mapDiv .calcite .titleButton.hidden{
+    display: none;
+}
+
 #mapDiv .calcite .contentPane {
 	background:#fff;
 	padding:10px;
