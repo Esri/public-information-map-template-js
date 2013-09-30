@@ -200,6 +200,12 @@ html,body {
 	margin:0;
 }
 
+#twitter_auth_status{
+    text-decoration: underline;
+    float: right;
+    display: block;
+}
+
 .clear {
 	clear:both;
 }

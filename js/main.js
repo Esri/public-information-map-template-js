@@ -263,7 +263,7 @@ function(
             }));
             /* END temporary until after JSAPI 3.8 is released */
             
-           
+           this._socialLayers.init();
         },
         //create a map based on the input web map id
         _createWebMap: function() {
@@ -292,7 +292,7 @@ function(
                 
                 console.log(this);
                 
-                new SocialLayers(this);
+                this._socialLayers = new SocialLayers(this);
                 
                 if (this.map.loaded) {
                     this._init();

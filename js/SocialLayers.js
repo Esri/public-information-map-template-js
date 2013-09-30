@@ -2,6 +2,8 @@ define([
     "dojo/ready", 
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/_base/event",
+    "dojo/dom",
     "modules/TwitterLayer",
     "modules/FlickrLayer",
     "dojo/on"
@@ -10,46 +12,68 @@ function(
     ready, 
     declare,  
     lang,
-    Twitter,
-    Flickr,
+    event,
+    dom,
+    TwitterLayer,
+    FlickrLayer,
     on
 ) {
     return declare("", null, {
         constructor: function(settings) {
             // mix in settings            
             lang.mixin(this, settings);
-            
             // Twitter
-            var twitter = new Twitter({
+            this._twitterLayer = new TwitterLayer({
                 map: this.map,
                 visible: true,
                 url: this.config.twitterUrl
             });
-            this.map.addLayer(twitter.featureLayer);
+            this.map.addLayer(this._twitterLayer.featureLayer);
             this.layers.push({
-                title: "Twitter",
-                visibility: twitter.featureLayer.visible,
-                layerObject: twitter.featureLayer
+                title: 'Twitter <a id="twitter_auth_status"></span><span class="clear"><span>',
+                visibility: this._twitterLayer.featureLayer.visible,
+                layerObject: this._twitterLayer.featureLayer
             });
-            
             // Flickr
-            var flickr = new Flickr({
+            this._flickrLayer = new FlickrLayer({
                 map: this.map,
                 visible: true,
                 key: "404ebea7d5bc27aa5251d1207620e99b"
             });
-            this.map.addLayer(flickr.featureLayer);
+            this.map.addLayer(this._flickrLayer.featureLayer);
             this.layers.push({
                 title: "Flickr",
-                visibility: flickr.featureLayer.visible,
-                layerObject: flickr.featureLayer
+                visibility: this._flickrLayer.featureLayer.visible,
+                layerObject: this._flickrLayer.featureLayer
             });
-            
-            
+        },
+        init: function(){
+            this._twitterStatusNode = dom.byId('twitter_auth_status');
+            if(this._twitterStatusNode){
+                on(this._twitterStatusNode, 'click', lang.hitch(this, function(evt){
+                    if(this._twitterLayer.get("authorized")){
+                        // authorized user
+                        this._twitterWindow(this.config.twitterSigninUrl, true);
+                    }
+                    else{
+                        // unauthorized user
+                        this._twitterWindow(this.config.twitterSigninUrl);
+                    }
+                    event.stop(evt);
+                }));
+            }
+            on(this._twitterLayer, 'authorize', lang.hitch(this, function(evt){
+                if(evt.authorized){
+                    this._twitterStatusNode.innerHTML = 'Switch user';
+                }
+                else{
+                    this._twitterStatusNode.innerHTML = 'Sign in';
+                }
+            }));
         },
         _twitterWindow: function(page, forceLogin) {
-            var pathRegex = new RegExp(/\/[^\/]+$/);
-            var redirect_uri = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + '/oauth-callback.html');
+            var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+            var redirect_uri = encodeURIComponent(location.protocol + '//' + location.host + package_path + '/oauth-callback.html');
             var w = screen.width / 2;
             var h = screen.height / 1.5;
             var left = (screen.width / 2) - (w / 2);
