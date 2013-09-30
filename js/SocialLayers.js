@@ -2,8 +2,8 @@ define([
     "dojo/ready", 
     "dojo/_base/declare",
     "dojo/_base/lang",
-    "modules/Twitter",
-    "modules/Flickr",
+    "modules/TwitterLayer",
+    "modules/FlickrLayer",
     "dojo/on"
 ],
 function(

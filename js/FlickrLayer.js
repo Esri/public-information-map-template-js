@@ -28,7 +28,7 @@ function (
     Graphic,
     PictureMarkerSymbol
 ) {
-    return declare("modules.Flickr", [Stateful, Evented], {
+    return declare("modules.FlickrLayer", [Stateful, Evented], {
         options: {
             map: null,
             filterUsers: [],
@@ -111,7 +111,7 @@ function (
             }
             // default infoTemplate
             if (!this.infoTemplate) {
-                this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${location.protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${location.protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${description._content}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
+                this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${description._content}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
             }
             // layer
             this.featureCollection = {
@@ -147,24 +147,27 @@ function (
             });
             // add to map
             this.map.addLayer(this.featureLayer);
-            // Events
-            var extentChange = on(this.map, "extent-change", lang.hitch(this, function () {
-                this.update();
-            }));
-            this._events.push(extentChange);
             // query when map loads
             if(this.map.loaded){
-                this.update();
+                this._init();
             }
             else{
                 var onLoad = on.once(this.map, "load", lang.hitch(this, function () {
-                    this.update();
+                    this._init();
                 }));
                 this._events.push(onLoad);
             }
             // loaded
             this.set("loaded", true);
             this.emit("load", {});
+        },
+        _init: function(){
+            // Events
+            var extentChange = on(this.map, "extent-change", lang.hitch(this, function () {
+                this.update();
+            }));
+            this._events.push(extentChange);
+            this.update();
         },
         destroy: function(){
             // remove events
@@ -179,7 +182,7 @@ function (
             this.map.removeLayer(this.featureLayer);
         },
         update: function () {
-            if(this.featureLayer && this.featureLayer.visible){
+            if(this.featureLayer && this.featureLayer.visibleAtMapScale){
                 if(this._refreshTimer){
                     clearTimeout(this._refreshTimer);
                 }
@@ -342,7 +345,7 @@ function (
                 return;
             }
             var b = [];
-            var c = [];
+            var ng = [];
             var k = j.photos.photo;
             array.forEach(k, lang.hitch(this, function (result) {
                 // add social media type/id for filtering
@@ -354,7 +357,7 @@ function (
                 var date = new Date(parseInt(result.dateupload * 1000, 10));
                 result.dateformatted = this.formatDate(date);
                 // add location protocol to result
-                result.location = location;
+                result.protocol = location.protocol;
                 // eliminate geo photos which we already have on the map
                 if (this._dataIds[result.id]) {
                     return;
@@ -401,7 +404,7 @@ function (
                     b.push(graphic);
                 }
                 else{
-                    c.push(result);
+                    ng.push(result);
                 }
             }));
             // add new graphics to widget
@@ -410,14 +413,14 @@ function (
             this.set("graphics", graphics);
             // add non geocode results to noGeo
             var noGeo = this.get("noGeo");
-            noGeo.concat(c);
+            noGeo.concat(ng);
             this.set("noGeo", noGeo);
             // add new graphics to layer
             this.featureLayer.applyEdits(b, null, null);
             // update event with new graphics
             this.emit("update", {
                 graphics: b,
-                noGeo: c
+                noGeo: ng
             });
         },
         _visible: function() {
