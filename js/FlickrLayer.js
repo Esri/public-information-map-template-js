@@ -49,7 +49,7 @@ function (
             dateFrom: '',
             dateTo: '',
             key: '',
-            refreshTime: 4000
+            refreshTime: 5000
         },
         constructor: function (options) {
             // mixin options
@@ -161,14 +161,17 @@ function (
             this.set("loaded", true);
             this.emit("load", {});
         },
-        _init: function(){
-            // Events
-            var extentChange = on(this.map, "extent-change", lang.hitch(this, function () {
-                this.update();
-            }));
-            this._events.push(extentChange);
-            this.update();
-        },
+        /* ---------------- */
+        /* Public Events */
+        /* ---------------- */
+        // load
+        // clear
+        // update
+        // update-end
+        // error
+        /* ---------------- */
+        /* Public Functions */
+        /* ---------------- */
         destroy: function(){
             // remove events
             if (this._events && this._events.length) {
@@ -182,12 +185,12 @@ function (
             this.map.removeLayer(this.featureLayer);
         },
         update: function () {
-            if(this.featureLayer && this.featureLayer.visibleAtMapScale){
+            if(this.featureLayer && this.featureLayer.visibleAtMapScale && this.featureLayer.visible){
                 if(this._refreshTimer){
                     clearTimeout(this._refreshTimer);
                 }
                 this._refreshTimer = setTimeout(lang.hitch(this, function() {
-                    this.constructQuery();
+                    this._constructQuery();
                 }), this.refreshTime);
             }
         },
@@ -222,8 +225,19 @@ function (
                 this.hide();
             }
         },
+        /* ---------------- */
+        /* Private Functions */
+        /* ---------------- */
+        _init: function(){
+            // Events
+            var extentChange = on(this.map, "extent-change", lang.hitch(this, function () {
+                this.update();
+            }));
+            this._events.push(extentChange);
+            this.update();
+        },
         // Format Date Object
-        formatDate: function (dateObj) {
+        _formatDate: function (dateObj) {
             if (dateObj) {
                 return locale.format(dateObj, {
                     datePattern: this.timePattern,
@@ -234,7 +248,7 @@ function (
                 });
             }
         },
-        getRadius: function () {
+        _getRadius: function () {
             var map = this.map;
             var extent = this.map.extent;
             var center = extent.getCenter();
@@ -253,12 +267,12 @@ function (
                 maxPoint: maxPoint
             };
         },
-        constructQuery: function () {
+        _constructQuery: function () {
             var search = lang.trim(this.searchTerm);
             if (search.length === 0) {
                 search = "";
             }
-            var radius = this.getRadius();
+            var radius = this._getRadius();
             this.query = {
                 bbox: radius.minPoint.x + "," + radius.minPoint.y + "," + radius.maxPoint.x + "," + radius.maxPoint.y,
                 extras: "description, date_upload, owner_name, geo, url_s",
@@ -279,9 +293,9 @@ function (
             }
             // make the actual Flickr API call
             this.pageCount = 1;
-            this.sendRequest(this.baseurl, this.query);
+            this._sendRequest(this.baseurl, this.query);
         },
-        sendRequest: function (url, content) {
+        _sendRequest: function (url, content) {
             // get the results from Flickr for each page
             var deferred = esriRequest({
                 url: url,
@@ -293,12 +307,12 @@ function (
                 load: lang.hitch(this, function (data) {
                     if (data.stat !== 'fail') {
                         if (data.photos.photo.length > 0) {
-                            this.mapResults(data);
+                            this._mapResults(data);
                             // display results for multiple pages
                             if ((this.autopage) && (this.maxpage > this.pageCount) && (data.photos.page < data.photos.pages) && (this.query)) {
                                 this.pageCount++;
                                 this.query.page++;
-                                this.sendRequest(this.baseurl, this.query);
+                                this._sendRequest(this.baseurl, this.query);
                             } else {
                                 this._updateEnd();
                             }
@@ -325,7 +339,7 @@ function (
             });
             this._deferreds.push(deferred);
         },
-		findWordInText: function (word, text) {
+		_findWordInText: function (word, text) {
             if(word && text) {
                 // text
                 var searchString = text.toLowerCase();
@@ -338,9 +352,9 @@ function (
             }
             return false;
         },
-        mapResults: function (j) {
+        _mapResults: function (j) {
             if (j.error) {
-                console.log("Flickr::mapResults error: " + j.error);
+                console.log("Flickr::_mapResults error: " + j.error);
                 this._error(j.error);
                 return;
             }
@@ -355,7 +369,7 @@ function (
                 result.filterAuthor = result.owner;
                 // add date to result
                 var date = new Date(parseInt(result.dateupload * 1000, 10));
-                result.dateformatted = this.formatDate(date);
+                result.dateformatted = this._formatDate(date);
                 // add location protocol to result
                 result.protocol = location.protocol;
                 // eliminate geo photos which we already have on the map
@@ -376,11 +390,11 @@ function (
 				// check if contains bad word
 				if(!filter && this.filterWords && this.filterWords.length){
 					for(i = 0; i < this.filterWords.length; i++){
-						if(this.findWordInText(this.filterWords[i], result.title)){
+						if(this._findWordInText(this.filterWords[i], result.title)){
 							filter = true;
 							break;
 						}
-						if(this.findWordInText( this.filterWords[i], result.description._content)){
+						if(this._findWordInText( this.filterWords[i], result.description._content)){
 							filter = true;
 							break;
 						}

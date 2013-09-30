@@ -51,7 +51,7 @@ function (
             infoTemplate: null,
             url: null,
             result_type: 'recent',
-            refreshTime: 4000
+            refreshTime: 5000
         },
         constructor: function (options) {
             // mixin options
@@ -166,14 +166,18 @@ function (
             this.set("loaded", true);
             this.emit("load", {});
         },
-        _init: function(){
-            // Events
-            var extentChange = on(this.map, "extent-change", lang.hitch(this, function () {
-                this.update();
-            }));
-            this._events.push(extentChange);
-            this.update();
-        },
+        /* ---------------- */
+        /* Public Events */
+        /* ---------------- */
+        // load
+        // clear
+        // update
+        // update-end
+        // authorize
+        // error
+        /* ---------------- */
+        /* Public Functions */
+        /* ---------------- */
         destroy: function(){
             // remove events
             if (this._events && this._events.length) {
@@ -187,12 +191,12 @@ function (
             this.map.removeLayer(this.featureLayer);
         },
         update: function () {
-            if(this.featureLayer && this.featureLayer.visibleAtMapScale){
+            if(this.featureLayer && this.featureLayer.visibleAtMapScale && this.featureLayer.visible){
                 if(this._refreshTimer){
                     clearTimeout(this._refreshTimer);
                 }
                 this._refreshTimer = setTimeout(lang.hitch(this, function() {
-                    this.constructQuery();
+                    this._constructQuery();
                 }), this.refreshTime);
             }
         },
@@ -227,25 +231,36 @@ function (
                 this.hide();
             }
         },
-        parseURL: function (text) {
+        /* ---------------- */
+        /* Private Functions */
+        /* ---------------- */
+        _init: function(){
+            // Events
+            var extentChange = on(this.map, "extent-change", lang.hitch(this, function () {
+                this.update();
+            }));
+            this._events.push(extentChange);
+            this.update();
+        },
+        _parseURL: function (text) {
             return text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (url) {
                 return '<a target="_blank" href="' + url + '">' + url + '</a>';
             });
         },
-        parseUsername: function (text) {
+        _parseUsername: function (text) {
             return text.replace(/[@]+[A-Za-z0-9-_]+/g, function (u) {
                 var username = u.replace("@", "");
                 return '<a target="_blank" href="' + location.protocol + '//twitter.com/' + username + '">' + u + '</a>';
             });
         },
-        parseHashtag: function (text) {
+        _parseHashtag: function (text) {
             return text.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
                 var tag = t.replace("#", "%23");
                 return '<a target="_blank" href="https://twitter.com/search?q=' + tag + '">' + t + '</a>';
             });
         },
         // Format Date Object
-        formatDate: function (dateObj) {
+        _formatDate: function (dateObj) {
             if (dateObj) {
                 return locale.format(dateObj, {
                     datePattern: this.timePattern,
@@ -256,7 +271,7 @@ function (
                 });
             }
         },
-        getRadius: function () {
+        _getRadius: function () {
             var map = this.map;
             var extent = map.extent;
             this.maxRadius = 932;
@@ -269,7 +284,7 @@ function (
                 units: "mi"
             };
         },
-        constructQuery: function () {
+        _constructQuery: function () {
             var loc = false;
             var localeTmp = dojo.locale.split('-');
             if (localeTmp[0]) {
@@ -279,7 +294,7 @@ function (
             if (search.length === 0) {
                 search = "";
             }
-            var radius = this.getRadius();
+            var radius = this._getRadius();
             this.query = {
                 q: search,
                 count: this.limit,
@@ -292,9 +307,9 @@ function (
             }
             // make the actual API call
             this.pageCount = 1;
-            this.sendRequest(this.url, this.query);
+            this._sendRequest(this.url, this.query);
         },
-        sendRequest: function (url, content) {
+        _sendRequest: function (url, content) {
             // get the results for each page
             var deferred = esriRequest({
                 url: url,
@@ -330,11 +345,11 @@ function (
                                 authorized: true
                             });
                         }
-                        this.mapResults(data);
+                        this._mapResults(data);
                         // display results for multiple pages
                         if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {
                             this.pageCount++;
-                            this.sendRequest(this.options.url + data.search_metadata.next_results);
+                            this._sendRequest(this.options.url + data.search_metadata.next_results);
                         } else {
                             this._updateEnd();
                         }
@@ -355,7 +370,7 @@ function (
             });
             this._deferreds.push(deferred);
         },
-		findWordInText: function (word, text) {
+		_findWordInText: function (word, text) {
             if(word && text) {
                 // text
                 var searchString = text.toLowerCase();
@@ -368,9 +383,9 @@ function (
             }
             return false;
         },
-        mapResults: function (j) {
+        _mapResults: function (j) {
             if (j.error) {
-                console.log("Twitter::mapResults error: " + j.error);
+                console.log("Twitter::_mapResults error: " + j.error);
                 this._error(j.error);
                 return;
             }
@@ -385,7 +400,7 @@ function (
                 result.filterAuthor = result.user.id_str;
                 // add date to result
                 var date = new Date(result.created_at);
-                result.dateformatted = this.formatDate(date);
+                result.dateformatted = this._formatDate(date);
                 // add location protocol to result
                 result.protocol = location.protocol;
                 // user items
@@ -400,9 +415,9 @@ function (
                 }
                 result.dojo_locale = loc;
                 // format text
-                var linkedText = this.parseURL(result.text);
-                linkedText = this.parseUsername(linkedText);
-                linkedText = this.parseHashtag(linkedText);
+                var linkedText = this._parseURL(result.text);
+                linkedText = this._parseUsername(linkedText);
+                linkedText = this._parseHashtag(linkedText);
                 result.textFormatted = linkedText;
                 // eliminate geo photos which we already have on the map
                 if (this._dataIds[result.id]) {
@@ -423,7 +438,7 @@ function (
                 // check if contains bad word
                 if (!filter && this.filterWords && this.filterWords.length) {
                     for (i = 0; i < this.filterWords.length; i++) {
-                        if (this.findWordInText(this.filterWords[i], result.text)) {
+                        if (this._findWordInText(this.filterWords[i], result.text)) {
                             filter = true;
                             break;
                         }
