@@ -6,6 +6,7 @@ define([
     "dojo/dom",
     "modules/TwitterLayer",
     "modules/FlickrLayer",
+    "modules/WebcamsLayer",
     "dojo/on"
 ],
 function(
@@ -16,6 +17,7 @@ function(
     dom,
     TwitterLayer,
     FlickrLayer,
+    WebcamsLayer,
     on
 ) {
     return declare("", null, {
@@ -38,13 +40,25 @@ function(
             this._flickrLayer = new FlickrLayer({
                 map: this.map,
                 visible: true,
-                key: "404ebea7d5bc27aa5251d1207620e99b"
+                key: this.config.flickr_key
             });
             this.map.addLayer(this._flickrLayer.featureLayer);
             this.layers.push({
                 title: "Flickr",
                 visibility: this._flickrLayer.featureLayer.visible,
                 layerObject: this._flickrLayer.featureLayer
+            });
+            // Webcams
+            this._webcamsLayer = new WebcamsLayer({
+                map: this.map,
+                visible: true,
+                key: this.config.webcams_key
+            });
+            this.map.addLayer(this._webcamsLayer.featureLayer);
+            this.layers.push({
+                title: "Webcams",
+                visibility: this._webcamsLayer.featureLayer.visible,
+                layerObject: this._webcamsLayer.featureLayer
             });
         },
         init: function(){

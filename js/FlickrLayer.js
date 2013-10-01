@@ -49,7 +49,7 @@ function (
             dateFrom: '',
             dateTo: '',
             key: '',
-            refreshTime: 5000
+            refreshTime: 4000
         },
         constructor: function (options) {
             // mixin options
@@ -74,6 +74,7 @@ function (
             this.set("key", this.options.key);
             this.set("minScale", this.options.minScale);
             this.set("maxScale", this.options.maxScale);
+            this.set("refreshTime", this.options.refreshTime);
             this.set("graphics", []);
             this.set("noGeo", []);
             // listeners
@@ -111,7 +112,7 @@ function (
             }
             // default infoTemplate
             if (!this.infoTemplate) {
-                this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${description._content}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
+                this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${descriptionText}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
             }
             // layer
             this.featureCollection = {
@@ -184,14 +185,20 @@ function (
             // remove layer
             this.map.removeLayer(this.featureLayer);
         },
-        update: function () {
+        update: function (ms) {
             if(this.featureLayer && this.featureLayer.visibleAtMapScale && this.featureLayer.visible){
                 if(this._refreshTimer){
                     clearTimeout(this._refreshTimer);
                 }
+                // default to refresh time
+                var refresh = this.refreshTime;
+                // use param time if set
+                if(typeof ms !== 'undefined'){
+                    refresh = ms;
+                }
                 this._refreshTimer = setTimeout(lang.hitch(this, function() {
                     this._constructQuery();
-                }), this.refreshTime);
+                }), refresh);
             }
         },
         clear: function () {
@@ -234,7 +241,12 @@ function (
                 this.update();
             }));
             this._events.push(extentChange);
-            this.update();
+            var visChange = on(this.featureLayer, "visibility-change", lang.hitch(this, function () {
+                this.clear();
+                this.update(0);
+            }));
+            this._events.push(visChange);
+            this.update(0);
         },
         // Format Date Object
         _formatDate: function (dateObj) {
@@ -370,6 +382,8 @@ function (
                 // add date to result
                 var date = new Date(parseInt(result.dateupload * 1000, 10));
                 result.dateformatted = this._formatDate(date);
+                // text
+                result.descriptionText = result.description._content;
                 // add location protocol to result
                 result.protocol = location.protocol;
                 // eliminate geo photos which we already have on the map

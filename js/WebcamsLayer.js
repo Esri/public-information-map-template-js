@@ -2,8 +2,6 @@ define([
     "dojo/_base/declare",
     "dojo/_base/array",
     "dojo/_base/lang",
-    "dojo/_base/kernel",
-    "dojo/request/script",
     "dojo/Stateful",
     "dojo/Evented",
     "dojo/on",
@@ -18,8 +16,7 @@ define([
     "esri/symbols/PictureMarkerSymbol"
 ],
 function (
-    declare, array, lang, dojo,
-    script,
+    declare, array, lang,
     Stateful, Evented, on,
     locale,
     InfoTemplate,
@@ -31,26 +28,23 @@ function (
     Graphic,
     PictureMarkerSymbol
 ) {
-    return declare("modules.TwitterLayer", [Stateful, Evented], {
+    return declare("modules.WebcamsLayer", [Stateful, Evented], {
         options: {
             map: null,
-            filterUsers: [],
-            filterWords: [],
             autopage: true,
             visible: true,
             maxpage: 1,
-            limit: 100,
-            title: 'Twitter',
-            id: 'twitter',
+            limit: 50,
+            title: 'Webcams.travel',
+            id: 'webcams',
             datePattern: "MMM d, yyyy",
             timePattern: "h:mma",
-            searchTerm: '',
             minScale: 1200000,
             maxScale: null,
             symbol: null,
             infoTemplate: null,
-            url: null,
-            result_type: 'recent',
+            key: null,
+            url: location.protocol + '//api.webcams.travel/rest',
             refreshTime: 4000
         },
         constructor: function (options) {
@@ -58,30 +52,24 @@ function (
             declare.safeMixin(this.options, options);
             // properties
             this.set("map", this.options.map);
-            this.set("filterUsers", this.options.filterUsers);
-            this.set("filterWords", this.options.filterWords);
             this.set("autopage", this.options.autopage);
             this.set("visible", this.options.visible);
             this.set("maxpage", this.options.maxpage);
             this.set("limit", this.options.limit);
             this.set("title", this.options.title);
             this.set("id", this.options.id);
-            this.set("url", this.options.url);
             this.set("datePattern", this.options.datePattern);
             this.set("timePattern", this.options.timePattern);
-            this.set("searchTerm", this.options.searchTerm);
             this.set("symbol", this.options.symbol);
             this.set("infoTemplate", this.options.infoTemplate);
-            this.set("dateFrom", this.options.dateFrom);
-            this.set("dateTo", this.options.dateTo);
             this.set("key", this.options.key);
+            this.set("url", this.options.url);
             this.set("minScale", this.options.minScale);
             this.set("maxScale", this.options.maxScale);
             this.set("refreshTime", this.options.refreshTime);
             this.set("graphics", []);
             this.set("noGeo", []);
             // listeners
-            this.watch("searchTerm", this.update);
             this.watch("visible", this._visible);
             // private vars
             this._deferreds = [];
@@ -89,32 +77,27 @@ function (
             this._dataIds = {};
             // classes
             this._css = {
-                container: "twitter-popup",
+                container: "webcams-popup",
                 imageAnchor: "image-anchor",
                 image: "image",
-                followButton: "follow-button",
-                username: "username",
-                user: "user",
-                clear: "clear",
-                content: "content",
-                date: "date",
-                actions: "actions",
-                actionReply: "action-reply",
-                actionRetweet: "action-retweet",
-                actionFavorite: "action-favorite"
+                title: "title",
+                location: "location",
+                credits: "credits",
+                logo: "logo-credits",
+                date: "date"
             };
             // map required
             if (!this.map) {
-                console.log('Twitter::Reference to esri.Map object required');
+                console.log('Webcams::Reference to esri.Map object required');
                 return;
             }
             // default symbol
             if (!this.symbol) {
-                this.set("symbol", new PictureMarkerSymbol('images/map/twitter25x30.png', 25, 30));
+                this.set("symbol", new PictureMarkerSymbol('images/map/webcam32x32.png', 32, 32));
             }
             // default infoTemplate
             if (!this.infoTemplate) {
-                this.set("infoTemplate", new InfoTemplate('Twitter', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//twitter.com/${user_screen_name}/status/${id_str}" target="_blank"><img class="' + this._css.image + '" src="${user_profile_image_url_https}" width="40" height="40"></a><div class="' + this._css.followButton + '"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=${user_screen_name}&lang=${dojo_locale}&show_count=false&show_screen_name=false" style="width:60px; height:20px;"></iframe></div><div class="' + this._css.username + '">${name}</div><div class="' + this._css.user + '"><a target="_blank" href="${protocol}//twitter.com/${user_screen_name}">&#64;${user_screen_name}</a></div><div class="' + this._css.clear + '"></div><div class="' + this._css.content + '">${textFormatted}</div><div class="' + this._css.date + '"><a target="_blank" href="${protocol}//twitter.com/${user_screen_name}/status/${id_str}">${dateformatted}</a></div><div class="' + this._css.actions + '"><a class="' + this._css.actionReply + '" href="https://twitter.com/intent/tweet?in_reply_to=${id_str}&lang=${dojo_locale}"></a><a class="' + this._css.actionRetweet + '" href="https://twitter.com/intent/retweet?tweet_id=${id_str}&lang=${dojo_locale}"></a><a class="' + this._css.actionFavorite + '" href="https://twitter.com/intent/favorite?tweet_id=${id_str}&lang=${dojo_locale}"></a></div></div>'));
+                this.set("infoTemplate", new InfoTemplate('Webcam', '<div class="' + this._css.container + '"><div class="' + this._css.title + '">${title}</div><a tabindex="0" class="' + this._css.imageAnchor + '" href="${url}" target="_blank"><img width="128" height="96" class="' + this._css.image + '" src="${thumbnail_url}" /></a><div class="' + this._css.location + '">${city}, ${country}</div><div class="' + this._css.date + '">${dateformatted}</div><div class="' + this._css.logo + '"><a href="http://www.webcams.travel" target="_blank"><img src="http://www.webcams.travel/img/linking/logo_125x30.jpg" border="0" alt="Webcams worldwide - Webcams.travel"/></a></div><div class="' + this._css.credits + '">Webcams provided by <a href="http://www.webcams.travel/" target="_blank">webcams.travel</a></div></div>'));
             }
             // layer
             this.featureCollection = {
@@ -138,9 +121,6 @@ function (
                     "geometryType": "esriGeometryPoint"
                 }
             };
-            script.get(location.protocol + '//platform.twitter.com/widgets.js', {}).then(function () {}, function (err) {
-                console.log(err.toString());
-            });
             // layer
             this.featureLayer = new FeatureLayer(this.featureCollection, {
                 id: this.id,
@@ -174,7 +154,6 @@ function (
         // clear
         // update
         // update-end
-        // authorize
         // error
         /* ---------------- */
         /* Public Functions */
@@ -254,23 +233,6 @@ function (
             this._events.push(visChange);
             this.update(0);
         },
-        _parseURL: function (text) {
-            return text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (url) {
-                return '<a target="_blank" href="' + url + '">' + url + '</a>';
-            });
-        },
-        _parseUsername: function (text) {
-            return text.replace(/[@]+[A-Za-z0-9-_]+/g, function (u) {
-                var username = u.replace("@", "");
-                return '<a target="_blank" href="' + location.protocol + '//twitter.com/' + username + '">' + u + '</a>';
-            });
-        },
-        _parseHashtag: function (text) {
-            return text.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
-                var tag = t.replace("#", "%23");
-                return '<a target="_blank" href="https://twitter.com/search?q=' + tag + '">' + t + '</a>';
-            });
-        },
         // Format Date Object
         _formatDate: function (dateObj) {
             if (dateObj) {
@@ -285,38 +247,29 @@ function (
         },
         _getRadius: function () {
             var map = this.map;
-            var extent = map.extent;
-            this.maxRadius = 932;
+            var extent = this.map.extent;
+            var center = webMercatorUtils.webMercatorToGeographic(extent.getCenter());
+            this.maxRadius = 150; // max 150 miles
             var radius = Math.min(this.maxRadius, Math.ceil(mathUtils.getLength(Point(extent.xmin, extent.ymin, map.spatialReference), Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
-            radius = Math.round(radius, 0);
-            var geoPoint = webMercatorUtils.webMercatorToGeographic(extent.getCenter());
             return {
-                radius: radius,
-                center: geoPoint,
-                units: "mi"
+                lat: Math.round(center.y * 100) / 100,
+                lng: Math.round(center.x * 100) / 100,
+                radius: radius
             };
         },
         _constructQuery: function () {
-            var loc = false;
-            var localeTmp = dojo.locale.split('-');
-            if (localeTmp[0]) {
-                loc = localeTmp[0];
-            }
-            var search = lang.trim(this.searchTerm);
-            if (search.length === 0) {
-                search = "";
-            }
             var radius = this._getRadius();
             this.query = {
-                q: search,
-                count: this.limit,
-                result_type: this.result_type,
-                include_entities: false,
-                geocode: radius.center.y + "," + radius.center.x + "," + radius.radius + radius.units
+                devid: this.key,
+                lat: radius.lat,
+                lng: radius.lng,
+                radius: radius.radius,
+                unit: "mi",
+                per_page: this.limit,
+                format: "json",
+                method: "wct.webcams.list_nearby",
+                page: 1
             };
-            if (loc) {
-                this.query.locale = loc;
-            }
             // make the actual API call
             this.pageCount = 1;
             this._sendRequest(this.url, this.query);
@@ -331,146 +284,71 @@ function (
                 callbackParamName: "callback",
                 preventCache: true,
                 load: lang.hitch(this, function (data) {
-                    if(data.errors && data.errors.length > 0){
-                        var errors = data.errors;
-                        // each error
-                        for(var i = 0; i < errors.length; i++){
-                            // auth error
-                            if(errors[i].code === 215){
+                    if (data.status === 'ok') {
+                        if (data.webcams.webcam.length > 0) {
+                            this._mapResults(data);
+                            // display results for multiple pages
+                            if ((this.autopage) && (this.maxpage > this.pageCount) && (data.webcams.length === this.limit) && (this.query)) {
+                                this.pageCount++;
+                                this.query.page++;
+                                this._sendRequest(this.url, this.query);
+                            } else {
                                 this._updateEnd();
-                                this._error(errors);
-                                this.set("authorized", false);
                             }
-                        }
-                    }
-                    else if(data && data.signedIn === false){
-                        this._updateEnd();
-                        this.set("authorized", false);
-                        this.emit("authorize", {
-                            authorized: false
-                        });
-                    }
-                    else if (data.statuses && data.statuses.length > 0) {
-                        if(!this.get("authorized")){
-                            this.set("authorized", true);
-                            this.emit("authorize", {
-                                authorized: true
-                            });
-                        }
-                        this._mapResults(data);
-                        // display results for multiple pages
-                        if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {
-                            this.pageCount++;
-                            this._sendRequest(this.options.url + data.search_metadata.next_results);
                         } else {
+                            // No results found, try another search term
                             this._updateEnd();
                         }
                     } else {
+                        if (data.code === 100) {
+                            console.log('Webcams::' + data.code + ' - ' + this.title + ': ' + data.message);
+                        }
                         // No results found, try another search term
                         this._updateEnd();
-                        this.set("authorized", true);
                     }
                 }),
                 error: lang.hitch(this, function (e) {
                     if (deferred.canceled) {
-                        console.log('Twitter::Search Cancelled');
+                        console.log('Webcams::Search Cancelled');
                     } else {
-                        console.log('Twitter::Search error' + ": " + e.message.toString());
+                        console.log('Webcams::Search error' + ": " + e.message.toString());
                     }
                     this._error(e);
                 })
             });
             this._deferreds.push(deferred);
         },
-		_findWordInText: function (word, text) {
-            if(word && text) {
-                // text
-                var searchString = text.toLowerCase();
-                // word
-                var badWord = ' ' + word.toLowerCase() + ' ';
-                // if found
-                if(searchString.indexOf(badWord) > -1) {
-                    return true;
-                }
-            }
-            return false;
-        },
         _mapResults: function (j) {
             if (j.error) {
-                console.log("Twitter::_mapResults error: " + j.error);
+                console.log("Webcams::_mapResults error: " + j.error);
                 this._error(j.error);
                 return;
             }
             var b = [];
             var ng = [];
-            var k = j.statuses;
+            var k = j.webcams.webcam;
             array.forEach(k, lang.hitch(this, function (result) {
-                // add social media type/id for filtering                
-                result.smType = this.id;
-                result.filterType = 2;
-                result.filterContent = 'https://twitter.com/#!/' + result.user.id_str + '/status/' + result.id_str;
-                result.filterAuthor = result.user.id_str;
                 // add date to result
-                var date = new Date(result.created_at);
+                var date = new Date(parseInt(result.last_update * 1000, 10));
                 result.dateformatted = this._formatDate(date);
-                // add location protocol to result
-                result.protocol = location.protocol;
-                // user items
-                result.user_profile_image_url_https = result.user.profile_image_url_https;
-                result.user_screen_name = result.user.screen_name;
-                result.user_name = result.user.name;
-                // set locale
-                var tmp = dojo.locale.split('-');
-                var loc = 'en';
-                if (tmp[0]) {
-                    loc = tmp[0];
-                }
-                result.dojo_locale = loc;
-                // format text
-                var linkedText = this._parseURL(result.text);
-                linkedText = this._parseUsername(linkedText);
-                linkedText = this._parseHashtag(linkedText);
-                result.textFormatted = linkedText;
                 // eliminate geo photos which we already have on the map
-                if (this._dataIds[result.id]) {
+                if (this._dataIds[result.webcamid]) {
                     return;
                 }
-				// filter variable
-                var filter = false,
-                    i;
-                // check for filterd user
-                if (this.filterUsers && this.filterUsers.length) {
-                    for (i = 0; i < this.filterUsers.length; i++) {
-                        if (this.filterUsers[i].toString() === result.user.id_str.toString()) {
-                            filter = true;
-                            break;
-                        }
-                    }
-                }
-                // check if contains bad word
-                if (!filter && this.filterWords && this.filterWords.length) {
-                    for (i = 0; i < this.filterWords.length; i++) {
-                        if (this._findWordInText(this.filterWords[i], result.text)) {
-                            filter = true;
-                            break;
-                        }
-                    }
-                }
-				// if this feature needs to be filtered
-				if(filter){
-					return;
-				}
-                this._dataIds[result.id] = true;
+                this._dataIds[result.webcamid] = true;
                 var geoPoint = null;
-                if (result.geo) {
-                    var g = result.geo.coordinates;
+                if (result.latitude) {
+                    var g = [result.latitude, result.longitude];
                     geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
                 }
+                // webcam icon
+                var symbol = new PictureMarkerSymbol(result.daylight_icon_url, 32, 32);
+                // if point is set
                 if (geoPoint && geoPoint.hasOwnProperty('x') && geoPoint.hasOwnProperty('y')) {
                     // convert the Point to WebMercator projection
                     var a = webMercatorUtils.geographicToWebMercator(geoPoint);
                     // make the Point into a Graphic
-                    var graphic = new Graphic(a, this.symbol, result, this.infoTemplate);
+                    var graphic = new Graphic(a, symbol, result, this.infoTemplate);
                     b.push(graphic);
                 }
                 else{

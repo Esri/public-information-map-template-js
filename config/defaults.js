@@ -17,6 +17,8 @@ define([], function() {
         "theme": "blue",
         "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
         "twitterSigninUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/sign_in.php",
+        "flickr_key":"404ebea7d5bc27aa5251d1207620e99b",
+        "webcams_key":"65939add1ebe8bc9cc4180763f5df2ca",
         "bingmapskey": "", //Enter the url to your organizations bing maps key if you want to use bing basemaps
         "sharinghost": location.protocol + "//" + "www.arcgis.com" //Defaults to arcgis.com. Set this value to your portal or organization host name. 
     };
