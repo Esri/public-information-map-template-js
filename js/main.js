@@ -89,7 +89,7 @@ function(
             }
             node = dom.byId('impact_name');
             if(node){
-                node.innerHTML = this.config.impact_layer || this.config.i18n.general.impact;
+                node.innerHTML = this.config.impact_layer || this.config.i18n.general.social;
             }
         },
         _cssStyles: function(){

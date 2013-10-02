@@ -7,7 +7,9 @@ define([
     "modules/TwitterLayer",
     "modules/FlickrLayer",
     "modules/WebcamsLayer",
-    "dojo/on"
+    "dojo/on",
+    "esri/tasks/QueryTask",
+    "esri/tasks/query"
 ],
 function(
     ready, 
@@ -18,7 +20,9 @@ function(
     TwitterLayer,
     FlickrLayer,
     WebcamsLayer,
-    on
+    on,
+    QueryTask,
+    Query
 ) {
     return declare("", null, {
         constructor: function(settings) {
@@ -60,6 +64,17 @@ function(
                 visibility: this._webcamsLayer.featureLayer.visible,
                 layerObject: this._webcamsLayer.featureLayer
             });
+            
+            
+            // filtering
+            if (this.config.bannedUsersService && this.config.flagMailServer) {
+                this._createSMFOffensive();
+            }
+            if (this.config.bannedWordsService) {
+                this._createSMFBadWords();
+            }
+            
+            
         },
         init: function(){
             this._twitterStatusNode = dom.byId('twitter_auth_status');
@@ -108,6 +123,52 @@ function(
                     window.location.reload();
                 };
             }
-        }
+        },
+        _createSMFOffensive: function () {
+              if (this.config.bannedUsersService) {
+                  // offensive users task
+                  this.config.bannedUsersTask = new QueryTask(this.config.bannedUsersService);
+                  // offensive users query
+                  this.config.bannedUsersQuery = new Query();
+                  this.config.bannedUsersQuery.where = '1=1';
+                  this.config.bannedUsersQuery.returnCountOnly = false;
+                  this.config.bannedUsersQuery.returnIdsOnly = false;
+                  this.config.bannedUsersQuery.outFields = ["type", "author"];
+                  this.config.bannedUsersTask.execute(this.config.bannedUsersQuery, lang.hitch(this, function (fset) {
+                      // Banned twitter users
+                      var badTwitterUsers = [];
+                      // Banned flickr users
+                      var badFlickrUsers = [];
+                      // features
+                      var features = fset.features;
+                      // for each feature
+                      for (var i = 0; i < features.length; i++) {
+                          // add to twitter list
+                          if (parseInt(features[i].attributes.type, 10) === 2) {
+                              badTwitterUsers.push(features[i].attributes.author);
+                          }
+                          // add to flickr list
+                          else if (parseInt(features[i].attributes.type, 10) === 4) {
+                              badFlickrUsers.push(features[i].attributes.author);
+                          }
+                      }
+                  }));
+              }
+          },
+          _createSMFBadWords: function () {
+              var filterWords = [];
+              if (this.config.bannedWordsService) {
+                  this.config.bannedWordsTask = new QueryTask(this.config.bannedWordsService);
+                  this.config.bannedWordsQuery = new Query();
+                  this.config.bannedWordsQuery.where = '1=1';
+                  this.config.bannedWordsQuery.returnGeometry = false;
+                  this.config.bannedWordsQuery.outFields = ["word"];
+                  this.config.bannedWordsTask.execute(this.config.bannedWordsQuery, lang.hitch(this, function (fset) {
+                      for (var i = 0; i < fset.features.length; i++) {
+                          filterWords.push(fset.features[i].attributes.word);
+                      }
+                  }));
+              }
+          }
     });
 });
