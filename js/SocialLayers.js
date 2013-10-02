@@ -84,6 +84,35 @@ function(
             on(this.map.infoWindow, 'selection-change', lang.hitch(this, function(){
                 this._featureChange();
             }));
+            
+            this.socialGraphics = [];
+            
+            on(this._flickrLayer, 'update', lang.hitch(this, function(){
+                this._compileGraphics();
+            }));
+            on(this._twitterLayer, 'update', lang.hitch(this, function(){
+                this._compileGraphics();
+            }));
+            
+            
+            
+        },
+        _compileGraphics: function(){
+            var compiled = [];
+            compiled = compiled.concat(this._flickrLayer.get("graphics"));
+            compiled = compiled.concat(this._twitterLayer.get("graphics"));
+            
+            console.log(compiled);
+            
+            var html = '';
+            for(var i = 0; i < compiled.length; i++){
+                var graphic = compiled[i];
+                var title = graphic.attributes.title || graphic.attributes.textFormatted;
+                html += title;
+                html += '<hr>';
+            }
+            dom.byId('features_panel').innerHTML = html;
+            
         },
         init: function(){
             this._twitterStatusNode = dom.byId('twitter_auth_status');

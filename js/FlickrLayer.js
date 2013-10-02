@@ -438,7 +438,7 @@ function (
             }));
             // add new graphics to widget
             var graphics = this.get("graphics");
-            graphics.concat(b);
+            graphics = graphics.concat(b);
             this.set("graphics", graphics);
             // add non geocode results to noGeo
             var noGeo = this.get("noGeo");
