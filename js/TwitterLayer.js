@@ -458,6 +458,7 @@ function (
                 }
 				// if this feature needs to be filtered
 				if(filter){
+				    //console.log('filtered', result);
 					return;
 				}
                 this._dataIds[result.id] = true;

@@ -4,12 +4,15 @@ define([
     "dojo/_base/lang",
     "dojo/_base/event",
     "dojo/dom",
+    "dojo/dom-construct",
+    "dojo/dom-style",
     "modules/TwitterLayer",
     "modules/FlickrLayer",
     "modules/WebcamsLayer",
     "dojo/on",
     "esri/tasks/QueryTask",
-    "esri/tasks/query"
+    "esri/tasks/query",
+    "esri/request"
 ],
 function(
     ready, 
@@ -17,12 +20,15 @@ function(
     lang,
     event,
     dom,
+    domConstruct,
+    domStyle,
     TwitterLayer,
     FlickrLayer,
     WebcamsLayer,
     on,
     QueryTask,
-    Query
+    Query,
+    esriRequest
 ) {
     return declare("", null, {
         constructor: function(settings) {
@@ -64,8 +70,6 @@ function(
                 visibility: this._webcamsLayer.featureLayer.visible,
                 layerObject: this._webcamsLayer.featureLayer
             });
-            
-            
             // filtering
             if (this.config.bannedUsersService && this.config.flagMailServer) {
                 this._createSMFOffensive();
@@ -73,8 +77,13 @@ function(
             if (this.config.bannedWordsService) {
                 this._createSMFBadWords();
             }
-            
-            
+            // info window set flag button
+            on(this.map.infoWindow, 'set-features', lang.hitch(this, function(){
+                this._featureChange();
+            }));
+            on(this.map.infoWindow, 'selection-change', lang.hitch(this, function(){
+                this._featureChange();
+            }));
         },
         init: function(){
             this._twitterStatusNode = dom.byId('twitter_auth_status');
@@ -99,6 +108,49 @@ function(
                     this._twitterStatusNode.innerHTML = 'Sign in';
                 }
             }));
+        },
+        _featureChange: function(){
+            if(this.map && this.map.infoWindow){
+                // get current graphic
+                var graphic = this.map.infoWindow.getSelectedFeature();
+                // if no flag div exists
+                if(!this._flagDiv){
+                    // create it
+                    this._flagDiv = domConstruct.create('a',{
+                        style: {
+                            display: "none"
+                        },
+                        innerHTML: this.config.i18n.report.flag
+                    });
+                    // place in info window actions list
+                    domConstruct.place(this._flagDiv, this.map.infoWindow._actionList, 'last');
+                    // on flag click
+                    on(this._flagDiv, 'click', lang.hitch(this, function(){
+                        this._flagUser();
+                    }));
+                }
+                if(!this._flagStatusDiv){
+                    // create a hidden status div
+                    this._flagStatusDiv = domConstruct.create('span',{
+                        style: {
+                            display: "none"
+                        },
+                        innerHTML: ""
+                    });
+                    domConstruct.place(this._flagStatusDiv, this.map.infoWindow._actionList, 'last');
+                }
+                // clear status
+                this._flagStatusDiv.innerHTML = '';
+                // hide status
+                domStyle.set(this._flagStatusDiv, 'display', 'none');
+                // if its a flaggable item
+                if(graphic && graphic.attributes && graphic.attributes.hasOwnProperty('filterType')){
+                    domStyle.set(this._flagDiv, 'display', 'inline');
+                }
+                else{
+                    domStyle.set(this._flagDiv, 'display', 'none');
+                }
+            }
         },
         _twitterWindow: function(page, forceLogin) {
             var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
@@ -152,6 +204,8 @@ function(
                               badFlickrUsers.push(features[i].attributes.author);
                           }
                       }
+                      this._flickrLayer.set("filterUsers", badFlickrUsers);
+                      this._twitterLayer.set("filterUsers", badTwitterUsers);
                   }));
               }
           },
@@ -167,8 +221,47 @@ function(
                       for (var i = 0; i < fset.features.length; i++) {
                           filterWords.push(fset.features[i].attributes.word);
                       }
+                      this._flickrLayer.set("filterWords", filterWords);
+                      this._twitterLayer.set("filterWords", filterWords);
                   }));
               }
-          }
+          },
+          _flagUser: function () {
+            if (this.config.bannedUsersService && this.config.flagMailServer) {
+                // get current graphic
+                var graphic = this.map.infoWindow.getSelectedFeature();
+                if(graphic){
+                    // hide flag button
+                    domStyle.set(this._flagDiv, 'display', 'none');
+                    // show status button
+                    domStyle.set(this._flagStatusDiv, 'display', 'inline');
+                    // status loading
+                    this._flagStatusDiv.innerHTML = this.config.i18n.report.loading;
+                    // send flag request
+                    var requestHandle = new esriRequest({
+                        url: this.config.flagMailServer,
+                        content: {
+                            "op": "send",
+                            "auth": "esriadmin",
+                            "author": (graphic.attributes.filterAuthor) ? graphic.attributes.filterAuthor : "",
+                            "appname": (this.item.title) ? this.item.title : "",
+                            "type": (graphic.attributes.filterType) ? graphic.attributes.filterType : "",
+                            "content": (graphic.attributes.filterContent) ? graphic.attributes.filterContent : ""
+                        },
+                        handleAs: 'json',
+                        callbackParamName: 'callback',
+                        // on load
+                        load: lang.hitch(this, function () {
+                            // set status
+                            this._flagStatusDiv.innerHTML = this.config.i18n.report.success;
+                        }),
+                        error: lang.hitch(this, function () {
+                            // set status
+                            this._flagStatusDiv.innerHTML = this.config.i18n.report.error;
+                        })
+                    });
+                }
+            }
+        }
     });
 });

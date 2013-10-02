@@ -10,6 +10,12 @@ define({root:
         summarize: "Summarize",
         share: "Share",
         about: "About"
+    },
+    report:{
+        flag: "Flag as innapropriate",
+        error: "Error",
+        success: "Flagged",
+        loading: "Loading&hellip;"
     }
 }),
 "fr":1
