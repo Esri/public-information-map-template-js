@@ -42,7 +42,8 @@ function (
             map: null,
             layers: null,
             visible: true,
-            sublayers: false
+            sublayers: false,
+            zoomTo: false
         },
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
@@ -57,6 +58,7 @@ function (
             this.set("theme", this.options.theme);
             this.set("visible", this.options.visible);
             this.set("sublayers", this.options.sublayers);
+            this.set("zoomTo", this.options.zoomTo);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
@@ -77,6 +79,7 @@ function (
                 titleText: "LL_Text",
                 selected: "LL_Selected",
                 visible: "LL_Visible",
+                zoomTo: "LL_ZoomTo",
                 sublayerContainer: "LL_SublayerContainer",
                 sublayer: "LL_Sublayer",
                 sublayerVisible: "LL_SublayerVisible",
@@ -232,6 +235,15 @@ function (
                             sublayerNodes.push(sublayerObj);
                         }
                     }
+                    var fullExtentDiv;
+                    if(this.get("zoomTo") && layer.layerObject && layer.layerObject.fullExtent){
+                        // legend
+                        fullExtentDiv = domConstruct.create("div", {
+                            className: this._css.zoomTo,
+                            innerHTML: this._i18n.LayerLegend.zoomTo
+                        });
+                        domConstruct.place(fullExtentDiv, contentDiv, "first");
+                    }
                     // determine default symbol
                     var defaultSymbol;
                     try {
@@ -273,7 +285,8 @@ function (
                         titleText: titleText,
                         content: contentDiv,
                         legend: legendDiv,
-                        layer: layerDiv
+                        layer: layerDiv,
+                        fullExtent: fullExtentDiv
                     };
                     this._nodes.push(nodesObj);
                     // create click event
@@ -340,6 +353,12 @@ function (
             }));
             this._layerEvents.push(visChange);
         },
+        _fullExtentEvent: function(layer, index){
+            var fullExtent = on(this._nodes[index].fullExtent, 'click', lang.hitch(this, function() {
+                this.map.setExtent(layer.fullExtent);
+            }));
+            this._layerEvents.push(fullExtent);
+        },
         _setLayerEvents: function() {
             // this function sets up all the events for layers
             var layers = this.get("layers");
@@ -358,6 +377,9 @@ function (
                         // 1 layer object
                         var layerObject = layer.layerObject;
                         this._layerEvent(layerObject, i);
+                    }
+                    if(this.get("zoomTo") && layer.layerObject && layer.layerObject.fullExtent){
+                        this._fullExtentEvent(layer.layerObject, i);
                     }
                 }
             }

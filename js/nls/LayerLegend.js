@@ -1,7 +1,8 @@
 define({
     root: ({
         LayerLegend:{
-            noLegend: "No legend"
+            noLegend: "No legend",
+            zoomTo: "Zoom to"
         }
     }),
     "ar": 1,

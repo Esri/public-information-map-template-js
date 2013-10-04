@@ -112,6 +112,16 @@
 	transition:max-height .25s ease;
 }
 
+.LayerLegend .LL_ZoomTo{
+    cursor:pointer;
+    margin:10px 0 0 15px;
+    text-decoration: underline;
+}
+
+.LayerLegend .LL_ZoomTo:hover{
+    text-decoration:none;
+}
+
 .LayerLegend .LL_Content::-webkit-scrollbar {
 	width:16px;
 }
