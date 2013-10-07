@@ -43,7 +43,8 @@ function (
             layers: null,
             visible: true,
             sublayers: false,
-            zoomTo: false
+            zoomTo: false,
+            accordion: true
         },
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
@@ -59,12 +60,14 @@ function (
             this.set("visible", this.options.visible);
             this.set("sublayers", this.options.sublayers);
             this.set("zoomTo", this.options.zoomTo);
+            this.set("accordion", this.options.accordion);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
-            this.watch("layers", this.refresh);
+            this.watch("layers", this._refreshLayers);
             this.watch("sublayers", this.refresh);
             this.watch("map", this.refresh);
+            this.watch("zoomTo", this.refresh);
             // classes
             this._css = {
                 container: "LL_Container",
@@ -77,7 +80,7 @@ function (
                 titleCheckbox: "LL_Checkbox",
                 checkboxCheck: "icon-check-1",
                 titleText: "LL_Text",
-                selected: "LL_Selected",
+                expanded: "LL_Expanded",
                 visible: "LL_Visible",
                 zoomTo: "LL_ZoomTo",
                 sublayerContainer: "LL_SublayerContainer",
@@ -112,6 +115,10 @@ function (
         /* Public Events */
         /* ---------------- */
         // load
+        // zoom-to
+        // toggle
+        // expand
+        // collapse
         /* ---------------- */
         /* Public Functions */
         /* ---------------- */
@@ -124,6 +131,62 @@ function (
         refresh: function() {
             this._createLegends();
         },
+        expand: function(index){
+            if(typeof index !== 'undefined'){
+                // we want accordion affect
+                if (this.get("accordion")) {
+                    // remove all expanded 
+                    var nodes = query('.' + this._css.expanded, this._layersNode);
+                    for (var i = 0; i < nodes.length; i++) {
+                        domClass.remove(nodes[i], this._css.expanded);
+                    }
+                    this._expanded = [];
+                }
+                // add index to expanded list
+                var position = array.indexOf(this._expanded, index);
+                if(position === -1){
+                    this._expanded.push(index);
+                }
+                // add expanded class
+                domClass.add(this._nodes[index].layer, this._css.expanded);
+                // event
+                this.emit("expand", {
+                    index: index
+                });
+            }
+        },
+        collapse: function(index){
+            if(typeof index !== 'undefined'){
+                // remove index from expanded list
+                var position = array.indexOf(this._expanded, index);
+                if(position !== -1){
+                    this._expanded.splice(position, 1);
+                }
+                // remove expanded class
+                domClass.remove(this._nodes[index].layer, this._css.expanded);
+                // event
+                this.emit("collapse", {
+                    index: index
+                });
+            }
+        },
+        toggle: function(index){
+            if(typeof index !== 'undefined'){
+                var expand = !domClass.contains(this._nodes[index].layer, this._css.expanded);
+                // exp/col
+                if(expand){
+                    this.expand(index);
+                }
+                else{
+                    this.collapse(index);
+                }
+                // event
+                this.emit("toggle", {
+                    expand: expand,
+                    index: index
+                });
+            }
+        },
         /* ---------------- */
         /* Private Functions */
         /* ---------------- */
@@ -134,16 +197,18 @@ function (
             this._removeEvents();
             // clear node
             this._layersNode.innerHTML = '';
+            // Set default expanded to last index
+            if(!this._expanded){
+                this._expanded = [layers.length - 1];
+            }
             // if we got layers
             if (layers && layers.length) {
                 for (var i = 0; i < layers.length; i++) {
                     var layer = layers[i];
                     var layerInfos;
                     var sublayers;
-                    var firstLayer = '',
-                        selected = '',
-                        visible = '',
-                        checked = '';
+                    var titleCheckBoxClass = this._css.titleCheckbox;
+                    var layerClass = this._css.layer;
                     var sublayerNodes = [];
                     if (layer.layerObject) {
                         layerInfos = layer.layerObject.layerInfos;
@@ -152,16 +217,24 @@ function (
                         }
                     }
                     if (i === (layers.length - 1)) {
-                        firstLayer = this._css.firstLayer;
-                        selected = this._css.selected;
+                        layerClass += ' ';
+                        layerClass += this._css.firstLayer;
+                    }
+                    // set expanded list item
+                    var position = array.indexOf(this._expanded, i);
+                    if(position !== -1){
+                        layerClass += ' ';
+                        layerClass += this._css.expanded;
                     }
                     if (layer.visibility) {
-                        visible = this._css.visible;
-                        checked = this._css.checkboxCheck;
+                        layerClass += ' ';
+                        layerClass += this._css.visible;
+                        titleCheckBoxClass += ' ';
+                        titleCheckBoxClass += this._css.checkboxCheck;
                     }
                     // layer node
                     var layerDiv = domConstruct.create("div", {
-                        className: this._css.layer + ' ' + firstLayer + ' ' + visible
+                        className: layerClass
                     });
                     domConstruct.place(layerDiv, this._layersNode, "first");
                     // title of layer
@@ -176,7 +249,7 @@ function (
                     domConstruct.place(titleContainerDiv, titleDiv, "last");
                     // Title checkbox
                     var titleCheckbox = domConstruct.create("span", {
-                        className: this._css.titleCheckbox + ' ' + checked
+                        className: titleCheckBoxClass
                     });
                     domConstruct.place(titleCheckbox, titleContainerDiv, "last");
                     // Title text
@@ -304,6 +377,10 @@ function (
                 this._setLayerEvents();
             }
         },
+        _refreshLayers: function(){
+            this._expanded = null;
+            this.refresh();
+        },
         _removeEvents: function() {
             var i;
             // title click events
@@ -356,6 +433,11 @@ function (
         _fullExtentEvent: function(layer, index){
             var fullExtent = on(this._nodes[index].fullExtent, 'click', lang.hitch(this, function() {
                 this.map.setExtent(layer.fullExtent);
+                this.emit("zoom-to", {
+                    layer: layer,
+                    fullExtent: layer.fullExtent,
+                    index: index
+                });
             }));
             this._layerEvents.push(fullExtent);
         },
@@ -466,16 +548,7 @@ function (
         _titleEvent: function(index) {
             // when a title of a layer has been clicked
             var titleEvent = on(this._nodes[index].title, 'click', lang.hitch(this, function() {
-                // title is not already selected
-                if (!domClass.contains(this._nodes[index].layer, this._css.selected)) {
-                    // remove all selected 
-                    var nodes = query('.' + this._css.selected, this._layersNode);
-                    for (var i = 0; i < nodes.length; i++) {
-                        domClass.remove(nodes[i], this._css.selected);
-                    }
-                }
-                // toggle selected class
-                domClass.toggle(this._nodes[index].layer, this._css.selected);
+                this.toggle(index);
             }));
             this._titleEvents.push(titleEvent);
         },

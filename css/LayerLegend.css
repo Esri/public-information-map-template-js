@@ -34,7 +34,7 @@
 	border-top:1px solid #e0e0e0;
 }
 
-.LayerLegend .LL_Selected .LL_Title {
+.LayerLegend .LL_Expanded .LL_Title {
 	border-bottom:0;
 }
 
@@ -44,7 +44,7 @@
 	color:#555;
 }
 
-.LayerLegend .LL_Selected .LL_TitleContainer {
+.LayerLegend .LL_Expanded .LL_TitleContainer {
 	border-left:5px solid #8f499c;
 	background:#fff;
 	color:#8f499c;
@@ -142,7 +142,7 @@
 	background-color:#c575d2;
 }
 
-.LayerLegend .LL_Selected .LL_Content {
+.LayerLegend .LL_Expanded .LL_Content {
 	max-height:300px;
 	_height:300px;
 	border-bottom:1px solid #792c86;
