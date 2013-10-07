@@ -1,40 +1,25 @@
-.webcams-popup {
+.instagram-popup {
 	margin:0;
 }
 
-.webcams-popup .title {
-	font-weight:700;
-	font-size:14px;
-	line-height:20px;
+.instagram-popup .ownername {
+	font-size:12px;
+	color:#999;
+	line-height:18px;
 	margin-bottom:5px;
 }
 
-.webcams-popup .date {
+.instagram-popup .date {
 	font-size:12px;
 	color:#999;
 	line-height:16px;
+}
+
+.instagram-popup .content {
 	margin-bottom:5px;
 }
 
-.webcams-popup .location {
-	margin-bottom:5px;
-}
-
-.webcams-popup .logo-credits {
-	margin:10px 0 0;
-}
-
-.webcams-popup .logo-credits a {
-	display:inline-block;
-}
-
-.webcams-popup .credits {
-	font-size:10px;
-	color:#999;
-	line-height:12px;
-}
-
-.webcams-popup .image-anchor {
+.instagram-popup .image-anchor {
 	display:inline-block;
 	-moz-user-select:none;
 	-webkit-user-select:none;
@@ -42,9 +27,13 @@
 	margin-bottom:5px;
 }
 
-.webcams-popup .image {
+.instagram-popup .image {
 	display:inline-block;
-	padding:5px;
+	min-width:20%;
+	min-height:20%;
+	max-width:90%;
+	max-height:100%;
+	padding:5px 2%;
 	-moz-box-shadow:1px 1px 3px #CCC;
 	-webkit-box-shadow:1px 1px 3px #CCC;
 	box-shadow:1px 1px 3px #CCC;
@@ -52,7 +41,7 @@
 	background:url(../images/ajax-loader.gif) no-repeat center center #fff;
 }
 
-.webcams-popup .image:hover,.webcams-popup .image:focus {
+.instagram-popup .image:hover,.instagram-popup .image:focus {
 	opacity:.85;
 	background-image:none;
 	-moz-transition:all .25s ease;

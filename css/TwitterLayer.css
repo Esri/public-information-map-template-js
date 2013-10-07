@@ -129,7 +129,6 @@
 	float:left;
 	margin-right:10px;
 	margin-bottom:5px;
-	background:#fff;
 	-moz-user-select:none;
 	-webkit-user-select:none;
 	user-select:none;
@@ -146,7 +145,7 @@
 
 .twitter-popup .image:hover img,.twitter-popup .image:focus img {
 	opacity:.85;
-	background:none;
+	background-image:none;
 	display:inline-block;
 	-moz-transition:all .25s ease;
 	-webkit-transition:all .25s ease;

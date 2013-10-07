@@ -27,7 +27,6 @@
 
 .flickr-popup .image-anchor {
 	display:inline-block;
-	background:#fff;
 	-moz-user-select:none;
 	-webkit-user-select:none;
 	user-select:none;
@@ -50,7 +49,7 @@
 
 .flickr-popup .image:hover,.flickr-popup .image:focus {
 	opacity:.85;
-	background:none;
+	background-image:none;
 	-moz-transition:all .25s ease;
 	-webkit-transition:all .25s ease;
 	-o-transition:all .25s ease;
