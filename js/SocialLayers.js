@@ -42,8 +42,9 @@ function(
             });
             this.map.addLayer(this._twitterLayer.featureLayer);
             this.layers.push({
-                title: 'Twitter <a id="twitter_auth_status"></span><span class="clear"><span>',
+                title: 'Twitter',
                 visibility: this._twitterLayer.featureLayer.visible,
+                content: '<div id="twitter_cog" class="icon-cog"></div><a id="twitter_auth_status">Zoom in for tweets</a><div class="clear"><div>',
                 layerObject: this._twitterLayer.featureLayer
             });
             // Flickr
@@ -131,10 +132,10 @@ function(
             }
             on(this._twitterLayer, 'authorize', lang.hitch(this, function(evt){
                 if(evt.authorized){
-                    this._twitterStatusNode.innerHTML = 'Switch user';
+                    this._twitterStatusNode.innerHTML = '<a>Switch Account</a>';
                 }
                 else{
-                    this._twitterStatusNode.innerHTML = 'Sign in';
+                    this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>Sign in</a>';
                 }
             }));
         },

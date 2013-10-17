@@ -269,6 +269,10 @@ function (
                         className: this._css.legend
                     });
                     domConstruct.place(legendDiv, contentDiv, "first");
+                    // custom content
+                    if(layer.content){
+                        domConstruct.place(layer.content, contentDiv, "first");    
+                    }
                     // if sublayer and not a tile service
                     if (sublayers && sublayers.length && !layer.layerObject.tileInfo) {
                         var sublayerContainerDiv = domConstruct.create("div", {
