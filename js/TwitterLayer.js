@@ -55,29 +55,29 @@ function (
         },
         constructor: function (options) {
             // mixin options
-            declare.safeMixin(this.options, options);
+            var defaults = lang.mixin({}, this.options, options);
             // properties
-            this.set("map", this.options.map);
-            this.set("filterUsers", this.options.filterUsers);
-            this.set("filterWords", this.options.filterWords);
-            this.set("autopage", this.options.autopage);
-            this.set("visible", this.options.visible);
-            this.set("maxpage", this.options.maxpage);
-            this.set("limit", this.options.limit);
-            this.set("title", this.options.title);
-            this.set("id", this.options.id);
-            this.set("url", this.options.url);
-            this.set("datePattern", this.options.datePattern);
-            this.set("timePattern", this.options.timePattern);
-            this.set("searchTerm", this.options.searchTerm);
-            this.set("symbol", this.options.symbol);
-            this.set("infoTemplate", this.options.infoTemplate);
-            this.set("dateFrom", this.options.dateFrom);
-            this.set("dateTo", this.options.dateTo);
-            this.set("key", this.options.key);
-            this.set("minScale", this.options.minScale);
-            this.set("maxScale", this.options.maxScale);
-            this.set("refreshTime", this.options.refreshTime);
+            this.set("map", defaults.map);
+            this.set("filterUsers", defaults.filterUsers);
+            this.set("filterWords", defaults.filterWords);
+            this.set("autopage", defaults.autopage);
+            this.set("visible", defaults.visible);
+            this.set("maxpage", defaults.maxpage);
+            this.set("limit", defaults.limit);
+            this.set("title", defaults.title);
+            this.set("id", defaults.id);
+            this.set("url", defaults.url);
+            this.set("datePattern", defaults.datePattern);
+            this.set("timePattern", defaults.timePattern);
+            this.set("searchTerm", defaults.searchTerm);
+            this.set("symbol", defaults.symbol);
+            this.set("infoTemplate", defaults.infoTemplate);
+            this.set("dateFrom", defaults.dateFrom);
+            this.set("dateTo", defaults.dateTo);
+            this.set("key", defaults.key);
+            this.set("minScale", defaults.minScale);
+            this.set("maxScale", defaults.maxScale);
+            this.set("refreshTime", defaults.refreshTime);
             this.set("graphics", []);
             this.set("noGeo", []);
             // listeners
@@ -359,9 +359,9 @@ function (
                         }
                         this._mapResults(data);
                         // display results for multiple pages
-                        if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {
+                        if ((this.get("autopage")) && (this.get("maxpage") > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {
                             this.pageCount++;
-                            this._sendRequest(this.options.url + data.search_metadata.next_results);
+                            this._sendRequest(this.get("url") + data.search_metadata.next_results);
                         } else {
                             this._updateEnd();
                         }
