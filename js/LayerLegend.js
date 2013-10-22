@@ -5,7 +5,7 @@ define([
     "dojo/has",
     "esri/kernel",
     "dijit/_WidgetBase",
-    "dijit/_OnDijitClickMixin",
+    "dijit/a11yclick",
     "dijit/_TemplatedMixin",
     "dojo/on",
     "dojo/query",
@@ -24,7 +24,7 @@ function (
     declare,
     lang,
     has, esriNS,
-    _WidgetBase, _OnDijitClickMixin, _TemplatedMixin,
+    _WidgetBase, a11yclick, _TemplatedMixin,
     on,
     query,
     dijitTemplate, i18n,
@@ -33,7 +33,7 @@ function (
     event,
     array
 ) {
-    var Widget = declare([_WidgetBase, _OnDijitClickMixin, _TemplatedMixin, Evented], {
+    var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
         declaredClass: "esri.dijit.LayerLegend",
         templateString: dijitTemplate,
         // defaults
@@ -49,18 +49,18 @@ function (
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
             // mix in settings and defaults
-            declare.safeMixin(this.options, options);
+            var defaults = lang.mixin({}, this.options, options);
             // widget node
             this.domNode = srcRefNode;
             this._i18n = i18n;
             // properties
-            this.set("map", this.options.map);
-            this.set("layers", this.options.layers);
-            this.set("theme", this.options.theme);
-            this.set("visible", this.options.visible);
-            this.set("sublayers", this.options.sublayers);
-            this.set("zoomTo", this.options.zoomTo);
-            this.set("accordion", this.options.accordion);
+            this.set("map", defaults.map);
+            this.set("layers", defaults.layers);
+            this.set("theme", defaults.theme);
+            this.set("visible", defaults.visible);
+            this.set("sublayers", defaults.sublayers);
+            this.set("zoomTo", defaults.zoomTo);
+            this.set("accordion", defaults.accordion);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
