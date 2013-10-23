@@ -46,7 +46,7 @@ function(
             this.layers.push({
                 title: 'Twitter',
                 visibility: this._twitterLayer.featureLayer.visible,
-                content: '<div id="twitter_cog" class="icon-cog"></div><a id="twitter_auth_status">Zoom in for tweets</a><div class="clear"><div>',
+                content: '<a id="twitter_auth_status"></a><div class="clear"><div>',
                 layerObject: this._twitterLayer.featureLayer
             });
             // Flickr
