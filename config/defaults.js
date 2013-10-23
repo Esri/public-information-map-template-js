@@ -19,6 +19,7 @@ define([], function() {
         "twitterSigninUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/sign_in.php",
         "flickr_key":"404ebea7d5bc27aa5251d1207620e99b",
         "webcams_key":"65939add1ebe8bc9cc4180763f5df2ca",
+        "instagram_key":"288c36a1a42c49de9a2480a05d054619",
         "bannedUsersService": "http://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
 		"bannedWordsService": "http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
 		"flagMailServer": "http://tmappsevents.esri.com/Website/pim_fai/fai.php",

@@ -371,7 +371,7 @@ function (
 				// check for filterd user
 				if(this.filterUsers && this.filterUsers.length){
 					for(i = 0; i < this.filterUsers.length; i++){
-						if(this.filterUsers[i].toString() === result.owner.toString()){
+						if(this.filterUsers[i].toString() === result.username.toString()){
 							filter = true;
 							break;
 						}
@@ -380,11 +380,7 @@ function (
 				// check if contains bad word
 				if(!filter && this.filterWords && this.filterWords.length){
 					for(i = 0; i < this.filterWords.length; i++){
-						if(this._findWordInText(this.filterWords[i], result.title)){
-							filter = true;
-							break;
-						}
-						if(this._findWordInText( this.filterWords[i], result.description._content)){
+						if(this._findWordInText(this.filterWords[i], result.descriptionText)){
 							filter = true;
 							break;
 						}

@@ -9,6 +9,7 @@ define([
     "modules/TwitterLayer",
     "modules/FlickrLayer",
     "modules/WebcamsLayer",
+    "modules/InstagramLayer",
     "dojo/on",
     "esri/tasks/QueryTask",
     "esri/tasks/query",
@@ -25,6 +26,7 @@ function(
     TwitterLayer,
     FlickrLayer,
     WebcamsLayer,
+    InstagramLayer,
     on,
     QueryTask,
     Query,
@@ -70,6 +72,18 @@ function(
                 title: "Webcams",
                 visibility: this._webcamsLayer.featureLayer.visible,
                 layerObject: this._webcamsLayer.featureLayer
+            });
+            // Instagram
+            this._instagramLayer = new InstagramLayer({
+                map: this.map,
+                visible: true,
+                key: this.config.instagram_key
+            });
+            this.map.addLayer(this._instagramLayer.featureLayer);
+            this.layers.push({
+                title: "Instagram",
+                visibility: this._instagramLayer.featureLayer.visible,
+                layerObject: this._instagramLayer.featureLayer
             });
             // filtering
             if (this.config.bannedUsersService && this.config.flagMailServer) {
