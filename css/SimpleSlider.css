@@ -1,57 +1,58 @@
-.esriSimpleSlider {
-	position:absolute;
-	text-align:center;
-	border:1px solid #999;
-	background-color:#FFF;
-	color:#999;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none;
-	-webkit-border-radius:1px;
-	-moz-border-radius:1px;
-	-o-border-radius:1px;
-	border-radius:1px;
+.calcite .esriSimpleSlider {
+    position: absolute;
+    text-align: center;
+    border: 1px solid #999;
+    background-color: #FFF;
+    color: #999;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -o-border-radius: 1px;
+    border-radius: 1px;
 }
-
-.esriSimpleSlider div {
-	width:22px;
-	height:22px;
-	font-size:22px;
-	font-family:'Lato',sans-serif;
-	font-weight:700;
-	line-height:22px;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none;
-	cursor:pointer;
-	padding:4px;
+.calcite .esriSimpleSlider div {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    line-height: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 4px;
 }
-
-.esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
-	border-bottom:1px solid #999;
-	-webkit-border-radius:1px 1px 0 0;
-	border-radius:1px 1px 0 0;
+.calcite .esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
+    border-bottom: 1px solid #999;
+    -webkit-border-radius: 1px 1px 0 0;
+    border-radius: 1px 1px 0 0;
 }
-
-.esriSimpleSliderVertical .esriSimpleSliderDecrementButton {
-	-webkit-border-radius:0 0 1px 1px;
-	border-radius:0 0 1px 1px;
+.calcite .esriSimpleSliderVertical .esriSimpleSliderDecrementButton {
+    -webkit-border-radius: 0 0 1px 1px;
+    border-radius: 0 0 1px 1px;
 }
-
-.esriSimpleSliderDecrementButton:hover,.esriSimpleSliderIncrementButton:hover {
-	background-color:#eee;
-	color:#333;
+.calcite .esriSimpleSliderDecrementButton:hover,
+.calcite .esriSimpleSliderIncrementButton:hover {
+    background-color: #eee;
+    color: #333;
 }
-
-.esriSimpleSliderDecrementButton:active,.esriSimpleSliderIncrementButton:active {
-	background-color:#ddd;
-	color:#007ac2;
+.calcite .esriSimpleSliderDecrementButton:active,
+.calcite .esriSimpleSliderIncrementButton:active {
+    background-color: #ddd;
+    color: #007ac2;
 }
-
-.esriSimpleSliderDisabledButton,.esriSimpleSliderDisabledButton:active,.esriSimpleSliderDisabledButton:hover {
-	cursor:default;
-	background-color:#f4f4f4;
-	color:#bbb;
+.calcite .esriSimpleSliderDisabledButton,
+.calcite .esriSimpleSliderDisabledButton:active,
+.calcite .esriSimpleSliderDisabledButton:hover {
+    cursor: default;
+    background-color: #f4f4f4;
+    color: #bbb;
+}
+.calcite .esriSimpleSliderTL {
+    top: 55px;
 }

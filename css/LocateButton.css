@@ -1,50 +1,45 @@
 .LocateButtonCalcite span {
-	display:none;
+    display: none;
 }
-
 .LocateButtonCalcite .locateContainer {
-	text-align:center;
-	font-size:21px;
-	line-height:22px;
-	width:22px;
-	padding:4px;
-	background-color:#fff;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none;
-	cursor:pointer;
-	-webkit-border-radius:1px;
-	-moz-border-radius:1px;
-	-o-border-radius:1px;
-	border-radius:1px;
-	border:1px solid #999;
-	color:#999;
+    text-align: center;
+    background-color: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -o-border-radius: 1px;
+    border-radius: 1px;
+    border: 1px solid #999;
+    color: #999;
 }
-
 .LocateButtonCalcite .locateContainer:hover {
-	background-color:#eee;
-	color: #333;
+    background-color: #eee;
+    color: #333;
 }
-
 .LocateButtonCalcite .locateContainer:active {
-	color:#007ac2;
-	background-color:#ddd;
+    color: #007ac2;
+    background-color: #ddd;
 }
-
 .LocateButtonCalcite .zoomLocateButton {
-	font-family:"fontello";
-	font-style:normal;
-	font-weight:400;
-	speak:none;
-	display:inline-block;
-	text-decoration:inherit;
-	text-align:center;
-	font-variant:normal;
-	text-transform:none;
-	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe82f;&nbsp;');
+    font-size: 21px;
+    line-height: 22px;
+    width: 22px;
+    padding: 4px;
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe82f;&nbsp;');
 }
-
 .LocateButtonCalcite .zoomLocateButton:before {
-	content:'\e82f';
+    content: '\e82f';
 }

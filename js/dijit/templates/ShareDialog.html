@@ -1,17 +1,30 @@
 <div class="${theme}" role="presentation">
-    <div data-dojo-attach-point="_buttonNode" title="${_i18n.widgets.ShareDialog.title}" role="button" data-dojo-attach-event="ondijitclick:toggle" class="${_css.container} ${_css.button}">
-        <div class="${_css.icon}"></div>
+    <div data-dojo-attach-point="_buttonNode" title="${_i18n.widgets.ShareDialog.title}" role="button" class="${css.container} ${css.button}">
+        <div class="${css.icon}"></div>
     </div>
-    <div data-dojo-attach-point="_dialogNode">
-        <div>${_i18n.widgets.ShareDialog.heading}</div>
-        <div>Twitter, Facebook, Google+, Email</div>
-        <div>${_i18n.widgets.ShareDialog.url}</div>
-        <div>${_i18n.widgets.ShareDialog.embed}</div>
-        <div data-dojo-attach-point="_embedNode" class="${_css.embed}"></div>
-        <div>${_i18n.widgets.ShareDialog.size}
-            <select>
-                <option>100% x 500px</option>
-            </select>
+    <div data-dojo-attach-point="_dialogNode" class="dialogNode">
+    <div class="${css.shareDialogContent}">
+        <div  class="${css.shareDialogSubHeader}">${_i18n.widgets.ShareDialog.heading}</div>
+        <div class="${css.iconContainer}">
+            <div class="${css.facebookIcon}" data-dojo-attach-point="_facebookButton" title="${_i18n.widgets.ShareDialog.facebookTooltip}"></div>
+            <div class="${css.twitterIcon}" data-dojo-attach-point="_twitterButton" title="${_i18n.widgets.ShareDialog.twitterTooltip}"></div>
+            <div class="${css.gplusIcon}" data-dojo-attach-point="_gpulsButton" title="${_i18n.widgets.ShareDialog.gplusTooltip}"></div>
+            <div class="${css.emailIcon}" data-dojo-attach-point="_emailButton" title="${_i18n.widgets.ShareDialog.emailTooltip}"></div>
+            <div class="${css.iconClear}"></div>
+        </div>
+        <div class="${css.shareDialogSubHeader}">${_i18n.widgets.ShareDialog.url}</div>
+        <input class="${css.shareMapURL}"  type="text"  data-dojo-attach-point="_shareMapUrlText" readonly />
+        <div class="${css.shareDialogSubHeader}">${_i18n.widgets.ShareDialog.embed}</div>
+        <div class="${css.embed}">
+            <textarea data-dojo-attach-point="_embedNode" rows="5" cols="33" readonly class="${css.shareDialogTextarea}"></textarea>
+        </div>
+        <div class="${css.mapSizeContainer}">
+            <div class="${css.mapSizeLabel}">${_i18n.widgets.ShareDialog.size}</div>
+            <div class="${css.embedMapSizeDropDown}">
+                <select data-dojo-attach-point="_comboBoxNode"></select>
+            </div>
+            <div class="${css.embedMapSizeClear}"></div>
+        </div>
         </div>
     </div>
 </div>

@@ -1,22 +1,16 @@
-define({root:
-({
-    map:{
-        error: "Unable to create map"
-    },
-    general: {
-        legend: "Legend",
-        impact: "Impact",
-        social: "Social",
-        summarize: "Summarize",
-        share: "Share",
-        about: "About"
-    },
-    report:{
-        flag: "Flag as innapropriate",
-        error: "Error",
-        success: "Flagged",
-        loading: "Loading&hellip;"
-    }
-}),
-"fr":1
+define({
+    root: ({
+        map: {
+            error: "Unable to create map"
+        },
+        general: {
+            legend: "Legend",
+            aoi: "Area",
+            summarize: "Entire Area",
+            share: "Share",
+            about: "About",
+            noSearchResult: "No result found"
+        }
+    }),
+    "fr": 1
 });

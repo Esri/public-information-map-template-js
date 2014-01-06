@@ -1,0 +1,3 @@
+.drawerOpen #cp_outer_left:before {
+    display: none !important;
+}

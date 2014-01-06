@@ -1,238 +1,725 @@
-html,body {
-	padding:0;
-	margin:0;
-	height:100%;
-	width:100%;
-	font-family:'Lato',sans-serif;
-}
+/* General */
 
-.drawer-box-shadow{
-	-webkit-box-shadow: inset -1px 0px 6px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: inset -1px 0px 6px 0px rgba(0, 0, 0, 0.5);
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size:16px;
+}
+input[type=text]::-ms-clear {
+    display: none;
+}
+.calcite a {
+    color: #007ac2;
+}
+.calcite a:visited {
+    color: #97cbec;
+}
+.calcite a:hover {
+    color: #555;
+}
+.calcite a:active {
+    color: #555;
+}
+.esriRtl label {
+    /*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
+}
+.topBar {
     position: absolute;
+    z-index: 36;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    pointer-events: none;
-    *display:none;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
+    height: 34px;
+    border-bottom: 1px solid #ddd;
 }
-
-#bc_inner,#bc_outer {
-	width:100%;
-	height:100%;
-	padding:0;
-	margin:0;
-	border:0;
-}
-
-#cp_inner_top {
-	width:100%;
-	height:34px;
-	padding:0;
-	margin:0;
-	border:0;
-	border-bottom:1px solid #ddd;
-	overflow:hidden;
-	z-index:3;
-}
-
-#cp_outer_left {
-	width:280px;
-	max-width:280px;
-	height:100%;
-	padding:0;
-	margin:0;
-	border:0;
-	border-right:1px solid #ddd;
-	background:#fff;
-	overflow:auto;
-	overflow-x:hidden;
-}
-
-#cp_inner_center,#cp_outer_center {
-	width:100%;
-	height:100%;
-	padding:0;
-	margin:0;
-	border:0;
-}
-
-#mapDiv {
-	padding:0;
-	margin:0;
-	width:100%;
-	height:100%;
-	position:relative;
-}
-
-#BasemapToggle {
-	position:absolute;
-	top:20px;
-	right:20px;
-	z-index:35;
-}
-
-#mapButtons {
-	position:absolute;
-	top:92px;
-	left:20px;
-	z-index:35;
-}
-
-#HomeButton {
-	margin-top:6px;
-}
-
-.esriRtl label {
-/*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
-}
-
-#drawer_panels .panel {
-	display:none;
-}
-
-#drawer_panels .panel-selected {
-	display:block;
-}
-
-#drawer_menu {
-	background-color:#007ac2;
-	font-size:18px;
-	line-height:18px;
-	text-align:center;
-	overflow:visible;
-	width:280px;
-}
-
-#drawer_menu .item {
-	width:50%;
-	text-align:center;
-	color:#b9e0f7;
-	float:left;
-	cursor:pointer;
-	-moz-user-select:none;
-	-webkit-user-select:none;
-	user-select:none;
-}
-
-#drawer_menu .item-container {
-	position:relative;
-	overflow:visible;
-	padding:7px 0;
-}
-
-#drawer_menu .item .title {
-	padding:7px 5%;
-	white-space:nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	width:90%;
-}
-
-#drawer_menu .item-first .title {
-	border-right:1px solid #5fa8d4;
-}
-
-#drawer_menu .item-selected {
-	color:#fff;
-	cursor:default;
-}
-
-#drawer_menu .arrow {
-	display:none;
-}
-
-#drawer_menu .item-selected .arrow {
-	display:block;
-	position:absolute;
-	bottom:-2px;
-	left:0;
-	z-index:2;
-	height:9px;
-	width:100%;
-	background:url(../images/selected-arrow.png) no-repeat center bottom;
-}
-
-.topBar {
-	background:#f8f8f8;
-	height:34px;
-}
-
 #title {
-	color:#007ac2;
-	padding:6px 0;
-	line-height:22px;
-	font-size:18px;
+    color: #007ac2;
+    padding: 6px 0;
+    line-height: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    max-width: 40%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
+.toggle-grey {
+    color: #999;
+}
+.toggle-grey:hover,
+.toggle-grey:active {
+    color: #333;
+}
+.toggle-grey-on {
+    color: #007ac2;
+}
+.toggle-grey-on:hover,
+.toggle-grey-on:active {
+    color: #97cbec;
+}
+#title {
+    float: left;
+}
+.buttonContainer {
+    padding: 6px;
+    line-height: 22px;
+    font-size: 18px;
+}
+.icon-right {
+    float: right;
+    cursor: pointer;
+    height: 34px;
+    padding: 0;
+    margin: 0;
+}
+.area-description{
+    color:#666;
+    padding:10px;
+    line-height:24px;
+}
+
+/* Drawer */
 
 #hamburger_button {
-	float:left;
-	padding:4px 0;
-	cursor:pointer;
-	height:25px;
-	font-size:25px;
-	line-height:25px;
+    float: left;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    height: 34px;
+    font-size: 25px;
+    line-height: 34px;
+}
+#bc_outer {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    overflow: hidden;
+}
+#cp_outer_left {
+    width: 0px;
+    max-width: 280px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: #fff;
+    overflow: auto;
+    overflow-x: hidden;
+    -webkit-transition: width 250ms ease;
+    -moz-transition: width 250ms ease;
+    -ms-transition: width 250ms ease;
+    -o-transition: width 250ms ease;
+    transition: width 250ms ease;
+}
+.drawerOpen #cp_outer_left {
+    width: 280px;
+}
+.drawerOpenShadow #cp_outer_left:before {
+    -webkit-box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    content: '';
+    display: block;
+    pointer-events: none;
+}
+#cp_outer_center {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
 }
 
-.toggle-grey {
-	color:#999;
+/* Map */
+
+#mapDiv {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+#BasemapToggle {
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    z-index: 35;
+}
+#mapButtons {
+    position: absolute;
+    top: 127px;
+    left: 20px;
+    z-index: 35;
+}
+#HomeButton {
+    margin-top: 6px;
+}
+#mobileGeocoderIcon {
+    display: none;
+}
+#geocoderMobile {
+    float: left;
+    width:75%;
+}
+#geocoderMobile .esriGeocoderContainer{
+    width:100%;
+}
+.mobileLocateBoxHidden {
+    display: none;
+}
+#geocoderMobile.esriGeocoder input {
+    width: 75%;
+}
+#btnCloseGeocoder {
+    float: left;
+    width: 60px;
+    padding: 1px 0;
+    line-height: 30px;
+    height: 30px;
+    color: #999;
+    margin-left: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    text-align: center;
+}
+#btnCloseGeocoder:hover {
+    color: #555;
+}
+#btnCloseGeocoder:active {
+    color: #007ac2;
+}
+#mobileSearch {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    left: 0;
+    top: 35px;
+    width: 100%;
+}
+#mobileSearch .mobileSearchContainer {
+    padding: 5px 15px;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.7);
+    height: 32px;
 }
 
-.toggle-grey:hover,.toggle-grey:active {
-	color:#333;
+/* Drawer Menu */
+
+.drawer-menu-container {
+    width: 280px;
+}
+.drawer-menu-panels .panel {
+    display: none;
+    width: 100%;
+}
+.drawer-menu-panels .panel-selected {
+    display: block;
+    width: 100%;
+}
+.drawer-menu-buttons {
+    background-color: #007ac2;
+    font-size: 18px;
+    line-height: 18px;
+    text-align: center;
+    overflow: visible;
+    font-weight: 700;
+    width: 100%;
+}
+.drawer-menu-buttons .item {
+    width: 50%;
+    text-align: center;
+    color: #97cbec;
+    float: left;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.drawer-menu-buttons .item-only {
+    width: 100%;
+}
+.drawer-menu-buttons .item-container {
+    position: relative;
+    overflow: visible;
+    padding: 7px 0;
+}
+.drawer-menu-buttons .item .title {
+    padding: 7px 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 90%;
+}
+.drawer-menu-buttons .item-first .title {
+    border-right: 1px solid #5fa8d4;
+}
+.drawer-menu-buttons .item-only .title {
+    border-right: 0;
+}
+.drawer-menu-buttons .item-selected {
+    color: #fff;
+    cursor: default;
+}
+.drawer-menu-buttons .arrow {
+    display: none;
+}
+.drawer-menu-buttons .item-selected .arrow {
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    z-index: 2;
+    height: 9px;
+    width: 100%;
+    background: url(../images/selected-arrow.png) no-repeat center bottom;
+}
+.drawer-menu-buttons .item-only .arrow {
+    display: none;
 }
 
-.toggle-grey-on {
-	color:#007ac2;
-}
-
-.toggle-grey-on:hover,.toggle-grey-on:active {
-	color:#333;
-}
-
-#title {
-	float:left;
-}
-
-.icon-right {
-	float:right;
-	cursor:pointer;
-	height:22px;
-	font-size:18px;
-	padding:6px;
-	line-height:22px;
-	margin:0;
-}
+/* Renderer Menu */
 
 .menuList {
-	list-style:none;
-	padding:0;
-	text-align:left;
-	margin:0;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
 }
-
-#twitter_auth_status{
-    display: inline-block;
-    margin: 10px;
+#renderer_menu li {
+    line-height: 16px;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #e0e0e0;
+    background: #fff;
 }
-
-#twitter_auth_status a{
+#renderer_menu li .item-container {
+    border-left-style: solid;
+    border-left-width: 16px;
+    padding: 13px 9px;
+    margin: 0 0 0 1px;
+    background-color: #f8f8f8;
+    background-image: none;
+    color: #555;
     cursor: pointer;
-    text-decoration: underline;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 245px;
+    background-position: 95% center;
+    background-repeat: no-repeat;
+}
+#renderer_menu .summarize .item-container {
+    border-left-color: #007ac2;
+}
+#renderer_menu .selected .item-container,
+#renderer_menu .selected .item-container:hover,
+#renderer_menu .selected .itemgeoData-container:active {
+    cursor: default;
+    color: #007ac2;
+    font-weight: 700;
+    background-color: #fff;
+}
+#renderer_menu .loadingFeatures .item-container {
+    background-image: url(../images/ajax-loader.gif);
 }
 
-#twitter_auth_status a:hover{
-    text-decoration: none;
-}
+/* Stats Block */
 
-.icon-cog{
-    float: right;
-    padding: 10px;
+.geoData {
+    display: none;
+    position: absolute;
+    z-index: 40;
+    bottom: 40px;
+    width:100%;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    text-align: center;
+}
+.geodata-container {
+    position:relative;
+    z-index:1;
+}
+.geoData .panel {
+    text-align: center;
+    display: block;
+    float: left;
+    color: #fff;
+}
+.geoData .panel-parent{
+    cursor: pointer;
+}
+.geoData .panel-expanded {
+    text-align: center;
+    color: #777;
+    padding: 0;
+    position: absolute;
+    bottom: 28px;
+    width:522px;
+    left:50%;
+    margin-left:-263px;
+    height: 0;
+    overflow:hidden;
+    transition: height .25s;
+    transition-property: height;
+    transition-duration: .25s;
+    -webkit-transition-property: height;
+    -webkit-transition-duration: .25s;
+}
+.geoData .animateSlider {
+    height:127px;
+    border: 1px solid #777;
+    border-top: none;
+    border-bottom: 3px solid;
+}
+.geoData .panel-expanded .dataSourceUrl {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 2;
+    font-size: 16px;
+    line-height: 16px;
+    padding:0;
     margin:0;
+}
+.geoData .panel-expanded .dataSourceUrl a{
+    text-decoration:none;
+}
+.panel-expanded-container .theme_1 {
+    border-bottom-color: #da4d1e;
+    border-bottom-color: rgba(218, 77, 30, 0.80);
+}
+.panel-expanded-container .theme_2 {
+    border-bottom-color: #004575;
+    border-bottom-color: rgba(0, 69, 117, 0.80);
+}
+.panel-expanded-container .theme_3 {
+    border-bottom-color: #35ac46;
+    border-bottom-color: rgba(42, 116, 51, 0.80);
+}
+.panel-expanded-container .theme_4 {
+    border-bottom-color: #6b1978;
+    border-bottom-color: rgba(107, 25, 120, 0.80);
+}
+.geoData .count {
+    margin: 0;
+    text-align: left;
+    font-weight: 300;
+}
+.geoData .panel .count {
+    font-size: 34px;
+    padding: 15px 20px;
+    text-align: center;
+}
+.geoDataExpanded .panel .count {
+    display: none;
+}
+.divGeoDataHolder .count {
+    font-size: 32px;
+    margin-top: 0;
+    display: block;
+}
+.geoData .geoPanel .panel .title {
+    margin: 0;
+    padding: 3px 22px;
+    font-size: 14px;
+}
+
+.geoData .geoPanel .theme_1 .count {
+    background-color: #f36f20;
+    background-color: rgba(243, 111, 32, 0.80);
+}
+.geoData .geoPanel .theme_1 .title,
+.theme_1 .bgColor {
+    background-color: #da4d1e;
+    background-color: rgba(218, 77, 30, 0.80);
+}
+.geoData .geoPanel .panel-parent .theme_1:hover .count {
+    background-color: #f36f20;
+    background-color: rgba(243, 111, 32, 0.70);
+}
+.geoData .geoPanel .panel-parent .theme_1:hover .title {
+    background-color: #da4d1e;
+    background-color: rgba(218, 77, 30, 0.70);
+}
+.geoData .geoPanel .theme_2 .count {
+    background-color: #007ac2;
+    background-color: rgba(0, 122, 194, 0.80);
+}
+.geoData .geoPanel .theme_2 .title,
+.theme_2 .bgColor {
+    background-color: #004575;
+    background-color: rgba(0, 69, 117, 0.80);
+}
+.geoData .geoPanel .panel-parent .theme_2:hover .count {
+    background-color: #007ac2;
+    background-color: rgba(0, 122, 194, 0.70);
+}
+.geoData .geoPanel .panel-parent .theme_2:hover .title {
+    background-color: #004575;
+    background-color: rgba(0, 69, 117, 0.70);
+}
+.geoData .geoPanel .theme_3 .count {
+    background-color: #35ac46;
+    background-color: rgba(53, 172, 70, 0.80);
+}
+.geoData .geoPanel .theme_3 .title,
+.theme_3 .bgColor {
+    background-color: #2a7433;
+    background-color: rgba(42, 116, 51, 0.80);
+}
+.geoData .geoPanel .panel-parent .theme_3:hover .count {
+    background-color: #35ac46;
+    background-color: rgba(53, 172, 70, 0.70);
+}
+.geoData .geoPanel .panel-parent .theme_3:hover .title {
+    background-color: #2a7433;
+    background-color: rgba(42, 116, 51, 0.70);
+}
+.geoData .geoPanel .theme_4 .count {
+    background-color: #8f499c;
+    background-color: rgba(143, 73, 156, 0.80);
+}
+.geoData .geoPanel .theme_4 .title,
+.theme_4 .bgColor {
+    background-color: #6b1978;
+    background-color: rgba(107, 25, 120, 0.80);
+}
+.geoData .geoPanel .panel-parent .theme_4:hover .count {
+    background-color: #8f499c;
+    background-color: rgba(143, 73, 156, 0.70);
+}
+.geoData .geoPanel .panel-parent .theme_4:hover .title {
+    background-color: #6b1978;
+    background-color: rgba(107, 25, 120, 0.70);
+}
+.geoPanel {
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 50%;
+    margin-left: -265px;
+}
+.divHeader {
+    height: 26px;
+    line-height: 25px;
+    width: 100%;
+    border-bottom: 1px solid #777;
+    display: none;
+}
+.animateSlider .divHeader {
+    display: block;
+}
+.divHeaderTitle {
+    color: #fff;
+    float: left;
+    height: 25px;
+    padding: 0 5px;
+    border: 1px solid #777;
+    border-bottom: none;
+    border-left: none;
+    border-collapse: collapse;
+    overflow: hidden;
+    font-weight: 700;
+}
+.divHeaderTitle .hTitle {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 12px;
+    margin-right: 5px;
+}
+.divHeaderTitle .hNumber {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 14px;
+}
+.divHeaderClose {
+    float: right;
+    height: 25px;
+    border: 1px solid #777;
+    border-bottom: 1px solid #fff;
+    border-right: none;
+    border-collapse: collapse;
+    padding: 0 5px;
+    font-size: 20px;
+    background-color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+}
+.divGeoDataHolder .title {
+    padding: 2px 0;
+    font-size: 13px;
+    width: 100px;
+    height: 30px;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+.divOuterSliderContainer {
+    background-color: #fff;
+    width: 100%;
+    height:100px;
+    overflow: hidden;
+    display: none;
+    position: relative;
+}
+.animateSlider .divOuterSliderContainer {
+    display: block;
+}
+.geoData .leftArrow,
+.geoData .rightArrow {
+    font-size: 40px;
+    cursor: pointer;
+    color: #dddcdc;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+}
+.leftArrow:hover,
+.rightArrow:hover {
+    color: #555;
+}
+.leftArrow:active,
+.rightArrow:active {
+    color: #007ac2;
+}
+#geoData .disableArrow {
+    display: none;
+    cursor: default;
+}
+.slidePanel {
+    transition-property: left;
+    transition-duration: .2s;
+    transition-timing-function: ease;
+    transition-delay: 0;
+    -webkit-transition-property: left;
+    -webkit-transition-duration: .2s;
+    -webkit-transition-timing-function: linear;
+    -webkit-transition-delay: 0;
+}
+.divGeoDataHolder {
+    display: inline-block;
+    margin-top: 12px;
+    margin-bottom:12px;
+    overflow: hidden;
+}
+.topMenuRight {
+    position: relative;
+    top: 0;
+    left: 0;
+    float: right;
+}
+.divPaginationContainer{
+    width:100%;
+    position:absolute;
+    z-index:2;
+    line-height:8px;
+    bottom:3px;
+}
+.divPagination {
+    text-align: center;
+    height: 8px;
+    line-height: 8px;
+    display: inline-block;
+    overflow: hidden;
+}
+.paginationDot {
+    display: block;
+    float:left;
+    width: 8px;
+    height: 8px;
+    background-color: #777;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    margin: 0 3px;
     cursor: pointer;
 }
+.divGeoDataHolder .data-block {
+    float: left;
+    height: 76px;
+    width: 150px;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+}
+.divGeoDataHolder .data-block-last {
+    border-right: 0;
+}
+.divLeft {
+    float: left;
+}
+.divRight {
+    float: right;
+}
+.divSliderContent {
+    width: 450px;
+    overflow: hidden;
+    float: left;
+    position: relative;
+}
+.divLeft,
+.divRight {
+    width: 36px;
+    height: 100px;
+    overflow: hidden;
+}
+.carousel {
+    overflow: hidden;
+    position: relative;
+    height:100px;
+}
+.divGeoDataHolder .count,
+.divGeoDataHolder .title {
+    display: block;
+    text-align: left;
+    margin-left: 40px;
+}
+
+/* Misc */
 
 .clear {
-	clear:both;
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+/* Loading */
+
+.loadingIndicatorDiv {
+    height: 100%;
+    width: 100%;
+    display: block;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background: #eee;
+    background-position: center center;
+    background-image: url(../images/ajax-loader.gif);
+    background-repeat: no-repeat;
 }

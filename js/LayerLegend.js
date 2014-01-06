@@ -5,7 +5,6 @@ define([
     "dojo/has",
     "esri/kernel",
     "dijit/_WidgetBase",
-    "dijit/a11yclick",
     "dijit/_TemplatedMixin",
     "dojo/on",
     "dojo/query",
@@ -24,7 +23,7 @@ function (
     declare,
     lang,
     has, esriNS,
-    _WidgetBase, a11yclick, _TemplatedMixin,
+    _WidgetBase, _TemplatedMixin,
     on,
     query,
     dijitTemplate, i18n,
@@ -69,7 +68,7 @@ function (
             this.watch("map", this.refresh);
             this.watch("zoomTo", this.refresh);
             // classes
-            this._css = {
+            this.css = {
                 container: "LL_Container",
                 layer: "LL_Layer",
                 firstLayer: "LL_FirstLayer",
@@ -136,9 +135,9 @@ function (
                 // we want accordion affect
                 if (this.get("accordion")) {
                     // remove all expanded 
-                    var nodes = query('.' + this._css.expanded, this._layersNode);
+                    var nodes = query('.' + this.css.expanded, this._layersNode);
                     for (var i = 0; i < nodes.length; i++) {
-                        domClass.remove(nodes[i], this._css.expanded);
+                        domClass.remove(nodes[i], this.css.expanded);
                     }
                     this._expanded = [];
                 }
@@ -148,7 +147,7 @@ function (
                     this._expanded.push(index);
                 }
                 // add expanded class
-                domClass.add(this._nodes[index].layer, this._css.expanded);
+                domClass.add(this._nodes[index].layer, this.css.expanded);
                 // event
                 this.emit("expand", {
                     index: index
@@ -163,7 +162,7 @@ function (
                     this._expanded.splice(position, 1);
                 }
                 // remove expanded class
-                domClass.remove(this._nodes[index].layer, this._css.expanded);
+                domClass.remove(this._nodes[index].layer, this.css.expanded);
                 // event
                 this.emit("collapse", {
                     index: index
@@ -172,7 +171,7 @@ function (
         },
         toggle: function(index){
             if(typeof index !== 'undefined'){
-                var expand = !domClass.contains(this._nodes[index].layer, this._css.expanded);
+                var expand = !domClass.contains(this._nodes[index].layer, this.css.expanded);
                 // exp/col
                 if(expand){
                     this.expand(index);
@@ -207,8 +206,8 @@ function (
                     var layer = layers[i];
                     var layerInfos;
                     var sublayers;
-                    var titleCheckBoxClass = this._css.titleCheckbox;
-                    var layerClass = this._css.layer;
+                    var titleCheckBoxClass = this.css.titleCheckbox;
+                    var layerClass = this.css.layer;
                     var sublayerNodes = [];
                     if (layer.layerObject) {
                         layerInfos = layer.layerObject.layerInfos;
@@ -218,19 +217,19 @@ function (
                     }
                     if (i === (layers.length - 1)) {
                         layerClass += ' ';
-                        layerClass += this._css.firstLayer;
+                        layerClass += this.css.firstLayer;
                     }
                     // set expanded list item
                     var position = array.indexOf(this._expanded, i);
                     if(position !== -1){
                         layerClass += ' ';
-                        layerClass += this._css.expanded;
+                        layerClass += this.css.expanded;
                     }
                     if (layer.visibility) {
                         layerClass += ' ';
-                        layerClass += this._css.visible;
+                        layerClass += this.css.visible;
                         titleCheckBoxClass += ' ';
-                        titleCheckBoxClass += this._css.checkboxCheck;
+                        titleCheckBoxClass += this.css.checkboxCheck;
                     }
                     // layer node
                     var layerDiv = domConstruct.create("div", {
@@ -239,12 +238,12 @@ function (
                     domConstruct.place(layerDiv, this._layersNode, "first");
                     // title of layer
                     var titleDiv = domConstruct.create("div", {
-                        className: this._css.title,
+                        className: this.css.title
                     });
                     domConstruct.place(titleDiv, layerDiv, "last");
                     // title container
                     var titleContainerDiv = domConstruct.create("div", {
-                        className: this._css.titleContainer,
+                        className: this.css.titleContainer
                     });
                     domConstruct.place(titleContainerDiv, titleDiv, "last");
                     // Title checkbox
@@ -254,19 +253,19 @@ function (
                     domConstruct.place(titleCheckbox, titleContainerDiv, "last");
                     // Title text
                     var titleText = domConstruct.create("span", {
-                        className: this._css.titleText,
+                        className: this.css.titleText,
                         title: layer.title,
                         innerHTML: layer.title
                     });
                     domConstruct.place(titleText, titleContainerDiv, "last");
                     // content of layer
                     var contentDiv = domConstruct.create("div", {
-                        className: this._css.content
+                        className: this.css.content
                     });
                     domConstruct.place(contentDiv, layerDiv, "last");
                     // legend
                     var legendDiv = domConstruct.create("div", {
-                        className: this._css.legend
+                        className: this.css.legend
                     });
                     domConstruct.place(legendDiv, contentDiv, "first");
                     // custom content
@@ -276,7 +275,7 @@ function (
                     // if sublayer and not a tile service
                     if (sublayers && sublayers.length && !layer.layerObject.tileInfo) {
                         var sublayerContainerDiv = domConstruct.create("div", {
-                            className: this._css.sublayerContainer
+                            className: this.css.sublayerContainer
                         });
                         domConstruct.place(sublayerContainerDiv, contentDiv, "first");
                         for (var j = 0; j < sublayers.length; j++) {
@@ -284,22 +283,22 @@ function (
                             var sublayerchecked = '';
                             var sublayerVisible = '';
                             if (sublayer.defaultVisibility) {
-                                sublayerchecked = this._css.checkboxCheck;
-                                sublayerVisible = this._css.sublayerVisible;
+                                sublayerchecked = this.css.checkboxCheck;
+                                sublayerVisible = this.css.sublayerVisible;
                             }
                             // sublayer
                             var sublayerDiv = domConstruct.create("div", {
-                                className: this._css.sublayer + ' ' + sublayerVisible
+                                className: this.css.sublayer + ' ' + sublayerVisible
                             });
                             domConstruct.place(sublayerDiv, sublayerContainerDiv, "last");
                             // sublayer checkbox
                             var sublayerCheckboxDiv = domConstruct.create("span", {
-                                className: this._css.sublayerCheckbox + ' ' + sublayerchecked
+                                className: this.css.sublayerCheckbox + ' ' + sublayerchecked
                             });
                             domConstruct.place(sublayerCheckboxDiv, sublayerDiv, "last");
                             // sublayer text
                             var sublayerTextDiv = domConstruct.create("span", {
-                                className: this._css.sublayerText,
+                                className: this.css.sublayerText,
                                 title: sublayer.name,
                                 innerHTML: sublayer.name
                             });
@@ -316,7 +315,7 @@ function (
                     if(this.get("zoomTo") && layer.layerObject && layer.layerObject.fullExtent){
                         // legend
                         fullExtentDiv = domConstruct.create("div", {
-                            className: this._css.zoomTo,
+                            className: this.css.zoomTo,
                             innerHTML: this._i18n.LayerLegend.zoomTo
                         });
                         domConstruct.place(fullExtentDiv, contentDiv, "first");
@@ -418,13 +417,13 @@ function (
         },
         _toggleVisibleSublayer: function(layerIndex, sublayerIndex, visible) {
             // update checkbox and layer visibility classes
-            domClass.toggle(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerDiv, this._css.sublayerVisible, visible);
-            domClass.toggle(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerCheckboxDiv, this._css.checkboxCheck, visible);
+            domClass.toggle(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerDiv, this.css.sublayerVisible, visible);
+            domClass.toggle(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerCheckboxDiv, this.css.checkboxCheck, visible);
         },
         _toggleVisible: function(index, visible) {
             // update checkbox and layer visibility classes
-            domClass.toggle(this._nodes[index].layer, this._css.visible, visible);
-            domClass.toggle(this._nodes[index].checkbox, this._css.checkboxCheck, visible);
+            domClass.toggle(this._nodes[index].layer, this.css.visible, visible);
+            domClass.toggle(this._nodes[index].checkbox, this.css.checkboxCheck, visible);
         },
         _layerEvent: function(layer, index) {
             // layer visibility changes

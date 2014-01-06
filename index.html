@@ -1,133 +1,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Local Impact Map</title>
+    <title>Public Information Map</title>
     <meta charset="utf-8">
     <!--Define the versions of IE that will be used to render the page. See Microsoft documentation for details. Optional.-->
-    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
-	<!--Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol-->
-    <link rel="stylesheet" href="//js.arcgis.com/3.7/js/dojo/dijit/themes/claro/claro.css">
-	<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css">
-	<!--Load any application specific styles-->
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/LayerLegend.css">
-	<link rel="stylesheet" href="css/fontello.css">
-	<link rel="stylesheet" href="css/HomeButton.css">
-	<link rel="stylesheet" href="css/LocateButton.css">
-	<link rel="stylesheet" href="css/BasemapToggle.css">
-	<link rel="stylesheet" href="css/SimpleSlider.css">
-	<link rel="stylesheet" href="css/popup.css">
-	<link rel="stylesheet" href="css/FlickrLayer.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- End Mobile -->
+    <!-- SEO -->
+    <meta name="Keywords" content="Public Information Map, Map, Esri">
+    <meta name="Description" content="This map highlights information for the public.">
+    <!-- End SEO -->
+    <!-- Facebook -->
+    <meta property="og:image" content="images/item.png" />
+    <meta property="og:site_name" content="esri" />
+    <!-- End Facebook -->
+    <!--Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol-->
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.8/js/esri/css/esri.css">
+    <!--Load any application specific styles-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/LayerLegend.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/HomeButton.css">
+    <link rel="stylesheet" href="css/LocateButton.css">
+    <link rel="stylesheet" href="css/SimpleSlider.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/dijit.css">
+    <link rel="stylesheet" href="css/dialogs.css">
+    <link href="css/geocoder.css" rel="stylesheet" type="text/css" />
+    <link href="css/ShareDialog.css" rel="stylesheet" type="text/css" />
+    <link href="css/AboutDialog.css" rel="stylesheet" type="text/css" />
+    <link href="css/mediaQuery.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/FlickrLayer.css">
 	<link rel="stylesheet" href="css/TwitterLayer.css">
 	<link rel="stylesheet" href="css/WebcamsLayer.css">
 	<link rel="stylesheet" href="css/InstagramLayer.css">
-	<!--[if IE 7]><link rel="stylesheet" href="css/fontello-ie7.css"><![endif]-->
-	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <!--[if IE 7]><link rel="stylesheet" href="css/fontello-ie7.css"><![endif]-->
+    <!--[if lt IE 11]><link rel="stylesheet" href="css/no-shadow.css"><![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 </head>
-<body class="claro">
-   <!--The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. --> 
+<body class="claro calcite">
+    <!--The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. -->
+    <div id="loadingIndicatorDiv" class="loadingIndicatorDiv"></div>
     <div id="bc_outer">
         <div id="cp_outer_left">
-            <div class="drawer-box-shadow"></div>
-            <div id="drawer_menu">
-                <div class="item item-first item-selected" data-menu="legend_panel">
-                    <div class="item-container">
-                        <div id="legend_name" class="title"></div>
-                        <div class="arrow"></div>
-                    </div>
+            <div id="drawer_menus"></div>
+        </div>
+        <div id="cp_outer_center">
+            <div id="geoData"></div>
+            <div class="topBar">
+                <div id="hamburger_button" class="toggle-grey toggle-grey-on">
+                    <div class="icon-menu-1"></div>
                 </div>
-                <div class="item" data-menu="features_panel">
-                    <div class="item-container">
-                        <div id="impact_name" class="title"></div>
-                        <div class="arrow"></div>
+                <div id="title"></div>
+                <div class="topMenuRight">
+                    <div id="AboutDialog"></div>
+                    <div id="ShareDialog"></div>
+                    <div class="locateBox">
+                        <div id="geocoderSearch"></div>
+                    </div>
+                    <div id="mobileGeocoderIcon" class="icon-right">
+                        <div id="mobileGeocoderIconContainer" class="buttonContainer toggle-grey  icon-search-1"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
-            <div id="drawer_panels">
-                <div class="panel panel-selected" id="legend_panel">
-                    <div id="LayerLegend"></div>
-                </div>
-                <div class="panel" id="features_panel">
-                    
-                </div>
-            </div>
-        </div>
-        <div id="cp_outer_center">
-            <div id="bc_inner">
-                <div id="cp_inner_top">
-                    <div class="topBar">
-                        <div id="hamburger_button" class="toggle-grey toggle-grey-on">
-                            <div class="icon-menu-1"></div>
-                        </div>
-                        <div id="title"></div>
-                        <div id="AboutDialog"></div>
-                        <div id="ShareDialog"></div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-                <div id="cp_inner_center">
-                    <div id="mapDiv" dir="ltr">
-                        <div id="mapButtons">
-                            <div id="LocateButton"></div>
-                            <div id="HomeButton"></div>
-                        </div>
-                        <div id="BasemapToggle"></div>
-                    </div>  
+            <div id="mobileSearch" class="mobileLocateBoxHidden">
+                <div class="mobileSearchContainer">
+                    <div id="geocoderMobile"></div>
+                    <div id="btnCloseGeocoder">Cancel</div>
+                    <div class="clear"></div>
                 </div>
             </div>
+            <div id="mapButtons">
+                <div id="LocateButton"></div>
+                <div id="HomeButton"></div>
+            </div>
+            <div id="BasemapToggle"></div>
+            <div id="mapDiv" dir="ltr"></div>
         </div>
     </div>
     <script type="text/javascript">
-    var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-    var dojoConfig = {
-    	//The location.pathname.replace() logic below may look confusing but all its doing is 
-    	// enabling us to load the api from a CDN and load local modules from the correct location.
-        packages:[
-        { 
-            name: "application",
-            location: package_path + '/js' 
-         },
-         { 
-            name: "modules",
-            location: package_path + '/js' 
-         },
-         { 
-            name: "views",
-            location: package_path + '/views' 
-         },{
-            name: "config",
-            location: package_path + '/config'                     
-         }
-        ]
-    };
+        var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        var dojoConfig = {
+            //The location.pathname.replace() logic below may look confusing but all its doing is
+            // enabling us to load the api from a CDN and load local modules from the correct location.
+            packages: [{
+                name: "application",
+                location: package_path + '/js'
+            }, {
+                name: "modules",
+                location: package_path + '/js'
+            }, {
+                name: "views",
+                location: package_path + '/views'
+            }, {
+                name: "config",
+                location: package_path + '/config'
+            }]
+        };
     </script>
-    <script type="text/javascript" src="//js.arcgis.com/3.7/"></script>
+    <script type="text/javascript" src="//js.arcgis.com/3.8/init.js"></script>
     <script type="text/javascript">
-    	require([
+        require([
             "dojo/on",
-    		"application/main",
-    		"application/template",
-    		"dojo/domReady!"
-    	], function(
+            "application/main",
+            "application/template",
+            "dojo/domReady!"
+        ], function(
             on,
-    		Main,
-    		Template
-    	){
-            //create the template. This will take care of all the logic required for template applciations 
-            //If you need localization set the supportsLocalization value to true to get the localized strings 
-            //from the javascript/nls/resource files. 
+            Main,
+            Template
+        ) {
+            //create the template. This will take care of all the logic required for template applciations
+            //If you need localization set the supportsLocalization value to true to get the localized strings
+            //from the javascript/nls/resource files.
             //Note that we've included a placeholder nls folder and a resource file with one error string
-            //to show how to setup the strings file. 
+            //to show how to setup the strings file.
             var supportsLocalization = true; //defaults to false
             var myTemplate = new Template(supportsLocalization);
-            on(myTemplate, "ready", function(config){
-                //The config object contains the following properties: helper services, (optionally) 
-                //i18n, appid, webmap and any custom values defined by the applcation. 
-                //In this example we have one called theme. 
+            on(myTemplate, "ready", function(config) {
+                //The config object contains the following properties: helper services, (optionally)
+                //i18n, appid, webmap and any custom values defined by the applcation.
+                //In this example we have one called theme.
                 Main(config);
             });
-    	});
-    </script> 	
+        });
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-215788-4']);
+         //_gaq.push(['_setDomainName', 'esri.com']);
+        _gaq.push(['_trackPageview']);
+        _gaq.push(['_trackPageLoadTime']);
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!--[if lt IE 9]><script type="text/javascript" src="js/respond.min.js"></script><![endif]-->
 </body>
 </html>

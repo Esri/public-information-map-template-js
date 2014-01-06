@@ -1,0 +1,72 @@
+.calcite .dijitDialog{
+    max-width: 550px;
+}
+
+.calcite .dijitDialog,.calcite .dijitDialogTitle {
+	color:#777;
+}
+
+.calcite .dijitDialog {
+	box-shadow:-2px 2px 20px #333F47;
+	-webkit-text-size-adjust:none;
+}
+
+.calcite .dijitDialogTitleBar {
+	border:0;
+	border-bottom:1px solid #eee;
+	background:#fff;
+	padding:10px 20px;
+	margin:0;
+}
+
+.calcite .dijitDialogCloseIcon {
+	font-size:24px;
+	line-height:24px;
+	background-image:none;
+	border:0;
+	height:auto;
+	width:auto;
+	top:0;
+	right:0;
+	padding:10px 20px;
+	margin:0;
+	z-index:20;
+	position:absolute;
+    color:#999;
+}
+
+.calcite .dijitDialogCloseIcon:hover{
+    color:#555;
+}
+
+.calcite .dijitDialogCloseIcon:active{
+    color:#007ac2;
+}
+
+.calcite .dijitDialogPaneContent {
+	max-height:550px;
+	max-width:530px;
+	overflow:auto;
+	border:none;
+	padding:20px;
+	margin:0;
+	background:#fff;
+    word-wrap:break-word;
+}
+
+.calcite .dialogContent{
+    width:510px;
+    height:400px;
+}
+
+.calcite .dijitDialogTitle {
+	font-size:24px;
+	line-height:24px;
+	margin:0;
+	padding:0;
+}
+
+.calcite .dijitDialogUnderlayWrapper,.calcite .dijitDialogUnderlay {
+	background-color:#000;
+	opacity:.4;
+}

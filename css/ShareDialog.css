@@ -1,0 +1,57 @@
+.calcite .iconContainer {
+    margin: 10px 0 20px;
+}
+.calcite .mapSizeLabel {
+    float: left;
+    font-size: 15px;
+    margin: 0 5px 0 0;
+}
+.calcite .shareDialogIconClass {
+    font-size: 32px;
+    line-height: 32px;
+    float: left;
+    color: #007ac2;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+}
+.calcite .shareDialogIconClass:hover {
+    color: #97cbec;
+}
+.calcite .shareDialogIconClass:active {
+    color: #555;
+}
+.calcite .shareMapURL {
+    width: 50%;
+    min-width: 30%;
+    max-width: 90%;
+    height: 25px;
+    font-size: 14px;
+    color: #777;
+    border: 1px solid #dcdcdc;
+    margin: 0 0 20px;
+}
+.calcite .mapSizeContainer {
+    margin: 0;
+    padding: 0 0 20px;
+}
+.calcite .embedMapSizeClear,
+.calcite .iconClear {
+    clear: both;
+}
+.calcite .embedMapSizeDropDown {
+    float: left;
+}
+.calcite .shareDialogSubHeader {
+    font-size: 19px;
+    margin: 0 0 5px;
+}
+.calcite .shareDialogTextarea {
+    width: auto;
+    max-width: 90%;
+    width: 75%;
+    height: 75px;
+    font-size: 14px;
+    color: #777;
+    border: 1px solid #dcdcdc;
+    margin: 0 0 20px;
+}
