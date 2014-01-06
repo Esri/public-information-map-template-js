@@ -1,10 +1,10 @@
-# local-impact-map-template-js
+# public-information-map-template-js
 
-This interactive map highlights who and what has been impacted by this incident and shows the effects of the disaster, its location, and the potential impact it has caused to the infrastructure, businesses, population, and households in and around area of the disaster. The data presented in the boxes, at the bottom of the map, are powered by Esri Geoenrichment, HAZUS Critical Infrastructure Data, and Esri Demographic and Business data. Enriching layers enables you to answer new questions about locations that you cannot answer with maps alone. For example: How old are the people that live here? Who rents versus owns their home? What infrastructure is located in this area? What kind of businesses are there in this area? This map is produced as part of the Esri Disaster Response Program http://www.esri.com/disaster
+...
 
-[View it live](http://driskull.github.io/local-impact-map-template-js/)
+[View it live](http://driskull.github.io/public-information-map-template-js/)
 
-![App](https://raw.github.com/driskull/local-impact-map-template-js/master/resources/item.png)
+![App](https://raw.github.com/driskull/public-information-map-template-js/master/resources/item.png)
 
 ## Features
 TBD
@@ -53,7 +53,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/local-impact-map-template-js/master/license.txt) file.
+A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/public-information-map-template-js/master/license.txt) file.
 
 [](Esri Tags: ArcGIS ArcGIS Online Web Application Local Impact Map template Public)
 [](Esri Language: JavaScript)
