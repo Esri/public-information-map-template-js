@@ -30,6 +30,34 @@ input[type=text]::-ms-clear {
 .esriRtl label {
     /*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
 }
+/* General Misc */
+.toggle-grey {
+    color: #999;
+}
+.toggle-grey:hover,
+.toggle-grey:active {
+    color: #333;
+}
+.toggle-grey-on {
+    color: #007ac2;
+}
+.toggle-grey-on:hover,
+.toggle-grey-on:active {
+    color: #97cbec;
+}
+.buttonContainer {
+    padding: 6px;
+    line-height: 22px;
+    font-size: 18px;
+}
+.icon-right {
+    float: right;
+    cursor: pointer;
+    height: 34px;
+    padding: 0;
+    margin: 0;
+}
+/* Drawer */
 .topBar {
     position: absolute;
     z-index: 36;
@@ -51,44 +79,8 @@ input[type=text]::-ms-clear {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-}
-.toggle-grey {
-    color: #999;
-}
-.toggle-grey:hover,
-.toggle-grey:active {
-    color: #333;
-}
-.toggle-grey-on {
-    color: #007ac2;
-}
-.toggle-grey-on:hover,
-.toggle-grey-on:active {
-    color: #97cbec;
-}
-#title {
     float: left;
 }
-.buttonContainer {
-    padding: 6px;
-    line-height: 22px;
-    font-size: 18px;
-}
-.icon-right {
-    float: right;
-    cursor: pointer;
-    height: 34px;
-    padding: 0;
-    margin: 0;
-}
-.area-description{
-    color:#666;
-    padding:10px;
-    line-height:24px;
-}
-
-/* Drawer */
-
 #hamburger_button {
     float: left;
     padding: 0;
