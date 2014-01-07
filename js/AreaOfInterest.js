@@ -19,30 +19,21 @@ define([
         Extent
     ) {
         return declare("", null, {
-            constructor: function (settings) {
-                // mix in settings            
-                lang.mixin(this, settings);
-                
-            },
-            init: function () {
+
+            initArea: function () {
                 this._placeBookmarks();
                 this._placeNotes();
             },
             _placeNotes: function(){
-                
                 this._notesLayers = this._getNotesLayers({
                     map: this.map,
                     layers: this.layers,
                     title: this.config.notes_layer_title,
                     id: this.config.notes_layer_id
                 });
-                
-                console.log(this._notesLayers);
-                
                 if(this._notesLayers && this._notesLayers.length){
                     this._placeNoteItems();
                 }
-
             },
             _placeNoteItems: function(){
                 this.noteNodes = [];

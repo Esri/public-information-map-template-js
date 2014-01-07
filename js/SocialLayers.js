@@ -35,9 +35,7 @@ define([
         esriRequest
     ) {
         return declare("", null, {
-            constructor: function (settings) {
-                // mix in settings            
-                lang.mixin(this, settings);
+            initSocial: function () {
                 // Twitter
                 this._twitterLayer = new TwitterLayer({
                     map: this.map,
@@ -112,8 +110,9 @@ define([
                 on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
                     this._featureChange();
                 }));
-            },
-            init: function () {
+                
+                
+                
                 this._twitterStatusNode = dom.byId('twitter_auth_status');
                 if (this._twitterStatusNode) {
                     on(this._twitterStatusNode, 'click', lang.hitch(this, function (evt) {

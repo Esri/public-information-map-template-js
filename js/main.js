@@ -28,7 +28,7 @@ define([
     "esri/dijit/Popup",
     "dojo/window",
     "modules/SocialLayers",
-    "modules/Area"
+    "modules/AreaOfInterest"
 ],
 function(
     declare,
@@ -52,9 +52,9 @@ function(
     Popup,
     win,
     SocialLayers,
-    Area
+    AreaOfInterest
 ) {
-    return declare("", null, {
+    return declare("", [AreaOfInterest, SocialLayers], {
         config: {},
         constructor: function (config) {
             //config will contain application and user defined info for the template such as i18n strings, the web map id
@@ -199,11 +199,9 @@ function(
             this._createGeocoders();
             // hide loading div
             this._hideLoadingIndicator();
-            this._socialLayers.init();
-            this._area = new Area(this);
-            this._area.init();
+            this.initSocial();
+            this.initArea();
         },
-        
         _checkMobileGeocoderVisibility: function () {
             // check if mobile icon needs to be selected
             if (domClass.contains(dom.byId("mobileGeocoderIcon"), this.css.toggleBlueOn)) {
@@ -314,7 +312,6 @@ function(
                 this.layers = response.itemInfo.itemData.operationalLayers;
                 this.item = response.itemInfo.item;
                 this.bookmarks = response.itemInfo.itemData.bookmarks;
-                this._socialLayers = new SocialLayers(this);
                 // if title is enabled
                 if (this.config.showTitle) {
                     this._setTitle(this.config.title || response.itemInfo.item.title);
