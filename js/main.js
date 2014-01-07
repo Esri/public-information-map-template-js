@@ -2,20 +2,12 @@ define([
     "dojo/_base/declare",
     "dojo/_base/lang",
     "esri/arcgis/utils",
-    "esri/graphicsUtils",
     "dojo/dom-construct",
     "dojo/dom",
     "dojo/on",
     "dojo/dom-style",
     "dojo/dom-attr",
-    "esri/tasks/query",
     "dojo/dom-class",
-    "esri/symbols/SimpleFillSymbol",
-    "esri/symbols/SimpleLineSymbol",
-    "dojo/_base/Color",
-    "dojo/_base/event",
-    "esri/graphic",
-    "esri/layers/GraphicsLayer",
     "modules/LayerLegend",
     "modules/AboutDialog",
     "modules/ShareDialog",
@@ -26,33 +18,25 @@ define([
     "esri/dijit/BasemapToggle",
     "esri/dijit/Geocoder",
     "esri/dijit/Popup",
-    "dojo/window",
+    "modules/AreaOfInterest",
     "modules/SocialLayers",
-    "modules/AreaOfInterest"
 ],
 function(
     declare,
     lang,
     arcgisUtils,
-    graphicsUtils,
     domConstruct,
     dom,
     on,
     domStyle,
     domAttr,
-    Query,
     domClass,
-    SimpleFillSymbol, SimpleLineSymbol,
-    Color,
-    event,
-    Graphic, GraphicsLayer,
     LayerLegend, AboutDialog, ShareDialog, Drawer, DrawerMenu,
     HomeButton, LocateButton, BasemapToggle,
     Geocoder,
     Popup,
-    win,
-    SocialLayers,
-    AreaOfInterest
+    AreaOfInterest,
+    SocialLayers
 ) {
     return declare("", [AreaOfInterest, SocialLayers], {
         config: {},
@@ -63,15 +47,14 @@ function(
             this.config = config;
             // css classes
             this.css = {
+                mobileSearchDisplay: "mobileLocateBoxDisplay",
                 toggleBlue: 'toggle-grey',
                 toggleBlueOn: 'toggle-grey-on',
-                mobileSearchDisplay: "mobileLocateBoxDisplay",
                 legendContainer: "legend-container",
                 legendHeader: "legend-header",
                 areaContainer: "area-container",
                 areaHeader: "area-header",
-                areaSection: "area-section",
-                areaItem: 'area-item'
+                areaSection: "area-section"
             };
             // mobile size switch domClass
             this._showDrawerSize = 850;
@@ -97,7 +80,7 @@ function(
             // drawer size check
             this._drawer.resize();
             // menu panels
-            var menus = [];
+            this.drawerMenus = [];
             var content;
             content = '';
             content += '<div class="' + this.css.areaContainer + '">';
@@ -106,7 +89,7 @@ function(
             content += '<div class="' + this.css.areaHeader + '">' + this.config.i18n.area.bookmarks + '</div>';
             content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
             content += '</div>';
-            menus.push({
+            this.drawerMenus.push({
                 label: 'Area',
                 content: content
             });
@@ -119,14 +102,14 @@ function(
                 content += '<div id="SocialLayerLegend"></div>';
                 content += '</div>';
                 // legend menu
-                menus.push({
+                this.drawerMenus.push({
                     label: this.config.i18n.general.legend,
                     content: content
                 });
             }
             // menus
             this._drawerMenu = new DrawerMenu({
-                menus: menus
+                menus: this.drawerMenus
             }, dom.byId("drawer_menus"));
             this._drawerMenu.startup();
             // locate button
@@ -197,10 +180,11 @@ function(
             }
             // geocoders
             this._createGeocoders();
-            // hide loading div
-            this._hideLoadingIndicator();
+            // setup
             this.initSocial();
             this.initArea();
+            // hide loading div
+            this._hideLoadingIndicator();
         },
         _checkMobileGeocoderVisibility: function () {
             // check if mobile icon needs to be selected

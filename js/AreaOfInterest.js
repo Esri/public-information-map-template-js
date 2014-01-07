@@ -1,26 +1,24 @@
 define([
-    "dojo/ready",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "dojo/dom",
     "dojo/dom-construct",
-    "dojo/dom-style",
     "dojo/on",
     "esri/geometry/Extent",
 ],
     function (
-        ready,
         declare,
         lang,
         dom,
         domConstruct,
-        domStyle,
         on,
         Extent
     ) {
         return declare("", null, {
-
             initArea: function () {
+                this.areaCSS = {
+                    areaItem: 'area-item'
+                };
                 this._placeBookmarks();
                 this._placeNotes();
             },
@@ -46,7 +44,7 @@ define([
                         this.noteGeometries.push(geometry);
                         var node = domConstruct.create('div', {
                             innerHTML: attributes.TITLE,
-                            className: this.css.areaItem
+                            className: this.areaCSS.areaItem
                         });
                         this.noteNodes.push(node);
                         this._noteEvent(this.noteNodes.length - 1);
@@ -118,7 +116,7 @@ define([
                     for(var i = 0; i < bookmarks.length; i++){
                         var node = domConstruct.create('div', {
                             innerHTML: bookmarks[i].name,
-                            className: this.css.areaItem
+                            className: this.areaCSS.areaItem
                         });
                         this.bmNodes.push(node);
                         this._bookmarkEvent(i);
