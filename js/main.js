@@ -16,6 +16,7 @@ define([
     "dojo/_base/event",
     "esri/graphic",
     "esri/layers/GraphicsLayer",
+    "esri/geometry/Extent",
     "modules/LayerLegend",
     "modules/AboutDialog",
     "modules/ShareDialog",
@@ -46,6 +47,7 @@ function(
     Color,
     event,
     Graphic, GraphicsLayer,
+    Extent,
     LayerLegend, AboutDialog, ShareDialog, Drawer, DrawerMenu,
     HomeButton, LocateButton, BasemapToggle,
     Geocoder,
@@ -66,7 +68,8 @@ function(
                 toggleBlue: 'toggle-grey',
                 toggleBlueOn: 'toggle-grey-on',
                 mobileSearchDisplay: "mobileLocateBoxDisplay",
-                areaDescription: "area-description"
+                legendContainer: "legend-container",
+                legendHeader: "legend-header"
             };
             // mobile size switch domClass
             this._showDrawerSize = 850;
@@ -99,13 +102,20 @@ function(
             var menus = [];
             menus.push({
                 label: 'Area',
-                content: '<div id="area_menu"></div>'
+                content: '<div><div id="area_bookmarks"></div></div>'
             });
             if (this.config.showLegend) {
+                var content = '';
+                content += '<div class="' + this.css.legendContainer + '">';
+                content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.operational + '</div>';
+                content += '<div id="LayerLegend"></div>';
+                content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.social + '</div>';
+                content += '<div id="SocialLayerLegend"></div>';
+                content += '</div>';
                 // legend menu
                 menus.push({
                     label: this.config.i18n.general.legend,
-                    content: '<div id="LayerLegend"></div>'
+                    content: content
                 });
             }
             // menus
@@ -183,11 +193,33 @@ function(
                     LL.startup();
                 }
             }
+            this._placeBookmarks();
             // geocoders
             this._createGeocoders();
             // hide loading div
             this._hideLoadingIndicator();
             this._socialLayers.init();
+        },
+        _bookmarkEvent: function(idx){
+            on(this.bmNodes[idx], 'click', lang.hitch(this, function(){
+                var extent = new Extent(this.bookmarks[idx].extent);
+                this.map.setExtent(extent);
+            }));
+        },
+        _placeBookmarks: function(){
+            var bookmarks = this.bookmarks;
+            if (bookmarks && bookmarks.length){
+                var bookmarksNode = dom.byId('area_bookmarks');
+                this.bmNodes = [];
+                for(var i = 0; i < bookmarks.length; i++){
+                    var node = domConstruct.create('div', {
+                        innerHTML: bookmarks[i].name
+                    });
+                    this.bmNodes.push(node);
+                    this._bookmarkEvent(i);
+                    domConstruct.place(node, bookmarksNode, 'last');
+                }
+            }
         },
         _checkMobileGeocoderVisibility: function () {
             // check if mobile icon needs to be selected
@@ -306,6 +338,7 @@ function(
                 this.map = response.map;
                 this.layers = response.itemInfo.itemData.operationalLayers;
                 this.item = response.itemInfo.item;
+                this.bookmarks = response.itemInfo.itemData.bookmarks;
                 this._socialLayers = new SocialLayers(this);
                 // if title is enabled
                 if (this.config.showTitle) {

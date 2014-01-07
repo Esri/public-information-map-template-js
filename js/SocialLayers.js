@@ -10,6 +10,7 @@ define([
     "modules/FlickrLayer",
     "modules/WebcamsLayer",
     "modules/InstagramLayer",
+    "modules/LayerLegend",
     "dojo/on",
     "esri/tasks/QueryTask",
     "esri/tasks/query",
@@ -27,6 +28,7 @@ define([
         FlickrLayer,
         WebcamsLayer,
         InstagramLayer,
+        LayerLegend,
         on,
         QueryTask,
         Query,
@@ -43,12 +45,6 @@ define([
                     url: this.config.twitterUrl
                 });
                 this.map.addLayer(this._twitterLayer.featureLayer);
-                this.layers.push({
-                    title: 'Twitter',
-                    visibility: this._twitterLayer.featureLayer.visible,
-                    content: '<a id="twitter_auth_status"></a><div class="clear"><div>',
-                    layerObject: this._twitterLayer.featureLayer
-                });
                 // Flickr
                 this._flickrLayer = new FlickrLayer({
                     map: this.map,
@@ -56,11 +52,7 @@ define([
                     key: this.config.flickr_key
                 });
                 this.map.addLayer(this._flickrLayer.featureLayer);
-                this.layers.push({
-                    title: "Flickr",
-                    visibility: this._flickrLayer.featureLayer.visible,
-                    layerObject: this._flickrLayer.featureLayer
-                });
+                
                 // Webcams
                 this._webcamsLayer = new WebcamsLayer({
                     map: this.map,
@@ -68,11 +60,6 @@ define([
                     key: this.config.webcams_key
                 });
                 this.map.addLayer(this._webcamsLayer.featureLayer);
-                this.layers.push({
-                    title: "Webcams",
-                    visibility: this._webcamsLayer.featureLayer.visible,
-                    layerObject: this._webcamsLayer.featureLayer
-                });
                 // Instagram
                 this._instagramLayer = new InstagramLayer({
                     map: this.map,
@@ -80,11 +67,37 @@ define([
                     key: this.config.instagram_key
                 });
                 this.map.addLayer(this._instagramLayer.featureLayer);
-                this.layers.push({
-                    title: "Instagram",
+                // social layer infos
+                this.socialLayers = [];
+                
+                this.socialLayers.push({
+                    title: this.config.i18n.social.webcams,
+                    visibility: this._webcamsLayer.featureLayer.visible,
+                    layerObject: this._webcamsLayer.featureLayer
+                });
+                this.socialLayers.push({
+                    title: this.config.i18n.social.twitter,
+                    visibility: this._twitterLayer.featureLayer.visible,
+                    content: '<a id="twitter_auth_status"></a><div class="clear"><div>',
+                    layerObject: this._twitterLayer.featureLayer
+                });
+                this.socialLayers.push({
+                    title: this.config.i18n.social.flickr,
+                    visibility: this._flickrLayer.featureLayer.visible,
+                    layerObject: this._flickrLayer.featureLayer
+                });
+                this.socialLayers.push({
+                    title: this.config.i18n.social.instagram,
                     visibility: this._instagramLayer.featureLayer.visible,
                     layerObject: this._instagramLayer.featureLayer
                 });
+                
+                
+                
+                
+                
+                
+                
                 // filtering
                 if (this.config.bannedUsersService && this.config.flagMailServer) {
                     this._createSMFOffensive();
@@ -100,7 +113,6 @@ define([
                     this._featureChange();
                 }));
             },
-
             init: function () {
                 this._twitterStatusNode = dom.byId('twitter_auth_status');
                 if (this._twitterStatusNode) {
@@ -117,11 +129,22 @@ define([
                 }
                 on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
                     if (evt.authorized) {
-                        this._twitterStatusNode.innerHTML = '<a>Switch Account</a>';
+                        this._twitterStatusNode.innerHTML = '<a>' + this.config.i18n.general.switchAccount + '</a>';
                     } else {
-                        this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>Sign in</a>';
+                        this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>' + this.config.i18n.general.signIn + '</a>';
                     }
                 }));
+                
+                var socialLegendNode = dom.byId('SocialLayerLegend');
+                if (socialLegendNode) {
+                    var LL = new LayerLegend({
+                        map: this.map,
+                        layers: this.socialLayers
+                    }, socialLegendNode);
+                    LL.startup();
+                }
+                
+                
             },
             _featureChange: function () {
                 if (this.map && this.map.infoWindow) {

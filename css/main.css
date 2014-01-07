@@ -57,6 +57,15 @@ input[type=text]::-ms-clear {
     padding: 0;
     margin: 0;
 }
+/* Legend header */
+.legend-header{
+    font-size:18px;
+    font-weight:bold;
+    padding:12px 0 12px 15px;
+    line-height:18px;
+    color:#555;
+}
+
 /* Drawer */
 .topBar {
     position: absolute;

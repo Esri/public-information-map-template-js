@@ -9,13 +9,25 @@ define({
             success: "Flagged",
             loading: "Loading&hellip;"
         },
+        layers: {
+            operational: "Operational",
+            social: "Social"
+        },
+        social: {
+            flickr: "Flickr",
+            twitter: "Twitter",
+            webcams: "Webcams",
+            instagram: "Instagram"
+        },
         general: {
             legend: "Legend",
             aoi: "Area",
             summarize: "Entire Area",
             share: "Share",
             about: "About",
-            noSearchResult: "No result found"
+            noSearchResult: "No result found",
+            switchAccount: "Switch account",
+            signIn: "Sign in"
         }
     }),
     "fr": 1
