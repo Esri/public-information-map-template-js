@@ -9,6 +9,10 @@ define({
             success: "Flagged",
             loading: "Loading&hellip;"
         },
+        area:{
+            mapNotes: "Notes",
+            bookmarks: "Bookmarks"
+        },
         layers: {
             operational: "Operational",
             social: "Social"

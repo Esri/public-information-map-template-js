@@ -16,7 +16,6 @@ define([
     "dojo/_base/event",
     "esri/graphic",
     "esri/layers/GraphicsLayer",
-    "esri/geometry/Extent",
     "modules/LayerLegend",
     "modules/AboutDialog",
     "modules/ShareDialog",
@@ -26,10 +25,10 @@ define([
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapToggle",
     "esri/dijit/Geocoder",
-    "modules/StatsBlock",
     "esri/dijit/Popup",
     "dojo/window",
-    "modules/SocialLayers"
+    "modules/SocialLayers",
+    "modules/Area"
 ],
 function(
     declare,
@@ -47,14 +46,13 @@ function(
     Color,
     event,
     Graphic, GraphicsLayer,
-    Extent,
     LayerLegend, AboutDialog, ShareDialog, Drawer, DrawerMenu,
     HomeButton, LocateButton, BasemapToggle,
     Geocoder,
-    StatsBlock,
     Popup,
     win,
-    SocialLayers
+    SocialLayers,
+    Area
 ) {
     return declare("", null, {
         config: {},
@@ -69,7 +67,11 @@ function(
                 toggleBlueOn: 'toggle-grey-on',
                 mobileSearchDisplay: "mobileLocateBoxDisplay",
                 legendContainer: "legend-container",
-                legendHeader: "legend-header"
+                legendHeader: "legend-header",
+                areaContainer: "area-container",
+                areaHeader: "area-header",
+                areaSection: "area-section",
+                areaItem: 'area-item'
             };
             // mobile size switch domClass
             this._showDrawerSize = 850;
@@ -85,10 +87,6 @@ function(
             on(this._drawer, 'resize', lang.hitch(this, function () {
                 // check mobile button status
                 this._checkMobileGeocoderVisibility();
-                // resize stats block
-                if (this._sb) {
-                    this._sb.resize();
-                }
             }));
             // startup drawer
             this._drawer.startup();
@@ -100,12 +98,20 @@ function(
             this._drawer.resize();
             // menu panels
             var menus = [];
+            var content;
+            content = '';
+            content += '<div class="' + this.css.areaContainer + '">';
+            content += '<div class="' + this.css.areaHeader + '">' + this.config.i18n.area.mapNotes + '</div>';
+            content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
+            content += '<div class="' + this.css.areaHeader + '">' + this.config.i18n.area.bookmarks + '</div>';
+            content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
+            content += '</div>';
             menus.push({
                 label: 'Area',
-                content: '<div><div id="area_bookmarks"></div></div>'
+                content: content
             });
             if (this.config.showLegend) {
-                var content = '';
+                content = '';
                 content += '<div class="' + this.css.legendContainer + '">';
                 content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.operational + '</div>';
                 content += '<div id="LayerLegend"></div>';
@@ -123,10 +129,6 @@ function(
                 menus: menus
             }, dom.byId("drawer_menus"));
             this._drawerMenu.startup();
-            // description
-            if (this.config.showAreaDescription) {
-                this._setAreaDescription(this.config.areaDescription || this.item.snippet);
-            }
             // locate button
             if (this.config.showLocateButton) {
                 var LB = new LocateButton({
@@ -193,34 +195,15 @@ function(
                     LL.startup();
                 }
             }
-            this._placeBookmarks();
             // geocoders
             this._createGeocoders();
             // hide loading div
             this._hideLoadingIndicator();
             this._socialLayers.init();
+            this._area = new Area(this);
+            this._area.init();
         },
-        _bookmarkEvent: function(idx){
-            on(this.bmNodes[idx], 'click', lang.hitch(this, function(){
-                var extent = new Extent(this.bookmarks[idx].extent);
-                this.map.setExtent(extent);
-            }));
-        },
-        _placeBookmarks: function(){
-            var bookmarks = this.bookmarks;
-            if (bookmarks && bookmarks.length){
-                var bookmarksNode = dom.byId('area_bookmarks');
-                this.bmNodes = [];
-                for(var i = 0; i < bookmarks.length; i++){
-                    var node = domConstruct.create('div', {
-                        innerHTML: bookmarks[i].name
-                    });
-                    this.bmNodes.push(node);
-                    this._bookmarkEvent(i);
-                    domConstruct.place(node, bookmarksNode, 'last');
-                }
-            }
-        },
+        
         _checkMobileGeocoderVisibility: function () {
             // check if mobile icon needs to be selected
             if (domClass.contains(dom.byId("mobileGeocoderIcon"), this.css.toggleBlueOn)) {
@@ -247,14 +230,6 @@ function(
             }
             // window title
             window.document.title = title;
-        },
-        _setAreaDescription: function (description) {
-            // map title node
-            var node = dom.byId('areaDescription');
-            if (node) {
-                // set title
-                node.innerHTML = description;
-            }
         },
         // create geocoder widgets
         _createGeocoders: function () {

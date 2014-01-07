@@ -3,8 +3,8 @@ define([], function() {
     //default web map, default app color theme and more. These values can be overwritten by template configuration settings
     //and url parameters.
     var defaults = {
-        "appid": "06a85b051a364e20a1fd5d5a89ce3093",
-        "webmap": "",
+        "appid": "",
+        "webmap": "0eab5e8242e24ad0bed216bf50fead2c",
         "oauthappid": null,
         //"AFTKRmv16wj14N3z",
         //Enter the url to the proxy if needed by the applcation. See the "Using the proxy page" help topic for details
@@ -25,6 +25,8 @@ define([], function() {
         "currentBasemap": "topo",
         "bitlyLogin": "esri",
         "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
+        "notes_layer_title":"Map Notes",
+        "notes_layer_id":"",
         "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
         "twitterSigninUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/sign_in.php",
         "flickr_key":"404ebea7d5bc27aa5251d1207620e99b",
