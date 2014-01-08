@@ -156,6 +156,10 @@ define([
                     if(domClass.contains(this.noteNodes[idx].containerNode, this.areaCSS.noteSelected)){
                         // close note
                         domClass.toggle(this.noteNodes[idx].containerNode, this.areaCSS.noteSelected);
+                        // clear selected feature
+                        if(this.map.infoWindow){
+                            this.map.infoWindow.clearFeatures();   
+                        }
                         // dont do any more
                         return;
                     }
