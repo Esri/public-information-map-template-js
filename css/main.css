@@ -70,17 +70,63 @@ input[type=text]::-ms-clear {
 .area-section{
     border-top:1px solid #e0e0e0;
 }
-.area-item{
+.bookmark-item, .note-item{
     color:#555;
     padding:12px 8px;
-    line-height:16px;
+    line-height:18px;
+    height:18px;
     font-size:16px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     cursor:pointer;
-    border-bottom:1px solid #e0e0e0;
     background:#fff;
+}
+
+.bookmark-item{
+    border-bottom:1px solid #e0e0e0;
+}
+
+/* notes */
+.note-container{
+    border-bottom:1px solid #e0e0e0;
+}
+.note-item{
+    border-left:5px solid #ccc;
+}
+
+.note-selected .note-item{
+    border-left: 5px solid #007ac2;
+    color:#007ac2;
+    font-weight:700;
+}
+
+.note-content{
+    background: #f8f8f8;
+    color: #333;
+    position: relative;
+    max-height: 0;
+    _height: 0;
+    overflow: auto;
+    -webkit-transition: max-height .25s ease;
+    -moz-transition: max-height .25s ease;
+    transition: max-height .25s ease;
+    -webkit-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.note-selected .note-content{
+    max-height: 300px;
+    _height: 300px;
+    border-top: 1px solid #d4d4d4;
+}
+
+.note-content .note-padding{
+    padding:10px 10px 10px 15px;
+}
+
+.note-image{
+    max-width:255px;
 }
 
 /* Drawer */

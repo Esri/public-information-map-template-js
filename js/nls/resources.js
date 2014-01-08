@@ -11,6 +11,7 @@ define({
         },
         area:{
             mapNotes: "Notes",
+            notesUnavailable: "Description unavailable",
             bookmarks: "Bookmarks"
         },
         layers: {

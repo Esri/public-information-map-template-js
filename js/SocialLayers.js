@@ -1,5 +1,4 @@
 define([
-    "dojo/ready",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "dojo/_base/event",
@@ -17,7 +16,6 @@ define([
     "esri/request"
 ],
     function (
-        ready,
         declare,
         lang,
         event,
@@ -89,13 +87,6 @@ define([
                     visibility: this._instagramLayer.featureLayer.visible,
                     layerObject: this._instagramLayer.featureLayer
                 });
-                
-                
-                
-                
-                
-                
-                
                 // filtering
                 if (this.config.bannedUsersService && this.config.flagMailServer) {
                     this._createSMFOffensive();
@@ -110,9 +101,6 @@ define([
                 on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
                     this._featureChange();
                 }));
-                
-                
-                
                 this._twitterStatusNode = dom.byId('twitter_auth_status');
                 if (this._twitterStatusNode) {
                     on(this._twitterStatusNode, 'click', lang.hitch(this, function (evt) {

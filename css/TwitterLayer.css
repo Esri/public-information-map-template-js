@@ -1,3 +1,24 @@
+#twitter_auth_status{
+    display: inline-block;
+    margin: 10px;
+}
+
+#twitter_auth_status a{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#twitter_auth_status a:hover{
+    text-decoration: none;
+}
+
+.icon-cog{
+    float: right;
+    padding: 10px;
+    margin:0;
+    cursor: pointer;
+}
+
 .twitter-popup .username {
 	font-weight:700;
 	font-size:14px;
