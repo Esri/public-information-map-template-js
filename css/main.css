@@ -66,6 +66,23 @@ input[type=text]::-ms-clear {
     line-height:18px;
     color:#555;
 }
+
+/*legend social */
+.icon-cog{
+    position:absolute;
+    top:0;
+    right:0;
+    z-index:2;
+    padding:12px 6px;
+    margin:0 15px 0 0;
+    color:#999;
+    cursor: pointer;
+    display:inline-block;
+}
+.icon-cog:hover{
+    color:#007ac2;
+}
+
 /* area */
 .area-section{
     border-top:1px solid #e0e0e0;

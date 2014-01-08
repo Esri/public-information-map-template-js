@@ -13,7 +13,8 @@ define([
     "dojo/on",
     "esri/tasks/QueryTask",
     "esri/tasks/query",
-    "esri/request"
+    "esri/request",
+    "dijit/Dialog"
 ],
     function (
         declare,
@@ -30,7 +31,8 @@ define([
         on,
         QueryTask,
         Query,
-        esriRequest
+        esriRequest,
+        Dialog
     ) {
         return declare("", null, {
             initSocial: function () {
@@ -72,13 +74,13 @@ define([
                     layerObject: this._webcamsLayer.featureLayer
                 });
                 this.socialLayers.push({
-                    title: this.config.i18n.social.twitter,
+                    title: '<span id="twitter_cog" class="icon-cog"></span>' + this.config.i18n.social.twitter,
                     visibility: this._twitterLayer.featureLayer.visible,
                     content: '<a id="twitter_auth_status"></a><div class="clear"><div>',
                     layerObject: this._twitterLayer.featureLayer
                 });
                 this.socialLayers.push({
-                    title: this.config.i18n.social.flickr,
+                    title: '<span id="flickr_cog" class="icon-cog"></span>' + this.config.i18n.social.flickr,
                     visibility: this._flickrLayer.featureLayer.visible,
                     layerObject: this._flickrLayer.featureLayer
                 });
@@ -109,6 +111,53 @@ define([
                         layers: this.socialLayers
                     }, socialLegendNode);
                     LL.startup();
+                }
+                // Twitter Dialog
+                var twContent = '';
+                twContent += '<div class="dialogContent">';
+                twContent += '<div class="">Search Terms<div>';
+                twContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
+                twContent += '<div>Search</div>';
+                twContent += '<div class="">Sing in/ switch account<div>';
+                twContent += '</div>';
+                
+                var twitterDialogNode = domConstruct.create('div', {
+                    innerHTML: twContent
+                });
+                domConstruct.place(twitterDialogNode, document.body, 'last');
+                var twitterDialog = new Dialog({
+                    title: this.config.i18n.social.twitterSettings,
+                    draggable: false
+                }, twitterDialogNode);
+                var twitterCog = dom.byId('twitter_cog');
+                if(twitterCog){
+                    on(twitterCog, 'click', lang.hitch(this, function(evt){
+                        twitterDialog.show();
+                        event.stop(evt);
+                    }));
+                }
+                // Flickr Dialog
+                var flContent = '';
+                flContent += '<div class="dialogContent">';
+                flContent += '<div class="">Search Terms<div>';
+                flContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
+                flContent += '<div>Search</div>';
+                flContent += '<div class="">Sing in/ switch account<div>';
+                flContent += '</div>';
+                var flickrDialogNode = domConstruct.create('div', {
+                    innerHTML: flContent
+                });
+                domConstruct.place(flickrDialogNode, document.body, 'last');
+                var flickrDialog = new Dialog({
+                    title: this.config.i18n.social.flickrSettings,
+                    draggable: false
+                }, flickrDialogNode);
+                var flickrCog = dom.byId('flickr_cog');
+                if(flickrCog){
+                    on(flickrCog, 'click', lang.hitch(this, function(evt){
+                        flickrDialog.show();
+                        event.stop(evt);
+                    }));
                 }
                 // sign in/switch twitter node
                 this._twitterStatusNode = dom.byId('twitter_auth_status');

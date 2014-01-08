@@ -21,7 +21,9 @@ define({
         },
         social: {
             flickr: "Flickr",
+            flickrSettings: "Flickr Settings",
             twitter: "Twitter",
+            twitterSettings: "Twitter Settings",
             webcams: "Webcams",
             instagram: "Instagram"
         },
