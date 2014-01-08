@@ -6,6 +6,7 @@ define([
     "dojo/dom-class",
     "dojo/on",
     "esri/geometry/Extent",
+    "dojo/window"
 ],
     function (
         declare,
@@ -14,7 +15,8 @@ define([
         domConstruct,
         domClass,
         on,
-        Extent
+        Extent,
+        win
     ) {
         return declare("", null, {
             initArea: function () {
@@ -180,15 +182,30 @@ define([
                         default:
                             extent = geometry.getExtent();
                     }
-                    this.map.setExtent(extent, true).then(lang.hitch(this, function(){
-                        // select graphic
-                        if(this.map.infoWindow){
-                            this.map.infoWindow.set("popupWindow", false);
-                            this.map.infoWindow.setFeatures([this.noteGraphics[idx]]);
-                            this.map.infoWindow.show(extent.getCenter());
-                            this.map.infoWindow.set("popupWindow", true);
-                        } 
-                    }));
+                    var vs = win.getBox();
+                    if (vs.w < this._showDrawerSize) {
+                        this._drawer.toggle().then(lang.hitch(this, function () {
+                            // resize map
+                            this.map.resize();
+                            // wait for map to be resized
+                            setTimeout(lang.hitch(this, function () {
+                                this._setExtent(idx, extent);
+                            }), 250);
+                        }));
+                    } else {
+                        this._setExtent(idx, extent);
+                    }
+                }));
+            },
+            _setExtent: function(idx, extent){
+                this.map.setExtent(extent, true).then(lang.hitch(this, function(){
+                    // select graphic
+                    if(this.map.infoWindow){
+                        this.map.infoWindow.set("popupWindow", false);
+                        this.map.infoWindow.setFeatures([this.noteGraphics[idx]]);
+                        this.map.infoWindow.show(extent.getCenter());
+                        this.map.infoWindow.set("popupWindow", true);
+                    } 
                 }));
             },
             _bookmarkEvent: function(idx){
