@@ -125,6 +125,10 @@ input[type=text]::-ms-clear {
     padding:10px 10px 10px 15px;
 }
 
+.note-link{
+    background:#fff;
+}
+
 .note-image{
     max-width:90%;
     padding:2px;
@@ -135,6 +139,10 @@ input[type=text]::-ms-clear {
 	border:1px solid #CCC;
     display:inline-block;
 	background:#fff url(../images/ajax-loader.gif) no-repeat center center;
+}
+.note-image:hover{
+    opacity:0.75;
+    background-image:none;
 }
 
 /* Drawer */
