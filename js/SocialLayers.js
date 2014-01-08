@@ -101,9 +101,22 @@ define([
                 on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
                     this._featureChange();
                 }));
+                // social layers legend
+                var socialLegendNode = dom.byId('SocialLayerLegend');
+                if (socialLegendNode) {
+                    var LL = new LayerLegend({
+                        map: this.map,
+                        layers: this.socialLayers
+                    }, socialLegendNode);
+                    LL.startup();
+                }
+                // sign in/switch twitter node
                 this._twitterStatusNode = dom.byId('twitter_auth_status');
+                // if node found
                 if (this._twitterStatusNode) {
+                    // sign in click
                     on(this._twitterStatusNode, 'click', lang.hitch(this, function (evt) {
+                        // force sign in
                         if (this._twitterLayer.get("authorized")) {
                             // authorized user
                             this._twitterWindow(this.config.twitterSigninUrl, true);
@@ -113,25 +126,15 @@ define([
                         }
                         event.stop(evt);
                     }));
+                    // authorize check
+                    on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
+                        if (evt.authorized) {
+                            this._twitterStatusNode.innerHTML = '<a>' + this.config.i18n.general.switchAccount + '</a>';
+                        } else {
+                            this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>' + this.config.i18n.general.signIn + '</a>';
+                        }
+                    }));
                 }
-                on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
-                    if (evt.authorized) {
-                        this._twitterStatusNode.innerHTML = '<a>' + this.config.i18n.general.switchAccount + '</a>';
-                    } else {
-                        this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>' + this.config.i18n.general.signIn + '</a>';
-                    }
-                }));
-                
-                var socialLegendNode = dom.byId('SocialLayerLegend');
-                if (socialLegendNode) {
-                    var LL = new LayerLegend({
-                        map: this.map,
-                        layers: this.socialLayers
-                    }, socialLegendNode);
-                    LL.startup();
-                }
-                
-                
             },
             _featureChange: function () {
                 if (this.map && this.map.infoWindow) {
