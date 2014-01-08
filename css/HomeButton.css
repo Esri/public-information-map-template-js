@@ -24,6 +24,11 @@
     color: #007ac2;
     background-color: #ddd;
 }
+.HomeButtonCalcite .homeContainer {
+    width:30px;
+    height:30px;
+    overflow:hidden;
+}
 .HomeButtonCalcite .home {
     font-size: 21px;
     line-height: 22px;

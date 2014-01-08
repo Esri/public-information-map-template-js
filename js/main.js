@@ -84,9 +84,9 @@ function(
             var content;
             content = '';
             content += '<div class="' + this.css.areaContainer + '">';
-            content += '<div class="' + this.css.areaHeader + '">' + this.config.i18n.area.mapNotes + '</div>';
+            content += '<div class="' + this.css.areaHeader + '"><span class="icon-doc-text"></span> ' + this.config.i18n.area.mapNotes + '</div>';
             content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
-            content += '<div class="' + this.css.areaHeader + '">' + this.config.i18n.area.bookmarks + '</div>';
+            content += '<div class="' + this.css.areaHeader + '"><span class="icon-bookmarks"></span> ' + this.config.i18n.area.bookmarks + '</div>';
             content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
             content += '</div>';
             this.drawerMenus.push({
@@ -96,9 +96,9 @@ function(
             if (this.config.showLegend) {
                 content = '';
                 content += '<div class="' + this.css.legendContainer + '">';
-                content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.operational + '</div>';
+                content += '<div class="' + this.css.legendHeader + '"><span class="icon-list"></span> ' + this.config.i18n.layers.operational + '</div>';
                 content += '<div id="LayerLegend"></div>';
-                content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.social + '</div>';
+                content += '<div class="' + this.css.legendHeader + '"><span class="icon-list"></span> ' + this.config.i18n.layers.social + '</div>';
                 content += '<div id="SocialLayerLegend"></div>';
                 content += '</div>';
                 // legend menu

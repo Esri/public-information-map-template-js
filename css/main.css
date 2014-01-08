@@ -62,7 +62,7 @@ input[type=text]::-ms-clear {
 .legend-header, .area-header{
     font-size:18px;
     font-weight:bold;
-    padding:12px 0 12px 15px;
+    padding:12px 0 12px 10px;
     line-height:18px;
     color:#555;
 }

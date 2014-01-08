@@ -24,6 +24,11 @@
     color: #007ac2;
     background-color: #ddd;
 }
+.LocateButtonCalcite .locateContainer {
+    width:30px;
+    height:30px;
+    overflow:hidden;
+}
 .LocateButtonCalcite .zoomLocateButton {
     font-size: 21px;
     line-height: 22px;
