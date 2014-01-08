@@ -44,14 +44,17 @@ define([
             },
             _placeNoteItems: function(){
                 this.noteNodes = [];
+                this.noteGraphics = [];
                 this.noteGeometries = [];
                 var count = 0;
                 var notesNode = dom.byId('area_notes');
                 for(var i = 0; i < this._notesLayers.length; i++){
                     for(var j = 0; j < this._notesLayers[i].graphics.length; j++){
+                        var graphic = this._notesLayers[i].graphics[j];
                         var attributes = this._notesLayers[i].graphics[j].attributes;
                         var geometry = this._notesLayers[i].graphics[j].geometry;
                         this.noteGeometries.push(geometry);
+                        this.noteGraphics.push(graphic);
                         // note container
                         var containerNode = domConstruct.create('div', {
                             className: this.areaCSS.noteContainer
@@ -163,7 +166,13 @@ define([
                         default:
                             extent = geometry.getExtent();
                     }
-                    this.map.setExtent(extent, true);
+                    this.map.setExtent(extent, true).then(lang.hitch(this, function(){
+                        // select graphic
+                        if(this.map.infoWindow){
+                            this.map.infoWindow.setFeatures([this.noteGraphics[idx]]);
+                            this.map.infoWindow.show(extent.getCenter());
+                        } 
+                    });
                 }));
             },
             _bookmarkEvent: function(idx){
