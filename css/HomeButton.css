@@ -43,3 +43,16 @@
 .HomeButtonCalcite .home:before {
     content: '\e808';
 }
+.HomeButtonCalcite .loading:before {
+    content: '';
+    display:block;
+    position:relative;
+    width:22px;
+    height:22px;
+    padding:0;
+    margin:0;
+    overflow:hidden;
+    background-position: center center;
+    background-image: url(../images/ajax-loader.gif);
+    background-repeat: no-repeat;
+}

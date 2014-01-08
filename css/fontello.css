@@ -43,34 +43,32 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-.icon-home-1:before{ content: '\e808'; }
-.icon-home-1:before { content: '\e808'; } /* '' */
-.icon-up-dir:before { content: '\e811'; } /* '' */
-.icon-right-dir-1:before { content: '\e807'; } /* '' */
-.icon-down-dir-1:before { content: '\e80f'; } /* '' */
-.icon-left-dir:before { content: '\e80a'; } /* '' */
+.icon-search-1:before { content: '\e800'; } /* '' */
+.icon-gplus:before { content: '\e819'; } /* '' */
 .icon-menu-1:before { content: '\e810'; } /* '' */
-.icon-flag-1:before { content: '\e809'; } /* '' */
-.icon-cog:before { content: '\e805'; } /* '' */
-.icon-attention-1:before { content: '\e812'; } /* '' */
-.icon-mail:before { content: '\e802'; } /* '' */
 .icon-check-1:before { content: '\e804'; } /* '' */
 .icon-cancel-1:before { content: '\e80c'; } /* '' */
 .icon-info-circled-1:before { content: '\e801'; } /* '' */
-.icon-tag:before { content: '\e806'; } /* '' */
-.icon-code-1:before { content: '\e814'; } /* '' */
-.icon-share:before { content: '\e816'; } /* '' */
+.icon-home-1:before { content: '\e808'; } /* '' */
+.icon-bookmarks:before { content: '\e809'; } /* '' */
+.icon-attention-1:before { content: '\e812'; } /* '' */
+.icon-doc-text:before { content: '\e806'; } /* '' */
+.icon-cog:before { content: '\e805'; } /* '' */
+.icon-mail:before { content: '\e802'; } /* '' */
 .icon-popup:before { content: '\e817'; } /* '' */
 .icon-left-open-big:before { content: '\e80d'; } /* '' */
 .icon-right-open-big:before { content: '\e80b'; } /* '' */
+.icon-left-dir:before { content: '\e80a'; } /* '' */
+.icon-right-dir-1:before { content: '\e807'; } /* '' */
+.icon-target-1:before { content: '\e82f'; } /* '' */
+.icon-list:before { content: '\e803'; } /* '' */
 .icon-twitter-1:before { content: '\e818'; } /* '' */
 .icon-facebook-squared-1:before { content: '\e80e'; } /* '' */
-.icon-gplus:before { content: '\e819'; } /* '' */
-.icon-target-1:before { content: '\e82f'; } /* '' */
-.icon-search-1:before { content: '\e800'; } /* '' */
-.icon-link-1:before { content: '\e803'; } /* '' */
+.icon-share:before { content: '\e816'; } /* '' */
+
 .leftArrow:before { content: '\e80d'; }
 .rightArrow:before { content: '\e80b'; }
 .dijitDialogCloseIcon:before { content: '\e80c'; }
 .esriGeocoderSearch:before { content: '\e800'; }
 .esriGeocoderReset:before { content: '\e80c'; }
+

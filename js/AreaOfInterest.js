@@ -59,10 +59,6 @@ define([
                         var containerNode = domConstruct.create('div', {
                             className: this.areaCSS.noteContainer
                         });
-                        // if first one, default open
-                        if(count === 0){
-                            domClass.add(containerNode, this.areaCSS.noteSelected);
-                        }
                         // note title
                         var titleNode = domConstruct.create('div', {
                             innerHTML: attributes.TITLE,
@@ -147,7 +143,9 @@ define([
                     // if note open
                     if(domClass.contains(this.noteNodes[idx].containerNode, this.areaCSS.noteSelected)){
                         // close note
-                        domClass.toggle(this.noteNodes[idx].containerNode, this.areaCSS.noteSelected);    
+                        domClass.toggle(this.noteNodes[idx].containerNode, this.areaCSS.noteSelected);
+                        // dont do any more
+                        return;
                     }
                     else{
                         // close selected notes
