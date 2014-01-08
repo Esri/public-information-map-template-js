@@ -173,7 +173,7 @@ define([
                             this.map.infoWindow.show(extent.getCenter());
                         } 
                     });
-                }));
+                });
             },
             _bookmarkEvent: function(idx){
                 on(this.bmNodes[idx], 'click', lang.hitch(this, function(){
