@@ -40,7 +40,7 @@
 }
 
 .twitter-popup .actions a,.twitter-popup .actions a:visited {
-	color:#00aced;
+	color:#999;
 }
 
 .twitter-popup .action-reply {
@@ -54,15 +54,15 @@
 	text-align:center;
 	font-variant:normal;
 	text-transform:none;
-	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe81a;&nbsp;');
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe813;&nbsp;');
 }
 
 .twitter-popup .action-reply:before {
-	content:'\e81a';
+	content:'\e813';
 }
 
 .twitter-popup .action-reply:hover,.twitter-popup .action-reply:focus {
-	color:#1dcaff;
+	color:#00aced;
 }
 
 .twitter-popup .action-retweet {
@@ -76,15 +76,15 @@
 	text-align:center;
 	font-variant:normal;
 	text-transform:none;
-	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe815;&nbsp;');
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe80f;&nbsp;');
 }
 
 .twitter-popup .action-retweet:before {
-	content:'\e815';
+	content:'\e80f';
 }
 
 .twitter-popup .action-retweet:hover,.twitter-popup .action-retweet:focus {
-	color:#1dcaff;
+	color:#00aced;
 }
 
 .twitter-popup .action-favorite {
@@ -98,15 +98,15 @@
 	text-align:center;
 	font-variant:normal;
 	text-transform:none;
-	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe813;&nbsp;');
+	*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe811;&nbsp;');
 }
 
 .twitter-popup .action-favorite:before {
-	content:'\e813';
+	content:'\e811';
 }
 
 .twitter-popup .action-favorite:hover,.twitter-popup .action-favorite:focus {
-	color:#1dcaff;
+	color:#00aced;
 }
 
 .twitter-popup .user {

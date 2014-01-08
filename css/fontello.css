@@ -45,16 +45,19 @@
 }
 .icon-search-1:before { content: '\e800'; } /* '' */
 .icon-gplus:before { content: '\e819'; } /* '' */
+.icon-star:before { content: '\e811'; } /* '' */
 .icon-menu-1:before { content: '\e810'; } /* '' */
 .icon-check-1:before { content: '\e804'; } /* '' */
 .icon-cancel-1:before { content: '\e80c'; } /* '' */
 .icon-info-circled-1:before { content: '\e801'; } /* '' */
 .icon-home-1:before { content: '\e808'; } /* '' */
 .icon-bookmarks:before { content: '\e809'; } /* '' */
+.icon-reply:before { content: '\e813'; } /* '' */
+.icon-retweet:before { content: '\e80f'; } /* '' */
 .icon-attention-1:before { content: '\e812'; } /* '' */
-.icon-doc-text:before { content: '\e806'; } /* '' */
-.icon-cog:before { content: '\e805'; } /* '' */
 .icon-mail:before { content: '\e802'; } /* '' */
+.icon-cog:before { content: '\e805'; } /* '' */
+.icon-share:before { content: '\e816'; } /* '' */
 .icon-popup:before { content: '\e817'; } /* '' */
 .icon-left-open-big:before { content: '\e80d'; } /* '' */
 .icon-right-open-big:before { content: '\e80b'; } /* '' */
@@ -64,7 +67,7 @@
 .icon-list:before { content: '\e803'; } /* '' */
 .icon-twitter-1:before { content: '\e818'; } /* '' */
 .icon-facebook-squared-1:before { content: '\e80e'; } /* '' */
-.icon-share:before { content: '\e816'; } /* '' */
+.icon-doc-text:before { content: '\e806'; } /* '' */
 
 .leftArrow:before { content: '\e80d'; }
 .rightArrow:before { content: '\e80b'; }
