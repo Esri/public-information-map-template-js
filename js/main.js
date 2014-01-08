@@ -84,7 +84,7 @@ function(
             var content;
             content = '';
             content += '<div class="' + this.css.areaContainer + '">';
-            content += '<div class="' + this.css.areaHeader + '"><span class="icon-doc-text"></span> ' + this.config.i18n.area.mapNotes + '</div>';
+            content += '<div class="' + this.css.areaHeader + '"><span class="icon-doc-text"></span> <span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
             content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
             content += '<div class="' + this.css.areaHeader + '"><span class="icon-bookmarks"></span> ' + this.config.i18n.area.bookmarks + '</div>';
             content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';

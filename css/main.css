@@ -126,7 +126,15 @@ input[type=text]::-ms-clear {
 }
 
 .note-image{
-    max-width:255px;
+    max-width:90%;
+    padding:2px;
+    margin:15px 0;
+	-moz-box-shadow:1px 1px 3px #CCC;
+	-webkit-box-shadow:1px 1px 3px #CCC;
+	box-shadow:1px 1px 3px #CCC;
+	border:1px solid #CCC;
+    display:inline-block;
+	background:#fff url(../images/ajax-loader.gif) no-repeat center center;
 }
 
 /* Drawer */

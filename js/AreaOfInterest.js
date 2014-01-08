@@ -39,6 +39,12 @@ define([
                     id: this.config.notes_layer_id
                 });
                 if(this._notesLayers && this._notesLayers.length){
+                    if(this._notesLayerTitle){
+                        var node = dom.byId('map_notes_title');
+                        if(node){
+                            node.innerHTML = this._notesLayerTitle;
+                        }
+                    }
                     this._placeNoteItems();
                 }
             },
@@ -59,9 +65,13 @@ define([
                         var containerNode = domConstruct.create('div', {
                             className: this.areaCSS.noteContainer
                         });
+                        // text symbol
+                        if(graphic.symbol.type === 'textsymbol'){
+                            attributes.TITLE = graphic.symbol.text;
+                        }
                         // note title
                         var titleNode = domConstruct.create('div', {
-                            innerHTML: attributes.TITLE,
+                            innerHTML: attributes.TITLE || this.config.i18n.area.untitledNote,
                             className: this.areaCSS.noteItem
                         });
                         domConstruct.place(titleNode, containerNode, 'last');
@@ -110,6 +120,7 @@ define([
                     for (i = 0; i < obj.layers.length; i++) {
                         layer = obj.layers[i];
                         if (layer.id === obj.id) {
+                            this._notesLayerTitle = layer.title;
                             layers = layer.featureCollection.layers;
                             for(j = 0; j < layers.length; j++){
                                 mapLayer = obj.map.getLayer(layers[j].id);
@@ -125,6 +136,7 @@ define([
                     for (i = 0; i < obj.layers.length; i++) {
                         layer = obj.layers[i];
                         if (layer.title.toLowerCase() === obj.title.toLowerCase()) {
+                            this._notesLayerTitle = layer.title;
                             layers = layer.featureCollection.layers;
                             for(j = 0; j < layers.length; j++){
                                 mapLayer = obj.map.getLayer(layers[j].id);
@@ -167,8 +179,10 @@ define([
                     this.map.setExtent(extent, true).then(lang.hitch(this, function(){
                         // select graphic
                         if(this.map.infoWindow){
+                            this.map.infoWindow.set("popupWindow", false);
                             this.map.infoWindow.setFeatures([this.noteGraphics[idx]]);
                             this.map.infoWindow.show(extent.getCenter());
+                            this.map.infoWindow.set("popupWindow", true);
                         } 
                     }));
                 }));
