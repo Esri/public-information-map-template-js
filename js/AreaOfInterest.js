@@ -172,7 +172,7 @@ define([
                             this.map.infoWindow.setFeatures([this.noteGraphics[idx]]);
                             this.map.infoWindow.show(extent.getCenter());
                         } 
-                    });
+                    }));
                 });
             },
             _bookmarkEvent: function(idx){
