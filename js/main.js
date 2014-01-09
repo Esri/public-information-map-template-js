@@ -82,17 +82,19 @@ function(
             // menu panels
             this.drawerMenus = [];
             var content;
-            content = '';
-            content += '<div class="' + this.css.areaContainer + '">';
-            content += '<div class="' + this.css.areaHeader + '"><span class="icon-doc-text"></span> <span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
-            content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
-            content += '<div class="' + this.css.areaHeader + '"><span class="icon-bookmarks"></span> ' + this.config.i18n.area.bookmarks + '</div>';
-            content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
-            content += '</div>';
-            this.drawerMenus.push({
-                label: 'Area',
-                content: content
-            });
+            if (this.config.showArea) {
+                content = '';
+                content += '<div class="' + this.css.areaContainer + '">';
+                content += '<div class="' + this.css.areaHeader + '"><span class="icon-doc-text"></span> <span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
+                content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
+                content += '<div class="' + this.css.areaHeader + '"><span class="icon-bookmarks"></span> ' + this.config.i18n.area.bookmarks + '</div>';
+                content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
+                content += '</div>';
+                this.drawerMenus.push({
+                    label: 'Area',
+                    content: content
+                });
+            }
             if (this.config.showLegend) {
                 content = '';
                 content += '<div class="' + this.css.legendContainer + '">';

@@ -16,6 +16,7 @@ define([], function() {
         "title":"",
         "showTitle":true,
         "showLegend": true,
+        "showArea":true,
         "showHomeButton": true,
         "showLocateButton":true,
         "showBasemapToggle": true,
