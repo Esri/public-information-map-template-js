@@ -36,151 +36,166 @@ define([
     ) {
         return declare("", null, {
             initSocial: function () {
-                // Twitter
-                this._twitterLayer = new TwitterLayer({
-                    map: this.map,
-                    visible: true,
-                    url: this.config.twitterUrl
-                });
-                this.map.addLayer(this._twitterLayer.featureLayer);
-                // Flickr
-                this._flickrLayer = new FlickrLayer({
-                    map: this.map,
-                    visible: true,
-                    key: this.config.flickr_key
-                });
-                this.map.addLayer(this._flickrLayer.featureLayer);
-                // Webcams
-                this._webcamsLayer = new WebcamsLayer({
-                    map: this.map,
-                    visible: true,
-                    key: this.config.webcams_key
-                });
-                this.map.addLayer(this._webcamsLayer.featureLayer);
-                // Instagram
-                this._instagramLayer = new InstagramLayer({
-                    map: this.map,
-                    visible: true,
-                    key: this.config.instagram_key
-                });
-                this.map.addLayer(this._instagramLayer.featureLayer);
-                // social layer infos
-                this.socialLayers = [];
-                
-                this.socialLayers.push({
-                    title: this.config.i18n.social.webcams,
-                    visibility: this._webcamsLayer.featureLayer.visible,
-                    layerObject: this._webcamsLayer.featureLayer
-                });
-                this.socialLayers.push({
-                    title: '<span id="twitter_cog" class="icon-cog"></span>' + this.config.i18n.social.twitter,
-                    visibility: this._twitterLayer.featureLayer.visible,
-                    content: '<a id="twitter_auth_status"></a><div class="clear"><div>',
-                    layerObject: this._twitterLayer.featureLayer
-                });
-                this.socialLayers.push({
-                    title: '<span id="flickr_cog" class="icon-cog"></span>' + this.config.i18n.social.flickr,
-                    visibility: this._flickrLayer.featureLayer.visible,
-                    layerObject: this._flickrLayer.featureLayer
-                });
-                this.socialLayers.push({
-                    title: this.config.i18n.social.instagram,
-                    visibility: this._instagramLayer.featureLayer.visible,
-                    layerObject: this._instagramLayer.featureLayer
-                });
-                // filtering
-                if (this.config.bannedUsersService && this.config.flagMailServer) {
-                    this._createSMFOffensive();
-                }
-                if (this.config.bannedWordsService) {
-                    this._createSMFBadWords();
-                }
-                // info window set flag button
-                on(this.map.infoWindow, 'set-features', lang.hitch(this, function () {
-                    this._featureChange();
-                }));
-                on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
-                    this._featureChange();
-                }));
-                // social layers legend
-                var socialLegendNode = dom.byId('SocialLayerLegend');
-                if (socialLegendNode) {
-                    var LL = new LayerLegend({
-                        map: this.map,
-                        layers: this.socialLayers
-                    }, socialLegendNode);
-                    LL.startup();
-                }
-                // Twitter Dialog
-                var twContent = '';
-                twContent += '<div class="dialogContent">';
-                twContent += '<div class="">Search Terms<div>';
-                twContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
-                twContent += '<div>Search</div>';
-                twContent += '<div class="">Sing in/ switch account<div>';
-                twContent += '</div>';
-                var twitterDialogNode = domConstruct.create('div', {
-                    innerHTML: twContent
-                });
-                domConstruct.place(twitterDialogNode, document.body, 'last');
-                var twitterDialog = new Dialog({
-                    title: this.config.i18n.social.twitterSettings,
-                    draggable: false
-                }, twitterDialogNode);
-                var twitterCog = dom.byId('twitter_cog');
-                if(twitterCog){
-                    on(twitterCog, 'click', lang.hitch(this, function(evt){
-                        twitterDialog.show();
-                        event.stop(evt);
+                if(this.config.showSocialLegend){
+                    // social layer infos
+                    this.socialLayers = [];
+                    if(this.config.showWebcams){
+                        // Webcams
+                        this._webcamsLayer = new WebcamsLayer({
+                            map: this.map,
+                            visible: this.config.webcamsChecked,
+                            key: this.config.webcams_key
+                        });
+                        this.map.addLayer(this._webcamsLayer.featureLayer);
+                        this.socialLayers.push({
+                            title: this.config.i18n.social.webcams,
+                            visibility: this._webcamsLayer.featureLayer.visible,
+                            layerObject: this._webcamsLayer.featureLayer
+                        });
+                    }
+                    if(this.config.showTwitter){
+                        // Twitter
+                        this._twitterLayer = new TwitterLayer({
+                            map: this.map,
+                            visible: this.config.twitterChecked,
+                            searchTerm: this.config.twitterSearch,
+                            url: this.config.twitterUrl
+                        });
+                        this.map.addLayer(this._twitterLayer.featureLayer);
+                        this.socialLayers.push({
+                            title: '<span id="twitter_cog" class="icon-cog"></span>' + this.config.i18n.social.twitter,
+                            visibility: this._twitterLayer.featureLayer.visible,
+                            content: '<a id="twitter_auth_status"></a><div class="clear"><div>',
+                            layerObject: this._twitterLayer.featureLayer
+                        });
+                    }
+                    if(this.config.showFlickr){
+                        // Flickr
+                        this._flickrLayer = new FlickrLayer({
+                            map: this.map,
+                            visible: this.config.flickrChecked,
+                            searchTerm: this.config.flickrSearch,
+                            key: this.config.flickr_key
+                        });
+                        this.map.addLayer(this._flickrLayer.featureLayer);
+                        this.socialLayers.push({
+                            title: '<span id="flickr_cog" class="icon-cog"></span>' + this.config.i18n.social.flickr,
+                            visibility: this._flickrLayer.featureLayer.visible,
+                            layerObject: this._flickrLayer.featureLayer
+                        });
+                    }
+                    if(this.config.showInstagram){
+                        // Instagram
+                        this._instagramLayer = new InstagramLayer({
+                            map: this.map,
+                            visible: this.config.instagramChecked,
+                            key: this.config.instagram_key
+                        });
+                        this.map.addLayer(this._instagramLayer.featureLayer);
+                        this.socialLayers.push({
+                            title: this.config.i18n.social.instagram,
+                            visibility: this._instagramLayer.featureLayer.visible,
+                            layerObject: this._instagramLayer.featureLayer
+                        });
+                    }
+                    // filtering
+                    if (this.config.bannedUsersService && this.config.flagMailServer) {
+                        this._createSMFOffensive();
+                    }
+                    if (this.config.bannedWordsService) {
+                        this._createSMFBadWords();
+                    }
+                    // info window set flag button
+                    on(this.map.infoWindow, 'set-features', lang.hitch(this, function () {
+                        this._featureChange();
                     }));
-                }
-                // Flickr Dialog
-                var flContent = '';
-                flContent += '<div class="dialogContent">';
-                flContent += '<div class="">Search Terms<div>';
-                flContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
-                flContent += '<div>Search</div>';
-                flContent += '<div class="">Sing in/ switch account<div>';
-                flContent += '</div>';
-                var flickrDialogNode = domConstruct.create('div', {
-                    innerHTML: flContent
-                });
-                domConstruct.place(flickrDialogNode, document.body, 'last');
-                var flickrDialog = new Dialog({
-                    title: this.config.i18n.social.flickrSettings,
-                    draggable: false
-                }, flickrDialogNode);
-                var flickrCog = dom.byId('flickr_cog');
-                if(flickrCog){
-                    on(flickrCog, 'click', lang.hitch(this, function(evt){
-                        flickrDialog.show();
-                        event.stop(evt);
+                    on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
+                        this._featureChange();
                     }));
-                }
-                // sign in/switch twitter node
-                this._twitterStatusNode = dom.byId('twitter_auth_status');
-                // if node found
-                if (this._twitterStatusNode) {
-                    // sign in click
-                    on(this._twitterStatusNode, 'click', lang.hitch(this, function (evt) {
-                        // force sign in
-                        if (this._twitterLayer.get("authorized")) {
-                            // authorized user
-                            this._twitterWindow(this.config.twitterSigninUrl, true);
-                        } else {
-                            // unauthorized user
-                            this._twitterWindow(this.config.twitterSigninUrl);
+                    // social layers legend
+                    var socialLegendNode = dom.byId('SocialLayerLegend');
+                    if (socialLegendNode) {
+                        var LL = new LayerLegend({
+                            map: this.map,
+                            layers: this.socialLayers
+                        }, socialLegendNode);
+                        LL.startup();
+                    }
+                    if(this.config.showFlickr){
+                        // Flickr Dialog
+                        var flContent = '';
+                        flContent += '<div class="dialogContent">';
+                        flContent += '<div class="">Search Terms<div>';
+                        flContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
+                        flContent += '<div>Search</div>';
+                        flContent += '<div class="">Sing in/ switch account<div>';
+                        flContent += '</div>';
+                        var flickrDialogNode = domConstruct.create('div', {
+                            innerHTML: flContent
+                        });
+                        domConstruct.place(flickrDialogNode, document.body, 'last');
+                        var flickrDialog = new Dialog({
+                            title: this.config.i18n.social.flickrSettings,
+                            draggable: false
+                        }, flickrDialogNode);
+                        var flickrCog = dom.byId('flickr_cog');
+                        if(flickrCog){
+                            on(flickrCog, 'click', lang.hitch(this, function(evt){
+                                flickrDialog.show();
+                                event.stop(evt);
+                            }));
                         }
-                        event.stop(evt);
-                    }));
-                    // authorize check
-                    on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
-                        if (evt.authorized) {
-                            this._twitterStatusNode.innerHTML = '<a>' + this.config.i18n.general.switchAccount + '</a>';
-                        } else {
-                            this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>' + this.config.i18n.general.signIn + '</a>';
+                    }
+                    if(this.config.showTwitter){
+                        // Twitter Dialog
+                        var twContent = '';
+                        twContent += '<div class="dialogContent">';
+                        twContent += '<div class="">Search Terms<div>';
+                        twContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
+                        twContent += '<div>Search</div>';
+                        twContent += '<div class="">Sing in/ switch account<div>';
+                        twContent += '</div>';
+                        var twitterDialogNode = domConstruct.create('div', {
+                            innerHTML: twContent
+                        });
+                        domConstruct.place(twitterDialogNode, document.body, 'last');
+                        var twitterDialog = new Dialog({
+                            title: this.config.i18n.social.twitterSettings,
+                            draggable: false
+                        }, twitterDialogNode);
+                        var twitterCog = dom.byId('twitter_cog');
+                        if(twitterCog){
+                            on(twitterCog, 'click', lang.hitch(this, function(evt){
+                                twitterDialog.show();
+                                event.stop(evt);
+                            }));
                         }
-                    }));
+                        // sign in/switch twitter node
+                        this._twitterStatusNode = dom.byId('twitter_auth_status');
+                        // if node found
+                        if (this._twitterStatusNode) {
+                            // sign in click
+                            on(this._twitterStatusNode, 'click', lang.hitch(this, function (evt) {
+                                // force sign in
+                                if (this._twitterLayer.get("authorized")) {
+                                    // authorized user
+                                    this._twitterWindow(this.config.twitterSigninUrl, true);
+                                } else {
+                                    // unauthorized user
+                                    this._twitterWindow(this.config.twitterSigninUrl);
+                                }
+                                event.stop(evt);
+                            }));
+                            // authorize check
+                            on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
+                                if (evt.authorized) {
+                                    this._twitterStatusNode.innerHTML = '<a>' + this.config.i18n.general.switchAccount + '</a>';
+                                } else {
+                                    this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>' + this.config.i18n.general.signIn + '</a>';
+                                }
+                            }));
+                        }
+                    }
                 }
             },
             _featureChange: function () {

@@ -6,7 +6,6 @@ define([], function() {
         "appid": "",
         "webmap": "0eab5e8242e24ad0bed216bf50fead2c",
         "oauthappid": null,
-        //"AFTKRmv16wj14N3z",
         //Enter the url to the proxy if needed by the applcation. See the "Using the proxy page" help topic for details
         //http://developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
         "proxyurl": "/resource-proxy/PHP/auth_proxy.php",
@@ -16,18 +15,38 @@ define([], function() {
         "title":"",
         "showTitle":true,
         "showLegend": true,
+        "showOperationalLegend":true,
+        "showSocialLegend":true,
         "showArea":true,
         "showHomeButton": true,
         "showLocateButton":true,
         "showBasemapToggle": true,
         "showAboutDialog":true,
         "ShowShareDialog":true,
+        "showBookmarks": true,
+        "showMapNotes":true,
         "nextBasemap": "hybrid",
         "currentBasemap": "topo",
-        "bitlyLogin": "esri",
-        "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
+        
+        
+        
         "notes_layer_title":"Map Notes",
         "notes_layer_id":"",
+        
+        
+        
+        "showInstagram":true,
+        "instagramChecked":false,
+        "showFlickr":true,
+        "flickrChecked":false,
+        "flickrSearch":"",
+        "showTwitter":true,
+        "twitterChecked":false,
+        "twitterSearch":"",
+        "showWebcams":true,
+        "webcamsChecked":false,
+        "bitlyLogin": "esri",
+        "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
         "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
         "twitterSigninUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/sign_in.php",
         "flickr_key":"404ebea7d5bc27aa5251d1207620e99b",

@@ -292,7 +292,7 @@ function (
                 sort: 'date-posted-desc',
                 safe_search: 2,
                 content_type: 1,
-                tags: search,
+                text: search,
                 method: "flickr.photos.search",
                 api_key: this.key,
                 has_geo: 1,
