@@ -43,10 +43,6 @@
     text-align: center;
     font-variant: normal;
     text-transform: none;
-    *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe82f;&nbsp;');
-}
-.LocateButtonCalcite .zoomLocateButton:before {
-    content: '\e82f';
 }
 .LocateButtonCalcite .loading:before {
     content: '';

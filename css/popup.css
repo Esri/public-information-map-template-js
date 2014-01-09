@@ -53,42 +53,22 @@
 #mapDiv .calcite .titleButton.close {
     top: 0;
     right: 0;
-    *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe80c;&nbsp;');
-}
-#mapDiv .calcite .titleButton.close:before {
-    content: '\e80c';
 }
 #mapDiv .calcite .titleButton.next {
     top: 0;
     right: 52px;
-    *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe807;&nbsp;');
-}
-#mapDiv .calcite .titleButton.next:before {
-    content: '\e807';
 }
 #mapDiv .calcite .titleButton.prev {
     top: 0;
     right: 78px;
-    *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe80a;&nbsp;');
-}
-#mapDiv .calcite .titleButton.prev:before {
-    content: '\e80a';
 }
 #mapDiv .calcite .titleButton.maximize {
     top: 0;
     right: 26px;
-    *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe817;&nbsp;');
-}
-#mapDiv .calcite .titleButton.maximize:before {
-    content: '\e817';
 }
 #mapDiv .calcite .titleButton.restore {
     top: 0;
     right: 26px;
-    *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe817;&nbsp;');
-}
-#mapDiv .calcite .titleButton.restore:before {
-    content: '\e817';
 }
 #mapDiv .calcite .titleButton.hidden {
     display: none;
