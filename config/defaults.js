@@ -25,7 +25,7 @@ define([], function() {
         "currentBasemap": "topo",
         "bitlyLogin": "esri",
         "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
-        "notes_layer_title":"Detailed Map Notes",
+        "notes_layer_title":"Map Notes",
         "notes_layer_id":"",
         "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
         "twitterSigninUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/sign_in.php",

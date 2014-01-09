@@ -274,14 +274,20 @@ input[type=text]::-ms-clear {
     float: left;
     width:75%;
 }
+.drawerOpen #geocoderMobile {
+    width:60%;   
+}
 #geocoderMobile .esriGeocoderContainer{
     width:100%;
 }
 .mobileLocateBoxHidden {
     display: none;
 }
-#geocoderMobile.esriGeocoder input {
+#geocoderMobile .esriGeocoder input {
     width: 75%;
+}
+.drawerOpen #geocoderMobile .esriGeocoder input {
+    width: 60%;
 }
 #btnCloseGeocoder {
     float: left;
