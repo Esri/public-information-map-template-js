@@ -50,7 +50,6 @@ define([
                     key: this.config.flickr_key
                 });
                 this.map.addLayer(this._flickrLayer.featureLayer);
-                
                 // Webcams
                 this._webcamsLayer = new WebcamsLayer({
                     map: this.map,
@@ -120,7 +119,6 @@ define([
                 twContent += '<div>Search</div>';
                 twContent += '<div class="">Sing in/ switch account<div>';
                 twContent += '</div>';
-                
                 var twitterDialogNode = domConstruct.create('div', {
                     innerHTML: twContent
                 });
