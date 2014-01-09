@@ -1,11 +1,33 @@
 {
    "configurationSettings":[
       {
-         "category":"<b>Choose template theme</b>",
+         "category":"<b>Choose Map</b>",
          "fields":[
             {
                "type":"webmap",
                "label":"Select a map"
+            }
+         ]
+      },
+      {
+         "category":"<b>Choose Notes Layer</b>",
+         "fields":[
+            {
+               "type":"layerAndFieldSelector",
+               "layerOptions":{
+                  "supportedTypes":[
+                     "MapServiceLayer",
+                     "ImageServiceLayer",
+                     "FeatureLayer"
+                  ],
+                  "geometryTypes":[
+                     "esriGeometryPoint",
+                     "esriGeometryLine",
+                     "esriGeometryPolygon"
+                  ]
+               },
+               "fieldName":"notesLayerId",
+               "label":"Map Notes Layer"
             }
          ]
       },

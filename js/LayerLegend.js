@@ -43,7 +43,8 @@ function (
             visible: true,
             sublayers: false,
             zoomTo: false,
-            accordion: true
+            accordion: true,
+            expandFirstItem: false
         },
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
@@ -60,6 +61,7 @@ function (
             this.set("sublayers", defaults.sublayers);
             this.set("zoomTo", defaults.zoomTo);
             this.set("accordion", defaults.accordion);
+            this.set("expandFirstItem", defaults.expandFirstItem);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
@@ -196,9 +198,11 @@ function (
             this._removeEvents();
             // clear node
             this._layersNode.innerHTML = '';
-            // Set default expanded to last index
-            if(!this._expanded){
-                this._expanded = [layers.length - 1];
+            if(this.get("expandFirstItem")){
+                // Set default expanded to last index
+                if(!this._expanded){
+                    this._expanded = [layers.length - 1];
+                }
             }
             // if we got layers
             if (layers && layers.length) {

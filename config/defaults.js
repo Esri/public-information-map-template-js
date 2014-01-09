@@ -27,14 +27,8 @@ define([], function() {
         "showMapNotes":true,
         "nextBasemap": "hybrid",
         "currentBasemap": "topo",
-        
-        
-        
-        "notes_layer_title":"Map Notes",
-        "notes_layer_id":"",
-        
-        
-        
+        "notesLayerTitle":"Map Notes",
+        "notesLayerId":"",
         "showInstagram":true,
         "instagramChecked":false,
         "showFlickr":true,

@@ -37,8 +37,8 @@ define([
                 this._notesLayers = this._getNotesLayers({
                     map: this.map,
                     layers: this.layers,
-                    title: this.config.notes_layer_title,
-                    id: this.config.notes_layer_id
+                    title: this.config.notesLayerTitle,
+                    id: this.config.notesLayerId
                 });
                 this._setNoteLayerTitle();
                 this._placeNoteItems();
