@@ -175,6 +175,8 @@ define([
                         // close selected notes
                         for(var i = 0; i < this.noteNodes.length; i++){
                             domClass.remove(this.noteNodes[i].containerNode, this.areaCSS.noteSelected);
+                            // remove any loading
+                            domClass.remove(this.noteNodes[i].titleNode, this.areaCSS.noteLoading);
                         }
                         // open note
                         domClass.toggle(this.noteNodes[idx].containerNode, this.areaCSS.noteSelected);
@@ -224,6 +226,10 @@ define([
             },
             _bookmarkEvent: function(idx){
                 on(this.bmNodes[idx], 'click', lang.hitch(this, function(){
+                    // remove any loading
+                    for(var i = 0; i < this.bmNodes.length; i++){
+                        domClass.remove(this.bmNodes[i], this.areaCSS.noteLoading);
+                    }
                     var extent = new Extent(this.bookmarks[idx].extent);
                     var vs = win.getBox();
                     if (vs.w < this._showDrawerSize) {
