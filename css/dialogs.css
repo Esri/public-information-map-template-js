@@ -70,3 +70,19 @@
 	background-color:#000;
 	opacity:.4;
 }
+
+@media screen and (max-width: 850px) {
+
+    .drawerOpen .calcite .dialogContent {
+        width: auto;
+        height: auto;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .calcite .dialogContent {
+        width: auto;
+        height: auto;
+    }
+}
