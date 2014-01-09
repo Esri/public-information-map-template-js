@@ -40,79 +40,82 @@ define([
                     title: this.config.notes_layer_title,
                     id: this.config.notes_layer_id
                 });
-                if(this._notesLayers && this._notesLayers.length){
-                    if(this._notesLayerTitle){
-                        var node = dom.byId('map_notes_title');
-                        if(node){
-                            node.innerHTML = this._notesLayerTitle;
-                        }
+                this._setNoteLayerTitle();
+                this._placeNoteItems();
+            },
+            _setNoteLayerTitle: function(){
+                if(this._notesLayerTitle){
+                    var node = dom.byId('map_notes_title');
+                    if(node){
+                        node.innerHTML = this._notesLayerTitle;
                     }
-                    this._placeNoteItems();
-                }
+                }  
             },
             _placeNoteItems: function(){
                 this.noteNodes = [];
                 this.noteGraphics = [];
                 this.noteGeometries = [];
-                var count = 0;
+                this.noteCount = 0;
                 var notesNode = dom.byId('area_notes');
-                for(var i = 0; i < this._notesLayers.length; i++){
-                    for(var j = 0; j < this._notesLayers[i].graphics.length; j++){
-                        var graphic = this._notesLayers[i].graphics[j];
-                        var attributes = this._notesLayers[i].graphics[j].attributes;
-                        var geometry = this._notesLayers[i].graphics[j].geometry;
-                        this.noteGeometries.push(geometry);
-                        this.noteGraphics.push(graphic);
-                        // note container
-                        var containerNode = domConstruct.create('div', {
-                            className: this.areaCSS.noteContainer
-                        });
-                        // text symbol
-                        if(graphic.symbol.type === 'textsymbol'){
-                            attributes.TITLE = graphic.symbol.text;
-                        }
-                        // note title
-                        var titleNode = domConstruct.create('div', {
-                            innerHTML: attributes.TITLE || this.config.i18n.area.untitledNote,
-                            className: this.areaCSS.noteItem
-                        });
-                        domConstruct.place(titleNode, containerNode, 'last');
-                        // note HTML
-                        var noteContent = '';
-                        if (attributes.DESCRIPTION) {
-                            noteContent = attributes.DESCRIPTION + "\n";
-                        }
-                        if (attributes.IMAGE_URL) {
-                            if (attributes.IMAGE_LINK_URL) {
-                                noteContent += '<a class="' + this.areaCSS.noteLink + '" target="_blank" href="' + attributes.IMAGE_LINK_URL + '"><image class="' + this.areaCSS.noteImage + '" src= "' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" /></a>';
+                if(this._notesLayers.length){
+                    for(var i = 0; i < this._notesLayers.length; i++){
+                        for(var j = 0; j < this._notesLayers[i].graphics.length; j++){
+                            var graphic = this._notesLayers[i].graphics[j];
+                            var attributes = this._notesLayers[i].graphics[j].attributes;
+                            var geometry = this._notesLayers[i].graphics[j].geometry;
+                            this.noteGeometries.push(geometry);
+                            this.noteGraphics.push(graphic);
+                            // note container
+                            var containerNode = domConstruct.create('div', {
+                                className: this.areaCSS.noteContainer
+                            });
+                            // text symbol
+                            if(graphic.symbol.type === 'textsymbol'){
+                                attributes.TITLE = graphic.symbol.text;
                             }
-                            else {
-                                noteContent += '<image class="' + this.areaCSS.noteImage + '" src="' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" />';
+                            // note title
+                            var titleNode = domConstruct.create('div', {
+                                innerHTML: attributes.TITLE || this.config.i18n.area.untitledNote,
+                                className: this.areaCSS.noteItem
+                            });
+                            domConstruct.place(titleNode, containerNode, 'last');
+                            // note HTML
+                            var noteContent = '';
+                            if (attributes.DESCRIPTION) {
+                                noteContent = attributes.DESCRIPTION + "\n";
                             }
+                            if (attributes.IMAGE_URL) {
+                                if (attributes.IMAGE_LINK_URL) {
+                                    noteContent += '<a class="' + this.areaCSS.noteLink + '" target="_blank" href="' + attributes.IMAGE_LINK_URL + '"><image class="' + this.areaCSS.noteImage + '" src= "' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" /></a>';
+                                }
+                                else {
+                                    noteContent += '<image class="' + this.areaCSS.noteImage + '" src="' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" />';
+                                }
+                            }
+                            if(!noteContent){
+                                noteContent = this.config.i18n.area.notesUnavailable;
+                            }
+                            // note content
+                            var contentNode = domConstruct.create('div', {  
+                                className: this.areaCSS.noteContent,
+                                innerHTML: '<div class="' + this.areaCSS.notePadding + '">' + noteContent + '</div>'
+                            });
+                            domConstruct.place(contentNode, containerNode, 'last');
+                            // store nodes
+                            this.noteNodes.push({
+                                containerNode: containerNode,
+                                titleNode: titleNode,
+                                contentNode: contentNode
+                            });
+                            // note event
+                            this._noteEvent(this.noteCount);
+                            // insert node
+                            domConstruct.place(containerNode, notesNode, 'last');
+                            // keep score!
+                            this.noteCount++;
                         }
-                        if(!noteContent){
-                            noteContent = this.config.i18n.area.notesUnavailable;
-                        }
-                        // note content
-                        var contentNode = domConstruct.create('div', {  
-                            className: this.areaCSS.noteContent,
-                            innerHTML: '<div class="' + this.areaCSS.notePadding + '">' + noteContent + '</div>'
-                        });
-                        domConstruct.place(contentNode, containerNode, 'last');
-                        // store nodes
-                        this.noteNodes.push({
-                            containerNode: containerNode,
-                            titleNode: titleNode,
-                            contentNode: contentNode
-                        });
-                        // note event
-                        this._noteEvent(count);
-                        // insert node
-                        domConstruct.place(containerNode, notesNode, 'last');
-                        // keep score!
-                        count++;
-                    }
-                }  
+                    } 
+                }
             },
             // get layer
             _getNotesLayers: function (obj) {
@@ -150,7 +153,7 @@ define([
                         }
                     }
                 }
-                return false;
+                return [];
             },
             _noteEvent: function(idx){
                 on(this.noteNodes[idx].titleNode, 'click', lang.hitch(this, function(){
