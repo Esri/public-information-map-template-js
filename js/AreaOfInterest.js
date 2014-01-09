@@ -28,6 +28,7 @@ define([
                     noteSelected: 'note-selected',
                     noteImage: 'note-image',
                     noteLink: 'note-link',
+                    noteLoading: 'note-loading',
                     bookmarkItem: 'bookmark-item'
                 };
                 this._placeBookmarks();
@@ -194,15 +195,16 @@ define([
                             this.map.resize();
                             // wait for map to be resized
                             setTimeout(lang.hitch(this, function () {
-                                this._setExtent(idx, extent);
+                                this._setNoteExtent(idx, extent);
                             }), 250);
                         }));
                     } else {
-                        this._setExtent(idx, extent);
+                        this._setNoteExtent(idx, extent);
                     }
                 }));
             },
-            _setExtent: function(idx, extent){
+            _setNoteExtent: function(idx, extent){
+                domClass.add(this.noteNodes[idx].titleNode, this.areaCSS.noteLoading);
                 this.map.setExtent(extent, true).then(lang.hitch(this, function(){
                     // select graphic
                     if(this.map.infoWindow){
@@ -210,13 +212,32 @@ define([
                         this.map.infoWindow.setFeatures([this.noteGraphics[idx]]);
                         this.map.infoWindow.show(extent.getCenter());
                         this.map.infoWindow.set("popupWindow", true);
-                    } 
+                    }
+                    domClass.remove(this.noteNodes[idx].titleNode, this.areaCSS.noteLoading);
+                }));
+            },
+            _setBookmarkExtent: function(idx, extent){
+                domClass.add(this.bmNodes[idx], this.areaCSS.noteLoading);
+                this.map.setExtent(extent).then(lang.hitch(this, function(){
+                    domClass.remove(this.bmNodes[idx], this.areaCSS.noteLoading);
                 }));
             },
             _bookmarkEvent: function(idx){
                 on(this.bmNodes[idx], 'click', lang.hitch(this, function(){
                     var extent = new Extent(this.bookmarks[idx].extent);
-                    this.map.setExtent(extent);
+                    var vs = win.getBox();
+                    if (vs.w < this._showDrawerSize) {
+                        this._drawer.toggle().then(lang.hitch(this, function () {
+                            // resize map
+                            this.map.resize();
+                            // wait for map to be resized
+                            setTimeout(lang.hitch(this, function () {
+                                this._setBookmarkExtent(idx, extent);
+                            }), 250);
+                        }));
+                    } else {
+                        this._setBookmarkExtent(idx, extent);
+                    }
                 }));
             },
             _placeBookmarks: function(){
