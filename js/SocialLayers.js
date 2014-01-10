@@ -225,7 +225,7 @@ define([
                                 this._twitterStatusNode.innerHTML = status;
                                 this._twitterStatus2Node.innerHTML = status;
                             } else {
-                                status = '<a><span class="'+ this.socialCSS.iconAttention + '"></span> ' + this.config.i18n.general.signIn + '</a>';
+                                status = '<a><span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.general.signIn + '</a>';
                                 this._twitterStatusNode.innerHTML = status;
                                 this._twitterStatus2Node.innerHTML = status;
                             }

@@ -18,8 +18,14 @@
     display:none;
 }
 .twitterAuthStatus a{
-    text-decoration:none;
     cursor:pointer;
+    text-decoration:underline;
+}
+.twitterAuthStatus a span{
+    display:inline-block;
+    vertical-align:middle;
+    text-decoration:none;
+    margin-right:5px;
 }
 
 .twitter-popup .follow-button {
