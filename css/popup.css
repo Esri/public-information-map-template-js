@@ -4,14 +4,14 @@
 
 /*-------------------------------------------------- */
 
-#mapDiv .calcite {
+.map .calcite {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     font-family: 'Lato', sans-serif;
     font-size: 12px;
     line-height: 16px;
 }
-#mapDiv .calcite .titlePane {
+.map .calcite .titlePane {
     background: #f8f8f8;
     font-size: 12px;
     line-height: 12px;
@@ -23,11 +23,11 @@
     -webkit-border-radius: 1px 1px 0 0;
     border-radius: 1px 1px 0 0;
 }
-#mapDiv .calcite .titlePane .spinner {
+.map .calcite .titlePane .spinner {
     margin-top: 6px;
     background: url(../images/ajax-loader.gif) no-repeat;
 }
-#mapDiv .calcite .titleButton {
+.map .calcite .titleButton {
     background: none;
     font-family: "fontello";
     font-style: normal;
@@ -44,66 +44,66 @@
     padding: 8px 5px;
     color: #999;
 }
-#mapDiv .calcite .titleButton:hover {
+.map .calcite .titleButton:hover {
     color: #333;
 }
-#mapDiv .calcite .titleButton:active {
+.map .calcite .titleButton:active {
     color: #007ac2;
 }
-#mapDiv .calcite .titleButton.close {
+.map .calcite .titleButton.close {
     top: 0;
     right: 0;
 }
-#mapDiv .calcite .titleButton.next {
+.map .calcite .titleButton.next {
     top: 0;
     right: 52px;
 }
-#mapDiv .calcite .titleButton.prev {
+.map .calcite .titleButton.prev {
     top: 0;
     right: 78px;
 }
-#mapDiv .calcite .titleButton.maximize {
+.map .calcite .titleButton.maximize {
     top: 0;
     right: 26px;
 }
-#mapDiv .calcite .titleButton.restore {
+.map .calcite .titleButton.restore {
     top: 0;
     right: 26px;
 }
-#mapDiv .calcite .titleButton.hidden {
+.map .calcite .titleButton.hidden {
     display: none;
 }
-#mapDiv .calcite .contentPane {
+.map .calcite .contentPane {
     background: #fff;
     padding: 10px;
     color: #333;
     font-size: 12px;
     line-height: 16px;
 }
-#mapDiv .calcite .esriViewPopup .hzLine {
+.map .calcite .esriViewPopup .hzLine {
     border-top: 1px solid #eee;
 }
-#mapDiv .calcite .actionsPane {
+.map .calcite .actionsPane {
     color: #333;
     background: #fff;
     -webkit-border-radius: 0 0 1px 1px;
     border-radius: 0 0 1px 1px;
 }
-#mapDiv .calcite .contentPane,
-#mapDiv .calcite .actionsPane {
+.map .calcite .contentPane,
+.map .calcite .actionsPane {
     border: 0;
     font-size: 12px;
     line-height: 16px;
 }
-#mapDiv .calcite .actionsPane .actionList a {
+.map .calcite .actionsPane .actionList a {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     line-height: 16px;
     height: 16px;
 }
-#mapDiv .calcite .actionsPane .actionList a:hover,
-#mapDiv .calcite .actionsPane .actionList a:focus {} #mapDiv .calcite .actionsPane .actionList {
+.map .calcite .actionsPane .actionList a:hover,
+.map .calcite .actionsPane .actionList a:focus {} .map .calcite .actionsPane .actionList {
     display: inline-block;
     height: 16px;
     padding: 0;
@@ -111,14 +111,14 @@
     vertical-align: top;
     margin-right: 5px;
 }
-#mapDiv .calcite .titlePane .pageInfo {
+.map .calcite .titlePane .pageInfo {
     display: inline-block;
 }
-#mapDiv .calcite .titlePane .titleInfo {
+.map .calcite .titlePane .titleInfo {
     display: inline-block;
     margin-right: 5px;
 }
-#mapDiv .calcite .pointer,
-#mapDiv .calcite .outerPointer {
+.map .calcite .pointer,
+.map .calcite .outerPointer {
     background-image: url(../images/popup.png);
 }

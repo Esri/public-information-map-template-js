@@ -76,11 +76,11 @@
 .esriGeocoderReset:before { content: '\e80c'; }
 .HomeButtonCalcite .home:before { content: '\e808';}
 .LocateButtonCalcite .zoomLocateButton:before {content: '\e82f';}
-#mapDiv .calcite .titleButton.close:before {content: '\e80c';}
-#mapDiv .calcite .titleButton.next:before {content: '\e807';}
+.map .calcite .titleButton.close:before {content: '\e80c';}
+.map .calcite .titleButton.next:before {content: '\e807';}
 .twitter-popup .action-reply:before {content:'\e813';}
 .twitter-popup .action-retweet:before {content:'\e80f';}
 .twitter-popup .action-favorite:before {content:'\e811';}
-#mapDiv .calcite .titleButton.prev:before {content: '\e80a';}
-#mapDiv .calcite .titleButton.maximize:before {content: '\e817';}
-#mapDiv .calcite .titleButton.restore:before {content: '\e817';}
+.map .calcite .titleButton.prev:before {content: '\e80a';}
+.map .calcite .titleButton.maximize:before {content: '\e817';}
+.map .calcite .titleButton.restore:before {content: '\e817';}

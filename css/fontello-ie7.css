@@ -43,11 +43,11 @@
 .esriGeocoderReset { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe80c;&nbsp;'); }
 .HomeButtonCalcite .home {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe808;&nbsp;');}
 .LocateButtonCalcite .zoomLocateButton {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe82f;&nbsp;');}
-#mapDiv .calcite .titleButton.close {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe80c;&nbsp;');}
-#mapDiv .calcite .titleButton.next {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe807;&nbsp;');}
-#mapDiv .calcite .titleButton.prev {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe80a;&nbsp;');}
-#mapDiv .calcite .titleButton.maximize {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe817;&nbsp;');}
-#mapDiv .calcite .titleButton.restore {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe817;&nbsp;');}
+.map .calcite .titleButton.close {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe80c;&nbsp;');}
+.map .calcite .titleButton.next {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe807;&nbsp;');}
+.map .calcite .titleButton.prev {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe80a;&nbsp;');}
+.map .calcite .titleButton.maximize {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe817;&nbsp;');}
+.map .calcite .titleButton.restore {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe817;&nbsp;');}
 .twitter-popup .action-reply {*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe813;&nbsp;');}
 .twitter-popup .action-retweet {*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe80f;&nbsp;');}
 .twitter-popup .action-favorite {*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '&#xe811;&nbsp;');}
