@@ -36,6 +36,18 @@ define([
     ) {
         return declare("", null, {
             initSocial: function () {
+                this.socialCSS = {
+                    iconCog: "icon-cog",
+                    iconAttention: "icon-attention-1",
+                    dialogContent: "dialogContent",
+                    layerSettingsHeader: "layerSettingsHeader",
+                    layerSettingsMoreInfo: "layerSettingsMoreInfo",
+                    iconInfo: "icon-info-circled-1",
+                    layerSettingsInput: "layerSettingsInput",
+                    layerSettingsSubmit: "layerSettingsSubmit",
+                    authStatus: "twitterAuthStatus",
+                    clear: "clear"
+                };
                 if(this.config.showSocialLegend){
                     // social layer infos
                     this.socialLayers = [];
@@ -63,9 +75,9 @@ define([
                         });
                         this.map.addLayer(this._twitterLayer.featureLayer);
                         this.socialLayers.push({
-                            title: '<span id="twitter_cog" class="icon-cog"></span>' + this.config.i18n.social.twitter,
+                            title: '<span id="twitter_cog" class="'+ this.socialCSS.iconCog + '"></span>' + this.config.i18n.social.twitter,
                             visibility: this._twitterLayer.featureLayer.visible,
-                            content: '<a id="twitter_auth_status"></a><div class="clear"><div>',
+                            content: '<div class="'+ this.socialCSS.authStatus + '" id="twitter_auth_status"></div><div class="'+ this.socialCSS.clear + '"><div>',
                             layerObject: this._twitterLayer.featureLayer
                         });
                     }
@@ -79,7 +91,7 @@ define([
                         });
                         this.map.addLayer(this._flickrLayer.featureLayer);
                         this.socialLayers.push({
-                            title: '<span id="flickr_cog" class="icon-cog"></span>' + this.config.i18n.social.flickr,
+                            title: '<span id="flickr_cog" class="'+ this.socialCSS.iconCog + '"></span>' + this.config.i18n.social.flickr,
                             visibility: this._flickrLayer.featureLayer.visible,
                             layerObject: this._flickrLayer.featureLayer
                         });
@@ -124,11 +136,10 @@ define([
                     if(this.config.showFlickr){
                         // Flickr Dialog
                         var flContent = '';
-                        flContent += '<div class="dialogContent">';
-                        flContent += '<div class="">Search Terms<div>';
-                        flContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
-                        flContent += '<div>Search</div>';
-                        flContent += '<div class="">Sing in/ switch account<div>';
+                        flContent += '<div class="' + this.socialCSS.dialogContent + '">';
+                        flContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + ' <a href="" target="_blank" title="' + this.config.i18n.social.moreInfo + '" class="' + this.socialCSS.layerSettingsMoreInfo + ' ' + this.socialCSS.iconInfo + '"></a></div>';
+                        flContent += '<input class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
+                        flContent += '<div class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                         flContent += '</div>';
                         var flickrDialogNode = domConstruct.create('div', {
                             innerHTML: flContent
@@ -149,11 +160,15 @@ define([
                     if(this.config.showTwitter){
                         // Twitter Dialog
                         var twContent = '';
-                        twContent += '<div class="dialogContent">';
-                        twContent += '<div class="">Search Terms<div>';
-                        twContent += '<input class="layerSettingsInput" type="text" value=""><div class="">More information<div>';
-                        twContent += '<div>Search</div>';
-                        twContent += '<div class="">Sing in/ switch account<div>';
+                        twContent += '<div class="' + this.socialCSS.dialogContent + '">';
+                        
+                        
+                        twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.twitterUser + '</div>';
+                        
+                        twContent += '<div id="twitter_settings_auth" class="' + this.socialCSS.authStatus + '"></div>';
+                        twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + ' <a href="" target="_blank" title="' + this.config.i18n.social.moreInfo + '" class="' + this.socialCSS.layerSettingsMoreInfo + ' ' + this.socialCSS.iconInfo + '"></a></div>';
+                        twContent += '<input class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
+                        twContent += '<div class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                         twContent += '</div>';
                         var twitterDialogNode = domConstruct.create('div', {
                             innerHTML: twContent
@@ -172,26 +187,28 @@ define([
                         }
                         // sign in/switch twitter node
                         this._twitterStatusNode = dom.byId('twitter_auth_status');
+                        this._twitterStatus2Node = dom.byId('twitter_settings_auth');
                         // if node found
-                        if (this._twitterStatusNode) {
+                        if (this._twitterStatusNode && this._twitterStatus2Node) {
                             // sign in click
                             on(this._twitterStatusNode, 'click', lang.hitch(this, function (evt) {
-                                // force sign in
-                                if (this._twitterLayer.get("authorized")) {
-                                    // authorized user
-                                    this._twitterWindow(this.config.twitterSigninUrl, true);
-                                } else {
-                                    // unauthorized user
-                                    this._twitterWindow(this.config.twitterSigninUrl);
-                                }
-                                event.stop(evt);
+                                this._twitterSignIn(evt);
+                            }));
+                            // sign in click
+                            on(this._twitterStatus2Node, 'click', lang.hitch(this, function (evt) {
+                                this._twitterSignIn(evt);
                             }));
                             // authorize check
                             on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
+                                var status;
                                 if (evt.authorized) {
-                                    this._twitterStatusNode.innerHTML = '<a>' + this.config.i18n.general.switchAccount + '</a>';
+                                    status = '<a>' + this.config.i18n.general.switchAccount + '</a>';
+                                    this._twitterStatusNode.innerHTML = status;
+                                    this._twitterStatus2Node.innerHTML = status;
                                 } else {
-                                    this._twitterStatusNode.innerHTML = '<span class="icon-attention-1"></span> <a>' + this.config.i18n.general.signIn + '</a>';
+                                    status = '<span class="'+ this.socialCSS.iconAttention + '"></span> <a>' + this.config.i18n.general.signIn + '</a>';
+                                    this._twitterStatusNode.innerHTML = status;
+                                    this._twitterStatus2Node.innerHTML = status;
                                 }
                             }));
                         }
@@ -239,6 +256,17 @@ define([
                         domStyle.set(this._flagDiv, 'display', 'none');
                     }
                 }
+            },
+            _twitterSignIn: function(evt){
+                // force sign in
+                if (this._twitterLayer.get("authorized")) {
+                    // authorized user
+                    this._twitterWindow(this.config.twitterSigninUrl, true);
+                } else {
+                    // unauthorized user
+                    this._twitterWindow(this.config.twitterSigninUrl);
+                }
+                event.stop(evt);
             },
             _twitterWindow: function (page, forceLogin) {
                 var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));

@@ -70,6 +70,27 @@
 	background-color:#000;
 	opacity:.4;
 }
+.calcite .dialogContent .layerSettingsHeader{
+    font-size: 19px;
+    margin: 0 0 5px;
+}
+
+.calcite .dialogContent .layerSettingsMoreInfo{
+    text-decoration:none;
+}
+
+.calcite .dialogContent .layerSettingsInput{
+    width: 50%;
+    min-width: 30%;
+    max-width: 90%;
+    height: 25px;
+    font-size: 14px;
+    color: #777;
+    border: 1px solid #dcdcdc;
+    margin: 0 0 20px;
+}
+
+
 
 @media screen and (max-width: 850px) {
 

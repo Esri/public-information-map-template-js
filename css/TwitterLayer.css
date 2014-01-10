@@ -1,15 +1,30 @@
-#twitter_auth_status{
-    display: inline-block;
+#twitter_auth_status a{
+    display:inline-block;
     margin: 10px 10px 0 10px;
+    color:#fff;
 }
 
-#twitter_auth_status a{
+#twitter_settings_auth{
+    margin-bottom:20px;
+}
+
+.calcite .twitterAuthStatus a, .calcite .twitterAuthStatus a:visited{
     cursor: pointer;
     text-decoration: underline;
 }
 
-#twitter_auth_status a:hover{
+.calcite .LL_Content .twitterAuthStatus a, .calcite .LL_Content .twitterAuthStatus a:visited{
+    color:#fff;
+}
+
+.calcite .LL_Content .twitterAuthStatus a:hover{
     text-decoration: none;
+    color:#f8f8f8;
+}
+
+.calcite .LL_Content .twitterAuthStatus a:active{
+    text-decoration: none;
+    color:#eee;
 }
 
 .twitter-popup .username {

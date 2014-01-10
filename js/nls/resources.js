@@ -24,8 +24,12 @@ define({
             flickrSettings: "Flickr Settings",
             twitter: "Twitter",
             twitterSettings: "Twitter Settings",
+            twitterUser: "Twitter Account",
             webcams: "Webcams",
-            instagram: "Instagram"
+            instagram: "Instagram",
+            moreInfo: "More information",
+            searchTerms: "Search Terms",
+            search: "Search"
         },
         general: {
             legend: "Legend",

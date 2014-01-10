@@ -72,10 +72,10 @@ input[type=text]::-ms-clear {
 .icon-cog{
     position:absolute;
     top:0;
-    right:0;
+    right:5%;
     z-index:2;
     padding:12px 6px;
-    margin:0 15px 0 0;
+    margin:0;
     color:#999;
     cursor: pointer;
     display:inline-block;
