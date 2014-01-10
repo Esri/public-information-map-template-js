@@ -88,7 +88,8 @@ function (
                 sublayer: "LL_Sublayer",
                 sublayerVisible: "LL_SublayerVisible",
                 sublayerCheckbox: "LL_SublayerCheckbox",
-                sublayerText: "LL_SublayerText"
+                sublayerText: "LL_SublayerText",
+                settingsIcon: "icon-cog"
             };
         },
         // start widget. called by user
@@ -262,6 +263,14 @@ function (
                         innerHTML: layer.title
                     });
                     domConstruct.place(titleText, titleContainerDiv, "last");
+                    // settings icon
+                    if(layer.settingsIcon){
+                        var settingsIcon = domConstruct.create("span", {
+                            className: this.css.settingsIcon,
+                            id: layer.settingsIconId
+                        });
+                        domConstruct.place(settingsIcon, titleText, "last");
+                    }
                     // content of layer
                     var contentDiv = domConstruct.create("div", {
                         className: this.css.content
@@ -363,6 +372,7 @@ function (
                         title: titleDiv,
                         titleContainer: titleContainerDiv,
                         titleText: titleText,
+                        settingsIcon: settingsIcon,
                         content: contentDiv,
                         legend: legendDiv,
                         layer: layerDiv,

@@ -37,7 +37,6 @@ define([
         return declare("", null, {
             initSocial: function () {
                 this.socialCSS = {
-                    iconCog: "icon-cog",
                     iconAttention: "icon-attention-1",
                     dialogContent: "dialogContent",
                     layerSettingsHeader: "layerSettingsHeader",
@@ -75,7 +74,9 @@ define([
                         });
                         this.map.addLayer(this._twitterLayer.featureLayer);
                         this.socialLayers.push({
-                            title: '<span id="twitter_cog" class="'+ this.socialCSS.iconCog + '"></span>' + this.config.i18n.social.twitter,
+                            title: this.config.i18n.social.twitter,
+                            settingsIcon: true,
+                            settingsIconId: 'twitter_cog',
                             visibility: this._twitterLayer.featureLayer.visible,
                             content: '<div class="'+ this.socialCSS.authStatus + '" id="twitter_auth_status"></div><div class="'+ this.socialCSS.clear + '"><div>',
                             layerObject: this._twitterLayer.featureLayer
@@ -91,7 +92,9 @@ define([
                         });
                         this.map.addLayer(this._flickrLayer.featureLayer);
                         this.socialLayers.push({
-                            title: '<span id="flickr_cog" class="'+ this.socialCSS.iconCog + '"></span>' + this.config.i18n.social.flickr,
+                            title: this.config.i18n.social.flickr,
+                            settingsIcon: true,
+                            settingsIconId: 'flickr_cog',
                             visibility: this._flickrLayer.featureLayer.visible,
                             layerObject: this._flickrLayer.featureLayer
                         });
