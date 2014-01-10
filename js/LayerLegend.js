@@ -264,8 +264,9 @@ function (
                     });
                     domConstruct.place(titleText, titleContainerDiv, "last");
                     // settings icon
+                    var settingsIcon;
                     if(layer.settingsIcon){
-                        var settingsIcon = domConstruct.create("span", {
+                        settingsIcon = domConstruct.create("span", {
                             className: this.css.settingsIcon,
                             id: layer.settingsIconId
                         });
