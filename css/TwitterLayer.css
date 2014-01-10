@@ -1,6 +1,6 @@
-.drawer-menu-panels .twitterAuthStatus a{
-    display:inline-block;
-    margin: 10px 10px 0 10px;
+.drawer-menu-panels .twitterAuthStatus {
+    padding: 10px 10px 0 10px;
+    margin:0;
 }
 
 .dialogContent .twitterAuthStatus{
@@ -12,6 +12,14 @@
 	font-size:14px;
 	line-height:22px;
 	margin:0;
+}
+
+.twitterAuthStatus{
+    display:none;
+}
+.twitterAuthStatus a{
+    text-decoration:none;
+    cursor:pointer;
 }
 
 .twitter-popup .follow-button {

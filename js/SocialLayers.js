@@ -225,10 +225,12 @@ define([
                                 this._twitterStatusNode.innerHTML = status;
                                 this._twitterStatus2Node.innerHTML = status;
                             } else {
-                                status = '<span class="'+ this.socialCSS.iconAttention + '"></span> <a>' + this.config.i18n.general.signIn + '</a>';
+                                status = '<a><span class="'+ this.socialCSS.iconAttention + '"></span> ' + this.config.i18n.general.signIn + '</a>';
                                 this._twitterStatusNode.innerHTML = status;
                                 this._twitterStatus2Node.innerHTML = status;
                             }
+                            domStyle.set(this._twitterStatusNode, 'display', 'block');
+                            domStyle.set(this._twitterStatus2Node, 'display', 'block');
                         }));
                     }
                 }
