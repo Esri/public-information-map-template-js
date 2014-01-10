@@ -75,11 +75,15 @@
     margin: 0 0 5px;
 }
 
+.calcite .dialogContent .layerSettingsDescription{
+    margin-bottom:20px;
+}
+
 .calcite .dialogContent .layerSettingsMoreInfo{
     text-decoration:none;
 }
 
-.calcite .dialogContent .layerSettingsInput{
+.calcite .dialogContent .layerSettingsInput {
     width: 50%;
     min-width: 30%;
     max-width: 90%;
@@ -87,10 +91,31 @@
     font-size: 14px;
     color: #777;
     border: 1px solid #dcdcdc;
-    margin: 0 0 20px;
+    margin: 0 10px 5px 0;
 }
-
-
+.calcite .dialogContent .layerSettingsSubmit {
+    -webkit-border-radius: 2;
+    -moz-border-radius: 2;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 17px;
+    line-height: 17px;
+    background: #007ac2;
+    border:1px solid transparent;
+    padding: 5px 12px;
+    vertical-align: middle;
+    text-decoration: none;
+    margin: 0 0 5px 0;
+    cursor: pointer;
+    display: inline-block;
+}
+.calcite .dialogContent .layerSettingsSubmit:hover {
+    background: #5fa8d4;
+    text-decoration: none;
+}
+.calcite .dialogContent .layerSettingsSubmit:active {
+    color: #ccc;
+}
 
 @media screen and (max-width: 850px) {
 

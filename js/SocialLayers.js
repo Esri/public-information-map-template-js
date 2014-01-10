@@ -14,7 +14,8 @@ define([
     "esri/tasks/QueryTask",
     "esri/tasks/query",
     "esri/request",
-    "dijit/Dialog"
+    "dijit/Dialog",
+    "dojo/keys"
 ],
     function (
         declare,
@@ -32,7 +33,8 @@ define([
         QueryTask,
         Query,
         esriRequest,
-        Dialog
+        Dialog,
+        keys
     ) {
         return declare("", null, {
             initSocial: function () {
@@ -44,6 +46,7 @@ define([
                     layerSettingsMoreInfo: "layerSettingsMoreInfo",
                     iconInfo: "icon-info-circled-1",
                     layerSettingsInput: "layerSettingsInput",
+                    layerSettingsDescription: "layerSettingsDescription",
                     layerSettingsSubmit: "layerSettingsSubmit",
                     authStatus: "twitterAuthStatus",
                     clear: "clear"
@@ -150,9 +153,10 @@ define([
                     // Flickr Dialog
                     var flContent = '';
                     flContent += '<div class="' + this.socialCSS.dialogContent + '">';
-                    flContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + ' <a href="" target="_blank" title="' + this.config.i18n.social.moreInfo + '" class="' + this.socialCSS.layerSettingsMoreInfo + ' ' + this.socialCSS.iconInfo + '"></a></div>';
-                    flContent += '<input class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
-                    flContent += '<div class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
+                    flContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.flSettingsInfo + '</div>';
+                    flContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + '</div>';
+                    flContent += '<input id="flickr_search_input" class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
+                    flContent += '<div id="flickr_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                     flContent += '</div>';
                     var flickrDialogNode = domConstruct.create('div', {
                         innerHTML: flContent
@@ -160,7 +164,7 @@ define([
                     // dialog node
                     domConstruct.place(flickrDialogNode, document.body, 'last');
                     // dialog
-                    var flickrDialog = new Dialog({
+                    this._flickrDialog = new Dialog({
                         title: this.config.i18n.social.flickrSettings,
                         draggable: false
                     }, flickrDialogNode);
@@ -168,8 +172,23 @@ define([
                     var flickrCog = dom.byId('flickr_cog');
                     if(flickrCog){
                         on(flickrCog, 'click', lang.hitch(this, function(evt){
-                            flickrDialog.show();
+                            this._flickrDialog.show();
                             event.stop(evt);
+                        }));
+                    }
+                    var flSearchNode = dom.byId('flickr_search_submit');
+                    var flInputNode = dom.byId('flickr_search_input');
+                    if(flSearchNode && flInputNode){
+                        on(flSearchNode, 'click', lang.hitch(this, function(){
+                            this._updateFlickrSearch(flInputNode);
+                        }));
+                        on(flInputNode, 'keypress', lang.hitch(this, function(evt){
+                            var charOrCode = evt.charCode || evt.keyCode;
+                            switch (charOrCode) {
+                            case keys.ENTER:
+                                this._updateFlickrSearch(flInputNode);
+                                break;
+                            }
                         }));
                     }
                 }
@@ -177,14 +196,13 @@ define([
                     // Twitter Dialog
                     var twContent = '';
                     twContent += '<div class="' + this.socialCSS.dialogContent + '">';
-                    
-                    
+                    twContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.twSettingsInfo + '</div>';
+                    twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + '</div>';
+                    twContent += '<input id="twitter_search_input" class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
+                    twContent += '<div id="twitter_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
+                    twContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.advancedOperators + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.twitterUser + '</div>';
-                    
                     twContent += '<div id="twitter_settings_auth" class="' + this.socialCSS.authStatus + '"></div>';
-                    twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + ' <a href="" target="_blank" title="' + this.config.i18n.social.moreInfo + '" class="' + this.socialCSS.layerSettingsMoreInfo + ' ' + this.socialCSS.iconInfo + '"></a></div>';
-                    twContent += '<input class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
-                    twContent += '<div class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                     twContent += '</div>';
                     var twitterDialogNode = domConstruct.create('div', {
                         innerHTML: twContent
@@ -192,7 +210,7 @@ define([
                     // dialog node
                     domConstruct.place(twitterDialogNode, document.body, 'last');
                     // dialog
-                    var twitterDialog = new Dialog({
+                    this._twitterDialog = new Dialog({
                         title: this.config.i18n.social.twitterSettings,
                         draggable: false
                     }, twitterDialogNode);
@@ -200,8 +218,23 @@ define([
                     var twitterCog = dom.byId('twitter_cog');
                     if(twitterCog){
                         on(twitterCog, 'click', lang.hitch(this, function(evt){
-                            twitterDialog.show();
+                            this._twitterDialog.show();
                             event.stop(evt);
+                        }));
+                    }
+                    var twSearchNode = dom.byId('twitter_search_submit');
+                    var twInputNode = dom.byId('twitter_search_input');
+                    if(twSearchNode && twInputNode){
+                        on(twSearchNode, 'click', lang.hitch(this, function(){
+                            this._updateTwitterSearch(twInputNode);
+                        }));
+                        on(twInputNode, 'keypress', lang.hitch(this, function(evt){
+                            var charOrCode = evt.charCode || evt.keyCode;
+                            switch (charOrCode) {
+                            case keys.ENTER:
+                                this._updateTwitterSearch(twInputNode);
+                                break;
+                            }
                         }));
                     }
                     // sign in/switch twitter node
@@ -234,6 +267,18 @@ define([
                         }));
                     }
                 }
+            },
+            _updateTwitterSearch: function(inputNode){
+                this._twitterLayer.clear();
+                this._twitterLayer.set('searchTerm', inputNode.value);
+                this._twitterLayer.update(0);
+                this._twitterDialog.hide();
+            },
+            _updateFlickrSearch: function(inputNode){
+                this._flickrLayer.clear();
+                this._flickrLayer.set('searchTerm', inputNode.value);
+                this._flickrLayer.update(0);
+                this._flickrDialog.hide();
             },
             _featureChange: function () {
                 if (this.map && this.map.infoWindow) {
