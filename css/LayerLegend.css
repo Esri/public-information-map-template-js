@@ -87,8 +87,8 @@
     margin: 10px 0 0 15px;
 }
 .LayerLegend .LL_Content {
-    background: #007ac2;
-    color: #fff;
+    background: #dfdfdf;
+    color: #333;
     position: relative;
     max-height: 0;
     _height: 0;

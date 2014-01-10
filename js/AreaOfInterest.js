@@ -35,13 +35,16 @@ define([
                 this._placeNotes();
             },
             _placeNotes: function(){
+                // get note layers from the one layer id or title
                 this._notesLayers = this._getNotesLayers({
                     map: this.map,
                     layers: this.layers,
                     title: this.config.notesLayerTitle,
                     id: this.config.notesLayerId
                 });
+                // update note layer title
                 this._setNoteLayerTitle();
+                // place items to click
                 this._placeNoteItems();
             },
             _setNoteLayerTitle: function(){
@@ -59,12 +62,17 @@ define([
                 this.noteCount = 0;
                 var notesNode = dom.byId('area_notes');
                 if(notesNode){
+                    // if we have note layers
                     if(this._notesLayers.length){
+                        // each note layer
                         for(var i = 0; i < this._notesLayers.length; i++){
+                            // get graphics from layer
                             for(var j = 0; j < this._notesLayers[i].graphics.length; j++){
+                                // note graphic
                                 var graphic = this._notesLayers[i].graphics[j];
                                 var attributes = this._notesLayers[i].graphics[j].attributes;
                                 var geometry = this._notesLayers[i].graphics[j].geometry;
+                                // save references
                                 this.noteGeometries.push(geometry);
                                 this.noteGraphics.push(graphic);
                                 // note container
@@ -86,7 +94,9 @@ define([
                                 if (attributes.DESCRIPTION) {
                                     noteContent = attributes.DESCRIPTION + "\n";
                                 }
+                                // if it has an image
                                 if (attributes.IMAGE_URL) {
+                                    // image has link
                                     if (attributes.IMAGE_LINK_URL) {
                                         noteContent += '<a class="' + this.areaCSS.noteLink + '" target="_blank" href="' + attributes.IMAGE_LINK_URL + '"><image class="' + this.areaCSS.noteImage + '" src= "' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" /></a>';
                                     }
@@ -94,6 +104,7 @@ define([
                                         noteContent += '<image class="' + this.areaCSS.noteImage + '" src="' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" />';
                                     }
                                 }
+                                // if no content was set
                                 if(!noteContent){
                                     noteContent = this.config.i18n.area.notesUnavailable;
                                 }
@@ -122,6 +133,7 @@ define([
             },
             // get layer
             _getNotesLayers: function (obj) {
+                // get the layer by ID or title
                 var mapLayer, mapLayers = [], layers, layer, i, j;
                 // if we have a layer id
                 if (obj.id) {
