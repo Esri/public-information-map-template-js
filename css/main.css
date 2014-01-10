@@ -218,8 +218,7 @@ input[type=text]::-ms-clear {
     margin: 0;
     border: 0;
     background: #fff;
-    overflow: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     -webkit-transition: width 250ms ease;
     -moz-transition: width 250ms ease;
     -ms-transition: width 250ms ease;
@@ -228,6 +227,8 @@ input[type=text]::-ms-clear {
 }
 .drawerOpen #cp_outer_left {
     width: 280px;
+    overflow: auto;
+    overflow-x: hidden;
 }
 .drawerOpenShadow #cp_outer_left:before {
     -webkit-box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
