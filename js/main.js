@@ -228,7 +228,7 @@ function(
             // desktop size geocoder
             this._geocoder = new Geocoder({
                 map: this.map,
-                theme: 'calite',
+                theme: 'calite geocoder-desktop',
                 autoComplete: true
             }, dom.byId("geocoderSearch"));
             this._geocoder.startup();
@@ -241,7 +241,7 @@ function(
             // mobile sized geocoder
             this._mobileGeocoder = new Geocoder({
                 map: this.map,
-                theme: 'calite',
+                theme: 'calite geocoder-mobile',
                 autoComplete: true
             }, dom.byId("geocoderMobile"));
             this._mobileGeocoder.startup();
