@@ -19,7 +19,7 @@
 }
 */
 
-[class^="icon-"]:before,[class*=" icon-"]:before,.leftArrow,.rightArrow,.dijitDialogCloseIcon,.esriGeocoderSearch,.esriGeocoderReset {
+[class^="icon-"]:before,[class*=" icon-"]:before,.left-arrow,.right-arrow,.dijitDialogCloseIcon,.esriGeocoderSearch,.esriGeocoderReset {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -69,8 +69,8 @@
 .icon-facebook-squared-1:before { content: '\e80e'; } /* '' */
 .icon-doc-text:before { content: '\e806'; } /* '' */
 
-.leftArrow:before { content: '\e80d'; }
-.rightArrow:before { content: '\e80b'; }
+.left-arrow:before { content: '\e80d'; }
+.right-arrow:before { content: '\e80b'; }
 .dijitDialogCloseIcon:before { content: '\e80c'; }
 .esriGeocoderSearch:before { content: '\e800'; }
 .esriGeocoderReset:before { content: '\e80c'; }
