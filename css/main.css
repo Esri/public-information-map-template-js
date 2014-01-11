@@ -187,7 +187,7 @@ input[type=text]::-ms-clear {
 }
 /* Drawer */
 
-.topBar {
+.top-bar {
     position: absolute;
     z-index: 36;
     top: 0;
@@ -304,7 +304,7 @@ input[type=text]::-ms-clear {
 #geocoderMobile .esriGeocoderContainer {
     width: 100%;
 }
-.mobileLocateBoxHidden {
+.mobile-locate-box-hidden {
     display: none;
 }
 #geocoderMobile .esriGeocoder input {
@@ -339,7 +339,7 @@ input[type=text]::-ms-clear {
     top: 35px;
     width: 100%;
 }
-#mobileSearch .mobileSearchContainer {
+#mobileSearch .mobile-search-container {
     padding: 5px 15px;
     background: #fff;
     background: rgba(255, 255, 255, 0.7);
@@ -430,7 +430,7 @@ input[type=text]::-ms-clear {
 }
 /* Loading */
 
-.loadingIndicatorDiv {
+.loading-indicator {
     height: 100%;
     width: 100%;
     display: block;
@@ -480,7 +480,7 @@ input[type=text]::-ms-clear {
     #BasemapToggle,
     #title,
     .esriAttribution,
-    .locateBox {
+    .locate-box {
         display: none!important;
     }
     #mapButtons {
@@ -504,7 +504,7 @@ input[type=text]::-ms-clear {
     }
 }
 @media screen and (max-width: 310px) {
-    .topMenuRight,
+    .top-menu-right,
     #mobileSearch {
         display: none!important;
     }
@@ -520,7 +520,7 @@ input[type=text]::-ms-clear {
     .drawer-open #BasemapToggle,
     .drawer-open #title,
     .drawer-open .esriAttribution,
-    .drawer-open .locateBox {
+    .drawer-open .locate-box {
         display: none!important;
     }
     .drawer-open .mobile-locate-box-display {
@@ -535,7 +535,7 @@ input[type=text]::-ms-clear {
     }
 }
 @media screen and (max-width: 580px) {
-    .drawer-open .topMenuRight,
+    .drawer-open .top-menu-right,
     .drawer-open #mobileSearch {
         display: none!important;
     }
@@ -553,7 +553,7 @@ input[type=text]::-ms-clear {
     #BasemapToggle,
     #title,
     .esriAttribution,
-    .locateBox {
+    .locate-box {
         display: none!important;
     }
     #mapButtons {
@@ -579,7 +579,7 @@ input[type=text]::-ms-clear {
     #BasemapToggle,
     #title,
     .geocoderSearch,
-    .locateBox {
+    .locate-box {
         display: none!important;
     }
     #mapButtons {
@@ -612,7 +612,7 @@ input[type=text]::-ms-clear {
     .drawer-open #BasemapToggle,
     .drawer-open #title,
     .drawer-open .geocoderSearch,
-    .drawer-open .locateBox {
+    .drawer-open .locate-box {
         display: none!important;
     }
     .drawer-open .esriAttribution {
@@ -641,7 +641,7 @@ input[type=text]::-ms-clear {
     #BasemapToggle,
     #title,
     .geocoderSearch,
-    .locateBox {
+    .locate-box {
         display: none!important;
     }
     .esriAttribution {
