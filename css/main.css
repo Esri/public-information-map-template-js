@@ -92,10 +92,6 @@ input[type=text]::-ms-clear {
     margin: 10px 10px 0 10px;
 }
 
-.dialogContent .twitterAuthStatus{
-    margin-bottom:20px;
-}
-
 .twitterAuthStatus{
     display:none;
 }

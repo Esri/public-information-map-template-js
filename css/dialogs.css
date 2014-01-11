@@ -107,6 +107,7 @@
     text-decoration: none;
     margin: 0 0 5px 0;
     cursor: pointer;
+    font-weight:700;
     display: inline-block;
 }
 .calcite .dialogContent .layerSettingsSubmit:hover {
@@ -115,6 +116,10 @@
 }
 .calcite .dialogContent .layerSettingsSubmit:active {
     color: #ccc;
+}
+
+.calcite .dialogContent .twitterAuthStatus{
+    margin-bottom:20px;
 }
 
 @media screen and (max-width: 850px) {
