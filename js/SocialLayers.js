@@ -177,12 +177,15 @@ define([
                             event.stop(evt);
                         }));
                     }
+                    // flickr settings search nodes
                     var flSearchNode = dom.byId('flickr_search_submit');
                     var flInputNode = dom.byId('flickr_search_input');
                     if(flSearchNode && flInputNode){
+                        // flickr search button click
                         on(flSearchNode, 'click', lang.hitch(this, function(){
                             this._updateFlickrSearch(flInputNode);
                         }));
+                        // flickr search input keypress enter
                         on(flInputNode, 'keypress', lang.hitch(this, function(evt){
                             var charOrCode = evt.charCode || evt.keyCode;
                             switch (charOrCode) {
@@ -232,12 +235,15 @@ define([
                             event.stop(evt);
                         }));
                     }
+                    // twitter search settings
                     var twSearchNode = dom.byId('twitter_search_submit');
                     var twInputNode = dom.byId('twitter_search_input');
                     if(twSearchNode && twInputNode){
+                        // twitter search button click
                         on(twSearchNode, 'click', lang.hitch(this, function(){
                             this._updateTwitterSearch(twInputNode);
                         }));
+                        // twitter search input keypress enter
                         on(twInputNode, 'keypress', lang.hitch(this, function(evt){
                             var charOrCode = evt.charCode || evt.keyCode;
                             switch (charOrCode) {
@@ -263,6 +269,7 @@ define([
                         // authorize check
                         on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
                             var status;
+                            // user signed in
                             if (evt.authorized) {
                                 status = '<a>' + this.config.i18n.general.switchAccount + '</a>';
                                 this._twitterStatusNode.innerHTML = status;

@@ -98,7 +98,6 @@ function (
             // default symbol
             if (!this.symbol) {
                 this.set("symbol", new PictureMarkerSymbol('images/map/instagram25x30.png', 25, 30).setOffset(0,7));
-                testSymbol = this.get("symbol");
             }
             // default infoTemplate
             if (!this.infoTemplate) {
@@ -389,7 +388,7 @@ function (
 				}
 				// if this feature needs to be filtered
 				if(filter){
-				    //console.log('filtered', result);
+                    //console.log('filtered', result);
 					return;
 				}
                 this._dataIds[result.id] = true;
