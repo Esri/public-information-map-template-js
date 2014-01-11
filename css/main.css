@@ -152,7 +152,7 @@ input[type=text]::-ms-clear {
     position: relative;
     max-height: 0;
     _height: 0;
-    overflow: auto;
+    overflow:hidden;
     -webkit-transition: max-height .25s ease;
     -moz-transition: max-height .25s ease;
     transition: max-height .25s ease;
@@ -161,6 +161,7 @@ input[type=text]::-ms-clear {
 }
 .note-selected .note-content {
     max-height: 300px;
+    overflow: auto;
     _height: 300px;
     border-top: 1px solid #d4d4d4;
 }
@@ -171,7 +172,7 @@ input[type=text]::-ms-clear {
     display: inline-block;
 }
 .note-image {
-    max-width: 90%;
+    max-width: 210px;
     padding: 2px;
     margin: 15px 0;
     -moz-box-shadow: 1px 1px 3px #CCC;
