@@ -32,7 +32,9 @@ define({
             search: "Search",
             flSettingsInfo: "Return results matching a photo's title, description or tags.",
             twSettingsInfo: "See what’s happening right now.",
-            advancedOperators: "Tip: use <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">operators</a> for creating advanced searches."
+            advancedOperators: "Tip: use <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">operators</a> for creating advanced searches.",
+            tweetsFilteredBy: "Tweets filtered by:",
+            photosFilteredBy: "Photos filtered by:"
         },
         general: {
             legend: "Legend",

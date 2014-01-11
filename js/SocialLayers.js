@@ -44,11 +44,11 @@ define([
                     dialogContent: "dialogContent",
                     layerSettingsHeader: "layerSettingsHeader",
                     layerSettingsMoreInfo: "layerSettingsMoreInfo",
-                    iconInfo: "icon-info-circled-1",
                     layerSettingsInput: "layerSettingsInput",
                     layerSettingsDescription: "layerSettingsDescription",
                     layerSettingsSubmit: "layerSettingsSubmit",
                     authStatus: "twitterAuthStatus",
+                    filterStatus: "legendFilterStatus",
                     clear: "clear"
                 };
                 // social layer infos
@@ -85,7 +85,7 @@ define([
                         settingsIcon: true,
                         settingsIconId: 'twitter_cog',
                         visibility: this._twitterLayer.featureLayer.visible,
-                        content: '<div class="'+ this.socialCSS.authStatus + '" id="twitter_auth_status"></div><div class="'+ this.socialCSS.clear + '"><div>',
+                        content: '<div id="twitter_filter_status"></div><div class="'+ this.socialCSS.authStatus + '" id="twitter_auth_status"></div><div class="'+ this.socialCSS.clear + '"></div>',
                         layerObject: this._twitterLayer.featureLayer
                     });
                 }
@@ -104,6 +104,7 @@ define([
                         title: this.config.i18n.social.flickr,
                         settingsIcon: true,
                         settingsIconId: 'flickr_cog',
+                        content: '<div id="flickr_filter_status"></div>',
                         visibility: this._flickrLayer.featureLayer.visible,
                         layerObject: this._flickrLayer.featureLayer
                     });
@@ -191,6 +192,15 @@ define([
                             }
                         }));
                     }
+                    // flickr filtered by text
+                    this._flickrFilterNode = dom.byId('flickr_filter_status');
+                    if(this._flickrFilterNode){
+                        // watch for value change
+                        this._flickrLayer.watch("searchTerm", lang.hitch(this, function(){
+                            this._updateFlickrFilter();
+                        }));
+                        this._updateFlickrFilter();
+                    }
                 }
                 if(this.config.showTwitter){
                     // Twitter Dialog
@@ -243,11 +253,11 @@ define([
                     // if node found
                     if (this._twitterStatusNode && this._twitterStatus2Node) {
                         // sign in click
-                        on(this._twitterStatusNode, 'click', lang.hitch(this, function (evt) {
+                        on(this._twitterStatusNode, 'a:click', lang.hitch(this, function (evt) {
                             this._twitterSignIn(evt);
                         }));
                         // sign in click
-                        on(this._twitterStatus2Node, 'click', lang.hitch(this, function (evt) {
+                        on(this._twitterStatus2Node, 'a:click', lang.hitch(this, function (evt) {
                             this._twitterSignIn(evt);
                         }));
                         // authorize check
@@ -266,6 +276,31 @@ define([
                             domStyle.set(this._twitterStatus2Node, 'display', 'block');
                         }));
                     }
+                    // twitter filtered by text
+                    this._twitterFilterNode = dom.byId('twitter_filter_status');
+                    if(this._twitterFilterNode){
+                        // watch for value change
+                        this._twitterLayer.watch("searchTerm", lang.hitch(this, function(){
+                            this._updateTwitterFilter();
+                        }));
+                        this._updateTwitterFilter();
+                    }
+                }
+            },
+            _updateFlickrFilter: function(){
+                if(this._flickrLayer.get("searchTerm")){
+                    this._flickrFilterNode.innerHTML = '<div class="' + this.socialCSS.filterStatus + '"><strong>' + this.config.i18n.social.photosFilteredBy + '</strong> ' + this._flickrLayer.get("searchTerm") + '</div>';
+                }
+                else{
+                    this._flickrFilterNode.innerHTML = '';
+                }
+            },
+            _updateTwitterFilter: function(){
+                if(this._twitterLayer.get("searchTerm")){
+                    this._twitterFilterNode.innerHTML = '<div class="' + this.socialCSS.filterStatus + '"><strong>' + this.config.i18n.social.tweetsFilteredBy + '</strong> ' + this._twitterLayer.get("searchTerm") + '</div>';
+                }
+                else{
+                    this._twitterFilterNode.innerHTML = '';
                 }
             },
             _updateTwitterSearch: function(inputNode){

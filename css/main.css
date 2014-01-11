@@ -84,6 +84,32 @@ input[type=text]::-ms-clear {
     color:#007ac2;
 }
 
+.legendFilterStatus{
+    margin:10px 10px 0 10px;
+}
+
+.drawer-menu-panels .twitterAuthStatus {
+    margin: 10px 10px 0 10px;
+}
+
+.dialogContent .twitterAuthStatus{
+    margin-bottom:20px;
+}
+
+.twitterAuthStatus{
+    display:none;
+}
+.twitterAuthStatus a{
+    cursor:pointer;
+    text-decoration:underline;
+}
+.twitterAuthStatus a span{
+    display:inline-block;
+    vertical-align:middle;
+    text-decoration:none;
+    margin-right:5px;
+}
+
 /* area */
 .area-section{
     border-top:1px solid #e0e0e0;
