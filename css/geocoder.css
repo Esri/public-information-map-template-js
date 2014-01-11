@@ -166,13 +166,13 @@
 .esriGeocoderMenu .esriGeocoderSelected .esriGeocoderSelectedCheck {
     background: #ddd;
 }
-#geocoderSearch .esriGeocoder input {
+.locate-box .esriGeocoder input {
     width: 75%!important;
 }
-#geocoderMobile .esriGeocoderIcon {
+.mobile-search-container .esriGeocoderIcon {
     margin: 7px 3px;
 }
-#geocoderMobile .esriGeocoder input {
+.mobile-search-container .esriGeocoder input {
     width: 75%;
     line-height: 24px;
     height: 24px;
