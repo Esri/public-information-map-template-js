@@ -9,7 +9,7 @@ define([
     "modules/FlickrLayer",
     "modules/WebcamsLayer",
     "modules/InstagramLayer",
-    "modules/LayerLegend",
+    "modules/TableOfContents",
     "dojo/on",
     "esri/tasks/QueryTask",
     "esri/tasks/query",
@@ -28,7 +28,7 @@ define([
         FlickrLayer,
         WebcamsLayer,
         InstagramLayer,
-        LayerLegend,
+        TableOfContents,
         on,
         QueryTask,
         Query,
@@ -141,10 +141,10 @@ define([
                     this._featureChange();
                 }));
                 // social layers legend
-                var socialLegendNode = dom.byId('SocialLayerLegend');
+                var socialLegendNode = dom.byId('SocialTableOfContents');
                 if (socialLegendNode) {
                     // social legend
-                    var LL = new LayerLegend({
+                    var LL = new TableOfContents({
                         map: this.map,
                         layers: this.socialLayers
                     }, socialLegendNode);

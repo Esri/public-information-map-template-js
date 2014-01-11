@@ -9,8 +9,8 @@ define([
     "dojo/on",
     "dojo/query",
     // load template    
-    "dojo/text!modules/dijit/templates/LayerLegend.html",
-    "dojo/i18n!modules/nls/LayerLegend",
+    "dojo/text!modules/dijit/templates/TableOfContents.html",
+    "dojo/i18n!modules/nls/TableOfContents",
     "dojo/dom-class",
     "dojo/dom-style",
     "dojo/dom-construct",
@@ -33,11 +33,11 @@ function (
     array
 ) {
     var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
-        declaredClass: "esri.dijit.LayerLegend",
+        declaredClass: "esri.dijit.TableOfContents",
         templateString: dijitTemplate,
         // defaults
         options: {
-            theme: "LayerLegend",
+            theme: "TableOfContents",
             map: null,
             layers: null,
             visible: true,
@@ -97,7 +97,7 @@ function (
             // map not defined
             if (!this.map) {
                 this.destroy();
-                console.log('LayerLegend::map required');
+                console.log('TableOfContents::map required');
             }
             // when map is loaded
             if (this.map.loaded) {
@@ -330,7 +330,7 @@ function (
                         // legend
                         fullExtentDiv = domConstruct.create("div", {
                             className: this.css.zoomTo,
-                            innerHTML: this._i18n.LayerLegend.zoomTo
+                            innerHTML: this._i18n.TableOfContents.zoomTo
                         });
                         domConstruct.place(fullExtentDiv, contentDiv, "first");
                     }
@@ -364,7 +364,7 @@ function (
                         this._legends.push(legend);
                     } else {
                         // no legend to create
-                        legendDiv.innerHTML = this._i18n.LayerLegend.noLegend;
+                        legendDiv.innerHTML = this._i18n.TableOfContents.noLegend;
                     }
                     // lets save all the nodes for events
                     var nodesObj = {
@@ -589,7 +589,7 @@ function (
         }
     });
     if (has("extend-esri")) {
-        lang.setObject("dijit.LayerLegend", Widget, esriNS);
+        lang.setObject("dijit.TableOfContents", Widget, esriNS);
     }
     return Widget;
 });
