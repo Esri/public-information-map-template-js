@@ -25,9 +25,9 @@
     background-color: #ddd;
 }
 .LocateButtonCalcite .locateContainer {
-    width:30px;
-    height:30px;
-    overflow:hidden;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
 }
 .LocateButtonCalcite .zoomLocateButton {
     font-size: 21px;
@@ -46,13 +46,13 @@
 }
 .LocateButtonCalcite .loading:before {
     content: '';
-    display:block;
-    position:relative;
-    width:22px;
-    height:22px;
-    padding:0;
-    margin:0;
-    overflow:hidden;
+    display: block;
+    position: relative;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
     background-position: center center;
     background-image: url(../images/ajax-loader.gif);
     background-repeat: no-repeat;

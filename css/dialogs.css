@@ -1,88 +1,77 @@
-.calcite .dijitDialog{
+.calcite .dijitDialog {
     max-width: 550px;
 }
-
-.calcite .dijitDialog,.calcite .dijitDialogTitle {
-	color:#777;
-}
-
-.calcite .dijitDialog {
-	box-shadow:-2px 2px 20px #333F47;
-	-webkit-text-size-adjust:none;
-}
-
-.calcite .dijitDialogTitleBar {
-	border:0;
-	border-bottom:1px solid #eee;
-	background:#fff;
-	padding:10px 20px;
-	margin:0;
-}
-
-.calcite .dijitDialogCloseIcon {
-	font-size:24px;
-	line-height:24px;
-	background-image:none;
-	border:0;
-	height:auto;
-	width:auto;
-	top:0;
-	right:0;
-	padding:10px 20px;
-	margin:0;
-	z-index:20;
-	position:absolute;
-    color:#999;
-}
-
-.calcite .dijitDialogCloseIcon:hover{
-    color:#555;
-}
-
-.calcite .dijitDialogCloseIcon:active{
-    color:#007ac2;
-}
-
-.calcite .dijitDialogPaneContent {
-	max-height:550px;
-	max-width:530px;
-	overflow:auto;
-	border:none;
-	padding:20px;
-	margin:0;
-	background:#fff;
-    word-wrap:break-word;
-}
-
-.calcite .dialogContent{
-    width:510px;
-    height:400px;
-}
-
+.calcite .dijitDialog,
 .calcite .dijitDialogTitle {
-	font-size:24px;
-	line-height:24px;
-	margin:0;
-	padding:0;
+    color: #777;
 }
-
-.calcite .dijitDialogUnderlayWrapper,.calcite .dijitDialogUnderlay {
-	background-color:#000;
-	opacity:.4;
+.calcite .dijitDialog {
+    box-shadow: -2px 2px 20px #333F47;
+    -webkit-text-size-adjust: none;
 }
-.calcite .dialogContent .layerSettingsHeader{
+.calcite .dijitDialogTitleBar {
+    border: 0;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    padding: 10px 20px;
+    margin: 0;
+}
+.calcite .dijitDialogCloseIcon {
+    font-size: 24px;
+    line-height: 24px;
+    background-image: none;
+    border: 0;
+    height: auto;
+    width: auto;
+    top: 0;
+    right: 0;
+    padding: 10px 20px;
+    margin: 0;
+    z-index: 20;
+    position: absolute;
+    color: #999;
+}
+.calcite .dijitDialogCloseIcon:hover {
+    color: #555;
+}
+.calcite .dijitDialogCloseIcon:active {
+    color: #007ac2;
+}
+.calcite .dijitDialogPaneContent {
+    max-height: 550px;
+    max-width: 530px;
+    overflow: auto;
+    border: none;
+    padding: 20px;
+    margin: 0;
+    background: #fff;
+    word-wrap: break-word;
+}
+.calcite .dialogContent {
+    width: 510px;
+    height: 400px;
+}
+.calcite .dijitDialogTitle {
+    font-size: 24px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+}
+.calcite .dijitDialogUnderlayWrapper,
+.calcite .dijitDialogUnderlay {
+    background-color: #000;
+    opacity: .4;
+}
+.calcite .dialogContent .layerSettingsHeader {
     font-size: 19px;
     margin: 0 0 5px;
 }
-
-.calcite .dialogContent .layerSettingsDescription{
-    margin-bottom:20px;
+.calcite .dialogContent .layerSettingsDescription {
+    margin-bottom: 20px;
 }
-
-.calcite .dialogContent .layerSettingsMoreInfo{
-    text-decoration:none;
+.calcite .dialogContent .layerSettingsMoreInfo {
+    text-decoration: none;
 }
-
 .calcite .dialogContent .layerSettingsInput {
     width: 50%;
     min-width: 30%;
@@ -91,7 +80,7 @@
     font-size: 14px;
     color: #777;
     border: 1px solid #dcdcdc;
-    margin: 0 10px 5px 0;
+    margin: 0 5px 5px 0;
 }
 .calcite .dialogContent .layerSettingsSubmit {
     -webkit-border-radius: 2;
@@ -101,13 +90,13 @@
     font-size: 17px;
     line-height: 17px;
     background: #007ac2;
-    border:1px solid transparent;
+    border: 1px solid transparent;
     padding: 5px 12px;
     vertical-align: middle;
     text-decoration: none;
     margin: 0 0 5px 0;
     cursor: pointer;
-    font-weight:700;
+    font-weight: 700;
     display: inline-block;
 }
 .calcite .dialogContent .layerSettingsSubmit:hover {
@@ -117,20 +106,15 @@
 .calcite .dialogContent .layerSettingsSubmit:active {
     color: #ccc;
 }
-
-.calcite .dialogContent .twitterAuthStatus{
-    margin-bottom:20px;
+.calcite .dialogContent .twitterAuthStatus {
+    margin-bottom: 20px;
 }
-
 @media screen and (max-width: 850px) {
-
     .drawerOpen .calcite .dialogContent {
         width: auto;
         height: auto;
     }
-
 }
-
 @media screen and (max-width: 600px) {
     .calcite .dialogContent {
         width: auto;

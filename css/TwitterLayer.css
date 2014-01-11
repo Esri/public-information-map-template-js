@@ -1,146 +1,128 @@
 .twitter-popup .username {
-	font-weight:700;
-	font-size:14px;
-	line-height:22px;
-	margin:0;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
 }
-
 .twitter-popup .follow-button {
-	float:right;
+    float: right;
 }
-
 .twitter-popup .actions {
-	text-align:right;
-	padding:5px 0 0;
-	border-top:1px solid #E5E5E5;
-	margin-top:10px;
-	font-size:16px;
-	line-height:18px;
+    text-align: right;
+    padding: 5px 0 0;
+    border-top: 1px solid #E5E5E5;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 18px;
 }
-
-.twitter-popup .actions a,.twitter-popup .actions a:visited {
-	color:#999;
+.twitter-popup .actions a,
+.twitter-popup .actions a:visited {
+    color: #999;
 }
-
 .twitter-popup .action-reply {
-	display:inline-block;
-	margin-right:10px;
-	font-family:"fontello";
-	font-style:normal;
-	font-weight:400;
-	speak:none;
-	text-decoration:none;
-	text-align:center;
-	font-variant:normal;
-	text-transform:none;
+    display: inline-block;
+    margin-right: 10px;
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    text-decoration: none;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
 }
-
-
-.twitter-popup .action-reply:hover,.twitter-popup .action-reply:focus {
-	color:#00aced;
+.twitter-popup .action-reply:hover,
+.twitter-popup .action-reply:focus {
+    color: #00aced;
 }
-
 .twitter-popup .action-retweet {
-	display:inline-block;
-	margin-right:10px;
-	font-family:"fontello";
-	font-style:normal;
-	font-weight:400;
-	speak:none;
-	text-decoration:none;
-	text-align:center;
-	font-variant:normal;
-	text-transform:none;
+    display: inline-block;
+    margin-right: 10px;
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    text-decoration: none;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
 }
-
-
-.twitter-popup .action-retweet:hover,.twitter-popup .action-retweet:focus {
-	color:#00aced;
+.twitter-popup .action-retweet:hover,
+.twitter-popup .action-retweet:focus {
+    color: #00aced;
 }
-
 .twitter-popup .action-favorite {
-	display:inline-block;
-	margin-right:10px;
-	font-family:"fontello";
-	font-style:normal;
-	font-weight:400;
-	speak:none;
-	text-decoration:none;
-	text-align:center;
-	font-variant:normal;
-	text-transform:none;
+    display: inline-block;
+    margin-right: 10px;
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    text-decoration: none;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
 }
-
-
-.twitter-popup .action-favorite:hover,.twitter-popup .action-favorite:focus {
-	color:#00aced;
+.twitter-popup .action-favorite:hover,
+.twitter-popup .action-favorite:focus {
+    color: #00aced;
 }
-
 .twitter-popup .user {
-	font-size:12px;
-	color:#999;
-	line-height:18px;
+    font-size: 12px;
+    color: #999;
+    line-height: 18px;
 }
-
 .twitter-popup .user a {
-	color:#999!important;
-	text-decoration:none!important;
+    color: #999!important;
+    text-decoration: none!important;
 }
-
 .twitter-popup .user a:hover {
-	color:#333!important;
+    color: #333!important;
 }
-
 .twitter-popup .date {
-	font-size:12px;
-	color:#999;
-	line-height:16px;
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
 }
-
 .twitter-popup .date a {
-	color:#999!important;
-	text-decoration:none!important;
+    color: #999!important;
+    text-decoration: none!important;
 }
-
 .twitter-popup .date a:hover {
-	color:#333!important;
+    color: #333!important;
 }
-
 .twitter-popup .content {
-	font-size:13px;
-	line-height:18px;
-	margin-bottom:5px;
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 5px;
 }
-
 .twitter-popup .image-anchor {
-	display:block;
-	float:left;
-	margin-right:10px;
-	margin-bottom:5px;
-	-moz-user-select:none;
-	-webkit-user-select:none;
-	user-select:none;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
-
 .twitter-popup .image {
-	padding:2px;
-	-moz-box-shadow:1px 1px 3px #CCC;
-	-webkit-box-shadow:1px 1px 3px #CCC;
-	box-shadow:1px 1px 3px #CCC;
-	border:1px solid #CCC;
-	background:url(../images/ajax-loader.gif) no-repeat center center #fff;
+    padding: 2px;
+    -moz-box-shadow: 1px 1px 3px #CCC;
+    -webkit-box-shadow: 1px 1px 3px #CCC;
+    box-shadow: 1px 1px 3px #CCC;
+    border: 1px solid #CCC;
+    background: url(../images/ajax-loader.gif) no-repeat center center #fff;
 }
-
-.twitter-popup .image:hover img,.twitter-popup .image:focus img {
-	opacity:.85;
-	background-image:none;
-	display:inline-block;
-	-moz-transition:all .25s ease;
-	-webkit-transition:all .25s ease;
-	-o-transition:all .25s ease;
-	transition:all .25s ease;
+.twitter-popup .image:hover img,
+.twitter-popup .image:focus img {
+    opacity: .85;
+    background-image: none;
+    display: inline-block;
+    -moz-transition: all .25s ease;
+    -webkit-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    transition: all .25s ease;
 }
-
 .twitter-popup .clear {
-	clear:both!important;
+    clear: both!important;
 }

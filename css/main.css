@@ -10,7 +10,7 @@ body {
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size:16px;
+    font-size: 16px;
 }
 input[type=text]::-ms-clear {
     display: none;
@@ -31,6 +31,7 @@ input[type=text]::-ms-clear {
     /*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
 }
 /* General Misc */
+
 .toggle-grey {
     color: #999;
 }
@@ -57,97 +58,92 @@ input[type=text]::-ms-clear {
     padding: 0;
     margin: 0;
 }
-
 /* Legend header */
-.legend-header, .area-header{
-    font-size:18px;
-    font-weight:bold;
-    padding:12px 0 12px 10px;
-    line-height:18px;
-    color:#555;
-    background:#fff;
-}
 
+.legend-header,
+.area-header {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 0 12px 10px;
+    line-height: 18px;
+    color: #555;
+    background: #fff;
+}
 /*legend social */
-.icon-cog{
-    position:absolute;
-    top:0;
-    right:5%;
-    z-index:2;
-    padding:12px 6px;
-    margin:0;
-    color:#999;
+
+.icon-cog {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    z-index: 2;
+    padding: 12px 6px;
+    margin: 0;
+    color: #999;
     cursor: pointer;
-    display:inline-block;
+    display: inline-block;
 }
-.icon-cog:hover{
-    color:#007ac2;
+.icon-cog:hover {
+    color: #007ac2;
 }
-
-.legendFilterStatus{
-    margin:10px 10px 0 10px;
+.legendFilterStatus {
+    margin: 10px 10px 0 10px;
 }
-
 .drawer-menu-panels .twitterAuthStatus {
     margin: 10px 10px 0 10px;
 }
-
-.twitterAuthStatus{
-    display:none;
+.twitterAuthStatus {
+    display: none;
 }
-.twitterAuthStatus a{
-    cursor:pointer;
-    text-decoration:underline;
+.twitterAuthStatus a {
+    cursor: pointer;
+    text-decoration: underline;
 }
-.twitterAuthStatus a span{
-    display:inline-block;
-    vertical-align:middle;
-    text-decoration:none;
-    margin-right:5px;
+.twitterAuthStatus a span {
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    margin-right: 5px;
 }
-
 /* area */
-.area-section{
-    border-top:1px solid #e0e0e0;
+
+.area-section {
+    border-top: 1px solid #e0e0e0;
 }
-.bookmark-item, .note-item{
-    color:#555;
-    padding:12px 8px;
-    line-height:18px;
-    height:18px;
-    font-size:16px;
+.bookmark-item,
+.note-item {
+    color: #555;
+    padding: 12px 8px;
+    line-height: 18px;
+    height: 18px;
+    font-size: 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    cursor:pointer;
-    background:#f8f8f8;
+    cursor: pointer;
+    background: #f8f8f8;
     background-position: 95% center;
     background-repeat: no-repeat;
 }
-
-.bookmark-item{
-    border-bottom:1px solid #e0e0e0;
+.bookmark-item {
+    border-bottom: 1px solid #e0e0e0;
 }
-
 /* notes */
-.note-container{
-    border-bottom:1px solid #e0e0e0;
-}
-.note-item{
-    border-left:5px solid #ccc;
-}
 
-.note-loading{
+.note-container {
+    border-bottom: 1px solid #e0e0e0;
+}
+.note-item {
+    border-left: 5px solid #ccc;
+}
+.note-loading {
     background-image: url(../images/ajax-loader.gif);
 }
-
-.note-selected .note-item{
+.note-selected .note-item {
     border-left: 5px solid #007ac2;
-    color:#007ac2;
-    font-weight:700;
+    color: #007ac2;
+    font-weight: 700;
 }
-
-.note-content{
+.note-content {
     background: #dfdfdf;
     color: #333;
     position: relative;
@@ -160,38 +156,34 @@ input[type=text]::-ms-clear {
     -webkit-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
 }
-
-.note-selected .note-content{
+.note-selected .note-content {
     max-height: 300px;
     _height: 300px;
     border-top: 1px solid #d4d4d4;
 }
-
-.note-content .note-padding{
-    padding:10px 10px 10px 15px;
+.note-content .note-padding {
+    padding: 10px 10px 10px 15px;
 }
-
-.note-link{
-    display:inline-block;
+.note-link {
+    display: inline-block;
 }
-
-.note-image{
-    max-width:90%;
-    padding:2px;
-    margin:15px 0;
-	-moz-box-shadow:1px 1px 3px #CCC;
-	-webkit-box-shadow:1px 1px 3px #CCC;
-	box-shadow:1px 1px 3px #CCC;
-	border:1px solid #CCC;
-    display:inline-block;
-	background:#fff url(../images/ajax-loader.gif) no-repeat center center;
+.note-image {
+    max-width: 90%;
+    padding: 2px;
+    margin: 15px 0;
+    -moz-box-shadow: 1px 1px 3px #CCC;
+    -webkit-box-shadow: 1px 1px 3px #CCC;
+    box-shadow: 1px 1px 3px #CCC;
+    border: 1px solid #CCC;
+    display: inline-block;
+    background: #fff url(../images/ajax-loader.gif) no-repeat center center;
 }
-.note-image:hover{
-    opacity:0.75;
-    background-image:none;
+.note-image:hover {
+    opacity: 0.75;
+    background-image: none;
 }
-
 /* Drawer */
+
 .topBar {
     position: absolute;
     z-index: 36;
@@ -272,7 +264,6 @@ input[type=text]::-ms-clear {
     margin: 0;
     border: 0;
 }
-
 /* Map */
 
 #mapDiv {
@@ -302,13 +293,13 @@ input[type=text]::-ms-clear {
 }
 #geocoderMobile {
     float: left;
-    width:75%;
+    width: 75%;
 }
 .drawerOpen #geocoderMobile {
-    width:60%;   
+    width: 60%;
 }
-#geocoderMobile .esriGeocoderContainer{
-    width:100%;
+#geocoderMobile .esriGeocoderContainer {
+    width: 100%;
 }
 .mobileLocateBoxHidden {
     display: none;
@@ -351,7 +342,6 @@ input[type=text]::-ms-clear {
     background: rgba(255, 255, 255, 0.7);
     height: 32px;
 }
-
 /* Drawer Menu */
 
 .drawer-menu-container {
@@ -425,7 +415,6 @@ input[type=text]::-ms-clear {
 .drawer-menu-buttons .item-only .arrow {
     display: none;
 }
-
 /* Misc */
 
 .clear {
@@ -436,7 +425,6 @@ input[type=text]::-ms-clear {
     width: 0;
     height: 0;
 }
-
 /* Loading */
 
 .loadingIndicatorDiv {
@@ -453,12 +441,11 @@ input[type=text]::-ms-clear {
     background-image: url(../images/ajax-loader.gif);
     background-repeat: no-repeat;
 }
-
 /* Media Queries */
+
 /* max width */
 
 @media screen and (max-width: 850px) {
-
     .mobileLocateBoxDisplay {
         display: none;
     }
@@ -524,7 +511,6 @@ input[type=text]::-ms-clear {
         display: none;
     }
 }
-
 @media screen and (max-width: 600px) {
     .drawerOpen .esriSimpleSlider,
     .drawerOpen #mapButtons,
@@ -637,9 +623,7 @@ input[type=text]::-ms-clear {
 }
 /* iPhone 5 in portrait */
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
-
-}
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {}
 /* iPhone 2G-4S in portrait and landscape */
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
