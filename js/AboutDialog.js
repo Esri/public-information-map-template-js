@@ -56,15 +56,15 @@ function (
             this.watch("visible", this._visible);
             // classes
             this.css = {
-                container: "buttonContainer",
+                container: "button-container",
                 button: "toggle-grey",
                 buttonSelected: "toggle-grey-on",
                 icon: "icon-info-circled-1",
-                aboutDialogHeader: "dialogHeader",
-                aboutDialogContent: "dialogContent",
-                nodeDescription: "dialogDescription",
-                headerNodeDescription: "titleHeader",
-                moreInfo: "moreInfo"
+                aboutDialogHeader: "dialog-header",
+                aboutDialogContent: "dialog-content",
+                nodeDescription: "dialog-description",
+                headerNodeDescription: "title-header",
+                moreInfo: "more-info"
             };
         },
         // bind listener for button to action

@@ -95,25 +95,25 @@ function (
             this.watch("bitlyUrl", this._updateBitlyUrl);
             // classes
             this.css = {
-                container: "buttonContainer",
-                embed: "embedPage",
+                container: "button-container",
+                embed: "embed-page",
                 button: "toggle-grey",
                 buttonSelected: "toggle-grey-on",
                 icon: "icon-share",
-                facebookIcon: "icon-facebook-squared-1 shareDialogIconClass",
-                twitterIcon: "icon-twitter-1 shareDialogIconClass",
-                gplusIcon: "icon-gplus shareDialogIconClass",
-                emailIcon: "icon-mail shareDialogIconClass",
-                mapSizeLabel: "mapSizeLabel",
-                shareMapURL: "shareMapURL",
-                iconContainer: "iconContainer",
-                embedMapSizeDropDown: "embedMapSizeDropDown",
-                shareDialogContent: "dialogContent",
-                shareDialogSubHeader: "shareDialogSubHeader",
-                shareDialogTextarea: "shareDialogTextarea",
-                mapSizeContainer: "mapSizeContainer",
-                embedMapSizeClear: "embedMapSizeClear",
-                iconClear: "iconClear"
+                facebookIcon: "icon-facebook-squared-1 share-dialog-icon",
+                twitterIcon: "icon-twitter-1 share-dialog-icon",
+                gplusIcon: "icon-gplus share-dialog-icon",
+                emailIcon: "icon-mail share-dialog-icon",
+                mapSizeLabel: "map-size-label",
+                shareMapURL: "share-map-url",
+                iconContainer: "icon-container",
+                embedMapSizeDropDown: "embed-map-size-dropdown",
+                shareDialogContent: "dialog-content",
+                shareDialogSubHeader: "share-dialog-subheader",
+                shareDialogTextarea: "share-dialog-textarea",
+                mapSizeContainer: "map-size-container",
+                embedMapSizeClear: "embed-map-size-clear",
+                iconClear: "icon-clear"
             };
         },
         // bind listener for button to action

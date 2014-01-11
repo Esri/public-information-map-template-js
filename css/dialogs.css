@@ -47,7 +47,7 @@
     background: #fff;
     word-wrap: break-word;
 }
-.calcite .dialogContent {
+.calcite .dialog-content {
     width: 510px;
     height: 400px;
 }
@@ -62,17 +62,17 @@
     background-color: #000;
     opacity: .4;
 }
-.calcite .dialogContent .layerSettingsHeader {
+.calcite .dialog-content .layer-settings-header {
     font-size: 19px;
     margin: 0 0 5px;
 }
-.calcite .dialogContent .layerSettingsDescription {
+.calcite .dialog-content .layer-settings-description {
     margin-bottom: 20px;
 }
-.calcite .dialogContent .layerSettingsMoreInfo {
+.calcite .dialog-content .layer-settings-more-info {
     text-decoration: none;
 }
-.calcite .dialogContent .layerSettingsInput {
+.calcite .dialog-content .layer-settings-input {
     width: 50%;
     min-width: 30%;
     max-width: 90%;
@@ -82,7 +82,7 @@
     border: 1px solid #dcdcdc;
     margin: 0 5px 5px 0;
 }
-.calcite .dialogContent .layerSettingsSubmit {
+.calcite .dialog-content .layer-settings-submit {
     -webkit-border-radius: 2;
     -moz-border-radius: 2;
     border-radius: 2px;
@@ -99,24 +99,24 @@
     font-weight: 700;
     display: inline-block;
 }
-.calcite .dialogContent .layerSettingsSubmit:hover {
+.calcite .dialog-content .layer-settings-submit:hover {
     background: #5fa8d4;
     text-decoration: none;
 }
-.calcite .dialogContent .layerSettingsSubmit:active {
+.calcite .dialog-content .layer-settings-submit:active {
     color: #ccc;
 }
-.calcite .dialogContent .twitterAuthStatus {
+.calcite .dialog-content .twitter-auth-status {
     margin-bottom: 20px;
 }
 @media screen and (max-width: 850px) {
-    .drawerOpen .calcite .dialogContent {
+    .drawer-open .calcite .dialog-content {
         width: auto;
         height: auto;
     }
 }
 @media screen and (max-width: 600px) {
-    .calcite .dialogContent {
+    .calcite .dialog-content {
         width: auto;
         height: auto;
     }

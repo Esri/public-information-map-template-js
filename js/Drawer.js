@@ -48,8 +48,8 @@ function (
             this.css = {
                 toggleBlue: 'toggle-grey',
                 toggleBlueOn: 'toggle-grey-on',
-                drawerOpen: "drawerOpen",
-                drawerOpenShadow: "drawerOpenShadow"
+                drawerOpen: "drawer-open",
+                drawerOpenShadow: "drawer-open-shadow"
             };
         },
         // start widget. called by user

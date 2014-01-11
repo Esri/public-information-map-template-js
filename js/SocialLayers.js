@@ -41,14 +41,14 @@ define([
                 // css classes for social layers
                 this.socialCSS = {
                     iconAttention: "icon-attention-1",
-                    dialogContent: "dialogContent",
-                    layerSettingsHeader: "layerSettingsHeader",
-                    layerSettingsMoreInfo: "layerSettingsMoreInfo",
-                    layerSettingsInput: "layerSettingsInput",
-                    layerSettingsDescription: "layerSettingsDescription",
-                    layerSettingsSubmit: "layerSettingsSubmit",
-                    authStatus: "twitterAuthStatus",
-                    filterStatus: "legendFilterStatus",
+                    dialogContent: "dialog-content",
+                    layerSettingsHeader: "layer-settings-header",
+                    layerSettingsMoreInfo: "layer-settings-more-info",
+                    layerSettingsInput: "layer-settings-input",
+                    layerSettingsDescription: "layer-settings-description",
+                    layerSettingsSubmit: "layer-settings-submit",
+                    authStatus: "twitter-auth-status",
+                    filterStatus: "legend-filter-status",
                     clear: "clear"
                 };
                 // social layer infos

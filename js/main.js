@@ -47,7 +47,7 @@ function(
             this.config = config;
             // css classes
             this.css = {
-                mobileSearchDisplay: "mobileLocateBoxDisplay",
+                mobileSearchDisplay: "mobile-locate-box-display",
                 toggleBlue: 'toggle-grey',
                 toggleBlueOn: 'toggle-grey-on',
                 legendContainer: "legend-container",
