@@ -198,7 +198,7 @@ input[type=text]::-ms-clear {
     height: 34px;
     border-bottom: 1px solid #ddd;
 }
-#title {
+.app-title {
     color: #007ac2;
     padding: 6px 0;
     line-height: 22px;
@@ -210,7 +210,7 @@ input[type=text]::-ms-clear {
     overflow: hidden;
     float: left;
 }
-#hamburger_button {
+.hamburger-button {
     float: left;
     padding: 0;
     margin: 0;
@@ -269,7 +269,7 @@ input[type=text]::-ms-clear {
 }
 /* Map */
 
-#mapDiv {
+.map {
     padding: 0;
     margin: 0;
     width: 100%;
@@ -452,7 +452,7 @@ input[type=text]::-ms-clear {
     .mobile-locate-box-display {
         display: none;
     }
-    #title {
+    .app-title {
         max-width: 30%;
     }
 }
@@ -460,12 +460,12 @@ input[type=text]::-ms-clear {
     #mobileSearch {
         display: none;
     }
-    #title {
+    .app-title {
         max-width: 35%;
     }
 }
 @media only screen and (max-width: 510px) {
-    #title {
+    .app-title {
         display: none;
     }
 }
@@ -478,7 +478,7 @@ input[type=text]::-ms-clear {
     }
     .esriSimpleSlider,
     #BasemapToggle,
-    #title,
+    .app-title,
     .esriAttribution,
     .locate-box {
         display: none!important;
@@ -510,7 +510,7 @@ input[type=text]::-ms-clear {
     }
 }
 @media screen and (max-width: 800px) {
-    .drawer-open #title {
+    .drawer-open .app-title {
         display: none;
     }
 }
@@ -518,7 +518,7 @@ input[type=text]::-ms-clear {
     .drawer-open .esriSimpleSlider,
     .drawer-open #mapButtons,
     .drawer-open #BasemapToggle,
-    .drawer-open #title,
+    .drawer-open .app-title,
     .drawer-open .esriAttribution,
     .drawer-open .locate-box {
         display: none!important;
@@ -551,7 +551,7 @@ input[type=text]::-ms-clear {
     }
     .esriSimpleSlider,
     #BasemapToggle,
-    #title,
+    .app-title,
     .esriAttribution,
     .locate-box {
         display: none!important;
@@ -577,7 +577,7 @@ input[type=text]::-ms-clear {
     /* STYLES GO HERE */
     .esriSimpleSlider,
     #BasemapToggle,
-    #title,
+    .app-title,
     .locate-box {
         display: none!important;
     }
@@ -609,7 +609,7 @@ input[type=text]::-ms-clear {
     }
     .drawer-open .esriSimpleSlider,
     .drawer-open #BasemapToggle,
-    .drawer-open #title,
+    .drawer-open .app-title,
     .drawer-open .locate-box {
         display: none!important;
     }
@@ -637,7 +637,7 @@ input[type=text]::-ms-clear {
     }
     .esriSimpleSlider,
     #BasemapToggle,
-    #title,
+    .app-title,
     .locate-box {
         display: none!important;
     }
