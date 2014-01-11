@@ -1,3 +1,3 @@
-.drawer-open #cp_outer_left:before {
+.drawer-open .content-pane-left:before {
     display: none !important;
 }
