@@ -206,7 +206,7 @@ define([
                     if (vs.w < this._showDrawerSize) {
                         this._drawer.toggle().then(lang.hitch(this, function () {
                             // resize map
-                            this.map.resize();
+                            this.map.resize(true);
                             // wait for map to be resized
                             setTimeout(lang.hitch(this, function () {
                                 this._setNoteExtent(idx, extent);
@@ -247,7 +247,7 @@ define([
                     if (vs.w < this._showDrawerSize) {
                         this._drawer.toggle().then(lang.hitch(this, function () {
                             // resize map
-                            this.map.resize();
+                            this.map.resize(true);
                             // wait for map to be resized
                             setTimeout(lang.hitch(this, function () {
                                 this._setBookmarkExtent(idx, extent);
