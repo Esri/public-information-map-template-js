@@ -7,7 +7,6 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dojo/on",
-    "dojo/query",
     // load template    
     "dojo/text!modules/dijit/templates/TableOfContents.html",
     "dojo/i18n!modules/nls/TableOfContents",
@@ -25,7 +24,6 @@ function (
     has, esriNS,
     _WidgetBase, _TemplatedMixin,
     on,
-    query,
     dijitTemplate, i18n,
     domClass, domStyle, domConstruct,
     Legend,
@@ -44,7 +42,8 @@ function (
             sublayers: false,
             zoomTo: false,
             accordion: true,
-            expandFirstItem: false
+            expandFirstItem: false,
+            expandAllOnStart: false
         },
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
@@ -62,6 +61,7 @@ function (
             this.set("zoomTo", defaults.zoomTo);
             this.set("accordion", defaults.accordion);
             this.set("expandFirstItem", defaults.expandFirstItem);
+            this.set("expandAllOnStart", defaults.expandAllOnStart);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
@@ -91,6 +91,8 @@ function (
                 sublayerText: "toc-sublayer-text",
                 settingsIcon: "icon-cog"
             };
+            // expanded array
+            this._expanded = [];
         },
         // start widget. called by user
         startup: function() {
@@ -135,14 +137,9 @@ function (
         },
         expand: function(index){
             if(typeof index !== 'undefined'){
-                // we want accordion affect
                 if (this.get("accordion")) {
-                    // remove all expanded 
-                    var nodes = query('.' + this.css.expanded, this._layersNode);
-                    for (var i = 0; i < nodes.length; i++) {
-                        domClass.remove(nodes[i], this.css.expanded);
-                    }
-                    this._expanded = [];
+                    // we want accordion affect
+                    this._accordionEffect();
                 }
                 // add index to expanded list
                 var position = array.indexOf(this._expanded, index);
@@ -159,13 +156,18 @@ function (
         },
         collapse: function(index){
             if(typeof index !== 'undefined'){
-                // remove index from expanded list
-                var position = array.indexOf(this._expanded, index);
-                if(position !== -1){
-                    this._expanded.splice(position, 1);
+                if (this.get("accordion")) {
+                    this._accordionEffect();
                 }
-                // remove expanded class
-                domClass.remove(this._nodes[index].layer, this.css.expanded);
+                else{
+                    // remove index from expanded list
+                    var position = array.indexOf(this._expanded, index);
+                    if(position !== -1){
+                        this._expanded.splice(position, 1);
+                    }
+                    // remove expanded class
+                    domClass.remove(this._nodes[index].layer, this.css.expanded);   
+                }
                 // event
                 this.emit("collapse", {
                     index: index
@@ -192,6 +194,13 @@ function (
         /* ---------------- */
         /* Private Functions */
         /* ---------------- */
+        _accordionEffect: function(){
+            // remove all expanded 
+            for (var i = 0; i < this._nodes.length; i++) {
+                domClass.remove(this._nodes[i].layer, this.css.expanded);
+            }
+            this._expanded = [];
+        },
         _createLegends: function() {
             var layers = this.get("layers");
             this._nodes = [];
@@ -226,7 +235,7 @@ function (
                     }
                     // set expanded list item
                     var position = array.indexOf(this._expanded, i);
-                    if(position !== -1){
+                    if(position !== -1 || this.get("expandAllOnStart")){
                         layerClass += ' ';
                         layerClass += this.css.expanded;
                     }
@@ -396,7 +405,7 @@ function (
             }
         },
         _refreshLayers: function(){
-            this._expanded = null;
+            this._expanded = [];
             this.refresh();
         },
         _removeEvents: function() {
