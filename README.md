@@ -1,13 +1,10 @@
 # public-information-map-template-js
 
-...
+A fully configurable and responsive web mapping application that highlights areas of interest through data, map notes, and/or social content to a wide audience.
 
 [View it live](http://driskull.github.io/public-information-map-template-js/)
 
 ![App](https://raw.github.com/driskull/public-information-map-template-js/master/resources/item.png)
-
-## Features
-TBD
 
 ## Instructions
 
