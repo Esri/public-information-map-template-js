@@ -64,7 +64,7 @@
 }
 .esriRTL .map .calcite .titleButton.next {
     right: auto;
-    left: 78px;
+    left: 52px;
 }
 .map .calcite .titleButton.prev {
     top: 0;
@@ -72,7 +72,7 @@
 }
 .esriRTL .map .calcite .titleButton.prev {
     right: auto;
-    left:52px;
+    left: 78px;
 }
 .map .calcite .titleButton.maximize {
     top: 0;
