@@ -60,6 +60,7 @@ function(
             this._showDrawerSize = 850;
             // drawer
             this._drawer = new Drawer({
+                direction: this.config.i18n.direction,
                 showDrawerSize: this._showDrawerSize,
                 container: dom.byId('bc_outer'),
                 contentCenter: dom.byId('cp_outer_center'),

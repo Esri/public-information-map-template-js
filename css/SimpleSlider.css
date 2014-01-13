@@ -32,9 +32,17 @@
     -webkit-border-radius: 1px 1px 0 0;
     border-radius: 1px 1px 0 0;
 }
+.esriRTL .calcite .esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
+    -webkit-border-radius: 1px 0 0 1px;
+    border-radius: 1px 0 0 1px;
+}
 .calcite .esriSimpleSliderVertical .esriSimpleSliderDecrementButton {
     -webkit-border-radius: 0 0 1px 1px;
     border-radius: 0 0 1px 1px;
+}
+.esriRTL .calcite .esriSimpleSliderVertical .esriSimpleSliderDecrementButton {
+    -webkit-border-radius: 1px 0 0 1px;
+    border-radius: 1px 0 0 1px;
 }
 .calcite .esriSimpleSliderDecrementButton:hover,
 .calcite .esriSimpleSliderIncrementButton:hover {

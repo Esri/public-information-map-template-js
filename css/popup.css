@@ -54,17 +54,33 @@
     top: 0;
     right: 0;
 }
+.esriRTL .map .calcite .titleButton.close {
+    right: auto;
+    left: 0;
+}
 .map .calcite .titleButton.next {
     top: 0;
     right: 52px;
+}
+.esriRTL .map .calcite .titleButton.next {
+    right: auto;
+    left: 78px;
 }
 .map .calcite .titleButton.prev {
     top: 0;
     right: 78px;
 }
+.esriRTL .map .calcite .titleButton.prev {
+    right: auto;
+    left:52px;
+}
 .map .calcite .titleButton.maximize {
     top: 0;
     right: 26px;
+}
+.esriRTL .map .calcite .titleButton.maximize {
+    right: auto;
+    left: 26px;
 }
 .map .calcite .titleButton.restore {
     top: 0;
@@ -102,8 +118,7 @@
     line-height: 16px;
     height: 16px;
 }
-.map .calcite .actionsPane .actionList a:hover,
-.map .calcite .actionsPane .actionList a:focus {} .map .calcite .actionsPane .actionList {
+.map .calcite .actionsPane .actionList {
     display: inline-block;
     height: 16px;
     padding: 0;
@@ -111,12 +126,20 @@
     vertical-align: top;
     margin-right: 5px;
 }
+.esriRTL .map .calcite .actionsPane .actionList {
+    margin-right: 0;
+    margin-left: 5px;
+}
 .map .calcite .titlePane .pageInfo {
     display: inline-block;
 }
 .map .calcite .titlePane .titleInfo {
     display: inline-block;
     margin-right: 5px;
+}
+.esriRTL .map .calcite .titlePane .titleInfo {
+    margin-right: 0;
+    margin-left: 5px;
 }
 .map .calcite .pointer,
 .map .calcite .outerPointer {

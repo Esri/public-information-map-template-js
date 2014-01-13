@@ -7,6 +7,9 @@
 .twitter-popup .follow-button {
     float: right;
 }
+.esriRTL .twitter-popup .follow-button {
+    float:left;
+}
 .twitter-popup .actions {
     text-align: right;
     padding: 5px 0 0;
@@ -14,6 +17,9 @@
     margin-top: 10px;
     font-size: 16px;
     line-height: 18px;
+}
+.esriRTL .twitter-popup .actions {
+    text-align:left;
 }
 .twitter-popup .actions a,
 .twitter-popup .actions a:visited {
@@ -104,6 +110,9 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+}
+.esriRTL .twitter-popup .image-anchor {
+    float:right;
 }
 .twitter-popup .image {
     padding: 2px;

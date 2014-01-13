@@ -31,6 +31,10 @@
     position: absolute;
     color: #999;
 }
+.esriRTL .calcite .dijitDialogCloseIcon {
+    right: auto;
+    left: 0;
+}
 .calcite .dijitDialogCloseIcon:hover {
     color: #555;
 }
@@ -64,7 +68,7 @@
 }
 .calcite .dialog-content .layer-settings-header {
     font-size: 19px;
-    margin: 0 0 5px;
+    margin: 0 0 5px 0;
 }
 .calcite .dialog-content .layer-settings-description {
     margin-bottom: 20px;
@@ -81,6 +85,9 @@
     color: #777;
     border: 1px solid #dcdcdc;
     margin: 0 5px 5px 0;
+}
+.esriRTL .calcite .dialog-content .layer-settings-input {
+    margin: 0 0 5px 5px;
 }
 .calcite .dialog-content .layer-settings-submit {
     -webkit-border-radius: 2;

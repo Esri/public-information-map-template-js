@@ -32,7 +32,8 @@ function (
             container: null,
             contentCenter: null,
             contentLeft: null,
-            toggleButton: null
+            toggleButton: null,
+            direction: 'ltr'
         },
         // lifecycle: 1
         constructor: function(options) {
@@ -44,6 +45,7 @@ function (
             this.set("contentCenter", defaults.contentCenter);
             this.set("contentLeft", defaults.contentLeft);
             this.set("toggleButton", defaults.toggleButton);
+            this.set("direction", defaults.direction);
             // classes
             this.css = {
                 toggleBlue: 'toggle-grey',
@@ -167,9 +169,14 @@ function (
                 region: "center"
             }, this.get("contentCenter"));
             this._bc_outer.addChild(this.cp_outer_center);
+            // panel side
+            var side = 'left';
+            if(this.get("direction") === 'rtl'){
+                side = 'right';
+            }
             // left panel
             this.cp_outer_left = new ContentPane({
-                region: "left"
+                region: side
             }, this.get("contentLeft"));
             this._bc_outer.addChild(this.cp_outer_left);
             // start border container

@@ -6,6 +6,10 @@
     font-size: 15px;
     margin: 0 5px 0 0;
 }
+.esriRTL .calcite .map-size-label {
+    float: right;
+    margin: 0 0 0 5px;
+}
 .calcite .share-dialog-icon {
     font-size: 32px;
     line-height: 32px;
@@ -13,6 +17,10 @@
     color: #007ac2;
     cursor: pointer;
     margin: 0 10px 0 0;
+}
+.esriRTL .calcite .share-dialog-icon {
+    float: right;
+    margin: 0 0 0 10px;
 }
 .calcite .share-dialog-icon:hover {
     color: #97cbec;
@@ -40,6 +48,9 @@
 }
 .calcite .embed-map-size-dropdown {
     float: left;
+}
+.esriRTL .calcite .embed-map-size-dropdown {
+    float: right;
 }
 .calcite .share-dialog-subheader {
     font-size: 19px;
