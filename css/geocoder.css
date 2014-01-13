@@ -131,6 +131,8 @@
 .esriRTL .esriGeocoderResults {
     -webkit-border-radius: 0 2px 2px 0;
     border-radius: 0 2px 2px 0;
+    left: auto;
+    right: 0;
 }
 .esriGeocoderResult {
     padding: 6px;

@@ -71,16 +71,20 @@
 
 .left-arrow:before { content: '\e80d'; }
 .right-arrow:before { content: '\e80b'; }
+.esriRTL .left-arrow:before { content: '\e80b'; }
+.esriRTL .right-arrow:before { content: '\e80d'; }
+.map .calcite .titleButton.next:before {content: '\e807';}
+.map .calcite .titleButton.prev:before {content: '\e80a';}
+.esriRTL .map .calcite .titleButton.next:before {content: '\e80a';}
+.esriRTL .map .calcite .titleButton.prev:before {content: '\e807';}
 .dijitDialogCloseIcon:before { content: '\e80c'; }
 .esriGeocoderSearch:before { content: '\e800'; }
 .esriGeocoderReset:before { content: '\e80c'; }
 .HomeButtonCalcite .home:before { content: '\e808';}
 .LocateButtonCalcite .zoomLocateButton:before {content: '\e82f';}
 .map .calcite .titleButton.close:before {content: '\e80c';}
-.map .calcite .titleButton.next:before {content: '\e807';}
 .twitter-popup .action-reply:before {content:'\e813';}
 .twitter-popup .action-retweet:before {content:'\e80f';}
 .twitter-popup .action-favorite:before {content:'\e811';}
-.map .calcite .titleButton.prev:before {content: '\e80a';}
 .map .calcite .titleButton.maximize:before {content: '\e817';}
 .map .calcite .titleButton.restore:before {content: '\e817';}
