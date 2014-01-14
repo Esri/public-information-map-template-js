@@ -16,8 +16,6 @@
                "type":"layerAndFieldSelector",
                "layerOptions":{
                   "supportedTypes":[
-                     "MapServiceLayer",
-                     "ImageServiceLayer",
                      "FeatureLayer"
                   ],
                   "geometryTypes":[
@@ -37,9 +35,9 @@
             {
                "type":"string",
                "fieldName":"title",
-               "label":"Title",
+               "label":"Application Title",
                "tooltip":"Application Title",
-               "placeHolder":""
+               "placeHolder":"My Map"
             },
             {
                "type":"boolean",
@@ -124,7 +122,13 @@
                "fieldName":"openOverviewMap",
                "label":"Overview Map Widget is open by default",
                "tooltip":"Overview Map Widget is open by default"
-            },
+            }
+             
+            ]
+      },
+      {
+         "category":"<b>Basemap Widget</b>",
+         "fields":[ 
             {
                "type":"string",
                "fieldName":"nextBasemap",
