@@ -36,13 +36,16 @@ function (
         options: {
             theme: "ShareDialog",
             visible: true,
-            url: window.location.href,
             dialog: null,
-            facebookURL: "http://www.facebook.com/sharer.php?u=",
-            twitterURL: "https://twitter.com/share?url=",
-            emailSubject: "Check out this map!",
-            emailBody: "View the map here: ",
-            googlePlusURL: "https://plus.google.com/share?url=",
+            url: window.location.href,
+            image: '',
+            title: window.document.title,
+            summary: '',
+            hashtags: '',
+            mailURL: 'mailto:%20?subject={title}&body={summary}%20{url}',
+            facebookURL: "https://www.facebook.com/sharer/sharer.php?s=100&p[url]={url}&p[images][0]={image}&p[title]={title}&p[summary]={summary}",
+            twitterURL: "https://twitter.com/intent/tweet?url={url}&text={title}&hashtags={hashtags}",
+            googlePlusURL: "https://plus.google.com/share?url={url}",
             bitlyAPI: "http://api.bit.ly/v3/shorten",
             bitlyLogin: "",
             bitlyKey: "",
@@ -78,14 +81,17 @@ function (
             this.set("embedSizes", defaults.embedSizes);
             this.set("embedHeight", defaults.embedHeight);
             this.set("embedWidth", defaults.embedWidth);
+            this.set("mailURL", defaults.mailURL);
             this.set("facebookURL", defaults.facebookURL);
             this.set("twitterURL", defaults.twitterURL);
             this.set("googlePlusURL", defaults.googlePlusURL);
-            this.set("emailSubject", defaults.emailSubject);
-            this.set("emailBody", defaults.emailBody);
             this.set("bitlyAPI", defaults.bitlyAPI);
             this.set("bitlyLogin", defaults.bitlyLogin);
-            this.set("bitlyKey", defaults.bitlyKey);
+            this.set("bitlyKey", defaults.bitlyKey);                
+            this.set("image", defaults.image);
+            this.set("title", defaults.title);
+            this.set("summary", defaults.summary);
+            this.set("hashtags", defaults.hashtags);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("url", this._updateUrl);
@@ -251,7 +257,7 @@ function (
             this._events.push(gplus);
             // email click
             var email = on(this._emailButton, "click", lang.hitch(this, function() {
-                this._configureShareLink('mailto:%20?subject=' + encodeURIComponent(this.get("emailSubject")) + '&body=' + encodeURIComponent(this.get("emailBody")), true);
+                this._configureShareLink(this.get("mailURL"), true);
             }));
             this._events.push(email);
             // link box click
@@ -320,7 +326,15 @@ function (
             }
         },
         _configureShareLink: function(Link, isMail) {
-            var fullLink = Link + (this.get("bitlyUrl") ? this.get("bitlyUrl") : this.get("url"));
+            // replace strings
+            var fullLink = lang.replace(Link,{
+                url: encodeURIComponent(this.get("bitlyUrl") ? this.get("bitlyUrl") : this.get("url")),
+                image: encodeURIComponent(this.get("image")),
+                title: encodeURIComponent(this.get("title")),
+                summary: encodeURIComponent(this.get("summary")),
+                hashtags: encodeURIComponent(this.get("hashtags")),
+            });
+            // email link
             if (isMail) {
                 window.location.href = fullLink;
             } else {
