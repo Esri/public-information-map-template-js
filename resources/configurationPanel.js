@@ -113,6 +113,18 @@
                "label":"Show Map Notes",
                "tooltip":"Show Map Notes"
             },
+             {
+               "type":"boolean",
+               "fieldName":"showOverviewMap",
+               "label":"Show OverviewMap widget",
+               "tooltip":"Show OverviewMap widget"
+            },
+             {
+               "type":"boolean",
+               "fieldName":"openOverviewMap",
+               "label":"Overview Map Widget is open by default",
+               "tooltip":"Overview Map Widget is open by default"
+            },
             {
                "type":"string",
                "fieldName":"nextBasemap",
@@ -326,6 +338,8 @@
       "showAboutDialog":true,
       "ShowShareDialog":true,
       "showBookmarks":true,
+      "showOverviewMap":false,
+      "openOverviewMap":false,
       "showMapNotes":true,
       "nextBasemap":"hybrid",
       "currentBasemap":"topo",

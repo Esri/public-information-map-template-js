@@ -191,10 +191,15 @@ function(
                     LL.startup();
                 }
             }
+            // i18n overview placement
+            var overviewPlacement = 'left';
+            if(this.config.i18n.direction === 'rtl'){
+                overviewPlacement = 'right';
+            }
             // Overview Map
             if(this.config.showOverviewMap){
                 this._overviewMap = new OverviewMap({
-                    attachTo: "bottom-left",
+                    attachTo: "bottom-" + overviewPlacement,
                     height: 150,
                     width: 150,
                     visible: this.config.openOverviewMap,
