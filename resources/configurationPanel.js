@@ -338,7 +338,7 @@
       "showAboutDialog":true,
       "ShowShareDialog":true,
       "showBookmarks":true,
-      "showOverviewMap":false,
+      "showOverviewMap":true,
       "openOverviewMap":false,
       "showMapNotes":true,
       "nextBasemap":"hybrid",

@@ -64,6 +64,23 @@ input[type=text]::-ms-clear {
 .esriRTL .icon-right {
     float: left;
 }
+
+/* Overview Map */
+
+.esriOverviewMap.ovwBL .ovwContainer{
+    border-top:1px solid #999;
+    border-right:1px solid #999;
+    padding-top:0;
+    padding-right:0;
+}
+
+.esriOverviewMap.ovwBR .ovwContainer{
+    border-top:1px solid #999;
+    border-left:1px solid #999;
+    padding-top:0;
+    padding-left:0;
+}
+
 /* Legend header */
 
 .legend-header,
