@@ -43,7 +43,8 @@ function (
             zoomTo: false,
             accordion: true,
             expandFirstItem: false,
-            expandAllOnStart: false
+            expandAllOnStart: false,
+            setVisibleOnExpand: true
         },
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
@@ -62,6 +63,7 @@ function (
             this.set("accordion", defaults.accordion);
             this.set("expandFirstItem", defaults.expandFirstItem);
             this.set("expandAllOnStart", defaults.expandAllOnStart);
+            this.set("setVisibleOnExpand", defaults.setVisibleOnExpand);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
@@ -148,6 +150,11 @@ function (
                 }
                 // add expanded class
                 domClass.add(this._nodes[index].layer, this.css.expanded);
+                // show layer if it's not visible
+                var layers = this.get("layers");
+                if(this.get("setVisibleOnExpand") && layers[index] && !layers[index].visibility){
+                    this._toggleLayer(index);
+                }
                 // event
                 this.emit("expand", {
                     index: index
