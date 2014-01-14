@@ -4,7 +4,7 @@ A fully configurable and responsive web mapping application that highlights area
 
 [View it live](http://driskull.github.io/public-information-map-template-js/)
 
-![App](https://raw.github.com/driskull/public-information-map-template-js/master/resources/item.png)
+![App](https://raw.github.com/driskull/public-information-map-template-js/master/images/item.png)
 
 ## Instructions
 
