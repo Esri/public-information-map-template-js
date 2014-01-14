@@ -36,6 +36,7 @@
 }
 .webcams-popup .image {
     display: inline-block;
+    max-width: 225px;
     padding: 2px;
     -moz-box-shadow: 1px 1px 3px #CCC;
     -webkit-box-shadow: 1px 1px 3px #CCC;
