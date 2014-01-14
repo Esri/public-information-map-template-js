@@ -386,6 +386,8 @@ input[type=text]::-ms-clear {
 }
 .esriRTL .close-geocoder-button {
     float: right;
+    margin-left:0;
+    margin-right:10px;
 }
 .close-geocoder-button:hover {
     color: #555;
