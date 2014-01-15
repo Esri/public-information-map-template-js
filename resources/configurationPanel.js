@@ -66,8 +66,8 @@
             {
                "type":"boolean",
                "fieldName":"showArea",
-               "label":"Show Area",
-               "tooltip":"Show Area"
+               "label":"Show Area Side Panel",
+               "tooltip":"Show Area Side Panel"
             },
             {
                "type":"boolean",
