@@ -22,6 +22,7 @@ define([], function() {
         "showLocateButton":true,
         "showBasemapToggle": true,
         "showAboutDialog":true,
+        "showAboutOnLoad":false,
         "ShowShareDialog":true,
         "showBookmarks": true,
         "showOverviewMap":true,

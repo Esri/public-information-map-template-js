@@ -93,6 +93,12 @@
                "label":"Show About Dialog",
                "tooltip":"Show About Dialog"
             },
+             {
+               "type":"boolean",
+               "fieldName":"showAboutOnLoad",
+               "label":"Show About Dialog on load",
+               "tooltip":"Show About Dialog on load"
+            },
             {
                "type":"boolean",
                "fieldName":"ShowShareDialog",
@@ -340,6 +346,7 @@
       "showLocateButton":true,
       "showBasemapToggle":true,
       "showAboutDialog":true,
+      "showAboutOnLoad":false,
       "ShowShareDialog":true,
       "showBookmarks":true,
       "showOverviewMap":true,
