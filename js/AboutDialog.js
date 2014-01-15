@@ -13,7 +13,8 @@ define([
     "dojo/i18n!modules/nls/AboutDialog",
     "dojo/dom-class",
     "dojo/dom-style",
-    "dijit/Dialog"
+    "dijit/Dialog",
+    "dojo/date/locale"
 ],
 function (
     Evented,
@@ -24,7 +25,8 @@ function (
     on,
     dijitTemplate, i18n,
     domClass, domStyle,
-    Dialog
+    Dialog,
+    locale
 ) {
     var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
         declaredClass: "esri.dijit.AboutDialog",
@@ -64,6 +66,7 @@ function (
                 aboutDialogContent: "dialog-content",
                 nodeDescription: "dialog-description",
                 headerNodeDescription: "title-header",
+                date: "dialog-date",
                 moreInfo: "more-info"
             };
         },
@@ -168,6 +171,14 @@ function (
                 this._licenseInfoNode.innerHTML = item.licenseInfo;
                 // more info link
                 this._moreInfoNode.innerHTML = '<a target="_blank" href="' + this.get("sharinghost") + this.get("itemPage") + item.id + '">' + i18n.widgets.AboutDialog.itemInfo + '</a> ' + i18n.widgets.AboutDialog.itemInfoLink;
+                // created date
+                var c = new Date(item.created);
+                var createdDate = locale.format(c, {});
+                // modified date
+                var m = new Date(item.modified);
+                var modifiedDate = locale.format(m, {});
+                // set date
+                this._dateNode.innerHTML = i18n.widgets.AboutDialog.dateCreated + ' ' + createdDate + '. ' + i18n.widgets.AboutDialog.dateModified + ' ' + modifiedDate + '.';
             }
         },
         _updateThemeWatch: function(attr, oldVal, newVal) {

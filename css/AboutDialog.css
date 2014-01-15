@@ -11,5 +11,11 @@
     padding-bottom: 40px;
 }
 .calcite .dialog-description {
+    margin: 0 0 10px;
+}
+.calcite .dialog-date {
     margin: 0 0 20px;
+    font-size: 14px;
+    color: #999;
+    line-height: normal;
 }
