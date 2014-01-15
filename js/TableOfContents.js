@@ -210,10 +210,6 @@ function (
         },
         _createLegends: function() {
             var layers = this.get("layers");
-            
-            
-            console.log(layers);
-            
             this._nodes = [];
             // kill events
             this._removeEvents();
