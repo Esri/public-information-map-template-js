@@ -112,7 +112,7 @@ function (
             }
             // default infoTemplate
             if (!this.infoTemplate) {
-                this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_s}" height="${height_s}" src="${url_s}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${descriptionText}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
+                this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_q}" height="${height_q}" src="${url_q}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${descriptionText}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
             }
             // layer
             this.featureCollection = {
@@ -287,7 +287,7 @@ function (
             var radius = this._getRadius();
             this.query = {
                 bbox: radius.minPoint.x + "," + radius.minPoint.y + "," + radius.maxPoint.x + "," + radius.maxPoint.y,
-                extras: "description, date_upload, owner_name, geo, url_s",
+                extras: "description, date_upload, owner_name, geo, url_q",
                 per_page: this.limit,
                 sort: 'date-posted-desc',
                 safe_search: 2,
