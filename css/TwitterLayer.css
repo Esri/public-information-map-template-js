@@ -118,6 +118,8 @@
 }
 .twitter-popup .image {
     padding: 2px;
+    width:40px;
+    height:40px;
     -moz-box-shadow: 1px 1px 3px #CCC;
     -webkit-box-shadow: 1px 1px 3px #CCC;
     box-shadow: 1px 1px 3px #CCC;
