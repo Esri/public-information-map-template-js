@@ -53,6 +53,8 @@ function (
                 drawerOpen: "drawer-open",
                 drawerOpenShadow: "drawer-open-shadow"
             };
+            // browser supports pointer events
+            this._pointerEventSupport = this._pointerEventsSupport();
         },
         // start widget. called by user
         startup: function() {
@@ -98,8 +100,11 @@ function (
             else{
                 nowOpen = domClass.toggle(document.body, this.css.drawerOpen, !currentlyOpen);    
             }
-            // remove shadow
-            domClass.remove(document.body, this.css.drawerOpenShadow);
+            // supports pointer events
+            if(this._pointerEventSupport){
+                // remove shadow
+                domClass.remove(document.body, this.css.drawerOpenShadow);
+            }
             // if steps animation exists
             if(this._animationSteps){
                 clearInterval(this._animationSteps);
@@ -125,7 +130,7 @@ function (
                 clearInterval(this._animationSteps);
                 this._animationSteps = null;
                 // now drawer is open
-                if(nowOpen){
+                if(nowOpen && this._pointerEventSupport){
                     // add shadow
                     domClass.add(document.body, this.css.drawerOpenShadow);
                 }
@@ -138,6 +143,11 @@ function (
         /* ---------------- */
         /* Private Functions */
         /* ---------------- */
+        _pointerEventsSupport: function(){
+            var element = document.createElement('x');
+            element.style.cssText = 'pointer-events:auto';
+            return element.style.pointerEvents === 'auto';   
+        },
         _removeEvents: function() {
             if (this._events && this._events.length) {
                 for (var i = 0; i < this._events.length; i++) {

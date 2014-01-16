@@ -308,6 +308,9 @@ input[type=text]::-ms-clear {
     overflow: auto;
     overflow-x: hidden;
 }
+.drawer-open .content-pane-left:before {
+    display: none;
+}
 .drawer-open-shadow .content-pane-left:before {
     -webkit-box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
     box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
