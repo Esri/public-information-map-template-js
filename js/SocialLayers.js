@@ -211,7 +211,7 @@ define([
                     twContent += '<div class="' + this.socialCSS.dialogContent + '">';
                     twContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.twSettingsInfo + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + '</div>';
-                    twContent += '<input id="twitter_search_input" class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
+                    twContent += '<input id="twitter_search_input" class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.twitterSearch + '">';
                     twContent += '<div id="twitter_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.advancedOperators + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.twitterUser + '</div>';
