@@ -1,9 +1,6 @@
 .TableOfContents {
     width: 280px;
 }
-.TableOfContents .esriLegendServiceLabel {
-    display: none;
-}
 .TableOfContents .esriLegendLayerLabel {
     margin: 0;
     padding: 0;

@@ -228,7 +228,7 @@ function (
                     // legend layer infos
                     var layerInfos = [];
                     // sublayer infos
-                    var subLayerInfos;
+                    var subLayerInfos = [];
                     // show legend
                     var showLegend = true;
                     // checkbox class
@@ -237,11 +237,9 @@ function (
                     var layerClass = this.css.layer;
                     // sublayer nodes
                     var sublayerNodes = [];
-                    if (layer.layerObject) {
-                        if (this.get("sublayers") && layer.layerObject.layerInfos && layer.layerObject.layerInfos.length) {
-                            subLayerInfos = layer.layerObject.layerInfos;
-                        }
-                    }
+                    // full extent for layer
+                    var fullExtentDiv;
+                    // first layer
                     if (i === (layers.length - 1)) {
                         layerClass += ' ';
                         layerClass += this.css.firstLayer;
@@ -308,8 +306,36 @@ function (
                     if(layer.content){
                         domConstruct.place(layer.content, contentDiv, "first");    
                     }
+                    // client side layer
+                    if (layer.featureCollection) {
+                        // show legend defined
+                        if(layer.featureCollection.hasOwnProperty('showLegend')){
+                            showLegend = layer.featureCollection.showLegend;   
+                        }
+                        // each client side layer
+                        for(var k = 0; k < layer.featureCollection.layers.length; k++){
+                            // add layer info
+                            layerInfos.push({
+                                title: layer.featureCollection.layers[k].layerObject.name,
+                                layer: layer.featureCollection.layers[k].layerObject
+                            });
+                            if (this.get("sublayers")){
+                                subLayerInfos.push(layer.featureCollection.layers[k].layerObject);
+                            }
+                        }
+                    }
+                    else if (layer.layerObject) {
+                        layerInfos.push({
+                            title: layer.title,
+                            layer: layer.layerObject
+                        });
+                        // sublayers set
+                        if (this.get("sublayers") && layer.layerObject.layerInfos && layer.layerObject.layerInfos.length) {
+                            subLayerInfos = layer.layerObject.layerInfos;
+                        }
+                    }
                     // if sublayer and not a tile service
-                    if (subLayerInfos && subLayerInfos.length && !layer.layerObject.tileInfo) {
+                    if (subLayerInfos && subLayerInfos.length) {
                         var sublayerContainerDiv = domConstruct.create("div", {
                             className: this.css.sublayerContainer
                         });
@@ -347,7 +373,7 @@ function (
                             sublayerNodes.push(sublayerObj);
                         }
                     }
-                    var fullExtentDiv;
+                    // if zoom enabled and layer has fullExtent
                     if(this.get("zoomTo") && layer.layerObject && layer.layerObject.fullExtent){
                         // legend
                         fullExtentDiv = domConstruct.create("div", {
@@ -356,30 +382,7 @@ function (
                         });
                         domConstruct.place(fullExtentDiv, contentDiv, "first");
                     }
-                    // client side layer
-                    if (layer.featureCollection) {
-                        // show legend defined
-                        if(layer.featureCollection.hasOwnProperty('showLegend')){
-                            showLegend = layer.featureCollection.showLegend;   
-                        }
-                        // each client side layer
-                        for(var k = 0; k < layer.featureCollection.layers.length; k++){
-                            
-                            console.log(layer.featureCollection);
-                            
-                            // add layer info
-                            layerInfos.push({
-                                title: layer.featureCollection.layers[k].layerObject.name,
-                                layer: layer.featureCollection.layers[k].layerObject
-                            });
-                        }
-                    }
-                    else{
-                        layerInfos.push({
-                            title: layer.title,
-                            layer: layer.layerObject
-                        });
-                    }
+                    // can we show legend?
                     if (showLegend) {
                         // create legend
                         var legend = new Legend({
@@ -412,9 +415,9 @@ function (
                     this._checkboxEvent(i);
                     // set up sublayer events
                     if (sublayerNodes && sublayerNodes.length) {
-                        for (var k = 0; k < sublayerNodes.length; k++) {
+                        for (var l = 0; l < sublayerNodes.length; l++) {
                             // create click event
-                            this._sublayerCheckboxEvent(i, k);
+                            this._sublayerCheckboxEvent(i, l);
                         }
                     }
                 }
@@ -517,22 +520,37 @@ function (
                 var layer = this.layers[layerIndex];
                 var layerObject = layer.layerObject;
                 var featureCollection = layer.featureCollection;
+                var visibleLayers;
+                var i;
                 if (featureCollection) {
+                    // visible feature layers
+                    visibleLayers = layer.visibleLayers;
+                    // new visibility
                     newVis = !layer.visibility;
+                    // set visibility for layer reference
                     layer.visibility = newVis;
                     // toggle all feature collection layers
-                    if (featureCollection.layers && featureCollection.layers.length) {
-                        for (var i = 0; i < featureCollection.layers.length; i++) {
-                            layerObject = featureCollection.layers[i].layerObject;
+                    if (visibleLayers && visibleLayers.length) {
+                        // toggle visible sub layers
+                        for (i = 0; i < visibleLayers.length; i++) {
+                            layerObject = featureCollection.layers[visibleLayers[i]].layerObject;
                             // toggle to new visibility
                             layerObject.setVisibility(newVis);
                         }
+                    }
+                    else{
+                        // toggle all sub layers
+                        for (i = 0; i < featureCollection.layers.length; i++) {
+                            layerObject = featureCollection.layers[i].layerObject;
+                            // toggle to new visibility
+                            layerObject.setVisibility(newVis);
+                        } 
                     }
                 } else {
                     if (layerObject) {
                         if (typeof sublayerIndex !== 'undefined' && layerObject.hasOwnProperty('visibleLayers')) {
                             // layers visible
-                            var visibleLayers = layerObject.visibleLayers;
+                            visibleLayers = layerObject.visibleLayers;
                             // remove -1 from visible layers if its there
                             var negative = array.lastIndexOf(visibleLayers, -1);
                             if (negative !== -1) {
