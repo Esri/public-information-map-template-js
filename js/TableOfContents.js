@@ -225,15 +225,21 @@ function (
             if (layers && layers.length) {
                 for (var i = 0; i < layers.length; i++) {
                     var layer = layers[i];
-                    var layerInfos;
-                    var sublayers;
+                    // legend layer infos
+                    var layerInfos = [];
+                    // sublayer infos
+                    var subLayerInfos;
+                    // show legend
+                    var showLegend = true;
+                    // checkbox class
                     var titleCheckBoxClass = this.css.titleCheckbox;
+                    // layer class
                     var layerClass = this.css.layer;
+                    // sublayer nodes
                     var sublayerNodes = [];
                     if (layer.layerObject) {
-                        layerInfos = layer.layerObject.layerInfos;
-                        if (this.get("sublayers") && layerInfos && layerInfos.length) {
-                            sublayers = layer.layerObject.layerInfos;
+                        if (this.get("sublayers") && layer.layerObject.layerInfos && layer.layerObject.layerInfos.length) {
+                            subLayerInfos = layer.layerObject.layerInfos;
                         }
                     }
                     if (i === (layers.length - 1)) {
@@ -303,13 +309,13 @@ function (
                         domConstruct.place(layer.content, contentDiv, "first");    
                     }
                     // if sublayer and not a tile service
-                    if (sublayers && sublayers.length && !layer.layerObject.tileInfo) {
+                    if (subLayerInfos && subLayerInfos.length && !layer.layerObject.tileInfo) {
                         var sublayerContainerDiv = domConstruct.create("div", {
                             className: this.css.sublayerContainer
                         });
                         domConstruct.place(sublayerContainerDiv, contentDiv, "first");
-                        for (var j = 0; j < sublayers.length; j++) {
-                            var sublayer = sublayers[j];
+                        for (var j = 0; j < subLayerInfos.length; j++) {
+                            var sublayer = subLayerInfos[j];
                             var sublayerchecked = '';
                             var sublayerVisible = '';
                             if (sublayer.defaultVisibility) {
@@ -350,36 +356,35 @@ function (
                         });
                         domConstruct.place(fullExtentDiv, contentDiv, "first");
                     }
-                    // determine default symbol
-                    var defaultSymbol;
-                    try {
-                        defaultSymbol = layer.layerObject.renderer.defaultSymbol;
-                    } catch (error) {
-                        try {
-                            defaultSymbol = layer.featureCollection.layers[0].layerObject.rendererer.defaultSymbol;
-                        } catch (error2) {
-                            defaultSymbol = null;
+                    // client side layer
+                    if (layer.featureCollection) {
+                        // show legend defined
+                        if(layer.featureCollection.hasOwnProperty('showLegend')){
+                            showLegend = layer.featureCollection.showLegend;   
+                        }
+                        // each client side layer
+                        for(var k = 0; k < layer.featureCollection.layers.length; k++){
+                            
+                            console.log(layer.featureCollection);
+                            
+                            // add layer info
+                            layerInfos.push({
+                                title: layer.featureCollection.layers[k].layerObject.name,
+                                layer: layer.featureCollection.layers[k].layerObject
+                            });
                         }
                     }
-                    // whether to show legend or not
-                    var showLegend = true;
-                    var layerObject;
-                    if (layer.featureCollection && layer.featureCollection.hasOwnProperty('showLegend')) {
-                        showLegend = layer.featureCollection.showLegend;
-                        layerObject = layer.featureCollection.layers[0].layerObject;
-                    }
                     else{
-                        layerObject = layer.layerObject;
+                        layerInfos.push({
+                            title: layer.title,
+                            layer: layer.layerObject
+                        });
                     }
                     if (showLegend) {
                         // create legend
                         var legend = new Legend({
                             map: this.get("map"),
-                            layerInfos: [{
-                                title: layer.title,
-                                layer: layerObject,
-                                defaultSymbol: defaultSymbol
-                            }]
+                            layerInfos: layerInfos
                         }, legendDiv);
                         legend.startup();
                         this._legends.push(legend);
