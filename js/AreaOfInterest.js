@@ -66,6 +66,10 @@ define([
                     if(this._notesLayers.length){
                         // each note layer
                         for(var i = 0; i < this._notesLayers.length; i++){
+                            // hide info window for map notes layers
+                            if(this.config.hideNotesLayerPopups){
+                                this._notesLayers[i].setInfoTemplate(null);
+                            }
                             // get graphics from layer
                             for(var j = 0; j < this._notesLayers[i].graphics.length; j++){
                                 // note graphic

@@ -32,6 +32,7 @@ define([], function() {
         "currentBasemap": "topo",
         "notesLayerTitle":"Map Notes",
         "notesLayerId":"",
+        "hideNotesLayerPopups":true,
         "showInstagram":true,
         "instagramChecked":true,
         "showFlickr":true,

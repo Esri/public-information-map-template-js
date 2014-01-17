@@ -1,8 +1,7 @@
 define({
     root: ({
         TableOfContents: {
-            noLegend: "No legend",
-            zoomTo: "Zoom to"
+            noLegend: "No legend"
         }
     }),
     "ar": 1,

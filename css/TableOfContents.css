@@ -46,8 +46,7 @@
     border-left: 0;
     border-right: 5px solid #007ac2;
 }
-.TableOfContents .toc-text,
-.TableOfContents .toc-sublayer-text {
+.TableOfContents .toc-text {
     display: inline-block;
     padding: 12px 0;
     margin: 0;
@@ -60,12 +59,7 @@
     border: 1px solid transparent;
     vertical-align: middle;
 }
-.TableOfContents .toc-sublayer-text {
-    padding: 3px 0;
-    width: 210px;
-}
-.TableOfContents .toc-checkbox,
-.TableOfContents .toc-sublayer-checkbox {
+.TableOfContents .toc-checkbox {
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -79,23 +73,14 @@
     color: #000;
     cursor: pointer;
 }
-.TableOfContents .toc-sublayer-checkbox {
-    margin: 3px 8px 3px 0;
-}
 .TableOfContents .toc-checkbox:hover {
     color: #555;
 }
 .TableOfContents .toc-checkbox:active {
     color: #999;
 }
-.TableOfContents .toc-sublayer-container {
-    margin: 10px 0 0 15px;
-}
-.esriRTL .TableOfContents .toc-sublayer-container {
-    margin: 10px 15px 0 0;
-}
 .TableOfContents .toc-content {
-    background: #dfdfdf;
+    background: #e5e5e5;
     color: #333;
     position: relative;
     max-height: 0;
@@ -106,17 +91,6 @@
     transition: max-height .25s ease;
     -webkit-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
-}
-.TableOfContents .toc-zoom-to {
-    cursor: pointer;
-    margin: 10px 0 0 15px;
-    text-decoration: underline;
-}
-.esriRTL .TableOfContents .toc-zoom-to {
-    margin: 10px 15px 0 0;
-}
-.TableOfContents .toc-zoom-to:hover {
-    text-decoration: none;
 }
 .TableOfContents .toc-expanded .toc-content {
     max-height: 300px;
