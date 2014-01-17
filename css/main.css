@@ -194,7 +194,7 @@ input[type=text]::-ms-clear {
     border-right: 5px solid #007ac2;
 }
 .note-content {
-    background: #dfdfdf;
+    background: #e5e5e5;
     color: #333;
     position: relative;
     max-height: 0;
