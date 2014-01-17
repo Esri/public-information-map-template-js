@@ -333,7 +333,7 @@ function (
                             layer: layer.layerObject
                         });
                         // sublayers set
-                        if (this.get("sublayers") && layer.layerObject.layerInfos && layer.layerObject.layerInfos.length) {
+                        if (this.get("sublayers") && layer.layerObject.layerInfos && layer.layerObject.layerInfos.length && typeof layer.layerObject.setVisibleLayers === 'function') {
                             subLayerInfos = layer.layerObject.layerInfos;
                             
                             //console.log(subLayerInfos);
@@ -575,7 +575,7 @@ function (
                     }
                 } else {
                     if (layerObject) {
-                        if (typeof sublayerIndex !== 'undefined' && layerObject.hasOwnProperty('visibleLayers')) {
+                        if (typeof sublayerIndex !== 'undefined' && layerObject.hasOwnProperty('visibleLayers') && typeof layerObject.setVisibleLayers === 'function') {
                             // layers visible
                             visibleLayers = layerObject.visibleLayers;
                             // remove -1 from visible layers if its there
