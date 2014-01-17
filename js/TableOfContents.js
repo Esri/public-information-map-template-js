@@ -483,6 +483,14 @@ function (
             }));
             this._layerEvents.push(visChange);
         },
+        _sublayerEvent: function(layer, index, sublayerIndex) {
+            // layer visibility changes
+            var visChange = on(layer, 'visibility-change', lang.hitch(this, function(evt) {
+                // update checkbox and layer visibility classes
+                this._toggleVisibleSublayer(index, sublayerIndex, evt.visible);
+            }));
+            this._layerEvents.push(visChange);
+        },
         _fullExtentEvent: function(layer, index){
             var fullExtent = on(this._nodes[index].fullExtent, 'click', lang.hitch(this, function() {
                 this.map.setExtent(layer.fullExtent);
@@ -506,7 +514,7 @@ function (
                         var fclayers = layer.featureCollection.layers;
                         for (var j = 0; j < fclayers.length; j++) {
                             var sublayerObject = fclayers[j].layerObject;
-                            this._layerEvent(sublayerObject, i);
+                            this._sublayerEvent(sublayerObject, i, j);
                         }
                     } else {
                         // 1 layer object
@@ -520,6 +528,10 @@ function (
             }
         },
         _toggleLayer: function(layerIndex, sublayerIndex) {
+            
+            
+            console.log(layerIndex, sublayerIndex);
+            
             // all layers
             if (this.layers && this.layers.length) {
                 var newVis;
@@ -535,22 +547,31 @@ function (
                     newVis = !layer.visibility;
                     // set visibility for layer reference
                     layer.visibility = newVis;
-                    // toggle all feature collection layers
-                    if (visibleLayers && visibleLayers.length) {
-                        // toggle visible sub layers
-                        for (i = 0; i < visibleLayers.length; i++) {
-                            layerObject = featureCollection.layers[visibleLayers[i]].layerObject;
-                            // toggle to new visibility
-                            layerObject.setVisibility(newVis);
-                        }
+                    
+                    
+                    if (typeof sublayerIndex !== 'undefined') {
+                        layerObject = featureCollection.layers[sublayerIndex].layerObject;
+                        // toggle to new visibility
+                        layerObject.setVisibility(newVis);
                     }
                     else{
-                        // toggle all sub layers
-                        for (i = 0; i < featureCollection.layers.length; i++) {
-                            layerObject = featureCollection.layers[i].layerObject;
-                            // toggle to new visibility
-                            layerObject.setVisibility(newVis);
-                        } 
+                        // toggle all feature collection layers
+                        if (visibleLayers && visibleLayers.length) {
+                            // toggle visible sub layers
+                            for (i = 0; i < visibleLayers.length; i++) {
+                                layerObject = featureCollection.layers[visibleLayers[i]].layerObject;
+                                // toggle to new visibility
+                                layerObject.setVisibility(newVis);
+                            }
+                        }
+                        else{
+                            // toggle all sub layers
+                            for (i = 0; i < featureCollection.layers.length; i++) {
+                                layerObject = featureCollection.layers[i].layerObject;
+                                // toggle to new visibility
+                                layerObject.setVisibility(newVis);
+                            } 
+                        }   
                     }
                 } else {
                     if (layerObject) {
@@ -596,6 +617,8 @@ function (
             }
         },
         _sublayerCheckboxEvent: function(layerIndex, sublayerIndex) {
+            console.log(layerIndex, sublayerIndex);
+            
             // when checkbox is clicked
             var checkEvent = on(this._nodes[layerIndex].sublayerNodes[sublayerIndex].sublayerCheckboxDiv, 'click', lang.hitch(this, function(evt) {
                 // update visible layers for this layer with sublayer
