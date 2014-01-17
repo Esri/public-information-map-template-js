@@ -85,7 +85,7 @@ function(
             // menu panels
             this.drawerMenus = [];
             var content;
-            if (this.config.showArea) {
+            if (this.config.showAreaPanel) {
                 content = '';
                 content += '<div class="' + this.css.areaContainer + '">';
                 if(this.config.showMapNotes){
@@ -102,7 +102,7 @@ function(
                     content: content
                 });
             }
-            if (this.config.showLegend) {
+            if (this.config.showLegendPanel) {
                 content = '';
                 if(this.config.showOperationalLegend){
                     content += '<div class="' + this.css.legendContainer + '">';
@@ -188,15 +188,13 @@ function(
                 this._ShareDialog.startup();
             }
             // Legend table of contents
-            if (this.config.showLegend) {
-                var legendNode = dom.byId('TableOfContents');
-                if (legendNode) {
-                    var LL = new TableOfContents({
-                        map: this.map,
-                        layers: this.layers
-                    }, legendNode);
-                    LL.startup();
-                }
+            var legendNode = dom.byId('TableOfContents');
+            if (legendNode) {
+                var LL = new TableOfContents({
+                    map: this.map,
+                    layers: this.layers
+                }, legendNode);
+                LL.startup();
             }
             // i18n overview placement
             var overviewPlacement = 'left';
