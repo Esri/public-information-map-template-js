@@ -39,10 +39,10 @@ function (
             map: null,
             layers: null,
             visible: true,
-            sublayers: false,
+            sublayers: true,
             zoomTo: false,
             accordion: true,
-            expandFirstItem: false,
+            expandFirstOnStart: false,
             expandAllOnStart: false,
             setVisibleOnExpand: true
         },
@@ -61,7 +61,7 @@ function (
             this.set("sublayers", defaults.sublayers);
             this.set("zoomTo", defaults.zoomTo);
             this.set("accordion", defaults.accordion);
-            this.set("expandFirstItem", defaults.expandFirstItem);
+            this.set("expandFirstOnStart", defaults.expandFirstOnStart);
             this.set("expandAllOnStart", defaults.expandAllOnStart);
             this.set("setVisibleOnExpand", defaults.setVisibleOnExpand);
             // listeners
@@ -215,8 +215,8 @@ function (
             this._removeEvents();
             // clear node
             this._layersNode.innerHTML = '';
-            if(this.get("expandFirstItem")){
-                // Set default expanded to last index
+            if(this.get("expandFirstOnStart")){
+                // Set default expanded to last indexexpan
                 if(!this._expanded){
                     this._expanded = [layers.length - 1];
                 }
@@ -320,7 +320,10 @@ function (
                                 layer: layer.featureCollection.layers[k].layerObject
                             });
                             if (this.get("sublayers")){
-                                subLayerInfos.push(layer.featureCollection.layers[k].layerObject);
+                                subLayerInfos.push({
+                                    name: layer.featureCollection.layers[k].layerObject.name,
+                                    defaultVisibility: layer.featureCollection.layers[k].layerObject.visible
+                                });
                             }
                         }
                     }
@@ -332,6 +335,9 @@ function (
                         // sublayers set
                         if (this.get("sublayers") && layer.layerObject.layerInfos && layer.layerObject.layerInfos.length) {
                             subLayerInfos = layer.layerObject.layerInfos;
+                            
+                            //console.log(subLayerInfos);
+                            
                         }
                     }
                     // if sublayer and not a tile service
