@@ -66,8 +66,8 @@
             {
                "type":"boolean",
                "fieldName":"showArea",
-               "label":"Show Area Side Panel",
-               "tooltip":"Show Area Side Panel"
+               "label":"Show Area Panel",
+               "tooltip":"Show Area Panel"
             },
             {
                "type":"boolean",
@@ -339,6 +339,7 @@
    "values":{
       "title":"",
       "showLegend":true,
+      "hideNotesLayerPopups":true,
       "showOperationalLegend":true,
       "showSocialLegend":true,
       "showArea":true,
