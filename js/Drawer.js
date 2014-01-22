@@ -176,7 +176,10 @@ function (
             }, this.get("container"));
             // center panel
             this.cp_outer_center = new ContentPane({
-                region: "center"
+                region: "center",
+                style: {
+                    padding: 0
+                }
             }, this.get("contentCenter"));
             this._bc_outer.addChild(this.cp_outer_center);
             // panel side
@@ -186,7 +189,10 @@ function (
             }
             // left panel
             this.cp_outer_left = new ContentPane({
-                region: side
+                region: side,
+                style: {
+                    padding: 0
+                }
             }, this.get("contentLeft"));
             this._bc_outer.addChild(this.cp_outer_left);
             // start border container
