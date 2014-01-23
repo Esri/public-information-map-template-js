@@ -307,6 +307,11 @@ input[type=text]::-ms-clear {
     width: 280px;
     overflow: auto;
     overflow-x: hidden;
+    border-right: 1px solid #ddd;
+}
+.esriRTL .drawer-open .content-pane-left {
+    border-right:0;
+    border-left:1px solid #ddd;
 }
 .drawer-open .content-pane-left:before {
     display: none;
