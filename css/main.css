@@ -313,10 +313,10 @@ input[type=text]::-ms-clear {
     border-right:0;
     border-left:1px solid #ddd;
 }
-.drawer-open .content-pane-left:before {
+.drawer-open-complete .content-pane-left:before {
     display: none;
 }
-.drawer-open-shadow .content-pane-left:before {
+.pointer-events .drawer-open-complete .content-pane-left:before {
     -webkit-box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
     box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -329,7 +329,7 @@ input[type=text]::-ms-clear {
     display: block;
     pointer-events: none;
 }
-.esriRTL .drawer-open-shadow .content-pane-left:before {
+.esriRTL .drawer-open-complete .content-pane-left:before {
     left: auto;
     right: 0;
 }
