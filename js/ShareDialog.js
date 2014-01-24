@@ -9,8 +9,8 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
      // load template
-    "dojo/text!modules/dijit/templates/ShareDialog.html",
-    "dojo/i18n!modules/nls/ShareDialog",
+    "dojo/text!application/dijit/templates/ShareDialog.html",
+    "dojo/i18n!application/nls/ShareDialog",
     "dojo/dom-class",
     "dojo/dom-style",
     "dojo/dom-attr",

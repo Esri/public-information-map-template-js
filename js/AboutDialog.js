@@ -9,8 +9,8 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
     // load template
-    "dojo/text!modules/dijit/templates/AboutDialog.html",
-    "dojo/i18n!modules/nls/AboutDialog",
+    "dojo/text!application/dijit/templates/AboutDialog.html",
+    "dojo/i18n!application/nls/AboutDialog",
     "dojo/dom-class",
     "dojo/dom-style",
     "dijit/Dialog",

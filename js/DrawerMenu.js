@@ -8,7 +8,7 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
     // load template
-    "dojo/text!modules/dijit/templates/DrawerMenu.html",
+    "dojo/text!application/dijit/templates/DrawerMenu.html",
     "dojo/dom-construct",
     "dojo/dom-class"
 ],

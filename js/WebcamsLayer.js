@@ -28,7 +28,7 @@ function (
     Graphic,
     PictureMarkerSymbol
 ) {
-    return declare("modules.WebcamsLayer", [Stateful, Evented], {
+    return declare("application.WebcamsLayer", [Stateful, Evented], {
         options: {
             map: null,
             autopage: true,

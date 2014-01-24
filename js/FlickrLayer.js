@@ -28,7 +28,7 @@ function (
     Graphic,
     PictureMarkerSymbol
 ) {
-    return declare("modules.FlickrLayer", [Stateful, Evented], {
+    return declare("application.FlickrLayer", [Stateful, Evented], {
         options: {
             map: null,
             filterUsers: [],

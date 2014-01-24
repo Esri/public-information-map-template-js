@@ -28,7 +28,7 @@ function (
     Graphic,
     PictureMarkerSymbol
 ) {
-    return declare("modules.InstagramLayer", [Stateful, Evented], {
+    return declare("application.InstagramLayer", [Stateful, Evented], {
         options: {
             map: null,
             filterUsers: [],

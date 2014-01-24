@@ -31,7 +31,7 @@ function (
     Graphic,
     PictureMarkerSymbol
 ) {
-    return declare("modules.TwitterLayer", [Stateful, Evented], {
+    return declare("application.TwitterLayer", [Stateful, Evented], {
         options: {
             map: null,
             filterUsers: [],
