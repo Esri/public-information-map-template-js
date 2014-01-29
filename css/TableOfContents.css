@@ -84,8 +84,9 @@
     color: #333;
     position: relative;
     max-height: 0;
+    height: auto;
     _height: 0;
-    overflow: auto;
+    overflow: hidden;
     -webkit-transition: max-height .25s ease;
     -moz-transition: max-height .25s ease;
     transition: max-height .25s ease;
@@ -93,8 +94,10 @@
     box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
 }
 .TableOfContents .toc-expanded .toc-content {
-    max-height: 300px;
-    _height: 300px;
+    max-height: 800px;
+    overflow: auto;
+    height: auto;
+    _height: auto;
     border-bottom: 1px solid #d4d4d4;
     border-top: 1px solid #d4d4d4;
 }

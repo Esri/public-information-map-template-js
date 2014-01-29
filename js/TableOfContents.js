@@ -91,6 +91,9 @@ function (
                 this.destroy();
                 console.log('TableOfContents::map required');
             }
+            
+            console.log(this.layers);
+            
             // when map is loaded
             if (this.map.loaded) {
                 this._init();
@@ -216,6 +219,10 @@ function (
                     var layerInfos = [];
                     // show legend
                     var showLegend = true;
+                    // show legend property present
+                    if(layer.hasOwnProperty('showLegend')){
+                        showLegend = layer.showLegend;   
+                    }
                     // checkbox class
                     var titleCheckBoxClass = this.css.titleCheckbox;
                     // layer class
