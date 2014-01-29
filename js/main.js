@@ -200,8 +200,7 @@ function(
                     image: this.config.sharinghost + '/sharing/rest/content/items/' + this.item.id + '/info/' + this.item.thumbnail,
                     title: this.config.title,
                     summary: this.item.snippet,
-                    hashtags: 'esriPIM',
-                    map: this.map
+                    hashtags: 'esriPIM'
                 }, 'ShareDialog');
                 this._ShareDialog.startup();
             }
