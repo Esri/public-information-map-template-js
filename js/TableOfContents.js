@@ -91,9 +91,6 @@ function (
                 this.destroy();
                 console.log('TableOfContents::map required');
             }
-            
-            console.log(this.layers);
-            
             // when map is loaded
             if (this.map.loaded) {
                 this._init();
