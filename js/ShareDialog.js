@@ -51,19 +51,22 @@ function (
             bitlyKey: "",
             embedSizes: [{
                 "width": "100%",
-                "height": "500px"
+                "height": "640px"
             }, {
                 "width": "100%",
-                "height": "400px"
+                "height": "480px"
             }, {
                 "width": "100%",
-                "height": "300px"
+                "height": "320px"
             }, {
                 "width": "800px",
-                "height": "640px"
+                "height": "600px"
             }, {
                 "width": "640px",
                 "height": "480px"
+            }, {
+                "width": "480px",
+                "height": "320px"
             }]
         },
         // lifecycle: 1
