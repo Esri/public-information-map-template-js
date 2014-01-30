@@ -20,7 +20,9 @@ define([
     "esri/dijit/Popup",
     "application/AreaOfInterest",
     "application/SocialLayers",
-    "esri/dijit/OverviewMap"
+    "esri/dijit/OverviewMap",
+    "dijit/registry",
+    "dojo/_base/array"
 ],
 function(
     declare,
@@ -38,7 +40,9 @@ function(
     Popup,
     AreaOfInterest,
     SocialLayers,
-    OverviewMap
+    OverviewMap,
+    registry,
+    array
 ) {
     return declare("", [AreaOfInterest, SocialLayers], {
         config: {},
@@ -251,6 +255,17 @@ function(
             this.initArea();
             // hide loading div
             this._hideLoadingIndicator();
+            // on body click containing underlay class
+            on(document.body, '.dijitDialogUnderlay:click', function(){
+                // get all dialogs
+                var filtered = array.filter(registry.toArray(), function(w){ 
+                    return w && w.declaredClass == "dijit.Dialog";
+                });
+                // hide all dialogs
+                array.forEach(filtered, function(w){ 
+                    w.hide(); 
+                });
+            });
         },
         _checkMobileGeocoderVisibility: function () {
             if(this._mobileGeocoderIconNode && this._mobileSearchNode){
