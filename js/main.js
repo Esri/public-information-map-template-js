@@ -89,8 +89,23 @@ function(
             }));
             // startup drawer
             this._drawer.startup();
-            // lets get that webmap
-            this._createWebMap();
+            // get item info
+            arcgisUtils.getItem(this.config.webmap).then(lang.hitch(this, function (itemInfo) {
+                //let's get the web map item and update the extent if needed. 
+                if (this.config.appid && this.config.application_extent.length > 0) {
+                    itemInfo.item.extent = [
+                        [
+                            parseFloat(this.config.application_extent[0][0]),
+                            parseFloat(this.config.application_extent[0][1])
+                        ],
+                        [
+                            parseFloat(this.config.application_extent[1][0]),
+                            parseFloat(this.config.application_extent[1][1])
+                        ]
+                    ];
+                }
+                this._createWebMap(itemInfo);
+            }));
         },
         _pointerEventsSupport: function(){
             var element = document.createElement('x');
@@ -339,13 +354,13 @@ function(
             }
         },
         //create a map based on the input web map id
-        _createWebMap: function () {
+        _createWebMap: function (itemInfo) {
             // popup dijit
             var customPopup = new Popup({}, domConstruct.create("div"));
             // add popup theme
             domClass.add(customPopup.domNode, "calcite");
             //can be defined for the popup like modifying the highlight symbol, margin etc.
-            arcgisUtils.createMap(this.config.webmap, "mapDiv", {
+            arcgisUtils.createMap(itemInfo, "mapDiv", {
                 mapOptions: {
                     infoWindow: customPopup
                     //Optionally define additional map config here for example you can
