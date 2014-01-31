@@ -13,6 +13,8 @@ define([], function() {
         //you could define the default here and setup configuration settings to allow users to choose a different
         //color theme.
         "title":"",
+        "areaDescription":"",
+        "showAreaDescription":true,
         "showTitle":true,
         "showLegendPanel": true,
         "showAreaPanel":true,

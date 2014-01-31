@@ -33,6 +33,18 @@ define([
                 };
                 this._placeBookmarks();
                 this._placeNotes();
+                // description
+                if (this.config.showAreaDescription) {
+                    this._setAreaDescription(this.config.areaDescription || this.item.snippet);
+                }
+            },
+            _setAreaDescription: function (description) {
+                // map title node
+                var node = dom.byId('areaDescription');
+                if (node) {
+                    // set title
+                    node.innerHTML = description;
+                }
             },
             _placeNotes: function(){
                 // get note layers from the one layer id or title

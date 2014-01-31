@@ -71,7 +71,8 @@ function(
                 locateButtonTheme: "LocateButtonCalcite",
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
-                mobileGeocoderTheme: "geocoder-mobile"
+                mobileGeocoderTheme: "geocoder-mobile",
+                areaDescription: "area-description"
             };
             // pointer event support
             if(this._pointerEventsSupport()){
@@ -126,6 +127,9 @@ function(
             var content;
             if (this.config.showAreaPanel) {
                 content = '';
+                if (this.config.showAreaDescription) {
+                    content += '<div class="' + this.css.areaDescription + '" id="areaDescription"></div>';
+                }
                 content += '<div class="' + this.css.areaContainer + '">';
                 if(this.config.showMapNotes){
                     content += '<div class="' + this.css.areaHeader + '"><span class="' + this.css.iconText + '"></span> <span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
