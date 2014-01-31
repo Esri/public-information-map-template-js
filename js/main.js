@@ -22,7 +22,8 @@ define([
     "application/SocialLayers",
     "esri/dijit/OverviewMap",
     "dijit/registry",
-    "dojo/_base/array"
+    "dojo/_base/array",
+    "esri/lang"
 ],
 function(
     declare,
@@ -42,7 +43,8 @@ function(
     SocialLayers,
     OverviewMap,
     registry,
-    array
+    array,
+    esriLang
 ) {
     return declare("", [AreaOfInterest, SocialLayers], {
         config: {},
@@ -302,14 +304,72 @@ function(
             // window title
             window.document.title = title;
         },
+        _createGeocoderOptions: function() {
+            var hasEsri = false,
+                esriIdx, options, geocoders = lang.clone(this.config.helperServices.geocode);
+            // each geocoder
+            array.forEach(geocoders, function (geocoder) {
+                if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
+                    hasEsri = true;
+                    geocoder.name = "Esri World Geocoder";
+                    geocoder.outFields = "Match_addr, stAddr, City";
+                    geocoder.singleLineFieldName = "Single Line";
+                    geocoder.esri = geocoder.placefinding = true;
+                }
+        
+            });
+            //only use geocoders with a singleLineFieldName that allow placefinding unless its custom
+            geocoders = array.filter(geocoders, function (geocoder) {
+                if (geocoder.name && geocoder.name === "Custom") {
+                    return (esriLang.isDefined(geocoder.singleLineFieldName));
+                } else {
+                    return (esriLang.isDefined(geocoder.singleLineFieldName) && esriLang.isDefined(geocoder.placefinding) && geocoder.placefinding);
+                }
+            });
+            if (hasEsri) {
+                for (var i = 0; i < geocoders.length; i++) {
+                    if (esriLang.isDefined(geocoders[i].esri) && geocoders[i].esri === true) {
+                        esriIdx = i;
+                        break;
+                    }
+                }
+            }
+            options = {
+                map: this.map,
+                autoNavigate: true,
+                autoComplete: hasEsri
+            };
+            if (hasEsri) {
+                options.minCharacters = 0;
+                options.maxLocations = 5;
+                options.searchDelay = 100;
+            }
+            //If the World geocoder is primary enable auto complete 
+            if (hasEsri && esriIdx === 0) {
+                options.arcgisGeocoder = geocoders.splice(0, 1)[0]; //geocoders[0];
+                if (geocoders.length > 0) {
+                    options.geocoders = geocoders;
+                }
+            } else {
+                options.arcgisGeocoder = false;
+                options.geocoders = geocoders;
+            }
+            return options;
+        },
         // create geocoder widgets
         _createGeocoders: function () {
+            // get options
+            var createdOptions = this._createGeocoderOptions();
+            // desktop geocoder options
+            var desktopOptions = lang.mixin({}, createdOptions, {
+                theme: this.css.desktopGeocoderTheme
+            });
+            // mobile geocoder options
+            var mobileOptions = lang.mixin({}, createdOptions, {
+                theme: this.css.mobileGeocoderTheme
+            });
             // desktop size geocoder
-            this._geocoder = new Geocoder({
-                map: this.map,
-                theme: this.css.desktopGeocoderTheme,
-                autoComplete: true
-            }, dom.byId("geocoderSearch"));
+            this._geocoder = new Geocoder(desktopOptions, dom.byId("geocoderSearch"));
             this._geocoder.startup();
             // geocoder results
             on(this._geocoder, 'find-results', lang.hitch(this, function (response) {
@@ -318,11 +378,7 @@ function(
                 }
             }));
             // mobile sized geocoder
-            this._mobileGeocoder = new Geocoder({
-                map: this.map,
-                theme: this.css.mobileGeocoderTheme,
-                autoComplete: true
-            }, dom.byId("geocoderMobile"));
+            this._mobileGeocoder = new Geocoder(mobileOptions, dom.byId("geocoderMobile"));
             this._mobileGeocoder.startup();
             // geocoder results
             on(this._mobileGeocoder, 'find-results', lang.hitch(this, function (response) {
