@@ -19,7 +19,7 @@
 }
 */
 
-[class^="icon-"]:before,[class*=" icon-"]:before,.left-arrow,.right-arrow,.dijitDialogCloseIcon,.esriGeocoderSearch,.esriGeocoderReset {
+[class^="icon-"]:before,[class*=" icon-"]:before,.left-arrow,.right-arrow,.dijitDialogCloseIcon,.esriGeocoderSearch,.esriGeocoderReset, .toc-icon-expand {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -92,3 +92,5 @@
 .twitter-popup .action-favorite:before {content:'\e811';}
 .map .calcite .titleButton.maximize:before {content: '\e817';}
 .map .calcite .titleButton.restore:before {content: '\e817';}
+.toc-icon-expand:before { content: '\e81a'; } /* '' */
+.toc-expanded .toc-icon-expand:before { content: '\e81b'; } /* '' */
