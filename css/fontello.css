@@ -68,6 +68,10 @@
 .icon-twitter-1:before { content: '\e818'; } /* '' */
 .icon-facebook-squared-1:before { content: '\e80e'; } /* '' */
 .icon-doc-text:before { content: '\e806'; } /* '' */
+.icon-plus:before { content: '\e81a'; } /* '' */
+.icon-minus:before { content: '\e81b'; } /* '' */
+.icon-down-dir:before { content: '\e814'; } /* '' */
+.icon-up-dir:before { content: '\e815'; } /* '' */
 
 .left-arrow:before { content: '\e80d'; }
 .right-arrow:before { content: '\e80b'; }
