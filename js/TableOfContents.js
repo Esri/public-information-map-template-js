@@ -41,7 +41,7 @@ function (
             visible: true,
             accordion: true,
             expandFirstOnStart: false,
-            setVisibleOnExpand: true,
+            setVisibleOnExpand: false,
             expandAllOnStart: false
         },
         // lifecycle: 1
@@ -79,7 +79,8 @@ function (
                 titleText: "toc-text",
                 expanded: "toc-expanded",
                 visible: "toc-visible",
-                settingsIcon: "icon-cog"
+                settingsIcon: "icon-cog",
+                expandIcon: "toc-icon-expand"
             };
             // expanded array
             this._expanded = [];
@@ -277,6 +278,11 @@ function (
                         });
                         domConstruct.place(settingsIcon, titleText, "last");
                     }
+                    // Title text
+                    var expandIcon = domConstruct.create("span", {
+                        className: this.css.expandIcon
+                    });
+                    domConstruct.place(expandIcon, titleContainerDiv, "last");
                     // content of layer
                     var contentDiv = domConstruct.create("div", {
                         className: this.css.content
@@ -332,6 +338,7 @@ function (
                         titleContainer: titleContainerDiv,
                         titleText: titleText,
                         settingsIcon: settingsIcon,
+                        expandIcon: expandIcon,
                         content: contentDiv,
                         legend: legendDiv,
                         layer: layerDiv
