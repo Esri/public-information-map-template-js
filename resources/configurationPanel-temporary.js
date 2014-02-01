@@ -22,6 +22,12 @@
                "label":"Layer Title",
                "tooltip":"Layer Title",
                "placeHolder":"Map Notes"
+            },
+            {
+               "type":"boolean",
+               "fieldName":"hideNotesLayerPopups",
+               "label":"Hide popups for this layer",
+               "tooltip":"Hide info windows for notes layer"
             }
          ]
       },
