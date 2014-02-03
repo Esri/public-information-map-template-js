@@ -84,7 +84,8 @@ function (
                 settings: "toc-settings",
                 actions: "toc-actions",
                 account: "toc-account",
-                status: "toc-status"
+                status: "toc-status",
+                clear: "clear"
             };
             // expanded array
             this._expanded = [];
@@ -278,6 +279,11 @@ function (
                         className: this.css.expandIcon
                     });
                     domConstruct.place(expandIcon, titleContainerDiv, "last");
+                    // clear css
+                    var clearCSS = domConstruct.create("div", {
+                        className: this.css.clear
+                    });
+                    domConstruct.place(clearCSS, titleContainerDiv, "last");
                     // content of layer
                     var contentDiv = domConstruct.create("div", {
                         className: this.css.content

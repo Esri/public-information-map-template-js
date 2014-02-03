@@ -128,9 +128,6 @@ input[type=text]::-ms-clear {
     line-height: 18px;
     height: 18px;
     font-size: 16px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
     cursor: pointer;
     background: #f8f8f8;
     background-position: 95% center;
@@ -139,6 +136,21 @@ input[type=text]::-ms-clear {
 .esriRTL .bookmark-item,
 .esriRTL .note-item {
     background-position: 5% center;
+}
+.bookmark-item {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.note-text {
+    width: 210px;
+    float: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.esriRTL .note-text {
+    float: right;
 }
 .bookmark-item {
     border-bottom: 1px solid #e0e0e0;
@@ -209,6 +221,20 @@ input[type=text]::-ms-clear {
 .note-image:hover {
     opacity: 0.75;
     background-image: none;
+}
+.note-expand {
+    color: #bababa;
+    font-weight: 400;
+    float: right;
+    margin-right: 7px;
+    font-size: 14px;
+}
+.esriRTL .note-expand {
+    margin-right: 0;
+    margin-left: 7px;
+}
+.note-loading .note-expand {
+    display: none;
 }
 /* Drawer */
 

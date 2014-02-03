@@ -23,13 +23,16 @@ define([
                 this.areaCSS = {
                     noteContainer: 'note-container',
                     noteItem: 'note-item',
+                    noteTitleText: 'note-text',
                     noteContent: 'note-content',
                     notePadding: 'note-padding',
                     noteSelected: 'note-selected',
                     noteImage: 'note-image',
                     noteLink: 'note-link',
+                    noteExpand: 'note-expand',
                     noteLoading: 'note-loading',
-                    bookmarkItem: 'bookmark-item'
+                    bookmarkItem: 'bookmark-item',
+                    clear: 'clear'
                 };
                 this._placeBookmarks();
                 this._placeNotes();
@@ -101,10 +104,25 @@ define([
                                 }
                                 // note title
                                 var titleNode = domConstruct.create('div', {
-                                    innerHTML: attributes.TITLE || this.config.i18n.area.untitledNote,
                                     className: this.areaCSS.noteItem
                                 });
                                 domConstruct.place(titleNode, containerNode, 'last');
+                                // note title
+                                var noteTitleText = domConstruct.create('div', {
+                                    innerHTML: attributes.TITLE || this.config.i18n.area.untitledNote,
+                                    className: this.areaCSS.noteTitleText
+                                });
+                                domConstruct.place(noteTitleText, titleNode, 'last');
+                                // note title
+                                var noteExpand = domConstruct.create('div', {
+                                    className: this.areaCSS.noteExpand
+                                });
+                                domConstruct.place(noteExpand, titleNode, 'last');
+                                // note title
+                                var clear = domConstruct.create('div', {
+                                    className: this.areaCSS.clear
+                                });
+                                domConstruct.place(clear, titleNode, 'last');
                                 // note HTML
                                 var noteContent = '';
                                 if (attributes.DESCRIPTION) {
@@ -134,6 +152,8 @@ define([
                                 this.noteNodes.push({
                                     containerNode: containerNode,
                                     titleNode: titleNode,
+                                    noteTitleText: noteTitleText,
+                                    noteExpand: noteExpand,
                                     contentNode: contentNode
                                 });
                                 // note event

@@ -51,7 +51,7 @@
     padding: 12px 0;
     margin: 0;
     text-overflow: ellipsis;
-    width: 225px;
+    width: 200px;
     white-space: nowrap;
     overflow: hidden;
     line-height: 16px;
@@ -73,13 +73,17 @@
     color: #000;
     cursor: pointer;
 }
-.toc-icon-expand{
-    color:#bababa;
-    font-weight:400;
-    float:right;
-    margin:12px 24px 12px 0;
-    font-size:14px;
-    line-height:16px;
+.toc-icon-expand {
+    color: #bababa;
+    font-weight: 400;
+    float: right;
+    margin: 12px 15px 12px 0;
+    font-size: 14px;
+    line-height: 16px;
+}
+.esriRTL .toc-icon-expand {
+    margin: 12px 0 12px 15px;
+    float: left;
 }
 .TableOfContents .toc-checkbox:hover {
     color: #555;
@@ -109,29 +113,29 @@
     border-bottom: 1px solid #d4d4d4;
     border-top: 1px solid #d4d4d4;
 }
-.toc-actions{
-    padding:5px 10px 0 12px
+.toc-actions {
+    padding: 5px 10px 0 12px
 }
-.esriRTL .toc-actions{
-    padding:5px 12px 0 10px;
+.esriRTL .toc-actions {
+    padding: 5px 12px 0 10px;
 }
-.toc-actions a{
-    cursor:pointer;
-    text-decoration:none;
+.toc-actions a {
+    cursor: pointer;
+    text-decoration: none;
 }
-.toc-settings{
-    margin-right:10px;
+.toc-settings {
+    margin-right: 10px;
 }
-.toc-status{
-    padding:10px 10px 0 15px;
-    display:none;
+.toc-status {
+    padding: 10px 10px 0 15px;
+    display: none;
 }
-.esriRTL .toc-status{
-    padding:10px 15px 0 10px;
+.esriRTL .toc-status {
+    padding: 10px 15px 0 10px;
 }
-.esriRTL .toc-settings{
-    margin-right:0;
-    margin-left:10px;
+.esriRTL .toc-settings {
+    margin-right: 0;
+    margin-left: 10px;
 }
 .TableOfContents .toc-legend {
     padding: 10px 10px 10px 15px;
