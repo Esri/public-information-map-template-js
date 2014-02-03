@@ -317,12 +317,14 @@ define([
             },
             _updateTwitterSearch: function(inputNode){
                 this._twitterLayer.clear();
+                this._twitterLayer.show();
                 this._twitterLayer.set('searchTerm', inputNode.value);
                 this._twitterLayer.update(0);
                 this._twitterDialog.hide();
             },
             _updateFlickrSearch: function(inputNode){
                 this._flickrLayer.clear();
+                this._flickrLayer.show();
                 this._flickrLayer.set('searchTerm', inputNode.value);
                 this._flickrLayer.update(0);
                 this._flickrDialog.hide();
