@@ -80,7 +80,11 @@ function (
                 expanded: "toc-expanded",
                 visible: "toc-visible",
                 settingsIcon: "icon-cog",
-                expandIcon: "toc-icon-expand"
+                expandIcon: "toc-icon-expand",
+                settings: "toc-settings",
+                actions: "toc-actions",
+                account: "toc-account",
+                status: "toc-status"
             };
             // expanded array
             this._expanded = [];
@@ -269,15 +273,6 @@ function (
                         innerHTML: layer.title
                     });
                     domConstruct.place(titleText, titleContainerDiv, "last");
-                    // settings icon
-                    var settingsIcon;
-                    if(layer.settingsIcon){
-                        settingsIcon = domConstruct.create("span", {
-                            className: this.css.settingsIcon,
-                            id: layer.settingsIconId
-                        });
-                        domConstruct.place(settingsIcon, titleText, "last");
-                    }
                     // Title text
                     var expandIcon = domConstruct.create("span", {
                         className: this.css.expandIcon
@@ -288,15 +283,51 @@ function (
                         className: this.css.content
                     });
                     domConstruct.place(contentDiv, layerDiv, "last");
+                    var actionsDiv;
+                    if(layer.settings || layer.account){
+                        // actions
+                        actionsDiv = domConstruct.create("div", {
+                            className: this.css.actions
+                        });
+                        domConstruct.place(actionsDiv, contentDiv, "last");
+                    }
+                    // settings container
+                    var settingsDiv, settingsIcon;
+                    if(layer.settings){
+                        settingsDiv = domConstruct.create("a", {
+                            className: this.css.settings,
+                            id: layer.settings
+                        });
+                        domConstruct.place(settingsDiv, actionsDiv, "last");
+                        // settings icon
+                        settingsIcon = domConstruct.create("span", {
+                            className: this.css.settingsIcon
+                        });
+                        domConstruct.place(settingsIcon, settingsDiv, "last");
+                    }
+                    // account functions
+                    var accountDiv;
+                    if(layer.account){
+                        accountDiv = domConstruct.create("a", {
+                            className: this.css.account,
+                            id: layer.account
+                        });
+                        domConstruct.place(accountDiv, actionsDiv, "last");
+                    }
+                    var statusDiv;
+                    if(layer.status){
+                        // status
+                        statusDiv = domConstruct.create("div", {
+                            id: layer.status,
+                            className: this.css.status
+                        });
+                        domConstruct.place(statusDiv, contentDiv, "last");
+                    }
                     // legend
                     var legendDiv = domConstruct.create("div", {
                         className: this.css.legend
                     });
-                    domConstruct.place(legendDiv, contentDiv, "first");
-                    // custom content
-                    if(layer.content){
-                        domConstruct.place(layer.content, contentDiv, "first");    
-                    }
+                    domConstruct.place(legendDiv, contentDiv, "last");
                     // client side layer
                     if (layer.featureCollection) {
                         // show legend defined
@@ -338,6 +369,10 @@ function (
                         titleContainer: titleContainerDiv,
                         titleText: titleText,
                         settingsIcon: settingsIcon,
+                        actionsDiv: actionsDiv,
+                        settingsDiv: settingsDiv,
+                        accountDiv: accountDiv,
+                        statusDiv: statusDiv,
                         expandIcon: expandIcon,
                         content: contentDiv,
                         legend: legendDiv,

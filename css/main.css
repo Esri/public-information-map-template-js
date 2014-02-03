@@ -31,9 +31,10 @@ input[type=text]::-ms-clear {
     /*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
 }
 /* General Misc */
+
 .esriRTL .esriSimpleSliderTL {
-    left:auto;
-    right:20px;
+    left: auto;
+    right: 20px;
 }
 .toggle-grey {
     color: #999;
@@ -64,23 +65,20 @@ input[type=text]::-ms-clear {
 .esriRTL .icon-right {
     float: left;
 }
-
 /* Overview Map */
 
-.esriOverviewMap.ovwBL .ovwContainer{
-    border-top:1px solid #999;
-    border-right:1px solid #999;
-    padding-top:0;
-    padding-right:0;
+.esriOverviewMap.ovwBL .ovwContainer {
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    padding-top: 0;
+    padding-right: 0;
 }
-
-.esriOverviewMap.ovwBR .ovwContainer{
-    border-top:1px solid #999;
-    border-left:1px solid #999;
-    padding-top:0;
-    padding-left:0;
+.esriOverviewMap.ovwBR .ovwContainer {
+    border-top: 1px solid #999;
+    border-left: 1px solid #999;
+    padding-top: 0;
+    padding-left: 0;
 }
-
 /* Legend header */
 
 .legend-header,
@@ -99,48 +97,16 @@ input[type=text]::-ms-clear {
 .esriRTL .area-header {
     padding: 12px 10px 12px 8px;
 }
-/*legend social */
-
-.icon-cog {
-    position: absolute;
-    top: 0;
-    right: 5%;
-    z-index: 2;
-    padding: 12px 6px;
-    margin: 0;
-    color: #999;
-    cursor: pointer;
-    display: inline-block;
-}
-.esriRTL .icon-cog {
-    right: auto;
-    left: 5%;
-}
-.icon-cog:hover {
-    color: #007ac2;
-}
-.legend-filter-status {
-    margin: 10px 10px 0 10px;
-}
 .drawer-menu-panels .twitter-auth-status {
     margin: 10px 10px 0 10px;
 }
 .twitter-auth-status {
-    display: none;
-}
-.twitter-auth-status a {
     cursor: pointer;
-    text-decoration: underline;
 }
-.twitter-auth-status a span {
+.twitter-auth-status span {
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
-    margin-right: 5px;
-}
-.esriRTL .twitter-auth-status a span {
-    margin-right: 0;
-    margin-left: 5px;
 }
 /* area */
 
@@ -150,10 +116,10 @@ input[type=text]::-ms-clear {
 .area-description {
     color: #666;
     padding: 10px;
-    background:#f8f8f8;
+    background: #f8f8f8;
     line-height: 24px;
-    border-bottom:1px solid #e0e0e0;
-    border-top:1px solid #fff;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #fff;
 }
 .bookmark-item,
 .note-item {
@@ -318,8 +284,8 @@ input[type=text]::-ms-clear {
     border-right: 1px solid #ddd;
 }
 .esriRTL .drawer-open .content-pane-left {
-    border-right:0;
-    border-left:1px solid #ddd;
+    border-right: 0;
+    border-left: 1px solid #ddd;
 }
 .drawer-open-complete .content-pane-left:before {
     display: none;
@@ -419,8 +385,8 @@ input[type=text]::-ms-clear {
 }
 .esriRTL .close-geocoder-button {
     float: right;
-    margin-left:0;
-    margin-right:10px;
+    margin-left: 0;
+    margin-right: 10px;
 }
 .close-geocoder-button:hover {
     color: #555;

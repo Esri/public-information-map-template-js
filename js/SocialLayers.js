@@ -41,6 +41,7 @@ define([
                 // css classes for social layers
                 this.socialCSS = {
                     iconAttention: "icon-attention-1",
+                    iconTwitter: "icon-twitter-1",
                     dialogContent: "dialog-content",
                     layerSettingsHeader: "layer-settings-header",
                     layerSettingsMoreInfo: "layer-settings-more-info",
@@ -82,10 +83,10 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.twitter,
-                        settingsIcon: true,
-                        settingsIconId: 'twitter_cog',
+                        settings: 'twitter_cog',
+                        account: 'twitter_auth_status',
+                        status: 'twitter_filter_status',
                         visibility: this._twitterLayer.featureLayer.visible,
-                        content: '<div id="twitter_filter_status"></div><div class="'+ this.socialCSS.authStatus + '" id="twitter_auth_status"></div><div class="'+ this.socialCSS.clear + '"></div>',
                         layerObject: this._twitterLayer.featureLayer
                     });
                 }
@@ -102,9 +103,9 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.flickr,
-                        settingsIcon: true,
-                        settingsIconId: 'flickr_cog',
-                        content: '<div id="flickr_filter_status"></div>',
+                        settings: 'flickr_cog',
+                        account: 'flickr_account',
+                        status: 'flickr_filter_status',
                         visibility: this._flickrLayer.featureLayer.visible,
                         layerObject: this._flickrLayer.featureLayer
                     });
@@ -172,6 +173,7 @@ define([
                     // settings icon
                     var flickrCog = dom.byId('flickr_cog');
                     if(flickrCog){
+                        flickrCog.innerHTML += this.config.i18n.general.settings;
                         on(flickrCog, 'click', lang.hitch(this, function(evt){
                             this._flickrDialog.show();
                             event.stop(evt);
@@ -215,7 +217,7 @@ define([
                     twContent += '<div id="twitter_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.advancedOperators + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.twitterUser + '</div>';
-                    twContent += '<div id="twitter_settings_auth" class="' + this.socialCSS.authStatus + '"></div>';
+                    twContent += '<a id="twitter_settings_auth" class="' + this.socialCSS.authStatus + '"></a>';
                     twContent += '</div>';
                     var twitterDialogNode = domConstruct.create('div', {
                         innerHTML: twContent
@@ -230,6 +232,7 @@ define([
                     // settings icon
                     var twitterCog = dom.byId('twitter_cog');
                     if(twitterCog){
+                        twitterCog.innerHTML += this.config.i18n.general.settings;
                         on(twitterCog, 'click', lang.hitch(this, function(evt){
                             this._twitterDialog.show();
                             event.stop(evt);
@@ -271,16 +274,14 @@ define([
                             var status;
                             // user signed in
                             if (evt.authorized) {
-                                status = '<a>' + this.config.i18n.general.switchAccount + '</a>';
+                                status = '<span class="'+ this.socialCSS.iconTwitter + '"></span>' +this.config.i18n.general.switchAccount;
                                 this._twitterStatusNode.innerHTML = status;
                                 this._twitterStatus2Node.innerHTML = status;
                             } else {
-                                status = '<a><span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.general.signIn + '</a>';
+                                status = '<span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.general.signIn;
                                 this._twitterStatusNode.innerHTML = status;
                                 this._twitterStatus2Node.innerHTML = status;
                             }
-                            domStyle.set(this._twitterStatusNode, 'display', 'block');
-                            domStyle.set(this._twitterStatus2Node, 'display', 'block');
                         }));
                     }
                     // twitter filtered by text
@@ -297,17 +298,21 @@ define([
             _updateFlickrFilter: function(){
                 if(this._flickrLayer.get("searchTerm")){
                     this._flickrFilterNode.innerHTML = '<div class="' + this.socialCSS.filterStatus + '"><strong>' + this.config.i18n.social.photosFilteredBy + '</strong> ' + this._flickrLayer.get("searchTerm") + '</div>';
+                    domStyle.set(this._flickrFilterNode, 'display', 'block');
                 }
                 else{
                     this._flickrFilterNode.innerHTML = '';
+                    domStyle.set(this._flickrFilterNode, 'display', 'none');
                 }
             },
             _updateTwitterFilter: function(){
                 if(this._twitterLayer.get("searchTerm")){
                     this._twitterFilterNode.innerHTML = '<div class="' + this.socialCSS.filterStatus + '"><strong>' + this.config.i18n.social.tweetsFilteredBy + '</strong> ' + this._twitterLayer.get("searchTerm") + '</div>';
+                    domStyle.set(this._twitterFilterNode, 'display', 'block');
                 }
                 else{
                     this._twitterFilterNode.innerHTML = '';
+                    domStyle.set(this._twitterFilterNode, 'display', 'none');
                 }
             },
             _updateTwitterSearch: function(inputNode){

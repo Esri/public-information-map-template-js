@@ -44,7 +44,8 @@ define({
             about: "About",
             noSearchResult: "No result found",
             switchAccount: "Switch account",
-            signIn: "Sign in"
+            signIn: "Sign in",
+            settings: "Settings"
         }
     }),
     "ar": 1,

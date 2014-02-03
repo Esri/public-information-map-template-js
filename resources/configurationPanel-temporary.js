@@ -43,7 +43,7 @@
             },
             {
                "type":"string",
-               "fieldName":"title",
+               "fieldName":"areaDescription",
                "stringFieldOption":"richtext",
                "label":"Application Description",
                "tooltip":"Application Description",
