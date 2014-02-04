@@ -48,6 +48,22 @@
                "label":"Application Description",
                "tooltip":"Application Description",
                "placeHolder":"My Map"
+            },
+             {
+               "type":"string",
+               "fieldName":"defaultMenu",
+               "tooltip":"Default Menu Panel",
+               "label":"Default Menu Panel",
+               "options":[
+                  {
+                     "label":"Area",
+                     "value":"area"
+                  },
+                  {
+                     "label":"Legend",
+                     "value":"legend"
+                  }
+               ]
             }
          ]
       },

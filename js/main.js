@@ -124,7 +124,7 @@ function(
             this._drawer.resize();
             // menu panels
             this.drawerMenus = [];
-            var content;
+            var content, menuObj;
             if (this.config.showAreaPanel) {
                 content = '';
                 if (this.config.showAreaDescription) {
@@ -140,10 +140,17 @@ function(
                     content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
                 }
                 content += '</div>';
-                this.drawerMenus.push({
+                menuObj = {
                     label: this.config.i18n.general.aoi,
                     content: content
-                });
+                };
+                // area menu
+                if(this.config.defaultMenu === 'area'){
+                    this.drawerMenus.splice(0,0,menuObj);
+                }
+                else{
+                    this.drawerMenus.push(menuObj);
+                }
             }
             if (this.config.showLegendPanel) {
                 content = '';
@@ -157,11 +164,17 @@ function(
                     content += '<div id="SocialTableOfContents"></div>';
                     content += '</div>';
                 }
-                // legend menu
-                this.drawerMenus.push({
+                menuObj = {
                     label: this.config.i18n.general.legend,
                     content: content
-                });
+                };
+                // legend menu
+                if(this.config.defaultMenu === 'legend'){
+                    this.drawerMenus.splice(0,0,menuObj);
+                }
+                else{
+                    this.drawerMenus.push(menuObj);
+                }
             }
             // menus
             this._drawerMenu = new DrawerMenu({

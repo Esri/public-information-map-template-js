@@ -14,6 +14,7 @@ define([], function() {
         //color theme.
         "title":"",
         "areaDescription":"",
+        "defaultMenu":"area",
         "showAreaDescription":true,
         "showTitle":true,
         "showLegendPanel": true,
