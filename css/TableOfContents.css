@@ -47,7 +47,7 @@
     border-right: 5px solid #007ac2;
 }
 .TableOfContents .toc-text {
-    display: inline-block;
+    float:left;
     padding: 12px 0;
     margin: 0;
     text-overflow: ellipsis;
@@ -59,8 +59,11 @@
     border: 1px solid transparent;
     vertical-align: middle;
 }
+.esriRTL .TableOfContents .toc-text {
+    float:right;
+}
 .TableOfContents .toc-checkbox {
-    display: inline-block;
+    float:left;
     height: 16px;
     width: 16px;
     margin: 0;
@@ -72,6 +75,9 @@
     background-color: #fff;
     color: #000;
     cursor: pointer;
+}
+.esriRTL .TableOfContents .toc-checkbox {
+    float:right;
 }
 .toc-icon-expand {
     color: #bababa;

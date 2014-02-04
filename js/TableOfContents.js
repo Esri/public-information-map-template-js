@@ -263,19 +263,19 @@ function (
                     });
                     domConstruct.place(titleContainerDiv, titleDiv, "last");
                     // Title checkbox
-                    var titleCheckbox = domConstruct.create("span", {
+                    var titleCheckbox = domConstruct.create("div", {
                         className: titleCheckBoxClass
                     });
                     domConstruct.place(titleCheckbox, titleContainerDiv, "last");
                     // Title text
-                    var titleText = domConstruct.create("span", {
+                    var titleText = domConstruct.create("div", {
                         className: this.css.titleText,
                         title: layer.title,
                         innerHTML: layer.title
                     });
                     domConstruct.place(titleText, titleContainerDiv, "last");
                     // Title text
-                    var expandIcon = domConstruct.create("span", {
+                    var expandIcon = domConstruct.create("div", {
                         className: this.css.expandIcon
                     });
                     domConstruct.place(expandIcon, titleContainerDiv, "last");
