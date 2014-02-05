@@ -107,6 +107,9 @@
 }
 .esriGeocoderMultiple .esriGeocoderMenuArrow {
     display: block;
+    height: 16px;
+    width: 16px;
+    background: none;
 }
 .esriGeocoder .esriGeocoderMenuArrow:hover,
 .esriGeocoder .esriGeocoderMenuArrow:focus {
@@ -176,9 +179,11 @@
     padding: 6px;
     margin: 0;
     display: block;
-    background: #666;
-    color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
     font-weight: 700;
+    text-align: center;
+    background: #f8f8f8;
 }
 .esriGeocoderMenu .esriGeocoderSelectedCheck {
     width: 16px;
@@ -192,10 +197,15 @@
     float: left;
 }
 .esriGeocoderMenu .esriGeocoderSelected .esriGeocoderSelectedCheck {
-    background: #ddd;
+    background: none;
+    width: 16px;
+    height: 16px;
 }
 .locate-box .esriGeocoder input {
     width: 75%!important;
+}
+.locate-box .esriGeocoderMultiple input {
+    width: 65%!important;
 }
 .mobile-search-container .esriGeocoderIcon {
     margin: 7px 3px;
@@ -204,4 +214,7 @@
     width: 75%;
     line-height: 24px;
     height: 24px;
+}
+.mobile-search-container .esriGeocoderMultiple input {
+    width: 65%!important;
 }
