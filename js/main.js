@@ -131,10 +131,12 @@ function(
                     content += '<div class="' + this.css.areaDescription + '" id="areaDescription"></div>';
                 }
                 content += '<div class="' + this.css.areaContainer + '">';
-                if(this.config.showMapNotes){
+                // show notes layer and has one of required things for getting notes layer
+                if(this.config.showMapNotes && (this.config.notesLayerTitle || this.config.notesLayerId)){
                     content += '<div class="' + this.css.areaHeader + '"><span class="' + this.css.iconText + '"></span> <span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
                     content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
                 }
+                // show bookmarks and has bookmarks
                 if(this.config.showBookmarks && this.bookmarks && this.bookmarks.length){
                     content += '<div class="' + this.css.areaHeader + '"><span class="' + this.css.iconBookmarks + '"></span> ' + this.config.i18n.area.bookmarks + '</div>';
                     content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
