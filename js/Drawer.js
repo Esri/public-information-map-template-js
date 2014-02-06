@@ -87,7 +87,7 @@ function (
             // true if drawer is opened
             var currentlyOpen = domClass.contains(document.body, this.css.drawerOpen);
             // if already open or already closed and asked to do the same
-            if (currentlyOpen && add === true || !currentlyOpen && add === false) {
+            if ((currentlyOpen && add === true) || (!currentlyOpen && add === false)) {
                 // return
                 return def.promise;
             }
