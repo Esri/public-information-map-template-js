@@ -1,0 +1,6 @@
+{
+  "undef": true,
+  "browser":true,
+  "devel":true,
+  "globals": { "require": false, "define":false }
+}
