@@ -109,6 +109,9 @@
     display: block;
     height: 16px;
     width: 16px;
+    font-size: 16px;
+    line-height: 16px;
+    margin: 3px 0;
     background: none;
 }
 .esriGeocoder .esriGeocoderMenuArrow:hover,
@@ -182,8 +185,22 @@
     border-bottom: 1px solid #e0e0e0;
     border-top: 1px solid #e0e0e0;
     font-weight: 700;
-    text-align: center;
     background: #f8f8f8;
+    position: relative;
+}
+.esriGeocoderMenuClose {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    font-size: 16px;
+    line-height: 16px;
+    top: 5px;
+    right: 2px;
+    cursor: pointer;
+}
+.esriRTL .esriGeocoderMenuClose {
+    right: auto;
+    left: 2px;
 }
 .esriGeocoderMenu .esriGeocoderSelectedCheck {
     width: 16px;

@@ -66,3 +66,4 @@
 .esriGeocoderMenuArrow {*zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML='&#xe807;&nbsp;');}
 .esriGeocoderMenuActive .esriGeocoderMenuArrow { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe814;&nbsp;'); }
 .esriGeocoderSelected .esriGeocoderSelectedCheck { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe804;&nbsp;'); }
+.esriGeocoderMenuClose { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe80c;&nbsp;'); }
