@@ -18,6 +18,7 @@ define([
     "esri/dijit/BasemapToggle",
     "esri/dijit/Geocoder",
     "esri/dijit/Popup",
+    "esri/dijit/Legend",
     "application/AreaOfInterest",
     "application/SocialLayers",
     "esri/dijit/OverviewMap",
@@ -39,6 +40,7 @@ function(
     HomeButton, LocateButton, BasemapToggle,
     Geocoder,
     Popup,
+    Legend,
     AreaOfInterest,
     SocialLayers,
     OverviewMap,
@@ -58,6 +60,7 @@ function(
                 mobileSearchDisplay: "mobile-locate-box-display",
                 toggleBlue: 'toggle-grey',
                 toggleBlueOn: 'toggle-grey-on',
+                legendPadding: "legend-padding",
                 legendContainer: "legend-container",
                 legendHeader: "legend-header",
                 areaContainer: "area-container",
@@ -119,6 +122,16 @@ function(
             element.style.cssText = 'pointer-events:auto';
             return element.style.pointerEvents === 'auto';   
         },
+        _initLegend: function(){
+            var legendNode = dom.byId('LegendDiv');
+            if(legendNode){
+                this._mapLegend = new Legend({
+                    map: this.map,
+                    layerInfos: this.layerInfos
+                }, legendNode);
+                this._mapLegend.startup();
+            }
+        },
         _init: function () {
             // drawer size check
             this._drawer.resize();
@@ -143,11 +156,28 @@ function(
                 }
                 content += '</div>';
                 menuObj = {
-                    label: this.config.i18n.general.aoi,
+                    label: this.config.i18n.general.featured,
                     content: content
                 };
                 // area menu
                 if(this.config.defaultMenu === 'area'){
+                    this.drawerMenus.splice(0,0,menuObj);
+                }
+                else{
+                    this.drawerMenus.push(menuObj);
+                }
+            }
+            if (this.config.showLegendPanel) {
+                content = '';
+                content += '<div class="' + this.css.legendPadding + '">';
+                content += '<div id="LegendDiv"></div>';
+                content += '</div>';
+                menuObj = {
+                    label: this.config.i18n.general.legend,
+                    content: content
+                };
+                // legend menu
+                if(this.config.defaultMenu === 'legend'){
                     this.drawerMenus.splice(0,0,menuObj);
                 }
                 else{
@@ -167,11 +197,11 @@ function(
                     content += '</div>';
                 }
                 menuObj = {
-                    label: this.config.i18n.general.legend,
+                    label: this.config.i18n.general.layers,
                     content: content
                 };
-                // legend menu
-                if(this.config.defaultMenu === 'legend'){
+                // layers menu
+                if(this.config.defaultMenu === 'layers'){
                     this.drawerMenus.splice(0,0,menuObj);
                 }
                 else{
@@ -274,6 +304,7 @@ function(
             // setup
             this.initSocial();
             this.initArea();
+            this._initLegend();
             // hide loading div
             this._hideLoadingIndicator();
             // on body click containing underlay class
@@ -466,6 +497,7 @@ function(
                 this.layers = response.itemInfo.itemData.operationalLayers;
                 this.item = response.itemInfo.item;
                 this.bookmarks = response.itemInfo.itemData.bookmarks;
+                this.layerInfos = arcgisUtils.getLegendLayers(response);
                 // if title is enabled
                 if (this.config.showTitle) {
                     this._setTitle(this.config.title || response.itemInfo.item.title);

@@ -81,6 +81,9 @@ input[type=text]::-ms-clear {
 }
 /* Legend header */
 
+.legend-padding {
+    padding: 10px;
+}
 .legend-header,
 .area-header {
     font-size: 18px;
@@ -374,7 +377,7 @@ input[type=text]::-ms-clear {
     border-radius: 1px 1px 0 0;
 }
 .BasemapToggle .basemapTitle {
-    color:#999;
+    color: #999;
 }
 .map-buttons {
     position: absolute;
@@ -478,7 +481,7 @@ input[type=text]::-ms-clear {
     width: 100%;
 }
 .drawer-menu-buttons .item {
-    width: 50%;
+    width: 33.3%;
     text-align: center;
     color: #97cbec;
     float: left;

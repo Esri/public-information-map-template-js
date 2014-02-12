@@ -38,7 +38,7 @@ define({
         },
         general: {
             legend: "Legend",
-            aoi: "Area",
+            featured: "Area",
             summarize: "Entire Area",
             share: "Share",
             about: "About",

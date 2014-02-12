@@ -9,11 +9,9 @@ define([
     "dojo/on",
     // load template    
     "dojo/text!application/dijit/templates/TableOfContents.html",
-    "dojo/i18n!application/nls/TableOfContents",
     "dojo/dom-class",
     "dojo/dom-style",
     "dojo/dom-construct",
-    "esri/dijit/Legend",
     "dojo/_base/event",
     "dojo/_base/array"
 ],
@@ -24,9 +22,8 @@ function (
     has, esriNS,
     _WidgetBase, _TemplatedMixin,
     on,
-    dijitTemplate, i18n,
+    dijitTemplate,
     domClass, domStyle, domConstruct,
-    Legend,
     event,
     array
 ) {
@@ -38,11 +35,7 @@ function (
             theme: "TableOfContents",
             map: null,
             layers: null,
-            visible: true,
-            accordion: true,
-            expandFirstOnStart: false,
-            setVisibleOnExpand: false,
-            expandAllOnStart: false
+            visible: true
         },
         // lifecycle: 1
         constructor: function(options, srcRefNode) {
@@ -50,16 +43,11 @@ function (
             var defaults = lang.mixin({}, this.options, options);
             // widget node
             this.domNode = srcRefNode;
-            this._i18n = i18n;
             // properties
             this.set("map", defaults.map);
             this.set("layers", defaults.layers);
             this.set("theme", defaults.theme);
             this.set("visible", defaults.visible);
-            this.set("accordion", defaults.accordion);
-            this.set("expandFirstOnStart", defaults.expandFirstOnStart);
-            this.set("expandAllOnStart", defaults.expandAllOnStart);
-            this.set("setVisibleOnExpand", defaults.setVisibleOnExpand);
             // listeners
             this.watch("theme", this._updateThemeWatch);
             this.watch("visible", this._visible);
@@ -70,25 +58,22 @@ function (
                 container: "toc-container",
                 layer: "toc-layer",
                 firstLayer: "toc-first-layer",
-                legend: "toc-legend",
                 title: "toc-title",
                 titleContainer: "toc-title-container",
                 content: "toc-content",
                 titleCheckbox: "toc-checkbox",
                 checkboxCheck: "icon-check-1",
                 titleText: "toc-text",
+                accountText: "toc-account",
                 expanded: "toc-expanded",
                 visible: "toc-visible",
                 settingsIcon: "icon-cog",
-                expandIcon: "toc-icon-expand",
                 settings: "toc-settings",
                 actions: "toc-actions",
                 account: "toc-account",
                 status: "toc-status",
                 clear: "clear"
             };
-            // expanded array
-            this._expanded = [];
         },
         // start widget. called by user
         startup: function() {
@@ -128,105 +113,23 @@ function (
             this.set("visible", false);
         },
         refresh: function() {
-            this._createLegends();
-        },
-        expand: function(index){
-            if(typeof index !== 'undefined'){
-                if (this.get("accordion")) {
-                    // we want accordion affect
-                    this._accordionEffect();
-                }
-                // add index to expanded list
-                var position = array.indexOf(this._expanded, index);
-                if(position === -1){
-                    this._expanded.push(index);
-                }
-                // add expanded class
-                domClass.add(this._nodes[index].layer, this.css.expanded);
-                // show layer if it's not visible
-                var layers = this.get("layers");
-                if(this.get("setVisibleOnExpand") && layers[index] && !layers[index].visibility){
-                    this._toggleLayer(index);
-                }
-                // event
-                this.emit("expand", {
-                    index: index
-                });
-            }
-        },
-        collapse: function(index){
-            if(typeof index !== 'undefined'){
-                if (this.get("accordion")) {
-                    this._accordionEffect();
-                }
-                else{
-                    // remove index from expanded list
-                    var position = array.indexOf(this._expanded, index);
-                    if(position !== -1){
-                        this._expanded.splice(position, 1);
-                    }
-                    // remove expanded class
-                    domClass.remove(this._nodes[index].layer, this.css.expanded);   
-                }
-                // event
-                this.emit("collapse", {
-                    index: index
-                });
-            }
-        },
-        toggle: function(index){
-            if(typeof index !== 'undefined'){
-                var expand = !domClass.contains(this._nodes[index].layer, this.css.expanded);
-                // exp/col
-                if(expand){
-                    this.expand(index);
-                }
-                else{
-                    this.collapse(index);
-                }
-                // event
-                this.emit("toggle", {
-                    expand: expand,
-                    index: index
-                });
-            }
+            this._createList();
         },
         /* ---------------- */
         /* Private Functions */
         /* ---------------- */
-        _accordionEffect: function(){
-            // remove all expanded 
-            for (var i = 0; i < this._nodes.length; i++) {
-                domClass.remove(this._nodes[i].layer, this.css.expanded);
-            }
-            this._expanded = [];
-        },
-        _createLegends: function() {
+        _createList: function() {
             var layers = this.get("layers");
             this._nodes = [];
             // kill events
             this._removeEvents();
             // clear node
             this._layersNode.innerHTML = '';
-            if(this.get("expandFirstOnStart")){
-                // Set default expanded to last indexexpan
-                if(!this._expanded){
-                    this._expanded = [layers.length - 1];
-                }
-            }
             // if we got layers
             if (layers && layers.length) {
                 for (var i = 0; i < layers.length; i++) {
                     var layer = layers[i];
-                    // legend layer infos
-                    var layerInfos = [];
-                    // show legend
-                    var showLegend = true;
-                    // show legend property present
-                    if(layer.hasOwnProperty('showLegend')){
-                        showLegend = layer.showLegend;   
-                    }
-                    // checkbox class
+                    // ceckbox class
                     var titleCheckBoxClass = this.css.titleCheckbox;
                     // layer class
                     var layerClass = this.css.layer;
@@ -234,12 +137,6 @@ function (
                     if (i === (layers.length - 1)) {
                         layerClass += ' ';
                         layerClass += this.css.firstLayer;
-                    }
-                    // set expanded list item
-                    var position = array.indexOf(this._expanded, i);
-                    if(position !== -1 || this.get("expandAllOnStart")){
-                        layerClass += ' ';
-                        layerClass += this.css.expanded;
                     }
                     if (layer.visibility) {
                         layerClass += ' ';
@@ -274,119 +171,46 @@ function (
                         innerHTML: layer.title
                     });
                     domConstruct.place(titleText, titleContainerDiv, "last");
-                    // Title text
-                    var expandIcon = domConstruct.create("div", {
-                        className: this.css.expandIcon
-                    });
-                    domConstruct.place(expandIcon, titleContainerDiv, "last");
+                    // Account text
+                    var accountText;
+                    if(layer.account){
+                        accountText = domConstruct.create("a", {
+                            className: this.css.accountText,
+                            id: layer.account
+                        });
+                        domConstruct.place(accountText, titleText, "last");
+                    }
+                    // settings
+                    var settingsDiv, settingsIcon;
+                    if(layer.settings){
+                        settingsDiv = domConstruct.create("div", {
+                            className: this.css.settings,
+                            id: layer.settings
+                        });
+                        domConstruct.place(settingsDiv, titleContainerDiv, "last");
+                        // settings icon
+                        settingsIcon = domConstruct.create("div", {
+                            className: this.css.settingsIcon
+                        });
+                        domConstruct.place(settingsIcon, settingsDiv, "last");
+                    }
                     // clear css
                     var clearCSS = domConstruct.create("div", {
                         className: this.css.clear
                     });
                     domConstruct.place(clearCSS, titleContainerDiv, "last");
-                    // content of layer
-                    var contentDiv = domConstruct.create("div", {
-                        className: this.css.content
-                    });
-                    domConstruct.place(contentDiv, layerDiv, "last");
-                    var actionsDiv;
-                    if(layer.settings || layer.account){
-                        // actions
-                        actionsDiv = domConstruct.create("div", {
-                            className: this.css.actions
-                        });
-                        domConstruct.place(actionsDiv, contentDiv, "last");
-                    }
-                    // settings container
-                    var settingsDiv, settingsIcon;
-                    if(layer.settings){
-                        settingsDiv = domConstruct.create("a", {
-                            className: this.css.settings,
-                            id: layer.settings
-                        });
-                        domConstruct.place(settingsDiv, actionsDiv, "last");
-                        // settings icon
-                        settingsIcon = domConstruct.create("span", {
-                            className: this.css.settingsIcon
-                        });
-                        domConstruct.place(settingsIcon, settingsDiv, "last");
-                    }
-                    // account functions
-                    var accountDiv;
-                    if(layer.account){
-                        accountDiv = domConstruct.create("a", {
-                            className: this.css.account,
-                            id: layer.account
-                        });
-                        domConstruct.place(accountDiv, actionsDiv, "last");
-                    }
-                    var statusDiv;
-                    if(layer.status){
-                        // status
-                        statusDiv = domConstruct.create("div", {
-                            id: layer.status,
-                            className: this.css.status
-                        });
-                        domConstruct.place(statusDiv, contentDiv, "last");
-                    }
-                    // legend
-                    var legendDiv = domConstruct.create("div", {
-                        className: this.css.legend
-                    });
-                    domConstruct.place(legendDiv, contentDiv, "last");
-                    // client side layer
-                    if (layer.featureCollection) {
-                        // show legend defined
-                        if(layer.featureCollection.hasOwnProperty('showLegend')){
-                            showLegend = layer.featureCollection.showLegend;   
-                        }
-                        // each client side layer
-                        for(var k = 0; k < layer.featureCollection.layers.length; k++){
-                            // add layer info
-                            layerInfos.push({
-                                title: layer.featureCollection.layers[k].layerObject.name,
-                                layer: layer.featureCollection.layers[k].layerObject
-                            });
-                        }
-                    }
-                    else if (layer.layerObject) {
-                        layerInfos.push({
-                            title: layer.title,
-                            layer: layer.layerObject
-                        });
-                    }
-                    // can we show legend?
-                    if (showLegend) {
-                        // create legend
-                        var legend = new Legend({
-                            map: this.get("map"),
-                            layerInfos: layerInfos
-                        }, legendDiv);
-                        legend.startup();
-                        this._legends.push(legend);
-                    } else {
-                        // no legend to create
-                        legendDiv.innerHTML = this._i18n.TableOfContents.noLegend;
-                    }
                     // lets save all the nodes for events
                     var nodesObj = {
                         checkbox: titleCheckbox,
                         title: titleDiv,
                         titleContainer: titleContainerDiv,
                         titleText: titleText,
+                        accountText: accountText,
                         settingsIcon: settingsIcon,
-                        actionsDiv: actionsDiv,
                         settingsDiv: settingsDiv,
-                        accountDiv: accountDiv,
-                        statusDiv: statusDiv,
-                        expandIcon: expandIcon,
-                        content: contentDiv,
-                        legend: legendDiv,
                         layer: layerDiv
                     };
                     this._nodes.push(nodesObj);
-                    // create click event
-                    this._titleEvent(i);
                     // create click event
                     this._checkboxEvent(i);
                 }
@@ -394,17 +218,10 @@ function (
             }
         },
         _refreshLayers: function(){
-            this._expanded = [];
             this.refresh();
         },
         _removeEvents: function() {
             var i;
-            // title click events
-            if (this._titleEvents && this._titleEvents.length) {
-                for (i = 0; i < this._titleEvents.length; i++) {
-                    this._titleEvents[i].remove();
-                }
-            }
             // checkbox click events
             if (this._checkEvents && this._checkEvents.length) {
                 for (i = 0; i < this._checkEvents.length; i++) {
@@ -417,16 +234,8 @@ function (
                     this._layerEvents[i].remove();
                 }
             }
-            // legend widgets
-            if (this._legends && this._legends.length) {
-                for (i = 0; i < this._legends.length; i++) {
-                    this._legends[i].destroy();
-                }
-            }
-            this._titleEvents = [];
             this._checkEvents = [];
             this._layerEvents = [];
-            this._legends = [];
         },
         _toggleVisible: function(index, visible) {
             // update checkbox and layer visibility classes
@@ -555,16 +364,9 @@ function (
             }));
             this._checkEvents.push(checkEvent);
         },
-        _titleEvent: function(index) {
-            // when a title of a layer has been clicked
-            var titleEvent = on(this._nodes[index].title, 'click', lang.hitch(this, function() {
-                this.toggle(index);
-            }));
-            this._titleEvents.push(titleEvent);
-        },
         _init: function() {
             this._visible();
-            this._createLegends();
+            this._createList();
             this.set("loaded", true);
             this.emit("load", {});
         },

@@ -42,7 +42,7 @@ function (
             datePattern: "MMM d, yyyy",
             timePattern: "h:mma",
             searchTerm: '',
-            minScale: 1200000,
+            minScale: null,
             maxScale: null,
             symbol: null,
             infoTemplate: null,

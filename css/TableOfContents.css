@@ -1,20 +1,8 @@
 .TableOfContents {
     width: 280px;
 }
-.TableOfContents .esriLegendLayerLabel {
-    margin: 0;
-    padding: 0;
-}
-.TableOfContents .esriLegendLayer {
-    padding: 0;
-    margin: 0 0 5px;
-}
-.TableOfContents .esriLegendService {
-    padding: 0;
-}
 .TableOfContents .toc-title {
     border-bottom: 1px solid #e0e0e0;
-    cursor: pointer;
     font-size: 16px;
     line-height: 16px;
     -webkit-user-select: none;
@@ -47,7 +35,7 @@
     border-right: 5px solid #007ac2;
 }
 .TableOfContents .toc-text {
-    float:left;
+    float: left;
     padding: 12px 0;
     margin: 0;
     text-overflow: ellipsis;
@@ -60,10 +48,10 @@
     vertical-align: middle;
 }
 .esriRTL .TableOfContents .toc-text {
-    float:right;
+    float: right;
 }
 .TableOfContents .toc-checkbox {
-    float:left;
+    float: left;
     height: 16px;
     width: 16px;
     margin: 0;
@@ -77,19 +65,7 @@
     cursor: pointer;
 }
 .esriRTL .TableOfContents .toc-checkbox {
-    float:right;
-}
-.toc-icon-expand {
-    color: #bababa;
-    font-weight: 400;
     float: right;
-    margin: 12px 15px 12px 0;
-    font-size: 14px;
-    line-height: 16px;
-}
-.esriRTL .toc-icon-expand {
-    margin: 12px 0 12px 15px;
-    float: left;
 }
 .TableOfContents .toc-checkbox:hover {
     color: #555;
@@ -97,55 +73,30 @@
 .TableOfContents .toc-checkbox:active {
     color: #999;
 }
-.TableOfContents .toc-content {
-    background: #e5e5e5;
-    color: #333;
-    position: relative;
-    max-height: 0;
-    height: auto;
-    _height: 0;
-    overflow: hidden;
-    -webkit-transition: max-height .25s ease;
-    -moz-transition: max-height .25s ease;
-    transition: max-height .25s ease;
-    -webkit-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
-    box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
-}
-.TableOfContents .toc-expanded .toc-content {
-    max-height: 800px;
-    overflow: auto;
-    height: auto;
-    _height: auto;
-    border-bottom: 1px solid #d4d4d4;
-    border-top: 1px solid #d4d4d4;
-}
-.toc-actions {
-    padding: 5px 10px 0 12px
-}
-.esriRTL .toc-actions {
-    padding: 5px 12px 0 10px;
-}
-.toc-actions a {
-    cursor: pointer;
-    text-decoration: none;
-}
 .toc-settings {
-    margin-right: 10px;
+    cursor: pointer;
+    padding: 12px 0;
+    float: right;
+    margin-right: 15px;
+    color: #999;
 }
-.toc-status {
-    padding: 10px 10px 0 15px;
-    display: none;
+.toc-settings:hover {
+    color: #333;
 }
-.esriRTL .toc-status {
-    padding: 10px 15px 0 10px;
+.toc-settings:active {
+    color: #97cbec;
 }
 .esriRTL .toc-settings {
     margin-right: 0;
-    margin-left: 10px;
+    float: left;
+    margin-left: 15px;
 }
-.TableOfContents .toc-legend {
-    padding: 10px 10px 10px 15px;
+.toc-account {
+    margin-left: 4px;
+    cursor: pointer;
+    text-decoration: none;
 }
-.esriRTL .TableOfContents .toc-legend {
-    padding: 10px 15px 10px 0;
+.esriRTL .toc-account {
+    margin-left: 0;
+    margin-right: 4px;
 }

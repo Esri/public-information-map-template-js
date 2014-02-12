@@ -28,7 +28,7 @@
                      "esriGeometryPolygon"
                   ]
                },
-               "fieldName":"notesLayerId",
+               "fieldName":"notesLayer",
                "label":"Map Notes Layer"
             },
             {
@@ -64,8 +64,12 @@
                "label":"Default Menu Panel",
                "options":[
                   {
-                     "label":"Area",
-                     "value":"area"
+                     "label":"Featured Locations",
+                     "value":"locations"
+                  },
+                   {
+                     "label":"layers",
+                     "value":"Layers"
                   },
                   {
                      "label":"Legend",

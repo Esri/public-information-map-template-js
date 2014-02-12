@@ -39,7 +39,7 @@ function (
             id: 'webcams',
             datePattern: "MMM d, yyyy",
             timePattern: "h:mma",
-            minScale: 1200000,
+            minScale: null,
             maxScale: null,
             symbol: null,
             infoTemplate: null,

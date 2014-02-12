@@ -54,8 +54,7 @@ define([
                 this._notesLayers = this._getNotesLayers({
                     map: this.map,
                     layers: this.layers,
-                    title: this.config.notesLayerTitle,
-                    id: this.config.notesLayerId
+                    notesLayer: this.config.notesLayer
                 });
                 // event for each layer
                 this._noteLayerEvents();
@@ -190,27 +189,10 @@ define([
                 // get the layer by ID or title
                 var mapLayer, mapLayers = [], layers, layer, i, j;
                 // if we have a layer id
-                if (obj.id) {
+                if (obj.notesLayer && obj.notesLayer.id) {
                     for (i = 0; i < obj.layers.length; i++) {
                         layer = obj.layers[i];
-                        if (layer.id === obj.id) {
-                            this._noteLayerObj = layer;
-                            this._notesLayerTitle = layer.title;
-                            layers = layer.featureCollection.layers;
-                            for(j = 0; j < layers.length; j++){
-                                mapLayer = obj.map.getLayer(layers[j].id);
-                                if(mapLayer){
-                                    mapLayers.push(mapLayer);
-                                }
-                            }
-                            return mapLayers;
-                        }
-                    }
-                } else if (obj.title) {
-                    // use layer title
-                    for (i = 0; i < obj.layers.length; i++) {
-                        layer = obj.layers[i];
-                        if (layer.title.toLowerCase() === obj.title.toLowerCase()) {
+                        if (layer.id === obj.notesLayer.id) {
                             this._noteLayerObj = layer;
                             this._notesLayerTitle = layer.title;
                             layers = layer.featureCollection.layers;
