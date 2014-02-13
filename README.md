@@ -4,7 +4,7 @@ A fully configurable and responsive web mapping application that highlights area
 
 [View it live](http://esri.github.io/public-information-map-template-js/)
 
-![App](http://esri.github.io/public-information-map-template-js/master/images/item.png)
+![App](http://esri.github.io/public-information-map-template-js/images/item.png)
 
 ## Instructions
 
