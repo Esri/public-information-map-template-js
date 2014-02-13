@@ -145,7 +145,7 @@ function(
                 content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.featured + '</div>';
                 // if summary enabled
                 if (this.config.showSummary) {
-                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.general.summary + '</div>';
+                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.featured.summary + '</div>';
                     content += '<div class="' + this.css.panelSection + '">';
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
                     content += '</div>';
