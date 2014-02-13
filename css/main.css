@@ -80,6 +80,7 @@ input[type=text]::-ms-clear {
     padding-left: 0;
 }
 /* Panels */
+
 .panel-title {
     margin: 10px;
     font-weight: 700;
@@ -88,7 +89,7 @@ input[type=text]::-ms-clear {
 .panel-padding {
     padding: 10px;
 }
-.panel-header{
+.panel-header {
     font-size: 18px;
     font-weight: bold;
     padding: 12px 8px 12px 10px;
@@ -99,7 +100,7 @@ input[type=text]::-ms-clear {
     white-space: nowrap;
     overflow: hidden;
 }
-.esriRTL .panel-header{
+.esriRTL .panel-header {
     padding: 12px 10px 12px 8px;
 }
 .panel-section {
@@ -113,10 +114,12 @@ input[type=text]::-ms-clear {
     border-bottom: 1px solid #e0e0e0;
 }
 /* Twitter */
+
 .twitter-auth-status {
     cursor: pointer;
 }
 /* Featured */
+
 .bookmark-item,
 .note-item {
     color: #555;
@@ -473,8 +476,10 @@ input[type=text]::-ms-clear {
     font-weight: 700;
     width: 100%;
 }
+.drawer-menu-1 .drawer-menu-buttons {
+    display: none;
+}
 .drawer-menu-buttons .item {
-    width: 33.3%;
     text-align: center;
     color: #97cbec;
     float: left;
@@ -485,6 +490,15 @@ input[type=text]::-ms-clear {
 }
 .esriRTL .drawer-menu-buttons .item {
     float: right;
+}
+.drawer-menu-3 .drawer-menu-buttons .item {
+    width: 33.3%;
+}
+.drawer-menu-2 .drawer-menu-buttons .item {
+    width: 50%;
+}
+.drawer-menu-1 .drawer-menu-buttons .item {
+    width: 100%;
 }
 .drawer-menu-buttons .item-container {
     position: relative;

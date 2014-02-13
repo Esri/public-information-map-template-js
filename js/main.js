@@ -138,7 +138,7 @@ function(
             // menu panels
             this.drawerMenus = [];
             var content, menuObj;
-            // todo menu length class for width of items
+            // featured panel enabled
             if (this.config.showFeaturedPanel) {
                 content = '';
                 content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.featured + '</div>';
