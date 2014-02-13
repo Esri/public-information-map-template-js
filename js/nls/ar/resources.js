@@ -9,7 +9,7 @@ define({
             success: "Flagged",
             loading: "Loading&hellip;"
         },
-        area:{
+        featured:{
             mapNotes: "Notes",
             notesUnavailable: "Description unavailable",
             bookmarks: "Bookmarks",
@@ -38,8 +38,7 @@ define({
         },
         general: {
             legend: "Legend",
-            featured: "Area",
-            summarize: "Entire Area",
+            featured: "Featured Locations",
             share: "Share",
             about: "About",
             noSearchResult: "No result found",

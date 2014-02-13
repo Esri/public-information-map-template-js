@@ -79,13 +79,11 @@ input[type=text]::-ms-clear {
     padding-top: 0;
     padding-left: 0;
 }
-/* Legend header */
-
-.legend-padding {
+/* Panels */
+.panel-padding {
     padding: 10px;
 }
-.legend-header,
-.area-header {
+.panel-header{
     font-size: 18px;
     font-weight: bold;
     padding: 12px 8px 12px 10px;
@@ -96,27 +94,13 @@ input[type=text]::-ms-clear {
     white-space: nowrap;
     overflow: hidden;
 }
-.esriRTL .legend-header,
-.esriRTL .area-header {
+.esriRTL .panel-header{
     padding: 12px 10px 12px 8px;
 }
-.drawer-menu-panels .twitter-auth-status {
-    margin: 10px 10px 0 10px;
-}
-.twitter-auth-status {
-    cursor: pointer;
-}
-.twitter-auth-status span {
-    display: inline-block;
-    vertical-align: middle;
-    text-decoration: none;
-}
-/* area */
-
-.area-section {
+.panel-section {
     border-top: 1px solid #e0e0e0;
 }
-.area-description {
+.panel-summary {
     color: #666;
     padding: 10px;
     background: #f8f8f8;
@@ -124,6 +108,11 @@ input[type=text]::-ms-clear {
     border-bottom: 1px solid #e0e0e0;
     border-top: 1px solid #fff;
 }
+/* Twitter */
+.twitter-auth-status {
+    cursor: pointer;
+}
+/* Featured */
 .bookmark-item,
 .note-item {
     color: #555;

@@ -19,7 +19,7 @@ define([
     "esri/dijit/Geocoder",
     "esri/dijit/Popup",
     "esri/dijit/Legend",
-    "application/AreaOfInterest",
+    "application/Featured",
     "application/SocialLayers",
     "esri/dijit/OverviewMap",
     "dijit/registry",
@@ -41,14 +41,14 @@ function(
     Geocoder,
     Popup,
     Legend,
-    AreaOfInterest,
+    Featured,
     SocialLayers,
     OverviewMap,
     registry,
     array,
     esriLang
 ) {
-    return declare("", [AreaOfInterest, SocialLayers], {
+    return declare("", [Featured, SocialLayers], {
         config: {},
         constructor: function (config) {
             //config will contain application and user defined info for the template such as i18n strings, the web map id
@@ -60,12 +60,10 @@ function(
                 mobileSearchDisplay: "mobile-locate-box-display",
                 toggleBlue: 'toggle-grey',
                 toggleBlueOn: 'toggle-grey-on',
-                legendPadding: "legend-padding",
-                legendContainer: "legend-container",
-                legendHeader: "legend-header",
-                areaContainer: "area-container",
-                areaHeader: "area-header",
-                areaSection: "area-section",
+                panelPadding: "panel-padding",
+                panelContainer: "panel-container",
+                panelHeader: "panel-header",
+                panelSection: "panel-section",
                 pointerEvents: "pointer-events",
                 iconRight: "icon-right",
                 iconBookmarks: "icon-bookmarks",
@@ -76,7 +74,7 @@ function(
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
                 mobileGeocoderTheme: "geocoder-mobile",
-                areaDescription: "area-description"
+                summary: "panel-summary"
             };
             // pointer event support
             if(this._pointerEventsSupport()){
@@ -139,25 +137,24 @@ function(
             // menu panels
             this.drawerMenus = [];
             var content, menuObj;
-            // todo change area to featured locations
             // todo change menu to use icon
             // todo menu length class for width of items
-            if (this.config.showAreaPanel) {
+            if (this.config.showFeaturedPanel) {
                 content = '';
-                content += '<div class="menu-panel-title">' + this.config.i18n.general.featured + '</div>';
-                if (this.config.showAreaDescription) {
-                    content += '<div class="' + this.css.areaDescription + '" id="areaDescription"></div>';
+                if (this.config.showSummary) {
+                    content += '<div class="' + this.css.summary + '" id="summary"></div>';
                 }
-                content += '<div class="' + this.css.areaContainer + '">';
+                content += '<div class="menu-panel-title">' + this.config.i18n.general.featured + '</div>';
+                content += '<div class="' + this.css.panelContainer + '">';
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.showMapNotes && (this.config.notesLayer)){
-                    content += '<div class="' + this.css.areaHeader + '"><span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
-                    content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
+                    content += '<div class="' + this.css.panelHeader + '"><span id="map_notes_title">' + this.config.i18n.featured.mapNotes + '</span></div>';
+                    content += '<div class="' + this.css.panelSection + '" id="featured_notes"></div>';
                 }
                 // show bookmarks and has bookmarks
                 if(this.config.showBookmarks && this.bookmarks && this.bookmarks.length){
-                    content += '<div class="' + this.css.areaHeader + '"><span class="' + this.css.iconBookmarks + '"></span> ' + this.config.i18n.area.bookmarks + '</div>';
-                    content += '<div class="' + this.css.areaSection + '" id="area_bookmarks"></div>';
+                    content += '<div class="' + this.css.panelHeader + '"><span class="' + this.css.iconBookmarks + '"></span> ' + this.config.i18n.featured.bookmarks + '</div>';
+                    content += '<div class="' + this.css.panelSection + '" id="featured_bookmarks"></div>';
                 }
                 content += '</div>';
                 menuObj = {
@@ -165,8 +162,8 @@ function(
                     label: '<span class="' + this.css.iconLocation + '"></span>',
                     content: content
                 };
-                // area menu
-                if(this.config.defaultMenu === 'area'){
+                // featured menu
+                if(this.config.defaultMenu === 'featured'){
                     this.drawerMenus.splice(0,0,menuObj);
                 }
                 else{
@@ -176,7 +173,7 @@ function(
             if (this.config.showLegendPanel) {
                 content = '';
                 content += '<div class="menu-panel-title">' + this.config.i18n.general.legend + '</div>';
-                content += '<div class="' + this.css.legendPadding + '">';
+                content += '<div class="' + this.css.panelPadding + '">';
                 content += '<div id="LegendDiv"></div>';
                 content += '</div>';
                 menuObj = {
@@ -193,16 +190,16 @@ function(
                 }
             }
             // todo
-            if (this.config.showLegendPanel) {
+            if (this.config.showLayersPanel) {
                 content = '';
                 if(this.config.showOperationalLegend){
                     content += '<div class="menu-panel-title">' + this.config.i18n.general.layers + '</div>';
-                    content += '<div class="' + this.css.legendContainer + '">';
-                    content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.operational + '</div>';
+                    content += '<div class="' + this.css.panelContainer + '">';
+                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.operational + '</div>';
                     content += '<div id="TableOfContents"></div>';
                 }
                 if(this.config.showSocialLegend){
-                    content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.social + '</div>';
+                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.social + '</div>';
                     content += '<div id="SocialTableOfContents"></div>';
                     content += '</div>';
                 }
@@ -314,7 +311,7 @@ function(
             this._createGeocoders();
             // setup
             this.initSocial();
-            this.initArea();
+            this.initFeatured();
             this._initLegend();
             // hide loading div
             this._hideLoadingIndicator();

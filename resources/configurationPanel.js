@@ -51,7 +51,7 @@
             },
             {
                "type":"string",
-               "fieldName":"areaDescription",
+               "fieldName":"summary",
                "stringFieldOption":"richtext",
                "label":"Application Description",
                "tooltip":"Application Description",
@@ -90,9 +90,9 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showAreaDescription",
-               "label":"Enable Area Description",
-               "tooltip":"Enable Area Description"
+               "fieldName":"showSummary",
+               "label":"Enable Summary Description",
+               "tooltip":"Enable Summary Description"
             },
             {
                "type":"boolean",
@@ -114,9 +114,15 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showAreaPanel",
-               "label":"Enable Area Panel",
-               "tooltip":"Enable Area Panel"
+               "fieldName":"showFeaturedPanel",
+               "label":"Enable Featured Locations Panel",
+               "tooltip":"Enable Featured Locations Panel"
+            },
+             {
+               "type":"boolean",
+               "fieldName":"showLayersPanel",
+               "label":"Enable Layers Panel",
+               "tooltip":"Enable Layers Panel"
             },
             {
                "type":"boolean",
@@ -386,12 +392,12 @@
    ],
    "values":{
       "title":"",
-      "showAreaDescription":true,
+      "showSummary":true,
       "showLegendPanel":true,
       "hideNotesLayerPopups":true,
       "showOperationalLegend":true,
       "showSocialLegend":true,
-      "showAreaPanel":true,
+      "showFeaturedPanel":true,
       "showHomeButton":true,
       "showLocateButton":true,
       "showBasemapToggle":true,

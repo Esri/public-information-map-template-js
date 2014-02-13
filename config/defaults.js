@@ -13,12 +13,13 @@ define([], function() {
         //you could define the default here and setup configuration settings to allow users to choose a different
         //color theme.
         "title":"",
-        "areaDescription":"",
-        "defaultMenu":"area",
-        "showAreaDescription":true,
+        "summary":"",
+        "defaultMenu":"featured",
+        "showSummary":true,
         "showTitle":true,
         "showLegendPanel": true,
-        "showAreaPanel":true,
+        "showFeaturedPanel":true,
+        "showLayersPanel":true,
         "showOperationalLegend":true,
         "showSocialLegend":true,
         "showHomeButton": true,

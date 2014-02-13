@@ -43,7 +43,7 @@
             },
             {
                "type":"string",
-               "fieldName":"areaDescription",
+               "fieldName":"summary",
                "stringFieldOption":"richtext",
                "label":"Application Description",
                "tooltip":"Application Description",
@@ -56,8 +56,12 @@
                "label":"Default Menu Panel",
                "options":[
                   {
-                     "label":"Area",
-                     "value":"area"
+                     "label":"Featured Locations",
+                     "value":"locations"
+                  },
+                   {
+                     "label":"layers",
+                     "value":"Layers"
                   },
                   {
                      "label":"Legend",
@@ -78,9 +82,9 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showAreaDescription",
-               "label":"Show Area Description",
-               "tooltip":"Show Area Description"
+               "fieldName":"showSummary",
+               "label":"Show Summary Description",
+               "tooltip":"Show Summary Description"
             },
             {
                "type":"boolean",
@@ -102,9 +106,9 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showAreaPanel",
-               "label":"Show Area Panel",
-               "tooltip":"Show Area Panel"
+               "fieldName":"showFeaturedPanel",
+               "label":"Show Featured Locations Panel",
+               "tooltip":"Show Featured Locations Panel"
             },
             {
                "type":"boolean",
@@ -374,12 +378,12 @@
    ],
    "values":{
       "title":"",
-      "showAreaDescription":true,
+      "showSummary":true,
       "showLegendPanel":true,
       "hideNotesLayerPopups":true,
       "showOperationalLegend":true,
       "showSocialLegend":true,
-      "showAreaPanel":true,
+      "showFeaturedPanel":true,
       "showHomeButton":true,
       "showLocateButton":true,
       "showBasemapToggle":true,

@@ -9,7 +9,7 @@ define({
             success: "Flagged",
             loading: "Loading&hellip;"
         },
-        area:{
+        featured:{
             mapNotes: "Notes",
             notesUnavailable: "Description unavailable",
             bookmarks: "Bookmarks",
