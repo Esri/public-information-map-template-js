@@ -202,11 +202,11 @@ define([
                                     mapLayers.push(mapLayer);
                                 }
                             }
-                            return mapLayers;
+                            break;
                         }
                     }
                 }
-                return [];
+                return mapLayers;
             },
             _noteEvent: function(idx){
                 on(this.noteNodes[idx].titleNode, 'click', lang.hitch(this, function(){

@@ -33,8 +33,9 @@ define([], function() {
         "showMapNotes":true,
         "nextBasemap": "hybrid",
         "currentBasemap": "topo",
-        "notesLayerTitle":"Map Notes",
-        "notesLayerId":"",
+        "notesLayer": {
+            "id": "mapNotes_1911"
+        },
         "hideNotesLayerPopups":true,
         "showInstagram":true,
         "instagramChecked":false,

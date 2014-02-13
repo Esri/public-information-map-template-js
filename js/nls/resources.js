@@ -38,7 +38,7 @@ define({
         },
         general: {
             legend: "Legend",
-            featured: "Area",
+            featured: "Featured Locations",
             layers: "Layers",
             share: "Share",
             about: "About",

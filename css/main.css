@@ -502,24 +502,29 @@ input[type=text]::-ms-clear {
     padding: 7px 0;
 }
 .drawer-menu-buttons .item .title {
-    padding: 7px 0;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 90%;
+    padding: 2px 0;
+    font-size: 24px;
+    line-height: normal;
+    border-left: 1px solid #5fa8d4;
+}
+.esriRTL .drawer-menu-buttons .item .title {
+    border-left: 0;
+    border-right: 1px solid #5fa8d4;
 }
 .drawer-menu-buttons .item-first .title {
-    border-right: 1px solid #5fa8d4;
+    border-left: 0;
 }
 .esriRTL .drawer-menu-buttons .item-first .title {
     border-right: 0;
-    border-left: 1px solid #5fa8d4;
 }
 .drawer-menu-buttons .item-only .title {
-    border-right: 0;
+    border-left: 0;
 }
 .esriRTL .drawer-menu-buttons .item-only .title {
-    border-left: 0;
+    border-right: 0;
 }
 .drawer-menu-buttons .item-selected {
     color: #fff;
@@ -544,6 +549,11 @@ input[type=text]::-ms-clear {
 }
 .drawer-menu-buttons .item-only .arrow {
     display: none;
+}
+.menu-panel-title{
+    margin: 10px;
+    font-weight: 700;
+    font-size: 18px;
 }
 /* Misc */
 

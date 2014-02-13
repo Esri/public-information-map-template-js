@@ -68,9 +68,10 @@ function(
                 areaSection: "area-section",
                 pointerEvents: "pointer-events",
                 iconRight: "icon-right",
-                iconText: "icon-doc-text",
                 iconBookmarks: "icon-bookmarks",
                 iconList: "icon-list",
+                iconLayers: "icon-layers",
+                iconLocation: "icon-location",
                 locateButtonTheme: "LocateButtonCalcite",
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
@@ -140,13 +141,14 @@ function(
             var content, menuObj;
             if (this.config.showAreaPanel) {
                 content = '';
+                content += '<div class="menu-panel-title">' + this.config.i18n.general.featured + '</div>';
                 if (this.config.showAreaDescription) {
                     content += '<div class="' + this.css.areaDescription + '" id="areaDescription"></div>';
                 }
                 content += '<div class="' + this.css.areaContainer + '">';
                 // show notes layer and has one of required things for getting notes layer
-                if(this.config.showMapNotes && (this.config.notesLayerTitle || this.config.notesLayerId)){
-                    content += '<div class="' + this.css.areaHeader + '"><span class="' + this.css.iconText + '"></span> <span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
+                if(this.config.showMapNotes && (this.config.notesLayer)){
+                    content += '<div class="' + this.css.areaHeader + '"><span id="map_notes_title">' + this.config.i18n.area.mapNotes + '</span></div>';
                     content += '<div class="' + this.css.areaSection + '" id="area_notes"></div>';
                 }
                 // show bookmarks and has bookmarks
@@ -156,7 +158,8 @@ function(
                 }
                 content += '</div>';
                 menuObj = {
-                    label: this.config.i18n.general.featured,
+                    //label: this.config.i18n.general.featured,
+                    label: '<span class="' + this.css.iconLocation + '"></span>',
                     content: content
                 };
                 // area menu
@@ -169,11 +172,13 @@ function(
             }
             if (this.config.showLegendPanel) {
                 content = '';
+                content += '<div class="menu-panel-title">' + this.config.i18n.general.legend + '</div>';
                 content += '<div class="' + this.css.legendPadding + '">';
                 content += '<div id="LegendDiv"></div>';
                 content += '</div>';
                 menuObj = {
-                    label: this.config.i18n.general.legend,
+                    //label: this.config.i18n.general.legend,
+                    label: '<span class="' + this.css.iconList + '"></span>',
                     content: content
                 };
                 // legend menu
@@ -187,17 +192,19 @@ function(
             if (this.config.showLegendPanel) {
                 content = '';
                 if(this.config.showOperationalLegend){
+                    content += '<div class="menu-panel-title">' + this.config.i18n.general.layers + '</div>';
                     content += '<div class="' + this.css.legendContainer + '">';
-                    content += '<div class="' + this.css.legendHeader + '"><span class="' + this.css.iconList + '"></span> ' + this.config.i18n.layers.operational + '</div>';
+                    content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.operational + '</div>';
                     content += '<div id="TableOfContents"></div>';
                 }
                 if(this.config.showSocialLegend){
-                    content += '<div class="' + this.css.legendHeader + '"><span class="' + this.css.iconList + '"></span> ' + this.config.i18n.layers.social + '</div>';
+                    content += '<div class="' + this.css.legendHeader + '">' + this.config.i18n.layers.social + '</div>';
                     content += '<div id="SocialTableOfContents"></div>';
                     content += '</div>';
                 }
                 menuObj = {
-                    label: this.config.i18n.general.layers,
+                    //label: this.config.i18n.general.layers,
+                    label: '<span class="' + this.css.iconLayers + '"></span>',
                     content: content
                 };
                 // layers menu
