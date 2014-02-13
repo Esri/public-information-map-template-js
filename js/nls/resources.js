@@ -16,10 +16,6 @@ define({
             untitledNote: "Untitled",
             summary:"Summary"
         },
-        layers: {
-            operational: "Layers",
-            social: "Media"
-        },
         social: {
             flickr: "Flickr",
             flickrSettings: "Flickr Settings",

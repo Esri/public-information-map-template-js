@@ -361,6 +361,13 @@ function (
                 event.stop(evt);
             }));
             this._checkEvents.push(checkEvent);
+            // when title is clicked
+            var titleEvent = on(this._nodes[index].titleText, 'click', lang.hitch(this, function(evt) {
+                // toggle layer visibility
+                this._toggleLayer(index);
+                event.stop(evt);
+            }));
+            this._checkEvents.push(titleEvent);
         },
         _init: function() {
             this._visible();

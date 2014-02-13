@@ -10,7 +10,6 @@ define([
     "application/FlickrLayer",
     "application/WebcamsLayer",
     "application/InstagramLayer",
-    "application/TableOfContents",
     "dojo/on",
     "esri/tasks/QueryTask",
     "esri/tasks/query",
@@ -30,7 +29,6 @@ define([
         FlickrLayer,
         WebcamsLayer,
         InstagramLayer,
-        TableOfContents,
         on,
         QueryTask,
         Query,
@@ -162,19 +160,11 @@ define([
                 on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
                     this._featureChange();
                 }));
-                // social layers legend
-                var socialLegendNode = dom.byId('SocialTableOfContents');
-                if (socialLegendNode) {
-                    // social legend
-                    var LL = new TableOfContents({
-                        map: this.map,
-                        layers: this.socialLayers
-                    }, socialLegendNode);
-                    LL.startup();
-                }
                 // add social layers to legend
                 this.layerInfos = this.layerInfos.concat(this.socialLayerInfos);
-                // flickr enabled
+            },
+            configureSocial: function(){
+              // flickr enabled
                 if(this.config.showFlickr){
                     // Flickr Dialog
                     var flContent = '';
@@ -310,7 +300,7 @@ define([
                         this._updateTwitterFilter();
                     }));
                     this._updateTwitterFilter();
-                }
+                }  
             },
             _setLayerInfoTitle: function(layer, title){
                 // update legend info for layer

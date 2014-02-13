@@ -143,6 +143,7 @@ function(
             if (this.config.showFeaturedPanel) {
                 content = '';
                 content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.featured + '</div>';
+                content += '<div class="' + this.css.panelContainer + '">';
                 // if summary enabled
                 if (this.config.showSummary) {
                     content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.featured.summary + '</div>';
@@ -150,7 +151,6 @@ function(
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
                     content += '</div>';
                 }
-                content += '<div class="' + this.css.panelContainer + '">';
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.showMapNotes && (this.config.notesLayer)){
                     content += '<div class="' + this.css.panelHeader + '"><span id="map_notes_title">' + this.config.i18n.featured.mapNotes + '</span></div>';
@@ -179,8 +179,10 @@ function(
             if (this.config.showLegendPanel) {
                 content = '';
                 content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.legend + '</div>';
+                content += '<div class="' + this.css.panelContainer + '">';
                 content += '<div class="' + this.css.panelPadding + '">';
                 content += '<div id="LegendDiv"></div>';
+                content += '</div>';
                 content += '</div>';
                 // menu info
                 menuObj = {
@@ -201,10 +203,7 @@ function(
                 content = '';
                 content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.layers + '</div>';
                 content += '<div class="' + this.css.panelContainer + '">';
-                content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.operational + '</div>';
                 content += '<div id="TableOfContents"></div>';
-                content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.social + '</div>';
-                content += '<div id="SocialTableOfContents"></div>';
                 content += '</div>';
                 // menu info
                 menuObj = {
@@ -286,15 +285,6 @@ function(
                 }, 'ShareDialog');
                 this._ShareDialog.startup();
             }
-            // Legend table of contents
-            var legendNode = dom.byId('TableOfContents');
-            if (legendNode) {
-                var LL = new TableOfContents({
-                    map: this.map,
-                    layers: this.layers
-                }, legendNode);
-                LL.startup();
-            }
             // i18n overview placement
             var overviewPlacement = 'left';
             if(this.config.i18n.direction === 'rtl'){
@@ -319,6 +309,18 @@ function(
             this.initFeatured();
             // startup legend
             this._initLegend();
+            // Legend table of contents
+            var legendNode = dom.byId('TableOfContents');
+            if (legendNode) {
+                var tocLayers = this.socialLayers.concat(this.layers);
+                var toc = new TableOfContents({
+                    map: this.map,
+                    layers: tocLayers
+                }, legendNode);
+                toc.startup();
+            }
+            // set social dialogs
+            this.configureSocial();
             // hide loading div
             this._hideLoadingIndicator();
             // on body click containing underlay class
