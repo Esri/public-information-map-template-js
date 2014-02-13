@@ -34,7 +34,9 @@ define([
                     bookmarkItem: 'bookmark-item',
                     clear: 'clear'
                 };
+                // insert bookmarks
                 this._placeBookmarks();
+                // insert map notes
                 this._placeNotes();
                 // description
                 if (this.config.showSummary) {
@@ -64,6 +66,7 @@ define([
                 this._placeNoteItems();
             },
             _noteLayerEvent: function(layer){
+                // on layer toggle
                 on(layer, 'visibility-change', lang.hitch(this, function(){
                     // clear selected feature
                     if(this.map.infoWindow){
@@ -72,6 +75,7 @@ define([
                 }));
             },
             _noteLayerEvents: function(){
+                // each note event
                 if(this._notesLayers.length){
                     for(var i = 0; i < this._notesLayers.length; i++){
                         var layer = this._notesLayers[i];
@@ -80,6 +84,7 @@ define([
                 }
             },
             _setNoteLayerTitle: function(){
+                // set title of header to layer title
                 if(this._notesLayerTitle){
                     var node = dom.byId('map_notes_title');
                     if(node){
