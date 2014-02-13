@@ -43,7 +43,6 @@ define([
                 // css classes for social layers
                 this.socialCSS = {
                     iconAttention: "icon-attention-1",
-                    iconTwitter: "icon-twitter-1",
                     dialogContent: "dialog-content",
                     layerSettingsHeader: "layer-settings-header",
                     layerSettingsMoreInfo: "layer-settings-more-info",
@@ -51,12 +50,12 @@ define([
                     layerSettingsDescription: "layer-settings-description",
                     layerSettingsSubmit: "layer-settings-submit",
                     authStatus: "twitter-auth-status",
-                    filterStatus: "legend-filter-status",
                     clear: "clear"
                 };
                 // social layer infos
                 this.socialLayers = [];
                 this.socialLayerInfos = [];
+                // webcams enabled
                 if(this.config.showWebcams){
                     // Webcams
                     this._webcamsLayer = new WebcamsLayer({
@@ -77,6 +76,7 @@ define([
                         layer: this._webcamsLayer.featureLayer
                     });
                 }
+                // twitter enabled
                 if(this.config.showTwitter){
                     // Twitter
                     this._twitterLayer = new TwitterLayer({
@@ -95,11 +95,13 @@ define([
                         visibility: this._twitterLayer.featureLayer.visible,
                         layerObject: this._twitterLayer.featureLayer
                     });
+                    // legend info
                     this.socialLayerInfos.push({
                         title: this.config.i18n.social.twitter,
                         layer: this._twitterLayer.featureLayer
                     });
                 }
+                // flickr enabled
                 if(this.config.showFlickr){
                     // Flickr
                     this._flickrLayer = new FlickrLayer({
@@ -117,11 +119,13 @@ define([
                         visibility: this._flickrLayer.featureLayer.visible,
                         layerObject: this._flickrLayer.featureLayer
                     });
+                    // legend info
                     this.socialLayerInfos.push({
                         title: this.config.i18n.social.flickr,
                         layer: this._flickrLayer.featureLayer
                     });
                 }
+                // instagram enabled
                 if(this.config.showInstagram){
                     // Instagram
                     this._instagramLayer = new InstagramLayer({
@@ -137,6 +141,7 @@ define([
                         visibility: this._instagramLayer.featureLayer.visible,
                         layerObject: this._instagramLayer.featureLayer
                     });
+                    // legend info
                     this.socialLayerInfos.push({
                         title: this.config.i18n.social.instagram,
                         layer: this._instagramLayer.featureLayer
@@ -222,6 +227,7 @@ define([
                     }));
                     this._updateFlickrFilter();
                 }
+                // twitter enabled dialog
                 if(this.config.showTwitter){
                     // Twitter Dialog
                     var twContent = '';
@@ -307,6 +313,7 @@ define([
                 }
             },
             _setLayerInfoTitle: function(layer, title){
+                // update legend info for layer
                 if(this._mapLegend){
                     for(var i = 0; i < this._mapLegend.layerInfos.length; i++){
                         if(this._mapLegend.layerInfos[i].layer === layer){

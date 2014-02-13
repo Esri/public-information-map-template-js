@@ -65,8 +65,8 @@ function(
                 panelContainer: "panel-container",
                 panelHeader: "panel-header",
                 panelSection: "panel-section",
-                pointerEvents: "pointer-events",
                 panelSummary: "panel-summary",
+                pointerEvents: "pointer-events",
                 iconRight: "icon-right",
                 iconBookmarks: "icon-bookmarks",
                 iconList: "icon-list",
@@ -117,6 +117,7 @@ function(
                 this._createWebMap(itemInfo);
             }));
         },
+        // if pointer events are supported
         _pointerEventsSupport: function(){
             var element = document.createElement('x');
             element.style.cssText = 'pointer-events:auto';
@@ -142,8 +143,9 @@ function(
             if (this.config.showFeaturedPanel) {
                 content = '';
                 content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.featured + '</div>';
+                // if summary enabled
                 if (this.config.showSummary) {
-                    content += '<div class="' + this.css.panelHeader + '">Summary</div>';
+                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.general.summary + '</div>';
                     content += '<div class="' + this.css.panelSection + '">';
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
                     content += '</div>';
@@ -160,6 +162,7 @@ function(
                     content += '<div class="' + this.css.panelSection + '" id="featured_bookmarks"></div>';
                 }
                 content += '</div>';
+                // menu info
                 menuObj = {
                     title: this.config.i18n.general.featured,
                     label: '<span class="' + this.css.iconLocation + '"></span>',
@@ -179,6 +182,7 @@ function(
                 content += '<div class="' + this.css.panelPadding + '">';
                 content += '<div id="LegendDiv"></div>';
                 content += '</div>';
+                // menu info
                 menuObj = {
                     title: this.config.i18n.general.legend,
                     label: '<span class="' + this.css.iconList + '"></span>',
@@ -202,6 +206,7 @@ function(
                 content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.social + '</div>';
                 content += '<div id="SocialTableOfContents"></div>';
                 content += '</div>';
+                // menu info
                 menuObj = {
                     title: this.config.i18n.general.layers,
                     label: '<span class="' + this.css.iconLayers + '"></span>',
@@ -308,9 +313,11 @@ function(
             }
             // geocoders
             this._createGeocoders();
-            // setup
+            // startup social
             this.initSocial();
+            // startup featured
             this.initFeatured();
+            // startup legend
             this._initLegend();
             // hide loading div
             this._hideLoadingIndicator();

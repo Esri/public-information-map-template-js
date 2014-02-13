@@ -65,13 +65,11 @@ function (
                 checkboxCheck: "icon-check-1",
                 titleText: "toc-text",
                 accountText: "toc-account",
-                expanded: "toc-expanded",
                 visible: "toc-visible",
                 settingsIcon: "icon-cog",
                 settings: "toc-settings",
                 actions: "toc-actions",
                 account: "toc-account",
-                status: "toc-status",
                 clear: "clear"
             };
         },

@@ -13,7 +13,8 @@ define({
             mapNotes: "Notes",
             notesUnavailable: "Description unavailable",
             bookmarks: "Bookmarks",
-            untitledNote: "Untitled"
+            untitledNote: "Untitled",
+            summary:"Summary"
         },
         layers: {
             operational: "Layers",
