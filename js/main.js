@@ -60,11 +60,13 @@ function(
                 mobileSearchDisplay: "mobile-locate-box-display",
                 toggleBlue: 'toggle-grey',
                 toggleBlueOn: 'toggle-grey-on',
+                panelTitle: 'panel-title',
                 panelPadding: "panel-padding",
                 panelContainer: "panel-container",
                 panelHeader: "panel-header",
                 panelSection: "panel-section",
                 pointerEvents: "pointer-events",
+                panelSummary: "panel-summary",
                 iconRight: "icon-right",
                 iconBookmarks: "icon-bookmarks",
                 iconList: "icon-list",
@@ -73,8 +75,7 @@ function(
                 locateButtonTheme: "LocateButtonCalcite",
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
-                mobileGeocoderTheme: "geocoder-mobile",
-                summary: "panel-summary"
+                mobileGeocoderTheme: "geocoder-mobile"
             };
             // pointer event support
             if(this._pointerEventsSupport()){
@@ -137,14 +138,16 @@ function(
             // menu panels
             this.drawerMenus = [];
             var content, menuObj;
-            // todo change menu to use icon
             // todo menu length class for width of items
             if (this.config.showFeaturedPanel) {
                 content = '';
+                content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.featured + '</div>';
                 if (this.config.showSummary) {
-                    content += '<div class="' + this.css.summary + '" id="summary"></div>';
+                    content += '<div class="' + this.css.panelHeader + '">Summary</div>';
+                    content += '<div class="' + this.css.panelSection + '">';
+                    content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
+                    content += '</div>';
                 }
-                content += '<div class="menu-panel-title">' + this.config.i18n.general.featured + '</div>';
                 content += '<div class="' + this.css.panelContainer + '">';
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.showMapNotes && (this.config.notesLayer)){
@@ -172,7 +175,7 @@ function(
             }
             if (this.config.showLegendPanel) {
                 content = '';
-                content += '<div class="menu-panel-title">' + this.config.i18n.general.legend + '</div>';
+                content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.legend + '</div>';
                 content += '<div class="' + this.css.panelPadding + '">';
                 content += '<div id="LegendDiv"></div>';
                 content += '</div>';
@@ -189,20 +192,16 @@ function(
                     this.drawerMenus.push(menuObj);
                 }
             }
-            // todo
+            // Layers Panel
             if (this.config.showLayersPanel) {
                 content = '';
-                if(this.config.showOperationalLegend){
-                    content += '<div class="menu-panel-title">' + this.config.i18n.general.layers + '</div>';
-                    content += '<div class="' + this.css.panelContainer + '">';
-                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.operational + '</div>';
-                    content += '<div id="TableOfContents"></div>';
-                }
-                if(this.config.showSocialLegend){
-                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.social + '</div>';
-                    content += '<div id="SocialTableOfContents"></div>';
-                    content += '</div>';
-                }
+                content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.layers + '</div>';
+                content += '<div class="' + this.css.panelContainer + '">';
+                content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.operational + '</div>';
+                content += '<div id="TableOfContents"></div>';
+                content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.layers.social + '</div>';
+                content += '<div id="SocialTableOfContents"></div>';
+                content += '</div>';
                 menuObj = {
                     title: this.config.i18n.general.layers,
                     label: '<span class="' + this.css.iconLayers + '"></span>',

@@ -40,13 +40,13 @@ function (
             this.css = {
                 container: 'drawer-menu-container',
                 menuItems: 'drawer-menu-buttons',
+                menuItemCount: 'drawer-menu-',
                 menuItem: 'item',
                 menuItemSelected: 'item-selected',
                 menuItemContainer: 'item-container',
                 menuItemTitle: 'title',
                 menuItemArrow: 'arrow',
                 menuItemFirst: "item-first",
-                menuItemOnly: "item-only",
                 menuPanels: 'drawer-menu-panels',
                 menuPanel: 'panel',
                 menuPanelSelected: 'panel-selected',
@@ -111,10 +111,6 @@ function (
                 if (index === 0) {
                     menuClass += ' ' + this.css.menuItemFirst + ' ' + this.css.menuItemSelected;
                     panelClass += ' ' + this.css.menuPanelSelected;
-                }
-                // only one item
-                if (menus.length === 1) {
-                    menuClass += ' ' + this.css.menuItemOnly;
                 }
                 // create item node
                 var button = domConstruct.create('div', {
@@ -185,6 +181,8 @@ function (
             var menus = this.get("menus");
             // menus set
             if (menus && menus.length) {
+                // add panel count css
+                domClass.add(this.domNode, this.css.menuItemCount + menus.length);
                 // create menu nodes
                 for (var i = 0; i < menus.length; i++) {
                     // create menu item

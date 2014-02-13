@@ -20,8 +20,6 @@ define([], function() {
         "showLegendPanel": true,
         "showFeaturedPanel":true,
         "showLayersPanel":true,
-        "showOperationalLegend":true,
-        "showSocialLegend":true,
         "showHomeButton": true,
         "showLocateButton":true,
         "showBasemapToggle": true,

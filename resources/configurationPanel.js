@@ -67,7 +67,7 @@
                      "label":"Featured Locations",
                      "value":"locations"
                   },
-                   {
+                  {
                      "label":"layers",
                      "value":"Layers"
                   },
@@ -102,23 +102,11 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showOperationalLegend",
-               "label":"Enable Operational Layers Legend",
-               "tooltip":"Enable Operational Layers Legend"
-            },
-            {
-               "type":"boolean",
-               "fieldName":"showSocialLegend",
-               "label":"Enable Social Layers Legend",
-               "tooltip":"Enable Social Layers Legend"
-            },
-            {
-               "type":"boolean",
                "fieldName":"showFeaturedPanel",
                "label":"Enable Featured Locations Panel",
                "tooltip":"Enable Featured Locations Panel"
             },
-             {
+            {
                "type":"boolean",
                "fieldName":"showLayersPanel",
                "label":"Enable Layers Panel",
@@ -395,8 +383,6 @@
       "showSummary":true,
       "showLegendPanel":true,
       "hideNotesLayerPopups":true,
-      "showOperationalLegend":true,
-      "showSocialLegend":true,
       "showFeaturedPanel":true,
       "showHomeButton":true,
       "showLocateButton":true,
