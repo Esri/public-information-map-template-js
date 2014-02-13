@@ -34,7 +34,8 @@ define({
             twSettingsInfo: "See what’s happening right now.",
             advancedOperators: "Tip: use <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">operators</a> for creating advanced searches.",
             tweetsFilteredBy: "tweets filtered by:",
-            photosFilteredBy: "photos filtered by:"
+            photosFilteredBy: "photos filtered by:",
+            twitterAccountStatus: "Enable the Twitter layer to see your status."
         },
         general: {
             legend: "Legend",

@@ -123,7 +123,8 @@ function (
                 domConstruct.place(button, this._buttonsNode, 'last');
                 // button container
                 var buttonContainer = domConstruct.create('div', {
-                    className: this.css.menuItemContainer
+                    className: this.css.menuItemContainer,
+                    title: item.title || ''
                 });
                 domConstruct.place(buttonContainer, button, 'last');
                 // title

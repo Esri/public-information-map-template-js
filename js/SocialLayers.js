@@ -232,7 +232,7 @@ define([
                     twContent += '<div id="twitter_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.advancedOperators + '</div>';
                     twContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.twitterUser + '</div>';
-                    twContent += '<a id="twitter_settings_auth" class="' + this.socialCSS.authStatus + '"></a>';
+                    twContent += '<div id="twitter_settings_auth">' + this.config.i18n.social.twitterAccountStatus + '</div>';
                     twContent += '</div>';
                     var twitterDialogNode = domConstruct.create('div', {
                         innerHTML: twContent
@@ -289,11 +289,11 @@ define([
                             var status;
                             // user signed in
                             if (evt.authorized) {
-                                status = '<span class="'+ this.socialCSS.iconTwitter + '"></span>' +this.config.i18n.general.switchAccount;
+                                status = '<a class="' + this.socialCSS.authStatus + '">' +this.config.i18n.general.switchAccount + '</a>';
                                 this._twitterStatusNode.innerHTML = '';
                                 this._twitterStatus2Node.innerHTML = status;
                             } else {
-                                status = '<span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.general.signIn;
+                                status = '<a class="' + this.socialCSS.authStatus + '"><span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.general.signIn + '</a>';
                                 this._twitterStatusNode.innerHTML = status;
                                 this._twitterStatus2Node.innerHTML = status;
                             }

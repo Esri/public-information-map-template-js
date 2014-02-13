@@ -139,6 +139,9 @@ function(
             // menu panels
             this.drawerMenus = [];
             var content, menuObj;
+            // todo change area to featured locations
+            // todo change menu to use icon
+            // todo menu length class for width of items
             if (this.config.showAreaPanel) {
                 content = '';
                 content += '<div class="menu-panel-title">' + this.config.i18n.general.featured + '</div>';
@@ -158,7 +161,7 @@ function(
                 }
                 content += '</div>';
                 menuObj = {
-                    //label: this.config.i18n.general.featured,
+                    title: this.config.i18n.general.featured,
                     label: '<span class="' + this.css.iconLocation + '"></span>',
                     content: content
                 };
@@ -177,7 +180,7 @@ function(
                 content += '<div id="LegendDiv"></div>';
                 content += '</div>';
                 menuObj = {
-                    //label: this.config.i18n.general.legend,
+                    title: this.config.i18n.general.legend,
                     label: '<span class="' + this.css.iconList + '"></span>',
                     content: content
                 };
@@ -189,6 +192,7 @@ function(
                     this.drawerMenus.push(menuObj);
                 }
             }
+            // todo
             if (this.config.showLegendPanel) {
                 content = '';
                 if(this.config.showOperationalLegend){
@@ -203,7 +207,7 @@ function(
                     content += '</div>';
                 }
                 menuObj = {
-                    //label: this.config.i18n.general.layers,
+                    title: this.config.i18n.general.layers,
                     label: '<span class="' + this.css.iconLayers + '"></span>',
                     content: content
                 };

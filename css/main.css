@@ -550,7 +550,7 @@ input[type=text]::-ms-clear {
 .drawer-menu-buttons .item-only .arrow {
     display: none;
 }
-.menu-panel-title{
+.menu-panel-title {
     margin: 10px;
     font-weight: 700;
     font-size: 18px;
