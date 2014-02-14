@@ -373,7 +373,7 @@ input[type=text]::-ms-clear {
     border-radius: 1px 1px 0 0;
 }
 .BasemapToggle .basemapTitle {
-    color: #999;
+    color: #666;
 }
 .map-buttons {
     position: absolute;
