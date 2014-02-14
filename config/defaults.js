@@ -18,7 +18,7 @@ define([], function() {
         "showSummary":true,
         "showTitle":true,
         "showLegendPanel": true,
-        "showFeaturedPanel":true,
+        "showMapPanel":true,
         "showLayersPanel":true,
         "showHomeButton": true,
         "showLocateButton":true,

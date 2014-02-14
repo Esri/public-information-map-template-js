@@ -19,7 +19,7 @@ define([
     "esri/dijit/Geocoder",
     "esri/dijit/Popup",
     "esri/dijit/Legend",
-    "application/Featured",
+    "application/MapInformation",
     "application/SocialLayers",
     "esri/dijit/OverviewMap",
     "dijit/registry",
@@ -68,10 +68,9 @@ function(
                 panelSummary: "panel-summary",
                 pointerEvents: "pointer-events",
                 iconRight: "icon-right",
-                iconBookmarks: "icon-bookmarks",
                 iconList: "icon-list",
                 iconLayers: "icon-layers",
-                iconLocation: "icon-location",
+                iconMap: "icon-map",
                 locateButtonTheme: "LocateButtonCalcite",
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
@@ -140,32 +139,31 @@ function(
             this.drawerMenus = [];
             var content, menuObj;
             // featured panel enabled
-            if (this.config.showFeaturedPanel) {
+            if (this.config.showMapPanel) {
                 content = '';
-                content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.featured + '</div>';
+                content += '<div class="' + this.css.panelTitle + '">' + this.config.i18n.general.map + '</div>';
                 content += '<div class="' + this.css.panelContainer + '">';
                 // if summary enabled
                 if (this.config.showSummary) {
-                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.featured.summary + '</div>';
                     content += '<div class="' + this.css.panelSection + '">';
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
                     content += '</div>';
                 }
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.notesLayer && this.config.notesLayer.id){
-                    content += '<div class="' + this.css.panelHeader + '"><span id="map_notes_title">' + this.config.i18n.featured.mapNotes + '</span></div>';
+                    content += '<div class="' + this.css.panelHeader + '"><span id="map_notes_title">' + this.config.i18n.general.featured + '</span></div>';
                     content += '<div class="' + this.css.panelSection + '" id="featured_notes"></div>';
                 }
                 // show bookmarks and has bookmarks
                 if(this.config.showBookmarks && this.bookmarks && this.bookmarks.length){
-                    content += '<div class="' + this.css.panelHeader + '"><span class="' + this.css.iconBookmarks + '"></span> ' + this.config.i18n.featured.bookmarks + '</div>';
+                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.featured.bookmarks + '</div>';
                     content += '<div class="' + this.css.panelSection + '" id="featured_bookmarks"></div>';
                 }
                 content += '</div>';
                 // menu info
                 menuObj = {
-                    title: this.config.i18n.general.featured,
-                    label: '<span class="' + this.css.iconLocation + '"></span>',
+                    title: this.config.i18n.general.map,
+                    label: '<span class="' + this.css.iconMap + '"></span>',
                     content: content
                 };
                 // featured menu

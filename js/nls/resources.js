@@ -10,11 +10,9 @@ define({
             loading: "Loading&hellip;"
         },
         featured:{
-            mapNotes: "Notes",
             notesUnavailable: "Description unavailable",
             bookmarks: "Bookmarks",
-            untitledNote: "Untitled",
-            summary:"Summary"
+            untitledNote: "Untitled"
         },
         social: {
             flickr: "Flickr",
@@ -35,6 +33,7 @@ define({
             twitterAccountStatus: "Enable the Twitter layer to see your status."
         },
         general: {
+            map: "Map Information",
             legend: "Legend",
             featured: "Featured Locations",
             layers: "Layers",

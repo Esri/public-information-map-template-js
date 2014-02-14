@@ -53,13 +53,12 @@
 .icon-minus:before { content: '\e81b'; } /* '' */
 .icon-info-circled-1:before { content: '\e801'; } /* '' */
 .icon-home-1:before { content: '\e808'; } /* '' */
-.icon-bookmarks:before { content: '\e809'; } /* '' */
 .icon-reply:before { content: '\e813'; } /* '' */
 .icon-retweet:before { content: '\e80f'; } /* '' */
 .icon-attention-1:before { content: '\e812'; } /* '' */
 .icon-location:before { content: '\e81c'; } /* '' */
+.icon-map:before { content: '\e81e'; } /* '' */
 .icon-mail:before { content: '\e802'; } /* '' */
-.icon-cog:before { content: '\e805'; } /* '' */
 .icon-share:before { content: '\e816'; } /* '' */
 .icon-popup:before { content: '\e817'; } /* '' */
 .icon-left-open-big:before { content: '\e80d'; } /* '' */
@@ -73,8 +72,9 @@
 .icon-twitter-1:before { content: '\e818'; } /* '' */
 .icon-facebook-squared-1:before { content: '\e80e'; } /* '' */
 .icon-gplus:before { content: '\e819'; } /* '' */
-.icon-doc-text:before { content: '\e806'; } /* '' */
+.icon-cog:before { content: '\e805'; } /* '' */
 
+/* custom. don't remove */
 .left-arrow:before { content: '\e80d'; }
 .right-arrow:before { content: '\e80b'; }
 .esriRTL .left-arrow:before { content: '\e80b'; }

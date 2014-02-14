@@ -102,7 +102,7 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showFeaturedPanel",
+               "fieldName":"showMapPanel",
                "label":"Enable Featured Locations Panel",
                "tooltip":"Enable Featured Locations Panel"
             },
@@ -377,7 +377,7 @@
       "showSummary":true,
       "showLegendPanel":true,
       "hideNotesLayerPopups":true,
-      "showFeaturedPanel":true,
+      "showMapPanel":true,
       "showHomeButton":true,
       "showLocateButton":true,
       "showBasemapToggle":true,
