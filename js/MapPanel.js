@@ -39,7 +39,7 @@ define([
                 // insert map notes
                 this._placeNotes();
                 // description
-                if (this.config.showSummary) {
+                if (this.config.enableSummary) {
                     this._setSummary(this.config.summary || this.item.snippet);
                 }
             },
@@ -193,11 +193,16 @@ define([
             _getNotesLayers: function (obj) {
                 // get the layer by ID or title
                 var mapLayer, mapLayers = [], layers, layer, i, j;
+                // note layer id
+                var notesId = obj.notesLayer.id;
                 // if we have a layer id
-                if (obj.notesLayer && obj.notesLayer.id) {
+                if (obj.notesLayer && notesId) {
+                    // todo: May need to remove this at some point
+                    notesId = notesId.replace("_0","");
+                    // each webmap layer
                     for (i = 0; i < obj.layers.length; i++) {
                         layer = obj.layers[i];
-                        if (layer.id === obj.notesLayer.id) {
+                        if (layer.id === notesId) {
                             this._noteLayerObj = layer;
                             this._notesLayerTitle = layer.title;
                             layers = layer.featureCollection.layers;

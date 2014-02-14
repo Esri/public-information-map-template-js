@@ -89,6 +89,7 @@ input[type=text]::-ms-clear {
 }
 .panel-padding {
     padding: 10px;
+    color: #666;
 }
 .panel-header {
     font-size: 18px;

@@ -84,55 +84,55 @@
          "fields":[
             {
                "type":"boolean",
-               "fieldName":"showTitle",
+               "fieldName":"enableTitle",
                "label":"Enable Title",
                "tooltip":"Enable Title"
             },
             {
                "type":"boolean",
-               "fieldName":"showSummary",
+               "fieldName":"enableSummary",
                "label":"Enable Summary Description",
                "tooltip":"Enable Summary Description"
             },
             {
                "type":"boolean",
-               "fieldName":"showLegendPanel",
+               "fieldName":"enableLegendPanel",
                "label":"Enable Legend Panel",
                "tooltip":"Enable Legend"
             },
             {
                "type":"boolean",
-               "fieldName":"showMapPanel",
+               "fieldName":"enableMapPanel",
                "label":"Enable Featured Locations Panel",
                "tooltip":"Enable Featured Locations Panel"
             },
             {
                "type":"boolean",
-               "fieldName":"showLayersPanel",
+               "fieldName":"enableLayersPanel",
                "label":"Enable Layers Panel",
                "tooltip":"Enable Layers Panel"
             },
             {
                "type":"boolean",
-               "fieldName":"showHomeButton",
+               "fieldName":"enableHomeButton",
                "label":"Enable Home Button",
                "tooltip":"Enable Home Button"
             },
             {
                "type":"boolean",
-               "fieldName":"showLocateButton",
+               "fieldName":"enableLocateButton",
                "label":"Enable Locate Button",
                "tooltip":"Enable Locate Button"
             },
             {
                "type":"boolean",
-               "fieldName":"showBasemapToggle",
+               "fieldName":"enableBasemapToggle",
                "label":"Enable Basemap Toggle",
                "tooltip":"Enable Basemap Toggle"
             },
             {
                "type":"boolean",
-               "fieldName":"showAboutDialog",
+               "fieldName":"enableAboutDialog",
                "label":"Enable About Dialog",
                "tooltip":"Enable About Dialog"
             },
@@ -144,19 +144,19 @@
             },
             {
                "type":"boolean",
-               "fieldName":"ShowShareDialog",
+               "fieldName":"enableShareDialog",
                "label":"Enable Share Dialog",
                "tooltip":"Enable Share Dialog"
             },
             {
                "type":"boolean",
-               "fieldName":"showBookmarks",
+               "fieldName":"enableBookmarks",
                "label":"Enable Bookmarks",
                "tooltip":"Enable Bookmarks"
             },
             {
                "type":"boolean",
-               "fieldName":"showOverviewMap",
+               "fieldName":"enableOverviewMap",
                "label":"Enable OverviewMap widget",
                "tooltip":"Enable OverviewMap widget"
             },
@@ -258,7 +258,7 @@
          "fields":[
             {
                "type":"boolean",
-               "fieldName":"showInstagram",
+               "fieldName":"enableInstagram",
                "label":"Enable Instagram Layer",
                "tooltip":"Enable Instagram Layer"
             },
@@ -283,7 +283,7 @@
          "fields":[
             {
                "type":"boolean",
-               "fieldName":"showFlickr",
+               "fieldName":"enableFlickr",
                "label":"Enable Flickr Layer",
                "tooltip":"Enable Flickr Layer"
             },
@@ -315,7 +315,7 @@
          "fields":[
             {
                "type":"boolean",
-               "fieldName":"showTwitter",
+               "fieldName":"enableTwitter",
                "label":"Enable Twitter Layer",
                "tooltip":"Enable Twitter Layer"
             },
@@ -351,7 +351,7 @@
          "fields":[
             {
                "type":"boolean",
-               "fieldName":"showWebcams",
+               "fieldName":"enableWebcams",
                "label":"Enable Webcams Layer",
                "tooltip":"Enable Webcams Layer"
             },
@@ -374,30 +374,30 @@
    ],
    "values":{
       "title":"",
-      "showSummary":true,
-      "showLegendPanel":true,
+      "enableSummary":true,
+      "enableLegendPanel":true,
       "hideNotesLayerPopups":true,
-      "showMapPanel":true,
-      "showHomeButton":true,
-      "showLocateButton":true,
-      "showBasemapToggle":true,
-      "showAboutDialog":true,
+      "enableMapPanel":true,
+      "enableHomeButton":true,
+      "enableLocateButton":true,
+      "enableBasemapToggle":true,
+      "enableAboutDialog":true,
       "showAboutOnLoad":false,
-      "ShowShareDialog":true,
-      "showBookmarks":true,
-      "showOverviewMap":true,
+      "enableShareDialog":true,
+      "enableBookmarks":true,
+      "enableOverviewMap":true,
       "openOverviewMap":false,
       "nextBasemap":"hybrid",
       "currentBasemap":"topo",
-      "showInstagram":true,
+      "enableInstagram":true,
       "instagramChecked":false,
-      "showFlickr":true,
+      "enableFlickr":true,
       "flickrChecked":false,
       "flickrSearch":"",
-      "showTwitter":true,
+      "enableTwitter":true,
       "twitterChecked":false,
       "twitterSearch":"",
-      "showWebcams":true,
+      "enableWebcams":true,
       "webcamsChecked":false
    }
 }

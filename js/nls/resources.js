@@ -34,6 +34,7 @@ define({
         },
         general: {
             map: "Map Information",
+            mapInfo: "Map Information",
             legend: "Legend",
             featured: "Featured Locations",
             layers: "Layers",

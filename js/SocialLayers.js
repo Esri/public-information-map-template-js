@@ -54,7 +54,7 @@ define([
                 this.socialLayers = [];
                 this.socialLayerInfos = [];
                 // webcams enabled
-                if(this.config.showWebcams){
+                if(this.config.enableWebcams){
                     // Webcams
                     this._webcamsLayer = new WebcamsLayer({
                         map: this.map,
@@ -75,7 +75,7 @@ define([
                     });
                 }
                 // twitter enabled
-                if(this.config.showTwitter){
+                if(this.config.enableTwitter){
                     // Twitter
                     this._twitterLayer = new TwitterLayer({
                         map: this.map,
@@ -100,7 +100,7 @@ define([
                     });
                 }
                 // flickr enabled
-                if(this.config.showFlickr){
+                if(this.config.enableFlickr){
                     // Flickr
                     this._flickrLayer = new FlickrLayer({
                         map: this.map,
@@ -124,7 +124,7 @@ define([
                     });
                 }
                 // instagram enabled
-                if(this.config.showInstagram){
+                if(this.config.enableInstagram){
                     // Instagram
                     this._instagramLayer = new InstagramLayer({
                         map: this.map,
@@ -165,7 +165,7 @@ define([
             },
             configureSocial: function(){
               // flickr enabled
-                if(this.config.showFlickr){
+                if(this.config.enableFlickr){
                     // Flickr Dialog
                     var flContent = '';
                     flContent += '<div class="' + this.socialCSS.dialogContent + '">';
@@ -218,7 +218,7 @@ define([
                     this._updateFlickrFilter();
                 }
                 // twitter enabled dialog
-                if(this.config.showTwitter){
+                if(this.config.enableTwitter){
                     // Twitter Dialog
                     var twContent = '';
                     twContent += '<div class="' + this.socialCSS.dialogContent + '">';
