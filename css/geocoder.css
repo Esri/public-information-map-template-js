@@ -13,6 +13,7 @@
 }
 .esriGeocoderContainer {
     -webkit-text-size-adjust: none;
+    position: relative;
     width: 192px;
     font-size: 12px;
     line-height: 16px;

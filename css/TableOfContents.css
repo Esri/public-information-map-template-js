@@ -16,23 +16,13 @@
     border-bottom: 0;
 }
 .TableOfContents .toc-title-container {
-    border-left: 5px solid #ccc;
     background: #f8f8f8;
     color: #555;
     position: relative;
 }
-.esriRTL .TableOfContents .toc-title-container {
-    border-left: 0;
-    border-right: 5px solid #ccc;
-}
 .TableOfContents .toc-expanded .toc-title-container {
-    border-left: 5px solid #007ac2;
     color: #007ac2;
     font-weight: 700;
-}
-.esriRTL .TableOfContents .toc-expanded .toc-title-container {
-    border-left: 0;
-    border-right: 5px solid #007ac2;
 }
 .TableOfContents .toc-text {
     float: left;
