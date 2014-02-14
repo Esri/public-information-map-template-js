@@ -198,7 +198,9 @@ define([
                 // if we have a layer id
                 if (obj.notesLayer && notesId) {
                     // todo: May need to remove this at some point
-                    notesId = notesId.replace("_0","");
+                    var re = /_0$/;
+                    // note: removes "_0" from end of ID
+                    notesId = notesId.replace(re,"");
                     // each webmap layer
                     for (i = 0; i < obj.layers.length; i++) {
                         layer = obj.layers[i];
