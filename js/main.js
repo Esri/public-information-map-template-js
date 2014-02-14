@@ -145,9 +145,7 @@ function(
                 content += '<div class="' + this.css.panelContainer + '">';
                 // if summary enabled
                 if (this.config.showSummary) {
-                    content += '<div class="' + this.css.panelSection + '">';
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
-                    content += '</div>';
                 }
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.notesLayer && this.config.notesLayer.id){
