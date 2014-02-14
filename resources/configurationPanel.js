@@ -156,12 +156,6 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showMapNotes",
-               "label":"Enable Map Notes",
-               "tooltip":"Enable Map Notes"
-            },
-            {
-               "type":"boolean",
                "fieldName":"showOverviewMap",
                "label":"Enable OverviewMap widget",
                "tooltip":"Enable OverviewMap widget"
@@ -393,7 +387,6 @@
       "showBookmarks":true,
       "showOverviewMap":true,
       "openOverviewMap":false,
-      "showMapNotes":true,
       "nextBasemap":"hybrid",
       "currentBasemap":"topo",
       "showInstagram":true,

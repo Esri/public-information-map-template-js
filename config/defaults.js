@@ -29,7 +29,6 @@ define([], function() {
         "showBookmarks": true,
         "showOverviewMap":true,
         "openOverviewMap":false,
-        "showMapNotes":true,
         "nextBasemap": "hybrid",
         "currentBasemap": "topo",
         "notesLayer": {

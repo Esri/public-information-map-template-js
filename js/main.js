@@ -152,7 +152,7 @@ function(
                     content += '</div>';
                 }
                 // show notes layer and has one of required things for getting notes layer
-                if(this.config.showMapNotes && (this.config.notesLayer)){
+                if(this.config.notesLayer && this.config.notesLayer.id){
                     content += '<div class="' + this.css.panelHeader + '"><span id="map_notes_title">' + this.config.i18n.featured.mapNotes + '</span></div>';
                     content += '<div class="' + this.css.panelSection + '" id="featured_notes"></div>';
                 }
