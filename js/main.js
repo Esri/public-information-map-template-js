@@ -19,7 +19,7 @@ define([
     "esri/dijit/Geocoder",
     "esri/dijit/Popup",
     "esri/dijit/Legend",
-    "application/MapInformation",
+    "application/MapPanel",
     "application/SocialLayers",
     "esri/dijit/OverviewMap",
     "dijit/registry",
