@@ -62,7 +62,7 @@
             },
             {
                "type":"string",
-               "fieldName":"defaultMenu",
+               "fieldName":"defaultPanel",
                "tooltip":"Default Menu Panel",
                "label":"Default Menu Panel",
                "options":[

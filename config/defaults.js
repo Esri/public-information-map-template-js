@@ -14,7 +14,7 @@ define([], function() {
         //color theme.
         "title":"",
         "summary":"",
-        "defaultMenu":"map",
+        "defaultPanel":"map",
         "enableSummary":true,
         "enableTitle":true,
         "enableLegendPanel": true,
