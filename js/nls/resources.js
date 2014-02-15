@@ -9,7 +9,7 @@ define({
             success: "Flagged",
             loading: "Loading&hellip;"
         },
-        featured:{
+        mapNotes:{
             notesUnavailable: "Description unavailable",
             bookmarks: "Bookmarks",
             untitledNote: "Untitled"
@@ -33,7 +33,7 @@ define({
             twitterAccountStatus: "Enable the Twitter layer to see your status."
         },
         general: {
-            map: "Map Information",
+            map: "Map",
             mapInfo: "Map Information",
             legend: "Legend",
             featured: "Featured Locations",

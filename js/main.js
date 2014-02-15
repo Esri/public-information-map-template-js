@@ -41,14 +41,14 @@ function(
     Geocoder,
     Popup,
     Legend,
-    Featured,
+    MapPanel,
     SocialLayers,
     OverviewMap,
     registry,
     array,
     esriLang
 ) {
-    return declare("", [Featured, SocialLayers], {
+    return declare("", [MapPanel, SocialLayers], {
         config: {},
         constructor: function (config) {
             //config will contain application and user defined info for the template such as i18n strings, the web map id
@@ -137,7 +137,7 @@ function(
             // menu panels
             this.drawerMenus = [];
             var content, menuObj;
-            // featured panel enabled
+            // map panel enabled
             if (this.config.enableMapPanel) {
                 content = '';
                 content += '<div class="' + this.css.panelContainer + '">';
@@ -149,12 +149,12 @@ function(
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.notesLayer && this.config.notesLayer.id){
                     content += '<div class="' + this.css.panelHeader + '"><span id="map_notes_title">' + this.config.i18n.general.featured + '</span></div>';
-                    content += '<div class="' + this.css.panelSection + '" id="featured_notes"></div>';
+                    content += '<div class="' + this.css.panelSection + '" id="map_notes"></div>';
                 }
                 // show bookmarks and has bookmarks
                 if(this.config.enableBookmarks && this.bookmarks && this.bookmarks.length){
-                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.featured.bookmarks + '</div>';
-                    content += '<div class="' + this.css.panelSection + '" id="featured_bookmarks"></div>';
+                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.mapNotes.bookmarks + '</div>';
+                    content += '<div class="' + this.css.panelSection + '" id="map_bookmarks"></div>';
                 }
                 content += '</div>';
                 // menu info
@@ -163,8 +163,8 @@ function(
                     label: '<span class="' + this.css.iconMap + '"></span>',
                     content: content
                 };
-                // featured menu
-                if(this.config.defaultMenu === 'featured'){
+                // map menu
+                if(this.config.defaultMenu === 'map'){
                     this.drawerMenus.splice(0,0,menuObj);
                 }
                 else{
@@ -240,7 +240,7 @@ function(
                 var BT = new BasemapToggle({
                     map: this.map,
                     basemap: this.config.nextBasemap,
-                    defaultBasemap: this.config.currentBasemap
+                    defaultBasemap: this.config.defaultBasemap
                 }, 'BasemapToggle');
                 BT.startup();
                 /* Start temporary until after JSAPI 3.9 is released */
@@ -300,8 +300,8 @@ function(
             this._createGeocoders();
             // startup social
             this.initSocial();
-            // startup featured
-            this.initFeatured();
+            // startup map panel
+            this.initMapPanel();
             // startup legend
             this._initLegend();
             // Legend table of contents

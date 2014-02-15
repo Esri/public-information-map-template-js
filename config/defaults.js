@@ -14,7 +14,7 @@ define([], function() {
         //color theme.
         "title":"",
         "summary":"",
-        "defaultMenu":"featured",
+        "defaultMenu":"map",
         "enableSummary":true,
         "enableTitle":true,
         "enableLegendPanel": true,
@@ -29,8 +29,8 @@ define([], function() {
         "enableBookmarks": true,
         "enableOverviewMap":true,
         "openOverviewMap":false,
+        "defaultBasemap": "topo",
         "nextBasemap": "hybrid",
-        "currentBasemap": "topo",
         "notesLayer": {
             "id": "mapNotes_1911"
         },

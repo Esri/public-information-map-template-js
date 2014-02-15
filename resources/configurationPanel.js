@@ -34,8 +34,11 @@
             {
                "type":"boolean",
                "fieldName":"hideNotesLayerPopups",
-               "label":"Hide popups for this layer",
-               "tooltip":"Hide info windows for notes layer"
+               "label":"Hide popups for this layer"
+            },
+            {
+               "type":"paragraph",
+               "value":"Hides info windows for the notes layer."
             }
          ]
       },
@@ -53,8 +56,8 @@
                "type":"string",
                "fieldName":"summary",
                "stringFieldOption":"richtext",
-               "label":"Application Description",
-               "tooltip":"Application Description",
+               "label":"Application Summary",
+               "tooltip":"Map Summary",
                "placeHolder":"My Map"
             },
             {
@@ -64,8 +67,8 @@
                "label":"Default Menu Panel",
                "options":[
                   {
-                     "label":"Featured Locations",
-                     "value":"locations"
+                     "label":"Map",
+                     "value":"map"
                   },
                   {
                      "label":"layers",
@@ -103,8 +106,8 @@
             {
                "type":"boolean",
                "fieldName":"enableMapPanel",
-               "label":"Enable Featured Locations Panel",
-               "tooltip":"Enable Featured Locations Panel"
+               "label":"Enable Map Panel",
+               "tooltip":"Enable Map Panel"
             },
             {
                "type":"boolean",
@@ -139,8 +142,8 @@
             {
                "type":"boolean",
                "fieldName":"showAboutOnLoad",
-               "label":"Enable About Dialog on load",
-               "tooltip":"Enable About Dialog on load"
+               "label":"Show About Dialog on load",
+               "tooltip":"Show About Dialog on load"
             },
             {
                "type":"boolean",
@@ -163,8 +166,8 @@
             {
                "type":"boolean",
                "fieldName":"openOverviewMap",
-               "label":"Overview Map Widget is open by default",
-               "tooltip":"Overview Map Widget is open by default"
+               "label":"Open Overview Map Widget by default",
+               "tooltip":"Open Overview Map Widget by default"
             }
          ]
       },
@@ -173,9 +176,9 @@
          "fields":[
             {
                "type":"string",
-               "fieldName":"nextBasemap",
-               "tooltip":"Next selected basemap for this map.",
-               "label":"Next Basemap",
+               "fieldName":"defaultBasemap",
+               "tooltip":"Default selected basemap for this map.",
+               "label":"Default Basemap",
                "options":[
                   {
                      "label":"Streets",
@@ -213,9 +216,9 @@
             },
             {
                "type":"string",
-               "fieldName":"currentBasemap",
-               "tooltip":"Default selected basemap for this map.",
-               "label":"Default Basemap",
+               "fieldName":"nextBasemap",
+               "tooltip":"Next selected basemap for this map.",
+               "label":"Next Basemap",
                "options":[
                   {
                      "label":"Streets",
@@ -388,7 +391,7 @@
       "enableOverviewMap":true,
       "openOverviewMap":false,
       "nextBasemap":"hybrid",
-      "currentBasemap":"topo",
+      "defaultBasemap":"topo",
       "enableInstagram":true,
       "instagramChecked":false,
       "enableFlickr":true,
