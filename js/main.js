@@ -131,6 +131,18 @@ function(
                 this._mapLegend.startup();
             }
         },
+        _initTOC: function(){
+            // layers
+            var tocNode = dom.byId('TableOfContents');
+            if (tocNode) {
+                var tocLayers = this.socialLayers.concat(this.layers);
+                var toc = new TableOfContents({
+                    map: this.map,
+                    layers: tocLayers
+                }, tocNode);
+                toc.startup();
+            }
+        },
         _init: function () {
             // drawer size check
             this._drawer.resize();
@@ -305,16 +317,8 @@ function(
             this.initMapPanel();
             // startup legend
             this._initLegend();
-            // Legend table of contents
-            var legendNode = dom.byId('TableOfContents');
-            if (legendNode) {
-                var tocLayers = this.socialLayers.concat(this.layers);
-                var toc = new TableOfContents({
-                    map: this.map,
-                    layers: tocLayers
-                }, legendNode);
-                toc.startup();
-            }
+            // startup toc
+            this._initTOC();
             // set social dialogs
             this.configureSocial();
             // hide loading div
