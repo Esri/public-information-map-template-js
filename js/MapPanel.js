@@ -69,7 +69,7 @@ define([
                 // on layer toggle
                 on(layer, 'visibility-change', lang.hitch(this, function(){
                     // clear selected feature
-                    if(this.map.infoWindow){
+                    if(this.map && this.map.infoWindow){
                         this.map.infoWindow.clearFeatures();   
                     } 
                 }));
@@ -109,81 +109,83 @@ define([
                             }
                             // get graphics from layer
                             for(var j = 0; j < this._notesLayers[i].graphics.length; j++){
-                                // note graphic
-                                var graphic = this._notesLayers[i].graphics[j];
-                                var attributes = this._notesLayers[i].graphics[j].attributes;
-                                var geometry = this._notesLayers[i].graphics[j].geometry;
-                                // save references
-                                this.noteGeometries.push(geometry);
-                                this.noteGraphics.push(graphic);
-                                // note container
-                                var containerNode = domConstruct.create('div', {
-                                    className: this.mapPanelCSS.noteContainer
-                                });
-                                // text symbol
-                                if(graphic.symbol.type === 'textsymbol'){
-                                    attributes.TITLE = graphic.symbol.text;
-                                }
-                                // note title
-                                var titleNode = domConstruct.create('div', {
-                                    className: this.mapPanelCSS.noteItem
-                                });
-                                domConstruct.place(titleNode, containerNode, 'last');
-                                // note title
-                                var noteTitleText = domConstruct.create('div', {
-                                    innerHTML: attributes.TITLE || this.config.i18n.mapNotes.untitledNote,
-                                    className: this.mapPanelCSS.noteTitleText
-                                });
-                                domConstruct.place(noteTitleText, titleNode, 'last');
-                                // note title
-                                var noteExpand = domConstruct.create('div', {
-                                    className: this.mapPanelCSS.noteExpand
-                                });
-                                domConstruct.place(noteExpand, titleNode, 'last');
-                                // note title
-                                var clear = domConstruct.create('div', {
-                                    className: this.mapPanelCSS.clear
-                                });
-                                domConstruct.place(clear, titleNode, 'last');
-                                // note HTML
-                                var noteContent = '';
-                                if (attributes.DESCRIPTION) {
-                                    noteContent = attributes.DESCRIPTION + "\n";
-                                }
-                                // if it has an image
-                                if (attributes.IMAGE_URL) {
-                                    // image has link
-                                    if (attributes.IMAGE_LINK_URL) {
-                                        noteContent += '<a class="' + this.mapPanelCSS.noteLink + '" target="_blank" href="' + attributes.IMAGE_LINK_URL + '"><image class="' + this.mapPanelCSS.noteImage + '" src= "' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" /></a>';
+                                if(this._notesLayers[i].graphics && this._notesLayers[i].graphics.length){
+                                    // note graphic
+                                    var graphic = this._notesLayers[i].graphics[j];
+                                    var attributes = this._notesLayers[i].graphics[j].attributes;
+                                    var geometry = this._notesLayers[i].graphics[j].geometry;
+                                    // save references
+                                    this.noteGeometries.push(geometry);
+                                    this.noteGraphics.push(graphic);
+                                    // note container
+                                    var containerNode = domConstruct.create('div', {
+                                        className: this.mapPanelCSS.noteContainer
+                                    });
+                                    // text symbol
+                                    if(graphic.symbol && graphic.symbol.type === 'textsymbol'){
+                                        attributes.TITLE = graphic.symbol.text;
                                     }
-                                    else {
-                                        noteContent += '<image class="' + this.mapPanelCSS.noteImage + '" src="' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" />';
+                                    // note title
+                                    var titleNode = domConstruct.create('div', {
+                                        className: this.mapPanelCSS.noteItem
+                                    });
+                                    domConstruct.place(titleNode, containerNode, 'last');
+                                    // note title
+                                    var noteTitleText = domConstruct.create('div', {
+                                        innerHTML: attributes.TITLE || this.config.i18n.mapNotes.untitledNote,
+                                        className: this.mapPanelCSS.noteTitleText
+                                    });
+                                    domConstruct.place(noteTitleText, titleNode, 'last');
+                                    // note title
+                                    var noteExpand = domConstruct.create('div', {
+                                        className: this.mapPanelCSS.noteExpand
+                                    });
+                                    domConstruct.place(noteExpand, titleNode, 'last');
+                                    // note title
+                                    var clear = domConstruct.create('div', {
+                                        className: this.mapPanelCSS.clear
+                                    });
+                                    domConstruct.place(clear, titleNode, 'last');
+                                    // note HTML
+                                    var noteContent = '';
+                                    if (attributes.DESCRIPTION) {
+                                        noteContent = attributes.DESCRIPTION + "\n";
                                     }
+                                    // if it has an image
+                                    if (attributes.IMAGE_URL) {
+                                        // image has link
+                                        if (attributes.IMAGE_LINK_URL) {
+                                            noteContent += '<a class="' + this.mapPanelCSS.noteLink + '" target="_blank" href="' + attributes.IMAGE_LINK_URL + '"><image class="' + this.mapPanelCSS.noteImage + '" src= "' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" /></a>';
+                                        }
+                                        else {
+                                            noteContent += '<image class="' + this.mapPanelCSS.noteImage + '" src="' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" />';
+                                        }
+                                    }
+                                    // if no content was set
+                                    if(!noteContent){
+                                        noteContent = this.config.i18n.mapNotes.notesUnavailable;
+                                    }
+                                    // note content
+                                    var contentNode = domConstruct.create('div', {  
+                                        className: this.mapPanelCSS.noteContent,
+                                        innerHTML: '<div class="' + this.mapPanelCSS.notePadding + '">' + noteContent + '</div>'
+                                    });
+                                    domConstruct.place(contentNode, containerNode, 'last');
+                                    // store nodes
+                                    this.noteNodes.push({
+                                        containerNode: containerNode,
+                                        titleNode: titleNode,
+                                        noteTitleText: noteTitleText,
+                                        noteExpand: noteExpand,
+                                        contentNode: contentNode
+                                    });
+                                    // note event
+                                    this._noteEvent(this.noteCount);
+                                    // insert node
+                                    domConstruct.place(containerNode, notesNode, 'last');
+                                    // keep score!
+                                    this.noteCount++;
                                 }
-                                // if no content was set
-                                if(!noteContent){
-                                    noteContent = this.config.i18n.mapNotes.notesUnavailable;
-                                }
-                                // note content
-                                var contentNode = domConstruct.create('div', {  
-                                    className: this.mapPanelCSS.noteContent,
-                                    innerHTML: '<div class="' + this.mapPanelCSS.notePadding + '">' + noteContent + '</div>'
-                                });
-                                domConstruct.place(contentNode, containerNode, 'last');
-                                // store nodes
-                                this.noteNodes.push({
-                                    containerNode: containerNode,
-                                    titleNode: titleNode,
-                                    noteTitleText: noteTitleText,
-                                    noteExpand: noteExpand,
-                                    contentNode: contentNode
-                                });
-                                // note event
-                                this._noteEvent(this.noteCount);
-                                // insert node
-                                domConstruct.place(containerNode, notesNode, 'last');
-                                // keep score!
-                                this.noteCount++;
                             }
                         } 
                     }
@@ -193,10 +195,10 @@ define([
             _getNotesLayers: function (obj) {
                 // get the layer by ID or title
                 var mapLayer, mapLayers = [], layers, layer, i, j;
-                // note layer id
-                var notesId = obj.notesLayer.id;
                 // if we have a layer id
-                if (obj.notesLayer && notesId) {
+                if (obj.notesLayer && obj.notesLayer.id) {
+                    // note layer id
+                    var notesId = obj.notesLayer.id;
                     // todo: May need to remove this at some point
                     var re = /_0$/;
                     // note: removes "_0" from end of ID

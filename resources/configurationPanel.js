@@ -271,7 +271,7 @@
             },
             {
                "type":"boolean",
-               "fieldName":"instagramChecked",
+               "fieldName":"instagramVisible",
                "label":"Visible",
                "tooltip":"Check this box to make the layer visible by default."
             },
@@ -296,7 +296,7 @@
             },
             {
                "type":"boolean",
-               "fieldName":"flickrChecked",
+               "fieldName":"flickrVisible",
                "label":"Visible",
                "tooltip":"Check this box to make the layer visible by default."
             },
@@ -328,7 +328,7 @@
             },
             {
                "type":"boolean",
-               "fieldName":"twitterChecked",
+               "fieldName":"twitterVisible",
                "label":"Visible",
                "tooltip":"Check this box to make the layer visible by default."
             },
@@ -364,7 +364,7 @@
             },
             {
                "type":"boolean",
-               "fieldName":"webcamsChecked",
+               "fieldName":"webcamsVisible",
                "label":"Visible",
                "tooltip":"Check this box to make the layer visible by default."
             },
@@ -393,14 +393,14 @@
       "nextBasemap":"hybrid",
       "defaultBasemap":"topo",
       "enableInstagram":true,
-      "instagramChecked":false,
+      "instagramVisible":false,
       "enableFlickr":true,
-      "flickrChecked":false,
+      "flickrVisible":false,
       "flickrSearch":"",
       "enableTwitter":true,
-      "twitterChecked":false,
+      "twitterVisible":false,
       "twitterSearch":"",
       "enableWebcams":true,
-      "webcamsChecked":false
+      "webcamsVisible":false
    }
 }

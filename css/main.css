@@ -118,6 +118,10 @@ input[type=text]::-ms-clear {
 .twitter-auth-status {
     cursor: pointer;
 }
+#twitter_legend_auth a {
+    margin-bottom: 10px;
+    display: inline-block;
+}
 /* Map Panel */
 
 .bookmark-item,

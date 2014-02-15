@@ -20,6 +20,7 @@ define({
             twitter: "Twitter",
             twitterSettings: "Twitter Settings",
             twitterUser: "Twitter Account",
+            twitterSignIn: "Sign in to Twitter",
             webcams: "Webcams",
             instagram: "Instagram",
             moreInfo: "More information",

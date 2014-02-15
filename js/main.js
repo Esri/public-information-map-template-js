@@ -176,6 +176,7 @@ function(
                 content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.general.legend + '</div>';
                 content += '<div class="' + this.css.panelContainer + '">';
                 content += '<div class="' + this.css.panelPadding + '">';
+                content += '<div id="twitter_legend_auth"></div>';
                 content += '<div id="LegendDiv"></div>';
                 content += '</div>';
                 content += '</div>';
