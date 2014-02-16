@@ -147,5 +147,5 @@
 }
 .map .calcite .pointer,
 .map .calcite .outerPointer {
-    background-image: url(../images/popup.png);
+    background-image: url(../images/popup-sprite.png);
 }
