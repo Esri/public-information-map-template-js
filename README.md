@@ -21,6 +21,12 @@ A fully configurable and responsive web mapping application that highlights area
 * A little background with Javascript
 * Experience with the [ArcGIS Javascript API](http://www.esri.com/) would help.
 
+## Webfonts
+
+This application uses a custom webfont created on [Fontello](http://fontello.com/). If you're hosting this application on your own server, make sure that it's configured to host the webfont files with the correct mime types. Some servers require a mime type set for these files to be able to serve them correctly. See the following URLs for more information. There is a zip archive of the webfont with it's fontello config in the "resources" folder in this repository.
+- [IIS Mime types](http://codingstill.com/2013/01/set-mime-types-for-web-fonts-in-iis/)
+- [Properly serve webfonts](http://blog.symbolset.com/properly-serve-webfonts)
+
 ## Resources
 
 * [ArcGIS for JavaScript API Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
