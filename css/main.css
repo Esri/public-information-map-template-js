@@ -27,15 +27,7 @@ input[type=text]::-ms-clear {
 .calcite a:active {
     color: #555;
 }
-.esriRtl label {
-    /*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
-}
 /* General Misc */
-
-.esriRTL .esriSimpleSliderTL {
-    left: auto;
-    right: 20px;
-}
 .toggle-grey {
     color: #999;
 }
