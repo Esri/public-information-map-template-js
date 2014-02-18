@@ -166,6 +166,7 @@ input[type=text]::-ms-clear {
     background-image: url(../images/ajax-loader.gif);
 }
 .note-selected .note-item {
+    background: #fff;
     border-left: 5px solid #007ac2;
     color: #007ac2;
     font-weight: 700;
