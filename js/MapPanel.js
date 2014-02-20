@@ -60,10 +60,10 @@ define([
                 });
                 // event for each layer
                 this._noteLayerEvents();
-                // update note layer title
-                this._setNoteLayerTitle();
                 // place items to click
                 this._placeNoteItems();
+                // update note layer title
+                this._setNoteLayerTitle();
             },
             _noteLayerEvent: function(layer){
                 // on layer toggle
