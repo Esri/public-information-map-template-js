@@ -160,8 +160,10 @@ function(
                 }
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.notesLayer && this.config.notesLayer.id){
+                    content += '<div id="map_notes_section">';
                     content += '<div class="' + this.css.panelHeader + '"><span id="map_notes_title">' + this.config.i18n.general.featured + '</span></div>';
                     content += '<div class="' + this.css.panelSection + '" id="map_notes"></div>';
+                    content += '</div>';
                 }
                 // show bookmarks and has bookmarks
                 if(this.config.enableBookmarks && this.bookmarks && this.bookmarks.length){

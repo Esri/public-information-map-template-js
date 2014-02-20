@@ -4,7 +4,7 @@ define([], function() {
     //and url parameters.
     var defaults = {
         "appid": "",
-        "webmap": "0eab5e8242e24ad0bed216bf50fead2c",
+        "webmap": "df8bcc10430f48878b01c96e907a1fc3",
         "oauthappid": null,
         //Enter the url to the proxy if needed by the applcation. See the "Using the proxy page" help topic for details
         //http://developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
@@ -32,7 +32,7 @@ define([], function() {
         "defaultBasemap": "topo",
         "nextBasemap": "hybrid",
         "notesLayer": {
-            "id": "mapNotes_1911"
+            "id": "mapNotes_5906"
         },
         "hideNotesLayerPopups":true,
         "enableInstagram":true,
