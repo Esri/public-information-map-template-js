@@ -124,7 +124,7 @@ input[type=text]::-ms-clear {
     height: 18px;
     font-size: 16px;
     cursor: pointer;
-    background: #f8f8f8;
+    background-color: #f8f8f8;
     background-position: 95% center;
     background-repeat: no-repeat;
 }
