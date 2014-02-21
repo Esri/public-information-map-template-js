@@ -153,13 +153,16 @@ define([
                 if (this.config.bannedWordsService) {
                     this._createSMFBadWords();
                 }
-                // info window set flag button
-                on(this.map.infoWindow, 'set-features', lang.hitch(this, function () {
-                    this._featureChange();
-                }));
-                on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
-                    this._featureChange();
-                }));
+                // if flag servers set
+                if (this.config.bannedUsersService && this.config.flagMailServer) {
+                    // info window set flag button
+                    on(this.map.infoWindow, 'set-features', lang.hitch(this, function () {
+                        this._featureChange();
+                    }));
+                    on(this.map.infoWindow, 'selection-change', lang.hitch(this, function () {
+                        this._featureChange();
+                    }));
+                }
                 // add social layers to legend
                 this.layerInfos = this.layerInfos.concat(this.socialLayerInfos);
             },
