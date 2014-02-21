@@ -258,7 +258,7 @@ function(
                     defaultBasemap: this.config.defaultBasemap
                 }, 'BasemapToggle');
                 BT.startup();
-                /* Start temporary until after JSAPI 3.9 is released */
+                /* Start temporary until after JSAPI 4.0 is released */
                 var layers = this.map.getLayersVisibleAtScale(this.map.getScale());
                 on.once(this.map, 'basemap-change', lang.hitch(this, function () {
                     for (var i = 0; i < layers.length; i++) {
@@ -268,7 +268,7 @@ function(
                         }
                     }
                 }));
-                /* END temporary until after JSAPI 3.9 is released */
+                /* END temporary until after JSAPI 4.0 is released */
             }
             // about dialog
             if (this.config.enableAboutDialog) {
