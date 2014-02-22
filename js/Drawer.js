@@ -204,11 +204,20 @@ function (
                     this.toggle();
                 }));
                 this._events.push(toggleClick);
+                // window
+                var w = win.get(document);
                 // window size event
-                var winResize = on(window, 'resize', lang.hitch(this, function () {
+                var winResize = on(w, 'resize', lang.hitch(this, function () {
                     this._windowResized();
                 }));
                 this._events.push(winResize);
+                // window focused on
+                var winFocus = on(w, 'focus', lang.hitch(this, function(){
+                    setTimeout(lang.hitch(this, function(){
+                        this.resize();
+                    }),250);
+                }));
+                this._events.push(winFocus);
                 // check window size
                 this._windowResized();
                 // fix layout
