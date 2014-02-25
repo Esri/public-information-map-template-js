@@ -232,17 +232,20 @@ function (
         },
         _windowResized: function () {
             // view screen
-            var vs = win.getBox();
+            var vs = win.getBox(), add;
             // if window width is less than specified size
             if (vs.w < this.get("showDrawerSize")) {
                 // hide drawer
-                this.toggle(false);
+                add = false;
             } else {
                 // show drawer
-                this.toggle(true);
+                add = true;
             }
-            // remove forced open
-            this._checkDrawerStatus();
+            // toggle
+            this.toggle(add).always(lang.hitch(this, function(){
+                // remove forced open
+                this._checkDrawerStatus(); 
+            }));
         },
         _checkDrawerStatus: function () {
             // border container layout
