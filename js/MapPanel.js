@@ -126,6 +126,7 @@ define([
                                     this.noteGraphics.push(graphic);
                                     // note container
                                     var containerNode = domConstruct.create('div', {
+                                        title: this.config.i18n.mapNotes.zoomTo,
                                         className: this.mapPanelCSS.noteContainer
                                     });
                                     // text symbol

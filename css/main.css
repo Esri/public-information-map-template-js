@@ -100,7 +100,7 @@ input[type=text]::-ms-clear {
 .panel-section {
     border-top: 1px solid #e0e0e0;
 }
-.panel-summary {
+.panel-summary, .panel-description {
     color: #666;
     padding: 0 10px 10px 10px;
     line-height: 24px;
@@ -127,6 +127,11 @@ input[type=text]::-ms-clear {
     background-color: #f8f8f8;
     background-position: 95% center;
     background-repeat: no-repeat;
+}
+.bookmark-item:hover, .note-item:hover{
+    border-color: #666;
+    background-color: #eee;
+    color: #333;
 }
 .esriRTL .bookmark-item,
 .esriRTL .note-item {
@@ -541,6 +546,12 @@ input[type=text]::-ms-clear {
 .esriRTL .drawer-menu-buttons .item-selected .arrow {
     left: auto;
     right: 0;
+}
+.drawer-menu-buttons .icon-text{
+    font-size: 11px;
+    margin-bottom: 5px;
+    line-height: 11px;
+    height: 11px;
 }
 /* Misc */
 

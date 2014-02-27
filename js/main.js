@@ -65,11 +65,13 @@ function(
                 panelHeader: "panel-header",
                 panelSection: "panel-section",
                 panelSummary: "panel-summary",
+                panelDescription: "panel-description",
                 pointerEvents: "pointer-events",
                 iconRight: "icon-right",
                 iconList: "icon-list",
                 iconLayers: "icon-layers",
                 iconMap: "icon-map",
+                iconText: "icon-text",
                 locateButtonTheme: "LocateButtonCalcite",
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
@@ -97,23 +99,9 @@ function(
             }));
             // startup drawer
             this._drawer.startup();
-            // get item info
-            arcgisUtils.getItem(this.config.webmap).then(lang.hitch(this, function (itemInfo) {
-                //let's get the web map item and update the extent if needed. 
-                if (this.config.appid && this.config.application_extent.length > 0) {
-                    itemInfo.item.extent = [
-                        [
-                            parseFloat(this.config.application_extent[0][0]),
-                            parseFloat(this.config.application_extent[0][1])
-                        ],
-                        [
-                            parseFloat(this.config.application_extent[1][0]),
-                            parseFloat(this.config.application_extent[1][1])
-                        ]
-                    ];
-                }
-                this._createWebMap(itemInfo);
-            }));
+            //supply either the webmap id or, if available, the item info 
+            var itemInfo = this.config.itemInfo || this.config.webmap;
+            this._createWebMap(itemInfo);
         },
         // if pointer events are supported
         _pointerEventsSupport: function(){
@@ -133,10 +121,19 @@ function(
         },
         _initTOC: function(){
             // layers
-            var tocNode = dom.byId('TableOfContents');
+            var tocNode = dom.byId('TableOfContents'), tocLayers, toc;
             if (tocNode) {
-                var tocLayers = this.socialLayers.concat(this.layers);
-                var toc = new TableOfContents({
+                tocLayers = this.layers;
+                toc = new TableOfContents({
+                    map: this.map,
+                    layers: tocLayers
+                }, tocNode);
+                toc.startup();
+            }
+            tocNode = dom.byId('MediaTableOfContents');
+            if (tocNode) {
+                tocLayers = this.socialLayers;
+                toc = new TableOfContents({
                     map: this.map,
                     layers: tocLayers
                 }, tocNode);
@@ -174,7 +171,7 @@ function(
                 // menu info
                 menuObj = {
                     title: this.config.i18n.general.map,
-                    label: '<span class="' + this.css.iconMap + '"></span>',
+                    label: '<div class="' + this.css.iconMap + '"></div><div class="' + this.css.iconText + '">' + this.config.i18n.general.map + '</div>',
                     content: content
                 };
                 // map menu
@@ -197,7 +194,7 @@ function(
                 // menu info
                 menuObj = {
                     title: this.config.i18n.general.legend,
-                    label: '<span class="' + this.css.iconList + '"></span>',
+                    label: '<div class="' + this.css.iconList + '"></div><div class="' + this.css.iconText + '">' + this.config.i18n.general.legend + '</div>',
                     content: content
                 };
                 // legend menu
@@ -215,10 +212,15 @@ function(
                 content += '<div class="' + this.css.panelContainer + '">';
                 content += '<div id="TableOfContents"></div>';
                 content += '</div>';
+                content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.social.mediaLayers + '</div>';
+                content += '<div class="' + this.css.panelContainer + '">';
+                content += '<div class="' + this.css.panelDescription + '">' + this.config.i18n.social.mediaLayersDescription + '</div>';
+                content += '<div id="MediaTableOfContents"></div>';
+                content += '</div>';
                 // menu info
                 menuObj = {
                     title: this.config.i18n.general.layers,
-                    label: '<span class="' + this.css.iconLayers + '"></span>',
+                    label: '<div class="' + this.css.iconLayers + '"></div><div class="' + this.css.iconText + '">' + this.config.i18n.general.layers + '</div>',
                     content: content
                 };
                 // layers menu
@@ -236,19 +238,25 @@ function(
             this._drawerMenu.startup();
             // locate button
             if (this.config.enableLocateButton) {
-                var LB = new LocateButton({
+                this._LB = new LocateButton({
                     map: this.map,
                     theme: this.css.locateButtonTheme
                 }, 'LocateButton');
-                LB.startup();
+                this._LB.startup();
             }
             // home button
             if (this.config.enableHomeButton) {
-                var HB = new HomeButton({
+                this._HB = new HomeButton({
                     map: this.map,
                     theme: this.css.homebuttonTheme
                 }, 'HomeButton');
-                HB.startup();
+                this._HB.startup();
+                // clear locate on home button
+                on(this._HB, 'home', lang.hitch(this, function(){
+                    if(this._LB){
+                        this._LB.clear();
+                    }
+                }));
             }
             // basemap toggle
             if (this.config.enableBasemapToggle) {

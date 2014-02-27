@@ -14,7 +14,7 @@ define([], function() {
         //color theme.
         "title":"",
         "summary":"",
-        "defaultPanel":"map",
+        "defaultPanel":"legend",
         "enableSummary":true,
         "enableTitle":true,
         "enableLegendPanel": true,
@@ -32,7 +32,7 @@ define([], function() {
         "defaultBasemap": "topo",
         "nextBasemap": "hybrid",
         "notesLayer": {
-            "id": "mapNotes_5906"
+            "id": "mapNotes_7330"
         },
         "hideNotesLayerPopups":true,
         "enableInstagram":true,
