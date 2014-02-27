@@ -130,14 +130,31 @@ function(
                 }, tocNode);
                 toc.startup();
             }
-            tocNode = dom.byId('MediaTableOfContents');
-            if (tocNode) {
-                tocLayers = this.socialLayers;
-                toc = new TableOfContents({
-                    map: this.map,
-                    layers: tocLayers
-                }, tocNode);
-                toc.startup();
+            // if we have social layers
+            if (this.socialLayers && this.socialLayers.length) {
+                // add social specific html
+                var content = '';
+                content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.social.mediaLayers + '</div>';
+                content += '<div class="' + this.css.panelContainer + '">';
+                content += '<div class="' + this.css.panelDescription + '">' + this.config.i18n.social.mediaLayersDescription + '</div>';
+                content += '<div id="MediaTableOfContents"></div>';
+                content += '</div>';
+                // get node to insert
+                var node = dom.byId('social_media_layers');
+                if(node){
+                    node.innerHTML = content;
+                }
+                // get toc node for social layers
+                tocNode = dom.byId('MediaTableOfContents');
+                // if node exists
+                if(tocNode){
+                    tocLayers = this.socialLayers;
+                    toc = new TableOfContents({
+                        map: this.map,
+                        layers: tocLayers
+                    }, tocNode);
+                    toc.startup();    
+                }
             }
         },
         _init: function () {
@@ -212,11 +229,7 @@ function(
                 content += '<div class="' + this.css.panelContainer + '">';
                 content += '<div id="TableOfContents"></div>';
                 content += '</div>';
-                content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.social.mediaLayers + '</div>';
-                content += '<div class="' + this.css.panelContainer + '">';
-                content += '<div class="' + this.css.panelDescription + '">' + this.config.i18n.social.mediaLayersDescription + '</div>';
-                content += '<div id="MediaTableOfContents"></div>';
-                content += '</div>';
+                content += '<div id="social_media_layers"></div>';
                 // menu info
                 menuObj = {
                     title: this.config.i18n.general.layers,
