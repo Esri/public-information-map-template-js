@@ -105,6 +105,7 @@
     cursor: pointer;
     font-weight: 700;
     display: inline-block;
+    *display:inline;
 }
 .calcite .dialog-content .layer-settings-submit:hover {
     background: #5fa8d4;

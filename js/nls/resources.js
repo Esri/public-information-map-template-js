@@ -24,7 +24,7 @@ define({
             twitterSettings: "Twitter Settings",
             twitterUser: "Twitter Account",
             twitterSignIn: "Sign in to Twitter",
-            webcams: "Webcams",
+            webcams: "Webcams.travel",
             instagram: "Instagram",
             moreInfo: "More information",
             searchTerms: "Search Terms",
