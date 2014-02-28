@@ -335,7 +335,7 @@ function (
                 image: encodeURIComponent(this.get("image")),
                 title: encodeURIComponent(this.get("title")),
                 summary: encodeURIComponent(this.get("summary")),
-                hashtags: encodeURIComponent(this.get("hashtags")),
+                hashtags: encodeURIComponent(this.get("hashtags"))
             });
             // email link
             if (isMail) {
