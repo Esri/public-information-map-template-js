@@ -71,8 +71,8 @@
                      "value":"map"
                   },
                   {
-                     "label":"layers",
-                     "value":"Layers"
+                     "label":"Layers",
+                     "value":"layers"
                   },
                   {
                      "label":"Legend",
