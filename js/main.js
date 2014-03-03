@@ -396,6 +396,15 @@ function(
         _createGeocoderOptions: function() {
             var hasEsri = false,
                 esriIdx, options, geocoders = lang.clone(this.config.helperServices.geocode);
+            //only use geocoders with a url
+            geocoders = array.filter(geocoders, function (geocoder) {
+                if (geocoder.url) {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            });
             // each geocoder
             array.forEach(geocoders, function (geocoder) {
                 if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
@@ -440,8 +449,15 @@ function(
                     options.geocoders = geocoders;
                 }
             } else {
-                options.arcgisGeocoder = false;
-                options.geocoders = geocoders;
+                if (geocoders.length > 0) {
+                    options.arcgisGeocoder = false;
+                    options.geocoders = geocoders;
+                }
+                else{
+                    options.arcgisGeocoder = true;
+                    options.autoComplete = true;
+                    options.geocoders = null;
+                }
             }
             return options;
         },
