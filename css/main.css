@@ -322,7 +322,7 @@ input[type=text]::-ms-clear {
     -webkit-box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
     box-shadow: inset -1px 0 6px 0 rgba(0, 0, 0, 0.5);
     position: fixed;
-    z-index: 999;
+    z-index: 450;
     top: 0;
     left: 0;
     width: 280px;
@@ -441,7 +441,7 @@ input[type=text]::-ms-clear {
 .mobile-locate-box-hidden {
     display: none;
     position: absolute;
-    z-index: 999;
+    z-index: 460;
     left: 0;
     top: 35px;
     width: 100%;
@@ -569,7 +569,7 @@ input[type=text]::-ms-clear {
     height: 100%;
     width: 100%;
     display: block;
-    z-index: 999;
+    z-index: 500;
     position: absolute;
     top: 0;
     left: 0;

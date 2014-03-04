@@ -158,8 +158,6 @@ function(
             }
         },
         _init: function () {
-            // drawer size check
-            this._drawer.resize();
             // menu panels
             this.drawerMenus = [];
             var content, menuObj;
@@ -357,6 +355,10 @@ function(
             });
             // hide loading div
             this._hideLoadingIndicator();
+            // drawer size check
+            setTimeout(lang.hitch(this, function(){
+                this._drawer.resize();    
+            }), 500);
             // drawer size check
             this._drawer.resize();
         },
