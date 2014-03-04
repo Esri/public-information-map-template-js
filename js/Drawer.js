@@ -31,7 +31,7 @@ function (
             contentPaneSide: null,
             toggleButton: null,
             direction: 'ltr',
-            mapResizeTimeout: 260,
+            mapResizeTimeout: 300,
             mapResizeStepTimeout: 25
         },
         // lifecycle: 1

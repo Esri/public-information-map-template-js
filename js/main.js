@@ -357,6 +357,8 @@ function(
             });
             // hide loading div
             this._hideLoadingIndicator();
+            // drawer size check
+            this._drawer.resize();
         },
         _checkMobileGeocoderVisibility: function () {
             if(this._mobileGeocoderIconNode && this._mobileSearchNode){
