@@ -305,6 +305,9 @@ input[type=text]::-ms-clear {
     -o-transition: width 250ms ease;
     transition: width 250ms ease;
 }
+.app-loading .content-pane-left {
+    width: 280px;
+}
 .drawer-open .content-pane-left {
     width: 280px;
     overflow: auto;
@@ -564,8 +567,10 @@ input[type=text]::-ms-clear {
     height: 0;
 }
 /* Loading */
-
-.loading-indicator {
+.loading-indicator{
+    display: none;
+}
+.app-loading .loading-indicator {
     height: 100%;
     width: 100%;
     display: block;
@@ -589,6 +594,9 @@ input[type=text]::-ms-clear {
     }
     .app-title {
         max-width: 30%;
+    }
+    .app-loading .content-pane-left {
+        width: 0px;
     }
 }
 @media screen and (max-width: 600px) {

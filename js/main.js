@@ -75,7 +75,8 @@ function(
                 locateButtonTheme: "LocateButtonCalcite",
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
-                mobileGeocoderTheme: "geocoder-mobile"
+                mobileGeocoderTheme: "geocoder-mobile",
+                appLoading: "app-loading"
             };
             // pointer event support
             if(this._pointerEventsSupport()){
@@ -356,10 +357,6 @@ function(
             // hide loading div
             this._hideLoadingIndicator();
             // drawer size check
-            setTimeout(lang.hitch(this, function(){
-                this._drawer.resize();    
-            }), 500);
-            // drawer size check
             this._drawer.resize();
         },
         _checkMobileGeocoderVisibility: function () {
@@ -530,10 +527,8 @@ function(
         },
         // hide map loading spinner
         _hideLoadingIndicator: function () {
-            var indicator = dom.byId("loadingIndicatorDiv");
-            if (indicator) {
-                domStyle.set(indicator, "display", "none");
-            }
+            // add loaded class
+            domClass.remove(document.body, this.css.appLoading);
         },
         //create a map based on the input web map id
         _createWebMap: function (itemInfo) {

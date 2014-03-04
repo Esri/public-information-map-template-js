@@ -89,7 +89,7 @@
 .esriRTL .calcite .dialog-content .layer-settings-input {
     margin: 0 0 5px 5px;
 }
-.calcite .dialog-content .layer-settings-submit {
+.calcite .dialog-content .layer-settings-submit, .calcite .dijitButtonNode  {
     -webkit-border-radius: 2;
     -moz-border-radius: 2;
     border-radius: 2px;
@@ -106,6 +106,10 @@
     font-weight: 700;
     display: inline-block;
     *display:inline;
+}
+.calcite .esriIdCancel .dijitButtonNode{
+    background: none;
+    color:#999;
 }
 .calcite .dialog-content .layer-settings-submit:hover {
     background: #5fa8d4;
