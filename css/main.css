@@ -129,7 +129,6 @@ input[type=text]::-ms-clear {
     background-repeat: no-repeat;
 }
 .bookmark-item:hover, .note-item:hover{
-    border-color: #666;
     background-color: #eee;
     color: #333;
 }
