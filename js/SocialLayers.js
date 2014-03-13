@@ -274,38 +274,53 @@ define([
                     this._twitterStatusNode = dom.byId('twitter_auth_status');
                     this._twitterStatus2Node = dom.byId('twitter_settings_auth');
                     this._twitterStatus3Node = dom.byId('twitter_legend_auth');
-                    // if node found
-                    if (this._twitterStatusNode && this._twitterStatus2Node) {
+                    if(this._twitterStatusNode){
                         // sign in click
                         on(this._twitterStatusNode, 'a:click', lang.hitch(this, function (evt) {
                             this._twitterSignIn(evt);
                         }));
+                    }
+                    if(this._twitterStatus2Node){
                         // sign in click
                         on(this._twitterStatus2Node, 'a:click', lang.hitch(this, function (evt) {
                             this._twitterSignIn(evt);
                         }));
+                    }
+                    if(this._twitterStatus3Node){
                         // sign in click
                         on(this._twitterStatus3Node, 'a:click', lang.hitch(this, function (evt) {
                             this._twitterSignIn(evt);
                         }));
-                        // authorize check
-                        on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
-                            var status, longStatus;
-                            // user signed in
-                            if (evt.authorized) {
-                                status = '<a class="' + this.socialCSS.authStatus + '">' +this.config.i18n.general.switchAccount + '</a>';
+                    }
+                    // authorize check
+                    on(this._twitterLayer, 'authorize', lang.hitch(this, function (evt) {
+                        var status, longStatus;
+                        // user signed in
+                        if (evt.authorized) {
+                            status = '<a class="' + this.socialCSS.authStatus + '">' +this.config.i18n.general.switchAccount + '</a>';
+                            if(this._twitterStatusNode){
                                 this._twitterStatusNode.innerHTML = '';
+                            }
+                            if(this._twitterStatus2Node){
                                 this._twitterStatus2Node.innerHTML = status;
+                            }
+                            if(this._twitterStatus3Node){
                                 this._twitterStatus3Node.innerHTML = '';
-                            } else {
-                                status = '<a class="' + this.socialCSS.authStatus + '"><span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.general.signIn + '</a>';
-                                longStatus = '<a class="' + this.socialCSS.authStatus + '"><span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.social.twitterSignIn + '</a>';
+                            }
+                        } else {
+                            status = '<a class="' + this.socialCSS.authStatus + '"><span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.general.signIn + '</a>';
+                            longStatus = '<a class="' + this.socialCSS.authStatus + '"><span class="'+ this.socialCSS.iconAttention + '"></span>' + this.config.i18n.social.twitterSignIn + '</a>';
+                            if(this._twitterStatusNode){
                                 this._twitterStatusNode.innerHTML = status;
+                            }
+                            if(this._twitterStatus2Node){
                                 this._twitterStatus2Node.innerHTML = status;
+                            }
+                            if(this._twitterStatus3Node){
                                 this._twitterStatus3Node.innerHTML = longStatus;
                             }
-                        }));
-                    }
+                        }
+                    }));
                     // twitter filtered by text
                     this._twitterLayer.watch("searchTerm", lang.hitch(this, function(){
                         this._updateTwitterFilter();

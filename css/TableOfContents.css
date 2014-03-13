@@ -84,3 +84,11 @@
     margin-left: 0;
     margin-right: 4px;
 }
+@media screen and (max-width: 310px) {
+    .TableOfContents {
+        width: auto;
+    }
+    .TableOfContents .toc-text {
+        width:60%;
+    }
+}
