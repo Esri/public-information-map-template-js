@@ -536,6 +536,22 @@ function(
             var customPopup = new Popup({}, domConstruct.create("div"));
             // add popup theme
             domClass.add(customPopup.domNode, "calcite");
+            // set extent from URL Param
+            if(this.config.extent){
+                var e = this.config.extent.split(',');
+                if(e.length === 4){
+                    itemInfo.item.extent = [
+                        [
+                            parseFloat(e[0]),
+                            parseFloat(e[1])
+                        ],
+                        [
+                            parseFloat(e[2]),
+                            parseFloat(e[3])
+                        ]
+                    ];
+                }
+            }
             //can be defined for the popup like modifying the highlight symbol, margin etc.
             arcgisUtils.createMap(itemInfo, "mapDiv", {
                 mapOptions: {
