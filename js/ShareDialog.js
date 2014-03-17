@@ -256,7 +256,7 @@ define([
                     urlObject.query.extent = null;
                 }
                 // create base url
-                url = window.location.protocol + '//' + window.location.host + window.location.pathname + '?';
+                url = window.location.protocol + '//' + window.location.host + window.location.pathname;
                 // each param
                 for (var i in urlObject.query) {
                     if (urlObject.query[i]) {
@@ -264,6 +264,7 @@ define([
                         if (useSeparator) {
                             url += '&';
                         } else {
+                            url += '?';
                             useSeparator = true;
                         }
                         url += i + '=' + urlObject.query[i];
