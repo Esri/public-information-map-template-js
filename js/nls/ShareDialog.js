@@ -6,6 +6,7 @@ define({
                 "heading": "Share this map",
                 "url": "Map Link",
                 "embed": "Embed Map",
+                "extent": "Share current location",
                 "size": "Size (width/height):",
                 "facebookTooltip": "Facebook",
                 "twitterTooltip": "Twitter",

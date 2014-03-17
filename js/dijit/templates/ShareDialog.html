@@ -4,13 +4,16 @@
     </div>
     <div data-dojo-attach-point="_dialogNode">
     <div class="${css.shareDialogContent}">
-        <div  class="${css.shareDialogSubHeader}">${_i18n.widgets.ShareDialog.heading}</div>
+        <div class="${css.shareDialogSubHeader}">${_i18n.widgets.ShareDialog.heading}</div>
         <div class="${css.iconContainer}">
             <div class="${css.facebookIcon}" data-dojo-attach-point="_facebookButton" title="${_i18n.widgets.ShareDialog.facebookTooltip}"></div>
             <div class="${css.twitterIcon}" data-dojo-attach-point="_twitterButton" title="${_i18n.widgets.ShareDialog.twitterTooltip}"></div>
             <div class="${css.gplusIcon}" data-dojo-attach-point="_gpulsButton" title="${_i18n.widgets.ShareDialog.gplusTooltip}"></div>
             <div class="${css.emailIcon}" data-dojo-attach-point="_emailButton" title="${_i18n.widgets.ShareDialog.emailTooltip}"></div>
             <div class="${css.iconClear}"></div>
+        </div>
+        <div class="${css.shareDialogExtent}">
+            <input id="${id}_extent_checkbox" data-dojo-attach-point="_extentInput" type="checkbox" /> <label for="${id}_extent_checkbox">${_i18n.widgets.ShareDialog.extent}</label>
         </div>
         <div class="${css.shareDialogSubHeader}">${_i18n.widgets.ShareDialog.url}</div>
         <input class="${css.shareMapURL}"  type="text"  data-dojo-attach-point="_shareMapUrlText" readonly />
