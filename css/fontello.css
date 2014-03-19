@@ -19,7 +19,7 @@
 }
 */
 
-[class^="icon-"]:before,[class*=" icon-"]:before,.left-arrow,.right-arrow,.dijitDialogCloseIcon,.esriGeocoderSearch,.esriGeocoderReset, .esriGeocoderSelectedCheck, .esriGeocoderMenuArrow, .note-expand, .esriGeocoderMenuClose {
+[class^="icon-"]:before,[class*=" icon-"]:before,.left-arrow:before,.right-arrow:before,.dijitDialogCloseIcon:before,.esriGeocoderSearch:before,.esriGeocoderReset:before, .esriGeocoderSelectedCheck:before, .esriGeocoderMenuArrow:before, .note-expand:before, .esriGeocoderMenuClose:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -43,8 +43,9 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-.icon-search-1:before { content: '\e800'; } /* '' */
+.icon-emo-unhappy:before { content: '\e806'; } /* '' */
 .icon-layers:before { content: '\e81d'; } /* '' */
+.icon-mail:before { content: '\e802'; } /* '' */
 .icon-star:before { content: '\e811'; } /* '' */
 .icon-menu-1:before { content: '\e810'; } /* '' */
 .icon-check-1:before { content: '\e804'; } /* '' */
@@ -57,8 +58,8 @@
 .icon-retweet:before { content: '\e80f'; } /* '' */
 .icon-attention-1:before { content: '\e812'; } /* '' */
 .icon-location:before { content: '\e81c'; } /* '' */
-.icon-map:before { content: '\e81e'; } /* '' */
-.icon-mail:before { content: '\e802'; } /* '' */
+.icon-search-1:before { content: '\e800'; } /* '' */
+.icon-cog:before { content: '\e805'; } /* '' */
 .icon-share:before { content: '\e816'; } /* '' */
 .icon-popup:before { content: '\e817'; } /* '' */
 .icon-left-open-big:before { content: '\e80d'; } /* '' */
@@ -72,7 +73,7 @@
 .icon-twitter-1:before { content: '\e818'; } /* '' */
 .icon-facebook-squared-1:before { content: '\e80e'; } /* '' */
 .icon-gplus:before { content: '\e819'; } /* '' */
-.icon-cog:before { content: '\e805'; } /* '' */
+.icon-map:before { content: '\e81e'; } /* '' */
 
 /* custom. don't remove */
 .left-arrow:before { content: '\e80d'; }

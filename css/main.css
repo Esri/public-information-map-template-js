@@ -28,6 +28,7 @@ input[type=text]::-ms-clear {
     color: #555;
 }
 /* General Misc */
+
 .toggle-grey {
     color: #999;
 }
@@ -100,7 +101,8 @@ input[type=text]::-ms-clear {
 .panel-section {
     border-top: 1px solid #e0e0e0;
 }
-.panel-summary, .panel-description {
+.panel-summary,
+.panel-description {
     color: #666;
     padding: 0 10px 10px 10px;
     line-height: 24px;
@@ -128,7 +130,8 @@ input[type=text]::-ms-clear {
     background-position: 95% center;
     background-repeat: no-repeat;
 }
-.bookmark-item:hover, .note-item:hover{
+.bookmark-item:hover,
+.note-item:hover {
     background-color: #eee;
     color: #333;
 }
@@ -548,7 +551,7 @@ input[type=text]::-ms-clear {
     left: auto;
     right: 0;
 }
-.drawer-menu-buttons .icon-text{
+.drawer-menu-buttons .icon-text {
     font-size: 11px;
     margin-bottom: 5px;
     line-height: 11px;
@@ -565,7 +568,11 @@ input[type=text]::-ms-clear {
     height: 0;
 }
 /* Loading */
-.loading-indicator{
+
+.loading-indicator {
+    display: none;
+}
+.loading-error {
     display: none;
 }
 .app-loading .loading-indicator {
@@ -581,6 +588,36 @@ input[type=text]::-ms-clear {
     background-position: center center;
     background-image: url(../images/ajax-loader.gif);
     background-repeat: no-repeat;
+}
+.app-error .loading-indicator {
+    height: 100%;
+    width: 100%;
+    display: block;
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background: #eee;
+    color: #666;
+}
+.app-error .loading-error {
+    display: block;
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    margin: -50px 0 0 0;
+}
+.app-error .loading-error .icon-emo-unhappy {
+    font-size: 42px;
+    line-height: normal;
+}
+.app-error .loading-error .error-message-text {
+    margin: 10px 0 0 0;
 }
 /* Media Queries */
 
@@ -650,11 +687,11 @@ input[type=text]::-ms-clear {
         display: none!important;
     }
     .content-pane-left {
-        max-width:200px;
+        max-width: 200px;
     }
     .drawer-open .content-pane-left {
         width: 200px;
-        overflow-x:auto;
+        overflow-x: auto;
     }
     .pointer-events .drawer-open-complete .content-pane-left:before {
         width: 200px;

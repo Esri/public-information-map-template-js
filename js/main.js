@@ -50,11 +50,7 @@ function(
 ) {
     return declare("", [MapPanel, SocialLayers], {
         config: {},
-        constructor: function (config) {
-            //config will contain application and user defined info for the template such as i18n strings, the web map id
-            // and application id
-            // any url parameters and any application specific configuration information.
-            this.config = config;
+        constructor: function(){
             // css classes
             this.css = {
                 mobileSearchDisplay: "mobile-locate-box-display",
@@ -76,7 +72,8 @@ function(
                 homebuttonTheme: "HomeButtonCalcite",
                 desktopGeocoderTheme: "geocoder-desktop",
                 mobileGeocoderTheme: "geocoder-mobile",
-                appLoading: "app-loading"
+                appLoading: "app-loading",
+                appError: "app-error"
             };
             // pointer event support
             if(this._pointerEventsSupport()){
@@ -84,25 +81,54 @@ function(
             }
             // mobile size switch domClass
             this._showDrawerSize = 850;
-            // drawer
-            this._drawer = new Drawer({
-                direction: this.config.i18n.direction,
-                showDrawerSize: this._showDrawerSize,
-                borderContainer: 'bc_outer',
-                contentPaneCenter: 'cp_outer_center',
-                contentPaneSide: 'cp_outer_left',
-                toggleButton: 'hamburger_button'
-            });
-            // drawer resize event
-            on(this._drawer, 'resize', lang.hitch(this, function () {
-                // check mobile button status
-                this._checkMobileGeocoderVisibility();
-            }));
-            // startup drawer
-            this._drawer.startup();
-            //supply either the webmap id or, if available, the item info 
-            var itemInfo = this.config.itemInfo || this.config.webmap;
-            this._createWebMap(itemInfo);
+        },
+        startup: function (config) {
+            // config will contain application and user defined info for the template such as i18n strings, the web map id
+            // and application id
+            // any url parameters and any application specific configuration information.
+            if (config) {
+                //config will contain application and user defined info for the template such as i18n strings, the web map id
+                // and application id
+                // any url parameters and any application specific configuration information.
+                this.config = config;
+                // drawer
+                this._drawer = new Drawer({
+                    direction: this.config.i18n.direction,
+                    showDrawerSize: this._showDrawerSize,
+                    borderContainer: 'bc_outer',
+                    contentPaneCenter: 'cp_outer_center',
+                    contentPaneSide: 'cp_outer_left',
+                    toggleButton: 'hamburger_button'
+                });
+                // drawer resize event
+                on(this._drawer, 'resize', lang.hitch(this, function () {
+                    // check mobile button status
+                    this._checkMobileGeocoderVisibility();
+                }));
+                // startup drawer
+                this._drawer.startup();
+                //supply either the webmap id or, if available, the item info 
+                var itemInfo = this.config.itemInfo || this.config.webmap;
+                this._createWebMap(itemInfo);
+            } else {
+                var error = new Error("Main:: Config is not defined");
+                this.reportError(error);
+            }
+        },
+        reportError: function (error) {
+            // remove spinner
+            this._hideLoadingIndicator();
+            // add app error
+            domClass.add(document.body, this.css.appError);
+            // set message
+            var node = dom.byId('error_message');
+            if(node){
+                if (this.config && this.config.i18n) {
+                    node.innerHTML = this.config.i18n.map.error + ": " + error.message;
+                } else {
+                    node.innerHTML = "Unable to create map: " + error.message;
+                }
+            }
         },
         // if pointer events are supported
         _pointerEventsSupport: function(){
@@ -582,19 +608,7 @@ function(
                         this._init();
                     }));
                 }
-            }), lang.hitch(this, function (error) {
-                //an error occurred - notify the user. In this example we pull the string from the
-                //resource.js file located in the nls folder because we've set the application up
-                //for localization. If you don't need to support multiple languages you can hardcode the
-                //strings here and comment out the call in index.html to get the localization strings.
-                if (this.config && this.config.i18n) {
-                    alert(this.config.i18n.map.error + ": " + error.message);
-                } else {
-                    alert("Unable to create map: " + error.message);
-                }
-                // hide loading div
-                this._hideLoadingIndicator();
-            }));
+            }), this.reportError);
         }
     });
 });

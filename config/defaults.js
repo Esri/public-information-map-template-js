@@ -62,6 +62,7 @@ define({
     //want to use custom settings for units or any of the helper services set queryForOrg to false then enter
     //default values for any items you need using the helper services and units properties. 
     "queryForOrg": false,
+    "localize": true,
     "urlItems": [
         "extent"
     ],

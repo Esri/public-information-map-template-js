@@ -5,12 +5,14 @@
     <meta charset="utf-8" />
     <!--Define the versions of IE that will be used to render the page. See Microsoft documentation for details. Optional.-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- End Responsive -->
     <!-- Mobile -->
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <!-- End Mobile -->
     <!-- SEO -->
     <meta name="Keywords" content="Public Information Map, Map, Esri" />
     <meta name="Description" content="A fully configurable and responsive web mapping application that highlights areas of interest through data, map notes, and/or social content to a wide audience." />
@@ -44,7 +46,12 @@
 </head>
 <body class="calcite app-loading">
     <!--The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. -->
-    <div class="loading-indicator"></div>
+    <div class="loading-indicator">
+        <div class="loading-error">
+            <div class="icon-emo-unhappy"></div>
+            <div class="error-message-text" id="error_message"></div>
+        </div>
+    </div>
     <div id="bc_outer" class="border-container-outer">
         <div id="cp_outer_left" class="content-pane-left">
             <div id="drawer_menus"></div>
@@ -101,27 +108,25 @@
     <script type="text/javascript" src="//js.arcgis.com/3.9/init.js"></script>
     <script type="text/javascript">
         require([
-            "dojo/on",
-            "application/main",
             "application/template",
-            "dojo/domReady!"
+            "application/main"
         ], function(
-            on,
-            Main,
-            Template
-        ) {
-            //create the template. This will take care of all the logic required for template applciations
-            //If you need localization set the supportsLocalization value to true to get the localized strings
-            //from the javascript/nls/resource files.
-            //Note that we've included a placeholder nls folder and a resource file with one error string
-            //to show how to setup the strings file.
-            var supportsLocalization = true; //defaults to false
-            var myTemplate = new Template(supportsLocalization);
-            on(myTemplate, "ready", function(config) {
-                //The config object contains the following properties: helper services, (optionally)
-                //i18n, appid, webmap and any custom values defined by the applcation.
-                //In this example we have one called theme.
-                Main(config);
+            Template,
+            Main
+        ){
+            // create the template. This will take care of all the logic required for template applications 
+            var myTemplate = new Template();
+            // create my main application. Start placing your logic in the main.js file.
+            var myApp = new Main();
+            // start template
+            myTemplate.startup().then(function(config) {
+                // The config object contains the following properties: helper services, (optionally) 
+                // i18n, appid, webmap and any custom values defined by the application. 
+                // In this example we have one called theme. 
+                myApp.startup(config);
+            }, function(error) {
+                // something went wrong. Let's report it.
+                myApp.reportError(error);
             });
         });
     </script>
