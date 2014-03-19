@@ -571,28 +571,8 @@ input[type=text]::-ms-clear {
 
 .loading-indicator {
     display: none;
-}
-.loading-error {
-    display: none;
-}
-.app-loading .loading-indicator {
     height: 100%;
     width: 100%;
-    display: block;
-    z-index: 500;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    background: #eee;
-    background-position: center center;
-    background-image: url(../images/ajax-loader.gif);
-    background-repeat: no-repeat;
-}
-.app-error .loading-indicator {
-    height: 100%;
-    width: 100%;
-    display: block;
     z-index: 500;
     position: absolute;
     top: 0;
@@ -601,8 +581,8 @@ input[type=text]::-ms-clear {
     background: #eee;
     color: #666;
 }
-.app-error .loading-error {
-    display: block;
+.loading-error {
+    display: none;
     width: 100%;
     height: 100px;
     position: absolute;
@@ -612,9 +592,21 @@ input[type=text]::-ms-clear {
     text-align: center;
     margin: -50px 0 0 0;
 }
+.app-loading .loading-indicator {
+    display: block;
+    background-position: center center;
+    background-image: url(../images/ajax-loader.gif);
+    background-repeat: no-repeat;
+}
+.app-error .loading-indicator {
+    display: block;
+}
+.app-error .loading-error {
+    display: block;
+}
 .app-error .loading-error .icon-emo-unhappy {
-    font-size: 42px;
-    line-height: normal;
+    font-size: 50px;
+    line-height: 50px;
 }
 .app-error .loading-error .error-message-text {
     margin: 10px 0 0 0;
