@@ -76,6 +76,10 @@
 .icon-map:before { content: '\e81e'; } /* '' */
 
 /* custom. don't remove */
+.left-arrow:before,.right-arrow:before,.dijitDialogCloseIcon:before,.esriGeocoderSearch:before,.esriGeocoderReset:before, .esriGeocoderSelectedCheck:before, .esriGeocoderMenuArrow:before, .note-expand:before, .esriGeocoderMenuClose:before {
+    margin-left: 0;
+    margin-right: 0;
+}
 .left-arrow:before { content: '\e80d'; }
 .right-arrow:before { content: '\e80b'; }
 .esriRTL .left-arrow:before { content: '\e80b'; }
