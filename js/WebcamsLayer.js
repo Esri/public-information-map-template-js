@@ -44,7 +44,7 @@ function (
             symbol: null,
             infoTemplate: null,
             key: null,
-            url: location.protocol + '//api.webcams.travel/rest',
+            url: 'http://api.webcams.travel/rest',
             refreshTime: 4000
         },
         constructor: function (options) {

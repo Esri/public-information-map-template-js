@@ -35,7 +35,7 @@ function (
             theme: "AboutDialog",
             visible: true,
             info: null,
-            sharinghost: "http://www.arcgis.com",
+            sharinghost: location.protocol + "//www.arcgis.com",
             itemPage: "/home/item.html?id=",
             dialog: null
         },

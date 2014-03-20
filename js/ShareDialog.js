@@ -52,7 +52,7 @@ define([
                 facebookURL: "https://www.facebook.com/sharer/sharer.php?s=100&p[url]={url}&p[images][0]={image}&p[title]={title}&p[summary]={summary}",
                 twitterURL: "https://twitter.com/intent/tweet?url={url}&text={title}&hashtags={hashtags}",
                 googlePlusURL: "https://plus.google.com/share?url={url}",
-                bitlyAPI: "http://api.bit.ly/v3/shorten",
+                bitlyAPI: location.protocol === "https:" ? "https://api-ssl.bitly.com/v3/shorten" : "http://api.bit.ly/v3/shorten",
                 bitlyLogin: "",
                 bitlyKey: "",
                 embedSizes: [{

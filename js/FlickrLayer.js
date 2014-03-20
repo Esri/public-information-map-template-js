@@ -377,7 +377,7 @@ function (
                 // add social media type/id for filtering
                 result.smType = this.id;
                 result.filterType = 4;
-                result.filterContent = 'http://www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
+                result.filterContent = location.protocol + '//www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
                 result.filterAuthor = result.owner;
                 // add date to result
                 var date = new Date(parseInt(result.dateupload * 1000, 10));
