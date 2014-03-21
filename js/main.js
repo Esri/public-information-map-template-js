@@ -445,16 +445,18 @@ function(
             // at least 1 geocoder defined
             if(geocoders.length){
                 // each geocoder
-                array.forEach(geocoders, function (geocoder) {
+                array.forEach(geocoders, lang.hitch(this, function(geocoder) {
                     // if esri geocoder
                     if (geocoder.url && geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
                         hasEsri = true;
                         geocoder.name = "Esri World Geocoder";
                         geocoder.outFields = "Match_addr, stAddr, City";
                         geocoder.singleLineFieldName = "Single Line";
-                        geocoder.esri = geocoder.placefinding = true;
+                        geocoder.esri = true;
+                        geocoder.placefinding = true;
+                        geocoder.placeholder = this.config.i18n.general.find;
                     }
-                });
+                }));
                 //only use geocoders with a singleLineFieldName that allow placefinding unless its custom
                 geocoders = array.filter(geocoders, function (geocoder) {
                     if (geocoder.name && geocoder.name === "Custom") {
