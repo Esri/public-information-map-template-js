@@ -1,4 +1,4 @@
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"], [class*="icon-"],.left-arrow,.right-arrow,.dijitDialogCloseIcon,.esriGeocoderSearch,.esriGeocoderReset, .esriGeocoderSelectedCheck, .esriGeocoderMenuArrow, .note-expand, .esriGeocoderMenuClose, .icon-search-1, .icon-check-1 {
   font-family: 'fontello';
   font-style: normal;
   font-weight: normal;
