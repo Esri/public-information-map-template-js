@@ -46,7 +46,7 @@ define({
             about: "About",
             find: "Zip Code, city, etc.",
             moreInfo: "More information",
-            dateModified: "Last Modified",
+            dateModified: "Last modified",
             noSearchResult: "No result found",
             switchAccount: "Switch account",
             signIn: "Sign in",
