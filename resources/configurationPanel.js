@@ -67,8 +67,8 @@
                "label":"Default Menu Panel",
                "options":[
                   {
-                     "label":"Map",
-                     "value":"map"
+                     "label":"About",
+                     "value":"about"
                   },
                   {
                      "label":"Layers",
@@ -105,9 +105,9 @@
             },
             {
                "type":"boolean",
-               "fieldName":"enableMapPanel",
-               "label":"Enable Map Panel",
-               "tooltip":"Enable Map Panel"
+               "fieldName":"enableAboutPanel",
+               "label":"Enable About Panel",
+               "tooltip":"Enable About Panel"
             },
             {
                "type":"boolean",
@@ -132,12 +132,6 @@
                "fieldName":"enableBasemapToggle",
                "label":"Enable Basemap Toggle",
                "tooltip":"Enable Basemap Toggle"
-            },
-            {
-               "type":"boolean",
-               "fieldName":"enableAboutDialog",
-               "label":"Enable About Dialog",
-               "tooltip":"Enable About Dialog"
             },
             {
                "type":"boolean",
@@ -168,6 +162,18 @@
                "fieldName":"openOverviewMap",
                "label":"Open Overview Map Widget by default",
                "tooltip":"Open Overview Map Widget by default"
+            },
+            {
+               "type":"boolean",
+               "fieldName":"enableModifiedDate",
+               "label":"Enable Modified date",
+               "tooltip":"Enable Modified date"
+            },
+            {
+               "type":"boolean",
+               "fieldName":"enableMoreInfo",
+               "label":"Enable More Information link",
+               "tooltip":"Enable More Information link"
             }
          ]
       },
@@ -380,11 +386,10 @@
       "enableSummary":true,
       "enableLegendPanel":true,
       "hideNotesLayerPopups":true,
-      "enableMapPanel":true,
+      "enableAboutPanel":true,
       "enableHomeButton":true,
       "enableLocateButton":true,
       "enableBasemapToggle":true,
-      "enableAboutDialog":true,
       "showAboutOnLoad":false,
       "enableShareDialog":true,
       "enableBookmarks":true,

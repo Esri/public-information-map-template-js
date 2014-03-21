@@ -1,7 +1,7 @@
 .locate-box {
     float: right;
     padding: 0;
-    margin: 5px 5px 4px 5px;
+    margin: 7px 10px 7px 0;
 }
 .esriRTL .locate-box {
     float: left;
@@ -14,9 +14,9 @@
 .esriGeocoderContainer {
     -webkit-text-size-adjust: none;
     position: relative;
-    width: 192px;
-    font-size: 12px;
-    line-height: 16px;
+    width: 225px;
+    font-size: 14px;
+    line-height: 20px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .esriGeocoderContainer ul {
@@ -32,7 +32,7 @@
     display: block;
     overflow: hidden;
     margin: 3px;
-    font-size: 16px!important;
+    font-size: 20px!important;
     color: #999;
 }
 .esriRTL .esriGeocoderIcon {
@@ -71,28 +71,28 @@
     border: 0;
     border-collapse: collapse;
     vertical-align: middle;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 20px;
     margin: 0;
     padding: 3px 0;
     float: left;
     color: #444;
     background: none;
-    width: 135px;
+    width: 70%;
 }
 .esriRTL .esriGeocoder input {
     float: right;
 }
 .esriGeocoderMultiple input {
-    width: 113px;
+    width: 60%;
 }
 .esriGeocoder input:focus {
     color: #333;
 }
 .esriGeocoder .esriGeocoderReset {
     float: right;
-    height: 16px;
-    width: 16px;
+    height: 20px;
+    width: 20px;
     display: none;
 }
 .esriRTL .esriGeocoderReset {
@@ -108,10 +108,10 @@
 }
 .esriGeocoderMultiple .esriGeocoderMenuArrow {
     display: block;
-    height: 16px;
-    width: 16px;
-    font-size: 16px;
-    line-height: 16px;
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+    line-height: 20px;
     margin: 3px 0;
     background: none;
 }
@@ -133,7 +133,7 @@
     background: #fff;
     -webkit-border-radius: 0 0 2px 2px;
     border-radius: 0 0 2px 2px;
-    font-size: 12px;
+    font-size: 14px;
 }
 .esriRTL .esriGeocoderResults {
     -webkit-border-radius: 0 2px 2px 0;
@@ -150,7 +150,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     o-text-overflow: ellipsis;
-    font-size: 12px;
+    font-size: 14px;
 }
 .esriGeocoderResult:hover,
 .esriGeocoderResultEven:focus,
@@ -191,11 +191,11 @@
     position: relative;
 }
 .esriGeocoderMenuClose {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 20px;
+    line-height: 20px;
     top: 5px;
     right: 2px;
     cursor: pointer;
@@ -205,8 +205,8 @@
     left: 2px;
 }
 .esriGeocoderMenu .esriGeocoderSelectedCheck {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     display: block;
     float: right;
     margin: 0 0 0 6px;
@@ -217,11 +217,11 @@
 }
 .esriGeocoderMenu .esriGeocoderSelected .esriGeocoderSelectedCheck {
     background: none;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
 }
 .locate-box .esriGeocoder input {
-    width: 75%!important;
+    width: 70%!important;
 }
 .locate-box .esriGeocoderMultiple input {
     width: 65%!important;
@@ -230,9 +230,9 @@
     margin: 7px 3px;
 }
 .mobile-search-container .esriGeocoder input {
-    width: 75%;
-    line-height: 24px;
-    height: 24px;
+    width: 70%;
+    line-height: 26px;
+    height: 26px;
 }
 .mobile-search-container .esriGeocoderMultiple input {
     width: 65%!important;

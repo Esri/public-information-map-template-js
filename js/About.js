@@ -6,7 +6,8 @@ define([
     "dojo/dom-class",
     "dojo/on",
     "esri/geometry/Extent",
-    "dojo/window"
+    "dojo/window",
+    "dojo/date/locale"
 ],
     function (
         declare,
@@ -16,11 +17,12 @@ define([
         domClass,
         on,
         Extent,
-        win
+        win,
+        locale
     ) {
         return declare("", null, {
-            initMapPanel: function () {
-                this.mapPanelCSS = {
+            initAboutPanel: function () {
+                this.aboutPanelCSS = {
                     noteContainer: 'note-container',
                     noteItem: 'note-item',
                     noteTitleText: 'note-text',
@@ -41,6 +43,30 @@ define([
                 // description
                 if (this.config.enableSummary) {
                     this._setSummary(this.config.summary || this.item.snippet);
+                }
+                // modified date
+                if(this.config.enableModifiedDate){
+                    this._setModifiedDate();  
+                }
+                // more information link
+                if(this.config.enableMoreInfo){
+                    this._moreInfoLink();
+                }
+            },
+            _setModifiedDate: function(){
+                var node = dom.byId('date_modified');
+                if(node && this.item && this.item.modified){
+                    // modified date
+                    var m = new Date(this.item.modified);
+                    var modifiedDate = locale.format(m, {});
+                    // set date
+                    node.innerHTML = this.config.i18n.general.dateModified + ' ' + modifiedDate;
+                }                
+            },
+            _moreInfoLink: function(){
+                var node = dom.byId('more_info_link');
+                if(node && this.item && this.item.id){
+                    node.innerHTML = '<a target="_blank" href="' + this.config.sharinghost + "/home/item.html?id=" + this.item.id + '">' + this.config.i18n.general.moreInfo + '</a>';   
                 }
             },
             _setSummary: function (description) {
@@ -140,7 +166,7 @@ define([
                         // note container
                         var containerNode = domConstruct.create('div', {
                             title: this.config.i18n.mapNotes.zoomTo,
-                            className: this.mapPanelCSS.noteContainer
+                            className: this.aboutPanelCSS.noteContainer
                         });
                         // text symbol
                         if(graphic.symbol && graphic.symbol.type === 'textsymbol'){
@@ -148,23 +174,23 @@ define([
                         }
                         // note title
                         var titleNode = domConstruct.create('div', {
-                            className: this.mapPanelCSS.noteItem
+                            className: this.aboutPanelCSS.noteItem
                         });
                         domConstruct.place(titleNode, containerNode, 'last');
                         // note title
                         var noteTitleText = domConstruct.create('div', {
                             innerHTML: attributes.TITLE || this.config.i18n.mapNotes.untitledNote,
-                            className: this.mapPanelCSS.noteTitleText
+                            className: this.aboutPanelCSS.noteTitleText
                         });
                         domConstruct.place(noteTitleText, titleNode, 'last');
                         // note title
                         var noteExpand = domConstruct.create('div', {
-                            className: this.mapPanelCSS.noteExpand
+                            className: this.aboutPanelCSS.noteExpand
                         });
                         domConstruct.place(noteExpand, titleNode, 'last');
                         // note title
                         var clear = domConstruct.create('div', {
-                            className: this.mapPanelCSS.clear
+                            className: this.aboutPanelCSS.clear
                         });
                         domConstruct.place(clear, titleNode, 'last');
                         // note HTML
@@ -176,10 +202,10 @@ define([
                         if (attributes.IMAGE_URL) {
                             // image has link
                             if (attributes.IMAGE_LINK_URL) {
-                                noteContent += '<a class="' + this.mapPanelCSS.noteLink + '" target="_blank" href="' + attributes.IMAGE_LINK_URL + '"><image class="' + this.mapPanelCSS.noteImage + '" src= "' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" /></a>';
+                                noteContent += '<a class="' + this.aboutPanelCSS.noteLink + '" target="_blank" href="' + attributes.IMAGE_LINK_URL + '"><image class="' + this.aboutPanelCSS.noteImage + '" src= "' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" /></a>';
                             }
                             else {
-                                noteContent += '<image class="' + this.mapPanelCSS.noteImage + '" src="' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" />';
+                                noteContent += '<image class="' + this.aboutPanelCSS.noteImage + '" src="' + attributes.IMAGE_URL + '" alt="' + attributes.TITLE + '" />';
                             }
                         }
                         // if no content was set
@@ -188,8 +214,8 @@ define([
                         }
                         // note content
                         var contentNode = domConstruct.create('div', {  
-                            className: this.mapPanelCSS.noteContent,
-                            innerHTML: '<div class="' + this.mapPanelCSS.notePadding + '">' + noteContent + '</div>'
+                            className: this.aboutPanelCSS.noteContent,
+                            innerHTML: '<div class="' + this.aboutPanelCSS.notePadding + '">' + noteContent + '</div>'
                         });
                         domConstruct.place(contentNode, containerNode, 'last');
                         // store nodes
@@ -243,9 +269,9 @@ define([
             _noteEvent: function(idx){
                 on(this.noteNodes[idx].titleNode, 'click', lang.hitch(this, function(){
                     // if note open
-                    if(domClass.contains(this.noteNodes[idx].containerNode, this.mapPanelCSS.noteSelected)){
+                    if(domClass.contains(this.noteNodes[idx].containerNode, this.aboutPanelCSS.noteSelected)){
                         // close note
-                        domClass.toggle(this.noteNodes[idx].containerNode, this.mapPanelCSS.noteSelected);
+                        domClass.toggle(this.noteNodes[idx].containerNode, this.aboutPanelCSS.noteSelected);
                         // clear selected feature
                         if(this.map.infoWindow){
                             this.map.infoWindow.clearFeatures();   
@@ -256,12 +282,12 @@ define([
                     else{
                         // close selected notes
                         for(var i = 0; i < this.noteNodes.length; i++){
-                            domClass.remove(this.noteNodes[i].containerNode, this.mapPanelCSS.noteSelected);
+                            domClass.remove(this.noteNodes[i].containerNode, this.aboutPanelCSS.noteSelected);
                             // remove any loading
-                            domClass.remove(this.noteNodes[i].titleNode, this.mapPanelCSS.noteLoading);
+                            domClass.remove(this.noteNodes[i].titleNode, this.aboutPanelCSS.noteLoading);
                         }
                         // open note
-                        domClass.toggle(this.noteNodes[idx].containerNode, this.mapPanelCSS.noteSelected);
+                        domClass.toggle(this.noteNodes[idx].containerNode, this.aboutPanelCSS.noteSelected);
                     }
                     var geometry = this.noteGraphics[idx].geometry;
                     var extent;
@@ -298,7 +324,7 @@ define([
             },
             _setNoteExtent: function(idx, extent){
                 this._turnOnNoteLayers();
-                domClass.add(this.noteNodes[idx].titleNode, this.mapPanelCSS.noteLoading);
+                domClass.add(this.noteNodes[idx].titleNode, this.aboutPanelCSS.noteLoading);
                 this.map.setExtent(extent, true).then(lang.hitch(this, function(){
                     // select graphic
                     if(this.map.infoWindow){
@@ -307,20 +333,20 @@ define([
                         this.map.infoWindow.show(extent.getCenter());
                         this.map.infoWindow.set("popupWindow", true);
                     }
-                    domClass.remove(this.noteNodes[idx].titleNode, this.mapPanelCSS.noteLoading);
+                    domClass.remove(this.noteNodes[idx].titleNode, this.aboutPanelCSS.noteLoading);
                 }));
             },
             _setBookmarkExtent: function(idx, extent){
-                domClass.add(this.bmNodes[idx], this.mapPanelCSS.noteLoading);
+                domClass.add(this.bmNodes[idx], this.aboutPanelCSS.noteLoading);
                 this.map.setExtent(extent).then(lang.hitch(this, function(){
-                    domClass.remove(this.bmNodes[idx], this.mapPanelCSS.noteLoading);
+                    domClass.remove(this.bmNodes[idx], this.aboutPanelCSS.noteLoading);
                 }));
             },
             _bookmarkEvent: function(idx){
                 on(this.bmNodes[idx], 'click', lang.hitch(this, function(){
                     // remove any loading
                     for(var i = 0; i < this.bmNodes.length; i++){
-                        domClass.remove(this.bmNodes[i], this.mapPanelCSS.noteLoading);
+                        domClass.remove(this.bmNodes[i], this.aboutPanelCSS.noteLoading);
                     }
                     var extent = new Extent(this.bookmarks[idx].extent);
                     var vs = win.getBox();
@@ -347,7 +373,7 @@ define([
                         for(var i = 0; i < bookmarks.length; i++){
                             var node = domConstruct.create('div', {
                                 innerHTML: bookmarks[i].name,
-                                className: this.mapPanelCSS.bookmarkItem
+                                className: this.aboutPanelCSS.bookmarkItem
                             });
                             this.bmNodes.push(node);
                             this._bookmarkEvent(i);

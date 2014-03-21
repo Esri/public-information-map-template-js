@@ -45,6 +45,8 @@ define({
             share: "Share",
             about: "About",
             find: "Zip Code, city, etc.",
+            moreInfo: "More information",
+            dateModified: "Last Modified",
             noSearchResult: "No result found",
             switchAccount: "Switch account",
             signIn: "Sign in",

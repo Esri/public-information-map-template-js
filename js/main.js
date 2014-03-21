@@ -9,7 +9,6 @@ define([
     "dojo/dom-attr",
     "dojo/dom-class",
     "application/TableOfContents",
-    "application/AboutDialog",
     "application/ShareDialog",
     "application/Drawer",
     "application/DrawerMenu",
@@ -19,7 +18,7 @@ define([
     "esri/dijit/Geocoder",
     "esri/dijit/Popup",
     "esri/dijit/Legend",
-    "application/MapPanel",
+    "application/About",
     "application/SocialLayers",
     "esri/dijit/OverviewMap",
     "dijit/registry",
@@ -36,19 +35,19 @@ function(
     domStyle,
     domAttr,
     domClass,
-    TableOfContents, AboutDialog, ShareDialog, Drawer, DrawerMenu,
+    TableOfContents, ShareDialog, Drawer, DrawerMenu,
     HomeButton, LocateButton, BasemapToggle,
     Geocoder,
     Popup,
     Legend,
-    MapPanel,
+    About,
     SocialLayers,
     OverviewMap,
     registry,
     array,
     esriLang
 ) {
-    return declare("", [MapPanel, SocialLayers], {
+    return declare("", [About, SocialLayers], {
         config: {},
         constructor: function(){
             // css classes
@@ -62,11 +61,13 @@ function(
                 panelSection: "panel-section",
                 panelSummary: "panel-summary",
                 panelDescription: "panel-description",
+                panelModified: "panel-modified-date",
+                panelMoreInfo: "panel-more-info",
                 pointerEvents: "pointer-events",
                 iconRight: "icon-right",
                 iconList: "icon-list",
                 iconLayers: "icon-layers",
-                iconMap: "icon-map",
+                iconAbout: "icon-info-circled-1",
                 iconText: "icon-text",
                 locateButtonTheme: "LocateButtonCalcite",
                 homebuttonTheme: "HomeButtonCalcite",
@@ -189,13 +190,19 @@ function(
             this.drawerMenus = [];
             var content, menuObj;
             // map panel enabled
-            if (this.config.enableMapPanel) {
+            if (this.config.enableAboutPanel) {
                 content = '';
                 content += '<div class="' + this.css.panelContainer + '">';
                 // if summary enabled
                 if (this.config.enableSummary) {
-                    content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.general.mapInfo + '</div>';
+                    content += '<div class="' + this.css.panelHeader + '">' + this.config.title + '</div>';
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
+                    if(this.config.enableModifiedDate){
+                        content += '<div class="' + this.css.panelModified + '" id="date_modified"></div>';
+                    }
+                    if(this.config.enableMoreInfo){
+                        content += '<div class="' + this.css.panelMoreInfo + '" id="more_info_link"></div>';
+                    }
                 }
                 // show notes layer and has one of required things for getting notes layer
                 if(this.config.notesLayer && this.config.notesLayer.id){
@@ -212,12 +219,12 @@ function(
                 content += '</div>';
                 // menu info
                 menuObj = {
-                    title: this.config.i18n.general.map,
-                    label: '<div class="' + this.css.iconMap + '"></div><div class="' + this.css.iconText + '">' + this.config.i18n.general.map + '</div>',
+                    title: this.config.i18n.general.about,
+                    label: '<div class="' + this.css.iconAbout + '"></div><div class="' + this.css.iconText + '">' + this.config.i18n.general.about + '</div>',
                     content: content
                 };
                 // map menu
-                if(this.config.defaultPanel === 'map'){
+                if(this.config.defaultPanel === 'about'){
                     this.drawerMenus.splice(0,0,menuObj);
                 }
                 else{
@@ -316,18 +323,6 @@ function(
                 }));
                 /* END temporary until after JSAPI 4.0 is released */
             }
-            // about dialog
-            if (this.config.enableAboutDialog) {
-                this._AboutDialog = new AboutDialog({
-                    theme: this.css.iconRight,
-                    item: this.item,
-                    sharinghost: this.config.sharinghost
-                }, 'AboutDialog');
-                this._AboutDialog.startup();
-                if(this.config.showAboutOnLoad){
-                    this._AboutDialog.open();
-                }
-            }
             // share dialog
             if (this.config.enableShareDialog) {
                 this._ShareDialog = new ShareDialog({
@@ -363,7 +358,7 @@ function(
             // startup social
             this.initSocial();
             // startup map panel
-            this.initMapPanel();
+            this.initAboutPanel();
             // startup legend
             this._initLegend();
             // startup toc
