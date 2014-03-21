@@ -428,7 +428,9 @@ function(
                 map: this.map,
                 autoNavigate: true,
                 autoComplete: true,
-                arcgisGeocoder: true,
+                arcgisGeocoder: {
+                    placeholder: this.config.i18n.general.find
+                },
                 geocoders: null
             };
             //only use geocoders with a url defined

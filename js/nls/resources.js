@@ -44,6 +44,7 @@ define({
             layers: "Layers",
             share: "Share",
             about: "About",
+            find: "Zip Code, city, etc.",
             noSearchResult: "No result found",
             switchAccount: "Switch account",
             signIn: "Sign in",
