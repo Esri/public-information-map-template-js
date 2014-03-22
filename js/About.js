@@ -41,7 +41,7 @@ define([
                 // insert map notes
                 this._placeNotes();
                 // description
-                if (this.config.enableSummary) {
+                if (this.config.enableSummaryInfo) {
                     this._setSummary(this.config.summary || this.item.snippet);
                 }
                 // modified date

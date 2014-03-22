@@ -194,7 +194,7 @@ function(
                 content = '';
                 content += '<div class="' + this.css.panelContainer + '">';
                 // if summary enabled
-                if (this.config.enableSummary) {
+                if (this.config.enableSummaryInfo) {
                     content += '<div class="' + this.css.panelHeader + '">' + this.config.title + '</div>';
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
                     if(this.config.enableModifiedDate){
@@ -402,19 +402,21 @@ function(
                 domClass.replace(this._mobileGeocoderIconContainerNode, this.css.toggleBlue, this.css.toggleBlueOn);
             }
         },
-        _setTitle: function (title) {
+        _setTitle: function(title){
             // set config title
             this.config.title = title;
+            // window title
+            window.document.title = title;  
+        },
+        _setTitleBar: function () {
             // map title node
             var node = dom.byId('title');
             if (node) {
                 // set title
-                node.innerHTML = title;
+                node.innerHTML = this.config.title;
                 // title attribute
-                domAttr.set(node, "title", title);
+                domAttr.set(node, "title", this.config.title);
             }
-            // window title
-            window.document.title = title;
         },
         _createGeocoderOptions: function() {
             var hasEsri = false, esriIdx, geocoders = lang.clone(this.config.helperServices.geocode);
@@ -598,10 +600,11 @@ function(
                 this.item = response.itemInfo.item;
                 this.bookmarks = response.itemInfo.itemData.bookmarks;
                 this.layerInfos = arcgisUtils.getLegendLayers(response);
-                // if title is enabled
-                if (this.config.enableTitle) {
-                    this._setTitle(this.config.title || response.itemInfo.item.title);
-                }
+                // window title and config title
+                this._setTitle(this.config.title || response.itemInfo.item.title);
+                // title bar title
+                this._setTitleBar();
+                // map loaded
                 if (this.map.loaded) {
                     this._init();
                 } else {

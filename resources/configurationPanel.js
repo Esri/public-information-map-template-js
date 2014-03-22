@@ -87,15 +87,21 @@
          "fields":[
             {
                "type":"boolean",
-               "fieldName":"enableTitle",
-               "label":"Enable Title",
-               "tooltip":"Enable Title"
+               "fieldName":"enableSummaryInfo",
+               "label":"Enable Summary Information",
+               "tooltip":"Enable Summary Information"
             },
             {
                "type":"boolean",
-               "fieldName":"enableSummary",
-               "label":"Enable Summary Description",
-               "tooltip":"Enable Summary Description"
+               "fieldName":"enableModifiedDate",
+               "label":"Enable Modified date",
+               "tooltip":"Enable Modified date"
+            },
+            {
+               "type":"boolean",
+               "fieldName":"enableMoreInfo",
+               "label":"Enable More Information link",
+               "tooltip":"Enable More Information link"
             },
             {
                "type":"boolean",
@@ -162,18 +168,6 @@
                "fieldName":"openOverviewMap",
                "label":"Open Overview Map Widget by default",
                "tooltip":"Open Overview Map Widget by default"
-            },
-            {
-               "type":"boolean",
-               "fieldName":"enableModifiedDate",
-               "label":"Enable Modified date",
-               "tooltip":"Enable Modified date"
-            },
-            {
-               "type":"boolean",
-               "fieldName":"enableMoreInfo",
-               "label":"Enable More Information link",
-               "tooltip":"Enable More Information link"
             }
          ]
       },
@@ -383,7 +377,7 @@
    ],
    "values":{
       "title":"",
-      "enableSummary":true,
+      "enableSummaryInfo":true,
       "enableLegendPanel":true,
       "hideNotesLayerPopups":true,
       "enableAboutPanel":true,
