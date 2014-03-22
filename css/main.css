@@ -91,14 +91,11 @@ input[type=text]::-ms-clear {
 }
 .panel-header {
     font-size: 18px;
-    font-weight: bold;
-    padding: 12px 8px 6px 10px;
+    font-weight: 700;
+    padding: 12px 10px 6px 10px;
     line-height: 24px;
     color: #555;
     background: #fff;
-}
-.esriRTL .panel-header {
-    padding: 12px 10px 12px 8px;
 }
 .panel-section {
     border-top: 1px solid #e0e0e0;
@@ -505,7 +502,6 @@ input[type=text]::-ms-clear {
     line-height: 18px;
     text-align: center;
     overflow: visible;
-    font-weight: 700;
     width: 100%;
 }
 .drawer-menu-1 .drawer-menu-buttons {
@@ -582,6 +578,7 @@ input[type=text]::-ms-clear {
     margin-bottom: 5px;
     line-height: 11px;
     height: 11px;
+    font-weight:700;
 }
 /* Misc */
 
