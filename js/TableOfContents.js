@@ -375,7 +375,9 @@ function (
             this.set("loaded", true);
             this.emit("load", {});
         },
-        _updateThemeWatch: function(attr, oldVal, newVal) {
+        _updateThemeWatch: function() {
+            var oldVal = arguments[1];
+            var newVal = arguments[2];
             domClass.remove(this.domNode, oldVal);
             domClass.add(this.domNode, newVal);
         },

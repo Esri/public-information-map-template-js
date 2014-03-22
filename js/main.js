@@ -522,11 +522,13 @@ function(
                 this._hideMobileGeocoder();
             }));
             // keep geocoder values in sync
-            this._geocoder.watch("value", lang.hitch(this, function (name, oldValue, value) {
+            this._geocoder.watch("value", lang.hitch(this, function () {
+                var value = arguments[2];
                 this._mobileGeocoder.set("value", value);
             }));
             // keep geocoder values in sync
-            this._mobileGeocoder.watch("value", lang.hitch(this, function (name, oldValue, value) {
+            this._mobileGeocoder.watch("value", lang.hitch(this, function () {
+                var value = arguments[2];
                 this._geocoder.set("value", value);
             }));
             // geocoder nodes

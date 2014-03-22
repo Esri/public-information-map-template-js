@@ -49,8 +49,8 @@ input[type=text]::-ms-clear {
     width: 44px;
     text-align: center;
     font-size: 22px;
-    *padding:11px;
-    *width:auto;
+    *padding: 11px;
+    *width: auto;
     *height: auto;
     *line-height: 22px;
 }
@@ -301,8 +301,8 @@ input[type=text]::-ms-clear {
     width: 44px;
     font-size: 28px;
     line-height: 44px;
-    *padding:8px;
-    *width:auto;
+    *padding: 8px;
+    *width: auto;
     *height: auto;
     *line-height: 28px;
 }

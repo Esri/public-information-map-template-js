@@ -29,8 +29,8 @@
 }
 .flickr-popup .image {
     display: inline-block;
-    width:150px;
-    height:150px;
+    width: 150px;
+    height: 150px;
     padding: 2px;
     -moz-box-shadow: 1px 1px 3px #CCC;
     -webkit-box-shadow: 1px 1px 3px #CCC;

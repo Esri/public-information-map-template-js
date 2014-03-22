@@ -49,6 +49,7 @@ function (
             dateFrom: '',
             dateTo: '',
             key: '',
+            baseurl: location.protocol === "https:" ? "https://secure.flickr.com/services/rest/" : "http://api.flickr.com/services/rest/",
             refreshTime: 4000
         },
         constructor: function (options) {
@@ -77,6 +78,7 @@ function (
             this.set("refreshTime", defaults.refreshTime);
             this.set("graphics", []);
             this.set("noGeo", []);
+            this.set("baseurl", defaults.baseurl);
             // listeners
             this.watch("searchTerm", this.update);
             this.watch("visible", this._visible);
@@ -99,12 +101,6 @@ function (
             if (!this.map) {
                 console.log('Flickr::Reference to esri.Map object required');
                 return;
-            }
-            // api url
-            if (location.protocol === "https:") {
-                this.set("baseurl", "https://secure.flickr.com/services/rest/");
-            } else {
-                this.set("baseurl", "http://api.flickr.com/services/rest/");
             }
             // default symbol
             if (!this.symbol) {

@@ -87,8 +87,8 @@
     right: 26px;
 }
 .esriRTL .map .calcite .titleButton.restore {
-    right:auto;
-    left:26px;
+    right: auto;
+    left: 26px;
 }
 .map .calcite .titleButton.hidden {
     display: none;

@@ -411,7 +411,9 @@ define([
                     window.open(fullLink, 'share', true);
                 }
             },
-            _updateThemeWatch: function (attr, oldVal, newVal) {
+            _updateThemeWatch: function () {
+                var oldVal = arguments[1];
+                var newVal = arguments[2];
                 if (this.get("loaded")) {
                     domClass.remove(this.domNode, oldVal);
                     domClass.add(this.domNode, newVal);

@@ -16,7 +16,7 @@
     background: #f8f8f8;
     color: #555;
     position: relative;
-    zoom:1;
+    zoom: 1;
 }
 .TableOfContents .toc-text {
     float: left;
@@ -89,6 +89,6 @@
         width: auto;
     }
     .TableOfContents .toc-text {
-        width:60%;
+        width: 60%;
     }
 }
