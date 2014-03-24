@@ -141,12 +141,6 @@
             },
             {
                "type":"boolean",
-               "fieldName":"showAboutOnLoad",
-               "label":"Show About Dialog on load",
-               "tooltip":"Show About Dialog on load"
-            },
-            {
-               "type":"boolean",
                "fieldName":"enableShareDialog",
                "label":"Enable Share Dialog",
                "tooltip":"Enable Share Dialog"
@@ -384,7 +378,6 @@
       "enableHomeButton":true,
       "enableLocateButton":true,
       "enableBasemapToggle":true,
-      "showAboutOnLoad":false,
       "enableShareDialog":true,
       "enableBookmarks":true,
       "enableOverviewMap":true,

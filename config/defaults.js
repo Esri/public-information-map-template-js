@@ -21,7 +21,6 @@ define({
     "enableHomeButton": true,
     "enableLocateButton": true,
     "enableBasemapToggle": true,
-    "showAboutOnLoad": false,
     "enableShareDialog": true,
     "enableBookmarks": true,
     "enableOverviewMap": true,
