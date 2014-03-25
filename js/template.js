@@ -41,6 +41,7 @@ define([
         config: {},
         orgConfig: {},
         appConfig: {},
+        urlConfig: {},
         customUrlConfig: {},
         constructor: function () {
             // config will contain application and user defined info for the application such as i18n strings,
@@ -73,10 +74,10 @@ define([
             // configured settings. It's up to the application developer to update the application to take
             // advantage of these parameters.
             paramItems = ["webmap", "appid", "group", "oauthappid"];
-            mixinParams = this._createUrlParamsObject(paramItems);
+            this.urlConfig = this._createUrlParamsObject(paramItems);
             // config defaults <- standard url params
             // we need the webmap, appid, group and oauthappid to query for the data
-            lang.mixin(this.config, mixinParams);
+            lang.mixin(this.config, this.urlConfig);
             // Define the sharing url and other default values like the proxy.
             // The sharing url defines where to search for the web map and application content. The
             // default value is arcgis.com.
@@ -101,7 +102,7 @@ define([
                     this._queryUrlParams();
                     // mix in all the settings we got!
                     // defaults <- organization <- application id config <- custom url params
-                    lang.mixin(this.config, this.orgConfig, this.appConfig, this.customUrlConfig);
+                    lang.mixin(this.config, this.orgConfig, this.appConfig, this.customUrlConfig, this.urlConfig);
                     // Set the geometry helper service to be the app default.
                     if (this.config.helperServices && this.config.helperServices.geometry && this.config.helperServices.geometry.url) {
                         esriConfig.defaults.geometryService = new GeometryService(this.config.helperServices.geometry.url);
@@ -276,12 +277,6 @@ define([
                         this.appConfig = response.itemData.values;
                         // save response
                         this.appResponse = response;
-                        // Get the web map from the app values. But if there's a web url
-                        // parameter don't overwrite with the app value.
-                        var webmapParam = this._createUrlParamsObject(["webmap"]);
-                        if (!esriLang.isDefined(webmapParam.webmap) && response.itemData.values.webmap && this.config.webmap) {
-                            this.config.webmap = response.itemData.values.webmap;
-                        }
                     }
                     // get the extent for the application item. This can be used to override the default web map extent
                     if (response.item && response.item.extent) {
