@@ -67,16 +67,16 @@
                "label":"Default Menu Panel",
                "options":[
                   {
+                     "label":"Legend",
+                     "value":"legend"
+                  },
+                  {
                      "label":"About",
                      "value":"about"
                   },
                   {
                      "label":"Layers",
                      "value":"layers"
-                  },
-                  {
-                     "label":"Legend",
-                     "value":"legend"
                   }
                ]
             }
@@ -373,6 +373,7 @@
       "title":"",
       "enableSummaryInfo":true,
       "enableLegendPanel":true,
+      "defaultPanel":"legend",
       "hideNotesLayerPopups":true,
       "enableAboutPanel":true,
       "enableHomeButton":true,

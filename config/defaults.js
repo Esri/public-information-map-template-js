@@ -50,9 +50,11 @@ define({
     "flickr_key": "404ebea7d5bc27aa5251d1207620e99b",
     "webcams_key": "65939add1ebe8bc9cc4180763f5df2ca",
     "instagram_key": "288c36a1a42c49de9a2480a05d054619",
+    /*
     "bannedUsersService": location.protocol + "//services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
     "bannedWordsService": location.protocol + "//tmservices1.esri.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
     "flagMailServer": location.protocol + "//tmappsevents.esri.com/Website/pim_fai/fai.php",
+    */
     //Enter the url to your organizations bing maps key if you want to use bing basemaps
     "bingmapskey": "",
     //Defaults to arcgis.com. Set this value to your portal or organization host name.
@@ -61,7 +63,9 @@ define({
     //want to use custom settings for units or any of the helper services set queryForOrg to false then enter
     //default values for any items you need using the helper services and units properties. 
     "queryForOrg": true,
+    // This template is localized. Keep true.
     "localize": true,
+    // custom URL parameters for this template
     "urlItems": [
         "extent"
     ],
