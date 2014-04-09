@@ -446,8 +446,8 @@ input[type=text]::-ms-clear {
     float: left;
     width: 60px;
     padding: 1px 0;
-    line-height: 30px;
-    height: 30px;
+    line-height: 36px;
+    height: 36px;
     color: #999;
     margin-left: 10px;
     font-size: 17px;
