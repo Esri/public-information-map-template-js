@@ -118,8 +118,6 @@ function (
             }
             // wait for animation to finish
             this._animationTimeout = setTimeout(lang.hitch(this, function () {
-                // resize border container
-                this.resize();
                 // remove shown drawer
                 this._checkDrawerStatus();
                 // stop resizing container
