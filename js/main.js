@@ -149,7 +149,7 @@ function(
         },
         _initTOC: function(){
             // layers
-            var tocNode = dom.byId('TableOfContents'), tocLayers, toc;
+            var tocNode = dom.byId('TableOfContents'), socialTocNode, tocLayers, socialTocLayers, toc, socialToc;
             if (tocNode) {
                 tocLayers = this.layers;
                 toc = new TableOfContents({
@@ -173,15 +173,15 @@ function(
                     node.innerHTML = content;
                 }
                 // get toc node for social layers
-                tocNode = dom.byId('MediaTableOfContents');
+                socialTocNode = dom.byId('MediaTableOfContents');
                 // if node exists
-                if(tocNode){
-                    tocLayers = this.socialLayers;
-                    toc = new TableOfContents({
+                if(socialTocNode){
+                    socialTocLayers = this.socialLayers;
+                    socialToc = new TableOfContents({
                         map: this.map,
-                        layers: tocLayers
-                    }, tocNode);
-                    toc.startup();    
+                        layers: socialTocLayers
+                    }, socialTocNode);
+                    socialToc.startup();    
                 }
             }
         },
