@@ -61,8 +61,6 @@ define([
                         visible: this.config.webcamsVisible,
                         key: this.config.webcams_key
                     });
-                    // add layer to map
-                    this.map.addLayer(this._webcamsLayer.featureLayer);
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.webcams,
@@ -83,8 +81,6 @@ define([
                         searchTerm: this.config.twitterSearch,
                         url: this.config.twitterUrl
                     });
-                    // add layer to map
-                    this.map.addLayer(this._twitterLayer.featureLayer);
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.twitter,
@@ -108,8 +104,6 @@ define([
                         searchTerm: this.config.flickrSearch,
                         key: this.config.flickr_key
                     });
-                    // add layer to map
-                    this.map.addLayer(this._flickrLayer.featureLayer);
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.flickr,
@@ -131,8 +125,6 @@ define([
                         visible: this.config.instagramVisible,
                         key: this.config.instagram_key
                     });
-                    // add layer to map
-                    this.map.addLayer(this._instagramLayer.featureLayer);
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.instagram,

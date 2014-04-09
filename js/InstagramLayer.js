@@ -235,7 +235,7 @@ function (
                 this.update(0);
             }));
             this._events.push(visChange);
-            this.update(0);
+            this.update();
         },
         // Format Date Object
         _formatDate: function (dateObj) {

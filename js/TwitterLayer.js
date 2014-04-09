@@ -252,7 +252,7 @@ function (
                 this.update(0);
             }));
             this._events.push(visChange);
-            this.update(0);
+            this.update();
         },
         _parseURL: function (text) {
             return text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (url) {
