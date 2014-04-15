@@ -43,6 +43,45 @@
          ]
       },
       {
+         "category":"<b>Choose Swipe Layer</b>",
+         "fields":[
+            {
+               "type":"paragraph",
+               "value":"Select layer to be swiped."
+            },
+            {
+               "type":"layerAndFieldSelector",
+               "fieldName":"swipeLayer",
+               "label":"Swipe Layer"
+            },
+            {
+               "type":"string",
+               "fieldName":"swipeType",
+               "tooltip":"Type",
+               "label":"Type",
+               "options":[
+                  {
+                     "label":"Vertical",
+                     "value":"vertical"
+                  },
+                  {
+                     "label":"Horizontal",
+                     "value":"horizontal"
+                  },
+                  {
+                     "label":"Scope",
+                     "value":"scope"
+                  }
+               ]
+            },
+            {
+               "type":"boolean",
+               "fieldName":"swipeInvertPlacement",
+               "label":"Invert Swipe Placement"
+            }
+         ]
+      },
+      {
          "category":"<b>General</b>",
          "fields":[
             {
@@ -385,6 +424,8 @@
       "openOverviewMap":false,
       "nextBasemap":"hybrid",
       "defaultBasemap":"topo",
+      "swipeType":"vertical",
+      "swipeInvertPlacement":false,
       "enableInstagram":true,
       "instagramVisible":false,
       "enableFlickr":true,

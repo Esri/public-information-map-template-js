@@ -378,6 +378,24 @@ function(
             });
             // hide loading div
             this._hideLoadingIndicator();
+            // swipe layer
+            if(this.config.swipeLayer && this.config.swipeLayer.id){
+                // get swipe tool
+                require(["esri/dijit/LayerSwipe"], lang.hitch(this, function(LayerSwipe){
+                    // get layer
+                    var layer = this.map.getLayer(this.config.swipeLayer.id);
+                    if(layer){
+                        // create swipe
+                        var layerSwipe = new LayerSwipe({
+                            type: this.config.swipeType,
+                            invertPlacement: this.config.swipeInvertPlacement,
+                            map: this.map,
+                            layers: [ layer ]
+                        }, "swipeDiv");
+                        layerSwipe.startup();    
+                    }
+                }));  
+            }
             // drawer size check
             this._drawer.resize();
         },

@@ -32,6 +32,11 @@ define({
     "notesLayer": {
         "id": "mapNotes_7330"
     },
+    "swipeLayer": {
+        "id": "Weather_Warnings_Watches_Advisories_Statements_2563"
+    },
+    "swipeType":"vertical",
+    "swipeInvertPlacement":true,
     "hideNotesLayerPopups": true,
     "enableInstagram": true,
     "instagramVisible": false,
