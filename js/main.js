@@ -388,6 +388,7 @@ function(
                         // create swipe
                         var layerSwipe = new LayerSwipe({
                             type: this.config.swipeType,
+                            theme: "PIMSwipe",
                             invertPlacement: this.config.swipeInvertPlacement,
                             map: this.map,
                             layers: [ layer ]
