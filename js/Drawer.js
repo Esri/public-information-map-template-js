@@ -30,7 +30,6 @@ function (
             contentPaneCenter: null,
             contentPaneSide: null,
             toggleButton: null,
-            direction: 'ltr',
             mapResizeTimeout: 300,
             mapResizeStepTimeout: 25
         },
@@ -44,7 +43,6 @@ function (
             this.set("contentPaneCenter", defaults.contentPaneCenter);
             this.set("contentPaneSide", defaults.contentPaneSide);
             this.set("toggleButton", defaults.toggleButton);
-            this.set("direction", defaults.direction);
             this.set("mapResizeTimeout", defaults.mapResizeTimeout);
             this.set("mapResizeStepTimeout", defaults.mapResizeStepTimeout);
             // classes
@@ -172,6 +170,7 @@ function (
             ) {
                 // outer container
                 this._borderContainer = new BorderContainer({
+                    design: "sidebar",
                     gutters: false
                 }, this._borderContainerNode);
                 // center panel
@@ -182,14 +181,9 @@ function (
                     }
                 }, this._contentPaneCenterNode);
                 this._borderContainer.addChild(this._contentPaneCenter);
-                // panel side
-                var side = 'left';
-                if (this.get("direction") === 'rtl') {
-                    side = 'right';
-                }
-                // left panel
+                // leading panel
                 this._contentPaneSide = new ContentPane({
-                    region: side,
+                    region: 'leading',
                     style: {
                         padding: 0
                     }

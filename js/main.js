@@ -94,7 +94,6 @@ function(
                 this.config = config;
                 // drawer
                 this._drawer = new Drawer({
-                    direction: this.config.i18n.direction,
                     showDrawerSize: this._showDrawerSize,
                     borderContainer: 'bc_outer',
                     contentPaneCenter: 'cp_outer_center',
