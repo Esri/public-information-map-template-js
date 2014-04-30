@@ -54,10 +54,10 @@
 .icon-minus:before { content: '\e81b'; } /* '' */
 .icon-info-circled-1:before { content: '\e801'; } /* '' */
 .icon-home-1:before { content: '\e808'; } /* '' */
+.icon-link:before { content: '\e809'; } /* '' */
 .icon-reply:before { content: '\e813'; } /* '' */
 .icon-retweet:before { content: '\e80f'; } /* '' */
 .icon-attention-1:before { content: '\e812'; } /* '' */
-.icon-location:before { content: '\e81c'; } /* '' */
 .icon-search-1:before { content: '\e800'; } /* '' */
 .icon-cog:before { content: '\e805'; } /* '' */
 .icon-share:before { content: '\e816'; } /* '' */
@@ -73,7 +73,7 @@
 .icon-twitter-1:before { content: '\e818'; } /* '' */
 .icon-facebook-squared-1:before { content: '\e80e'; } /* '' */
 .icon-gplus:before { content: '\e819'; } /* '' */
-.icon-map:before { content: '\e81e'; } /* '' */
+.icon-location:before { content: '\e81c'; } /* '' */
 
 /* custom. don't remove */
 .left-arrow:before,.right-arrow:before,.dijitDialogCloseIcon:before,.esriGeocoderSearch:before,.esriGeocoderReset:before, .esriGeocoderSelectedCheck:before, .esriGeocoderMenuArrow:before, .note-expand:before, .esriGeocoderMenuClose:before {

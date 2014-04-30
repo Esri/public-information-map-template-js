@@ -119,6 +119,7 @@ define([
                     button: "toggle-grey",
                     buttonSelected: "toggle-grey-on",
                     icon: "icon-share",
+                    linkIcon: "icon-link share-dialog-icon",
                     facebookIcon: "icon-facebook-squared-1 share-dialog-icon",
                     twitterIcon: "icon-twitter-1 share-dialog-icon",
                     gplusIcon: "icon-gplus share-dialog-icon",
@@ -273,6 +274,7 @@ define([
                 this._setEmbedCode();
                 // set url value
                 domAttr.set(this._shareMapUrlText, "value", url);
+                domAttr.set(this._linkButton, "href", url);
             },
             _init: function () {
                 // set sizes for select box
@@ -354,6 +356,7 @@ define([
                 var bitly = this.get("bitlyUrl");
                 if (bitly) {
                     domAttr.set(this._shareMapUrlText, "value", bitly);
+                    domAttr.set(this._linkButton, "href", bitly);
                 }
             },
             _shareLink: function () {
