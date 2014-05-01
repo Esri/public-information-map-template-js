@@ -8,7 +8,7 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
     // load template    
-    "dojo/text!application/dijit/templates/TableOfContents.html",
+    "dojo/text!./dijit/templates/TableOfContents.html",
     "dojo/dom-class",
     "dojo/dom-style",
     "dojo/dom-construct",
@@ -27,8 +27,7 @@ function (
     event,
     array
 ) {
-    var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
-        declaredClass: "esri.dijit.TableOfContents",
+    var Widget = declare("esri.dijit.TableOfContents", [_WidgetBase, _TemplatedMixin, Evented], {
         templateString: dijitTemplate,
         // defaults
         options: {

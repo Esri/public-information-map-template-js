@@ -8,7 +8,7 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
     // load template
-    "dojo/text!application/dijit/templates/DrawerMenu.html",
+    "dojo/text!./dijit/templates/DrawerMenu.html",
     "dojo/dom-construct",
     "dojo/dom-class"
 ],
@@ -22,8 +22,7 @@ function (
     dijitTemplate,
     domConstruct, domClass
 ) {
-    var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
-        declaredClass: "esri.dijit.DrawerMenu",
+    var Widget = declare("esri.dijit.DrawerMenu", [_WidgetBase, _TemplatedMixin, Evented], {
         templateString: dijitTemplate,
         options: {
             menus: []

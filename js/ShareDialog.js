@@ -9,8 +9,8 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/on",
      // load template
-    "dojo/text!application/dijit/templates/ShareDialog.html",
-    "dojo/i18n!application/nls/ShareDialog",
+    "dojo/text!./dijit/templates/ShareDialog.html",
+    "dojo/i18n!./nls/ShareDialog",
     "dojo/dom-class",
     "dojo/dom-style",
     "dojo/dom-attr",
@@ -36,8 +36,7 @@ define([
         number,
         event
     ) {
-        var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
-            declaredClass: "esri.dijit.ShareDialog",
+        var Widget = declare("esri.dijit.ShareDialog", [_WidgetBase, _TemplatedMixin, Evented], {
             templateString: dijitTemplate,
             options: {
                 theme: "ShareDialog",

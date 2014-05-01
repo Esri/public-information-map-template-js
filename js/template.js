@@ -1,5 +1,20 @@
 /*global define,document,location,require */
 /*jslint sloppy:true,nomen:true,plusplus:true */
+/*
+ | Copyright 2014 Esri
+ |
+ | Licensed under the Apache License, Version 2.0 (the "License");
+ | you may not use this file except in compliance with the License.
+ | You may obtain a copy of the License at
+ |
+ |    http://www.apache.org/licenses/LICENSE-2.0
+ |
+ | Unless required by applicable law or agreed to in writing, software
+ | distributed under the License is distributed on an "AS IS" BASIS,
+ | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ | See the License for the specific language governing permissions and
+ | limitations under the License.
+ */
 define([
     "dojo/Evented",
     "dojo/_base/declare",
@@ -17,7 +32,7 @@ define([
     "esri/IdentityManager",
     "esri/tasks/GeometryService",
     "config/defaults",
-    "application/OAuthHelper"
+    "./OAuthHelper"
 ], function (
     Evented,
     declare,
@@ -120,7 +135,7 @@ define([
             // return promise
             return deferred.promise;
         },
-        _getCommonConfig: function(){
+        _getCommonConfig: function () {
             var deferred;
             deferred = new Deferred();
             if (this.config.commonConfig) {
@@ -209,7 +224,7 @@ define([
 
             deferred = new Deferred();
             if (this.config.localize) {
-                require(["dojo/i18n!application/nls/resources"], lang.hitch(this, function (appBundle) {
+                require(["dojo/i18n!./js/nls/resources"], lang.hitch(this, function (appBundle) {
                     // Get the localization strings for the template and store in an i18n variable. Also determine if the
                     // application is in a right-to-left language like Arabic or Hebrew.
                     this.config.i18n = appBundle || {};
@@ -271,12 +286,12 @@ define([
                     deferred.resolve(true);
                 }), function (error) {
                     if (!error) {
-                        error = new Error("ApplicationBoilerplate:: Error retrieving display item.");
+                        error = new Error("Error retrieving display item.");
                     }
                     deferred.reject(error);
                 });
             } else {
-                error = new Error("ApplicationBoilerplate:: webmap or group undefined.");
+                error = new Error("webmap or group undefined.");
                 deferred.reject(error);
             }
             return deferred.promise;
@@ -296,8 +311,10 @@ define([
                         // Get the web map from the app values. But if there's a web url
                         // parameter don't overwrite with the app value.
                         var webmapParam = this._createUrlParamsObject(["webmap"]);
-                        if (!esriLang.isDefined(webmapParam.webmap) && response.itemData.values.webmap && this.config.webmap) {
-                            this.config.webmap = response.itemData.values.webmap;
+                        if (!esriLang.isDefined(webmapParam.webmap)) {
+                            if (response.itemData.values.webmap !== "") {
+                                this.config.webmap = response.itemData.values.webmap;
+                            }
                         }
                     }
                     // get the extent for the application item. This can be used to override the default web map extent
@@ -307,7 +324,7 @@ define([
                     deferred.resolve(true);
                 }), function (error) {
                     if (!error) {
-                        error = new Error("ApplicationBoilerplate:: Error retrieving application configuration.");
+                        error = new Error("Error retrieving application configuration.");
                     }
                     deferred.reject(error);
                 });
@@ -331,11 +348,6 @@ define([
                     },
                     callbackParamName: "callback"
                 }).then(lang.hitch(this, function (response) {
-                    
-                    //get the bing key if the organization has one 
-                    if(response.bingKey){
-                        this.orgConfig.bingmapskey = response.bingKey;
-                    }
                     // get units defined by the org or the org user
                     this.orgConfig.units = "metric";
                     if (response.user && response.user.units) { //user defined units
@@ -346,7 +358,7 @@ define([
                         // use feet/miles only for the US and if nothing is set for a user
                         this.orgConfig.units = "english";
                     }
-                    // Get the helper servcies (routing, print, locator etc)
+                    // Get the helper services (routing, print, locator etc)
                     this.orgConfig.helperServices = response.helperServices;
                     // are any custom roles defined in the organization?
                     if (response.user && esriLang.isDefined(response.user.roleId)) {
@@ -357,7 +369,7 @@ define([
                     deferred.resolve(true);
                 }), function (error) {
                     if (!error) {
-                        error = new Error("ApplicationBoilerplate:: Error retrieving organization information.");
+                        error = new Error("Error retrieving organization information.");
                     }
                     deferred.reject(error);
                 });

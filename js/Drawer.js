@@ -22,8 +22,7 @@ function (
     Deferred,
     win
 ) {
-    var Widget = declare([_WidgetBase, Evented], {
-        declaredClass: "application.Drawer",
+    var Widget = declare("application.Drawer", [_WidgetBase, Evented], {
         options: {
             showDrawerSize: 850,
             borderContainer: null,
