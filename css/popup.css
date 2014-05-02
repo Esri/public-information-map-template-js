@@ -5,147 +5,150 @@
 /*-------------------------------------------------- */
 
 .map .calcite {
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    font-family: 'Lato', sans-serif;
-    font-size: 12px;
-    line-height: 16px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
 }
 .map .calcite .titlePane {
-    background: #f8f8f8;
-    font-size: 12px;
-    line-height: 12px;
-    padding: 10px;
-    color: #333;
-    font-weight: 700;
-    border: 0;
-    border-bottom: 1px solid #eee;
-    -webkit-border-radius: 1px 1px 0 0;
-    border-radius: 1px 1px 0 0;
+  background: #f8f8f8;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 10px;
+  color: #333;
+  font-weight: 700;
+  border: 0;
+  border-bottom: 1px solid #eee;
+  -webkit-border-radius: 1px 1px 0 0;
+  border-radius: 1px 1px 0 0;
 }
 .map .calcite .titlePane .spinner {
-    margin-top: 6px;
-    background: url(../images/ajax-loader.gif) no-repeat;
+  margin-top: 6px;
+  background: url(../images/ajax-loader.gif) no-repeat;
 }
 .map .calcite .titleButton {
-    background: none;
-    font-family: "fontello";
-    font-style: normal;
-    font-weight: 400;
-    speak: none;
-    display: inline-block;
-    text-decoration: inherit;
-    text-align: center;
-    font-variant: normal;
-    text-transform: none;
-    font-size: 16px;
-    line-height: 16px;
-    width: 16px;
-    padding: 8px 5px;
-    color: #999;
+  background: none;
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: 400;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  font-size: 16px;
+  line-height: 16px;
+  width: 16px;
+  padding: 8px 5px;
+  color: #999;
 }
 .map .calcite .titleButton:hover {
-    color: #333;
+  color: #333;
 }
 .map .calcite .titleButton:active {
-    color: #007ac2;
+  color: #007ac2;
 }
 .map .calcite .titleButton.close {
-    top: 0;
-    right: 0;
+  top: 0;
+  right: 0;
 }
 .esriRTL .map .calcite .titleButton.close {
-    right: auto;
-    left: 0;
+  right: auto;
+  left: 0;
 }
 .map .calcite .titleButton.next {
-    top: 0;
-    right: 52px;
+  top: 0;
+  right: 52px;
 }
 .esriRTL .map .calcite .titleButton.next {
-    right: auto;
-    left: 52px;
+  right: auto;
+  left: 52px;
 }
 .map .calcite .titleButton.prev {
-    top: 0;
-    right: 78px;
+  top: 0;
+  right: 78px;
 }
 .esriRTL .map .calcite .titleButton.prev {
-    right: auto;
-    left: 78px;
+  right: auto;
+  left: 78px;
 }
 .map .calcite .titleButton.maximize {
-    top: 0;
-    right: 26px;
+  top: 0;
+  right: 26px;
 }
 .esriRTL .map .calcite .titleButton.maximize {
-    right: auto;
-    left: 26px;
+  right: auto;
+  left: 26px;
 }
 .map .calcite .titleButton.restore {
-    top: 0;
-    right: 26px;
+  top: 0;
+  right: 26px;
 }
 .esriRTL .map .calcite .titleButton.restore {
-    right: auto;
-    left: 26px;
+  right: auto;
+  left: 26px;
 }
 .map .calcite .titleButton.hidden {
-    display: none;
+  display: none;
 }
 .map .calcite .contentPane {
-    background: #fff;
-    padding: 10px;
-    color: #333;
-    font-size: 12px;
-    line-height: 16px;
+  background: #fff;
+  padding: 10px;
+  color: #333;
+  font-size: 12px;
+  line-height: 16px;
 }
 .map .calcite .esriViewPopup .hzLine {
-    border-top: 1px solid #eee;
+  border-top: 1px solid #eee;
 }
 .map .calcite .actionsPane {
-    color: #333;
-    background: #fff;
-    -webkit-border-radius: 0 0 1px 1px;
-    border-radius: 0 0 1px 1px;
+  color: #333;
+  background: #fff;
+  -webkit-border-radius: 0 0 1px 1px;
+  border-radius: 0 0 1px 1px;
 }
 .map .calcite .contentPane,
 .map .calcite .actionsPane {
-    border: 0;
-    font-size: 12px;
-    line-height: 16px;
+  border: 0;
+  font-size: 12px;
+  line-height: 16px;
 }
 .map .calcite .actionsPane .actionList a {
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    line-height: 16px;
-    height: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 16px;
+  height: 16px;
 }
 .map .calcite .actionsPane .actionList {
-    display: inline-block;
-    height: 16px;
-    padding: 0;
-    margin: 0;
-    vertical-align: top;
-    margin-right: 5px;
+  display: inline-block;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  vertical-align: top;
+  margin-right: 5px;
 }
 .esriRTL .map .calcite .actionsPane .actionList {
-    margin-right: 0;
-    margin-left: 5px;
+  margin-right: 0;
+  margin-left: 5px;
 }
 .map .calcite .titlePane .pageInfo {
-    display: inline-block;
+  display: inline-block;
 }
 .map .calcite .titlePane .titleInfo {
-    display: inline-block;
-    margin-right: 5px;
+  display: inline-block;
+  margin-right: 5px;
 }
 .esriRTL .map .calcite .titlePane .titleInfo {
-    margin-right: 0;
-    margin-left: 5px;
+  margin-right: 0;
+  margin-left: 5px;
 }
 .map .calcite .pointer,
 .map .calcite .outerPointer {
-    background-image: url(../images/popup-sprite.png);
+  background: #fff;
+}
+.map .calcite .pointer.top {
+  background: #f8f8f8;
 }
