@@ -466,7 +466,7 @@ function(
                         hasEsri = true;
                         geocoder.name = "Esri World Geocoder";
                         geocoder.outFields = "Match_addr, stAddr, City";
-                        geocoder.singleLineFieldName = "Single Line";
+                        geocoder.singleLineFieldName = "SingleLine";
                         geocoder.esri = true;
                         geocoder.placefinding = true;
                         geocoder.placeholder = this.config.i18n.general.find;
