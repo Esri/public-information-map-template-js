@@ -40,7 +40,7 @@ function (
             filterWords: [],
             autopage: true,
             visible: true,
-            maxpage: 1,
+            maxpage: 5,
             limit: 100,
             title: 'Twitter',
             id: 'twitter',
@@ -317,7 +317,7 @@ function (
                 count: this.limit,
                 result_type: this.result_type,
                 include_entities: false,
-                geocode: radius.center.y + "," + radius.center.x + "," + radius.radius + radius.units
+                geocode: (Math.round(radius.center.y * 10000)/10000) + "," + (Math.round(radius.center.x * 10000)/10000) + "," + radius.radius + radius.units
             };
             if (loc) {
                 this.query.locale = loc;

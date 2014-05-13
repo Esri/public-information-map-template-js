@@ -37,7 +37,7 @@ function (
             filterWords: [],
             autopage: true,
             visible: true,
-            maxpage: 1,
+            maxpage: 3,
             limit: 100,
             title: 'Flickr',
             id: 'flickr',
