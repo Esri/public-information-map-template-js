@@ -291,11 +291,13 @@ define([
                     }
                     var geometry = this.noteGraphics[idx].geometry;
                     var extent;
+                    var fit = false;
                     switch(geometry.type){
                         case "point":
                             extent = this.map.extent.centerAt(geometry);
                             break;
                         default:
+                            fit = true;
                             extent = geometry.getExtent();
                     }
                     var vs = win.getBox();
@@ -305,11 +307,11 @@ define([
                             this.map.resize(true);
                             // wait for map to be resized
                             setTimeout(lang.hitch(this, function () {
-                                this._setNoteExtent(idx, extent);
+                                this._setNoteExtent(idx, extent, fit);
                             }), 250);
                         }));
                     } else {
-                        this._setNoteExtent(idx, extent);
+                        this._setNoteExtent(idx, extent, fit);
                     }
                 }));
             },
@@ -322,10 +324,10 @@ define([
                     this._noteLayerObj.visibility = true;
                 }
             },
-            _setNoteExtent: function(idx, extent){
+            _setNoteExtent: function(idx, extent, fit){
                 this._turnOnNoteLayers();
                 domClass.add(this.noteNodes[idx].titleNode, this.aboutPanelCSS.noteLoading);
-                this.map.setExtent(extent, true).then(lang.hitch(this, function(){
+                this.map.setExtent(extent, fit).then(lang.hitch(this, function(){
                     // select graphic
                     if(this.map.infoWindow){
                         this.map.infoWindow.set("popupWindow", false);
