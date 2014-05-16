@@ -343,14 +343,19 @@ function(
             }
             // Overview Map
             if(this.config.enableOverviewMap){
+                var size = this._getOverviewMapSize();
                 this._overviewMap = new OverviewMap({
                     attachTo: "bottom-" + overviewPlacement,
-                    height: 150,
-                    width: 150,
+                    width: size,
+                    height: size,
                     visible: this.config.openOverviewMap,
                     map: this.map
                 });
                 this._overviewMap.startup();
+                // responsive overview size
+                on(this.map, 'resize', lang.hitch(this, function(){
+                    this._resizeOverviewMap();
+                }));
             }
             // geocoders
             this._createGeocoders();
@@ -398,6 +403,22 @@ function(
             }
             // drawer size check
             this._drawer.resize();
+        },
+        _getOverviewMapSize: function(){
+            var breakPoint = 500;
+            var size = 150;
+            if(this.map.width < breakPoint || this.map.height < breakPoint){
+                size = 75;
+            }
+            return size;
+        },
+        _resizeOverviewMap: function(){
+            if(this._overviewMap){
+                var size = this._getOverviewMapSize();
+                if(this._overviewMap.hasOwnProperty('resize')){
+                    this._overviewMap.resize({ w:size, h:size });    
+                }                
+            }
         },
         _checkMobileGeocoderVisibility: function () {
             if(this._mobileGeocoderIconNode && this._mobileSearchNode){
