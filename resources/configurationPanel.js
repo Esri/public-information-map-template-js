@@ -406,6 +406,62 @@
                "value":"Show this layer by default."
             }
          ]
+      },
+      {
+         "category":"<b>YouTube Options</b>",
+         "fields":[
+            {
+               "type":"boolean",
+               "fieldName":"enableYouTube",
+               "label":"Enable YouTube Layer",
+               "tooltip":"Enable YouTube Layer"
+            },
+            {
+               "type":"paragraph",
+               "value":"View user contributed videos from YouTube."
+            },
+            {
+               "type":"boolean",
+               "fieldName":"youtubeVisible",
+               "label":"Visible",
+               "tooltip":"Check this box to make the layer visible by default."
+            },
+            {
+               "type":"paragraph",
+               "value":"Show this layer by default."
+            },
+            {
+               "type":"string",
+               "fieldName":"youtubeSearch",
+               "label":"Search Keywords",
+               "tooltip":"Search Keywords",
+               "placeHolder":""
+            },
+            {
+               "type":"string",
+               "fieldName":"youtubeTime",
+               "tooltip":"Videos uploaded within the past",
+               "label":"Videos uploaded within the past",
+               "options":[
+                  {
+                     "label":"All Time",
+                     "value":"all_time"
+                  },
+                  {
+                     "label":"Month",
+                     "value":"this_month"
+                  },
+                  {
+                     "label":"Week",
+                     "value":"this_week"
+                  },
+                  {
+                     "label":"Day",
+                     "value":"today"
+                  }
+               ]
+            }
+         ]
       }
    ],
    "values":{
@@ -435,6 +491,10 @@
       "twitterVisible":false,
       "twitterSearch":"",
       "enableWebcams":true,
-      "webcamsVisible":false
+      "webcamsVisible":false,
+      "enableYouTube":true,
+      "youtubeVisible":false,
+      "youtubeTime":"all_time",
+      "youtubeSearch":""
    }
 }

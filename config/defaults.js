@@ -51,7 +51,7 @@ define({
     "enableYouTube": true,
     "youtubeVisible": false,
     "youtubeSearch": "",
-    "youtubeTime": "all_time",
+    "youtubeTime": "all_time", // today, this_week, this_month, all_time
     "bitlyLogin": "esri",
     "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
     "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
