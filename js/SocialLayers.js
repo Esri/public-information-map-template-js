@@ -49,6 +49,7 @@ define([
                     layerSettingsInput: "layer-settings-input",
                     layerSettingsDescription: "layer-settings-description",
                     layerSettingsSubmit: "layer-settings-submit",
+                    layerSettingsSelect: "layer-settings-select",
                     authStatus: "twitter-auth-status",
                     clear: "clear"
                 };
@@ -79,6 +80,7 @@ define([
                     // YouTube
                     this._youtubeLayer = new YouTubeLayer({
                         map: this.map,
+                        time: this.config.youtubeTime,
                         visible: this.config.youtubeVisible,
                         key: this.config.youtube_key
                     });
@@ -349,6 +351,13 @@ define([
                     ytContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.ytSettingsInfo + '</div>';
                     ytContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + '</div>';
                     ytContent += '<input id="youtube_search_input" class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.youtubeSearch + '">';
+                    ytContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.ytTime + '</div>';
+                    ytContent += '<div class="' + this.socialCSS.layerSettingsSelect + '"><select id="youtube_search_time">';
+                    ytContent += this._createYouTubeOption('all_time', this.config.i18n.social.all_time);
+                    ytContent += this._createYouTubeOption('this_month', this.config.i18n.social.this_month);
+                    ytContent += this._createYouTubeOption('this_week', this.config.i18n.social.this_week);
+                    ytContent += this._createYouTubeOption('today', this.config.i18n.social.today);
+                    ytContent += '</select></div>';
                     ytContent += '<div id="youtube_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                     ytContent += '</div>';
                     var youtubeDialogNode = domConstruct.create('div', {
@@ -357,7 +366,7 @@ define([
                     // dialog node
                     domConstruct.place(youtubeDialogNode, document.body, 'last');
                     // dialog
-                    this._youtubeDialaog = new Dialog({
+                    this._youtubeDialog = new Dialog({
                         title: this.config.i18n.social.youtubeSettings,
                         draggable: false
                     }, youtubeDialogNode);
@@ -366,7 +375,7 @@ define([
                     if(youtubeCog){
                         domAttr.set(youtubeCog, 'title', this.config.i18n.general.settings);
                         on(youtubeCog, 'click', lang.hitch(this, function(evt){
-                            this._youtubeDialaog.show();
+                            this._youtubeDialog.show();
                             event.stop(evt);
                         }));
                     }
@@ -394,6 +403,17 @@ define([
                     }));
                     this._updateYouTubeFilter();
                 }
+            },
+            _createYouTubeOption: function(value, text){
+                var html = '<option ';
+                html += 'value = "' + value + '"';
+                if(value === this.config.youtubeTime){
+                    html += ' selected';
+                }
+                html += '>';
+                html += text;
+                html += '</option>';
+                return html;
             },
             _setLayerInfoTitle: function(layer, title){
                 // update legend info for layer
@@ -458,6 +478,10 @@ define([
                 this._youtubeLayer.clear();
                 this._youtubeLayer.show();
                 this._youtubeLayer.set('searchTerm', inputNode.value);
+                var ytSearchTime = dom.byId('youtube_search_time');
+                if(ytSearchTime){
+                    this._youtubeLayer.set('time', ytSearchTime.value);   
+                }
                 this._youtubeLayer.update(0);
                 this._youtubeDialog.hide();
             },

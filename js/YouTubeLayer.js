@@ -40,7 +40,7 @@ define([
                 title: 'YouTube',
                 id: 'youtube',
                 searchTerm: '',
-                time: 'all_time', // this_week, this_month
+                time: 'all_time', // this_week, this_month, today
                 datePattern: "MMM d, yyyy",
                 timePattern: "h:mma",
                 minScale: null,
@@ -301,7 +301,7 @@ define([
                     preventCache: true,
                     load: lang.hitch(this, function (data) {
                         if (data.feed) {
-                            if (data.feed.entry.length > 0) {
+                            if (data.feed.entry && data.feed.entry.length > 0) {
                                 this._mapResults(data);
                                 // display results for multiple pages
                                 if ((this.autopage) && (this.maxpage > this.pageCount) && (data.feed.entry.length === this.limit) && (this.query)) {

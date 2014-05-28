@@ -91,6 +91,9 @@
 .esriRTL .calcite .dialog-content .layer-settings-input {
     margin: 0 0 5px 5px;
 }
+.calcite .dialog-content .layer-settings-select {
+    margin: 0 0 5px 0;
+}
 .calcite .dialog-content .layer-settings-submit,
 .calcite .dijitButtonNode {
     -webkit-border-radius: 2;
