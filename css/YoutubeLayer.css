@@ -1,0 +1,60 @@
+.youtube-popup {
+    margin: 0;
+}
+.youtube-popup .title {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+.youtube-popup .ownername {
+    font-size: 12px;
+    color: #999;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+.youtube-popup .date {
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
+}
+.youtube-popup .content {
+    margin-bottom: 5px;
+}
+.youtube-popup .image-anchor {
+    display: inline-block;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-bottom: 5px;
+    position: relative;
+}
+.youtube-popup .stats {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    padding: 5px;
+    z-index: 2;
+    background: #000;
+    color: #fff;
+    font-size: 10px;
+}
+.youtube-popup .image {
+    display: inline-block;
+    padding: 2px;
+    height: 90px;
+    width: 120px;
+    -moz-box-shadow: 1px 1px 3px #CCC;
+    -webkit-box-shadow: 1px 1px 3px #CCC;
+    box-shadow: 1px 1px 3px #CCC;
+    border: 1px solid #CCC;
+    background: url(../images/ajax-loader.gif) no-repeat center center #fff;
+}
+.youtube-popup .image:hover,
+.youtube-popup .image:focus {
+    opacity: .85;
+    background-image: none;
+    -moz-transition: all .25s ease;
+    -webkit-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    transition: all .25s ease;
+}

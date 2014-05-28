@@ -259,11 +259,11 @@ function (
             var extent = this.map.extent;
             var center = extent.getCenter();
             this.maxRadius = 5000; // 5km max
-            var radius = Math.min(this.maxRadius, Math.ceil(mathUtils.getLength(Point(extent.xmin, extent.ymin, map.spatialReference), Point(extent.xmax, extent.ymin, map.spatialReference)) / 10));
+            var radius = Math.min(this.maxRadius, Math.ceil(mathUtils.getLength(Point(extent.xmin, extent.ymin, map.spatialReference), Point(extent.xmax, extent.ymin, map.spatialReference)) / 2));
             radius = Math.floor(radius);
             return {
-                lat : Math.round(center.getLatitude() * 100) / 100,
-				lng : Math.round(center.getLongitude() * 100) / 100,
+                lat : Math.round(center.getLatitude() * 10000) / 10000,
+				lng : Math.round(center.getLongitude() * 10000) / 10000,
 				distance : radius
             };
         },

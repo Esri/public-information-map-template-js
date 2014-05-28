@@ -48,6 +48,9 @@ define({
     "twitterSearch": "",
     "enableWebcams": true,
     "webcamsVisible": false,
+    "enableYouTube": true,
+    "youtubeVisible": false,
+    "youtubeSearch": "",
     "bitlyLogin": "esri",
     "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
     "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
@@ -55,6 +58,7 @@ define({
     "flickr_key": "404ebea7d5bc27aa5251d1207620e99b",
     "webcams_key": "65939add1ebe8bc9cc4180763f5df2ca",
     "instagram_key": "288c36a1a42c49de9a2480a05d054619",
+    "youtube_key": "AI39si5AmNrzX3VKNKo4Kcet9BVemrvyjl4B13ezBbNLsvKOlw9Vh3eL_57dZ2vC6M9PwV9i3bHm6emtZLr_BhQ8qtnTbvwzCw",
     /*
     "bannedUsersService": location.protocol + "//services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
     "bannedWordsService": location.protocol + "//tmservices1.esri.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
