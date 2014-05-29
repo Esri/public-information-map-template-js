@@ -2,6 +2,7 @@ define([
     "dojo/_base/declare",
     "dojo/_base/array",
     "dojo/_base/lang",
+    "dojo/ready",
     "dojo/Stateful",
     "dojo/Evented",
     "dojo/on",
@@ -17,6 +18,7 @@ define([
 ],
     function (
         declare, array, lang,
+        ready,
         Stateful, Evented, on,
         locale,
         InfoTemplate,
@@ -143,18 +145,21 @@ define([
                 });
                 // add to map
                 this.map.addLayer(this.featureLayer);
-                // query when map loads
-                if (this.map.loaded) {
-                    this._init();
-                } else {
-                    var onLoad = on.once(this.map, "load", lang.hitch(this, function () {
+                // dom ready
+                ready(lang.hitch(this, function () {
+                    // query when map loads
+                    if (this.map.loaded) {
                         this._init();
-                    }));
-                    this._events.push(onLoad);
-                }
-                // loaded
-                this.set("loaded", true);
-                this.emit("load", {});
+                    } else {
+                        var onLoad = on.once(this.map, "load", lang.hitch(this, function () {
+                            this._init();
+                        }));
+                        this._events.push(onLoad);
+                    }
+                    // loaded
+                    this.set("loaded", true);
+                    this.emit("load", {});
+                }));
             },
             /* ---------------- */
             /* Public Events */
