@@ -47,6 +47,7 @@ function (
             maxScale: null,
             symbol: null,
             infoTemplate: null,
+            time: 5, // from the past days: 1, 2, 3, 4, 5, 6, 7 
             key: '',
             refreshTime: 4000,
             url : 'https://api.instagram.com/v1/media/search/'
@@ -73,6 +74,7 @@ function (
             this.set("minScale", defaults.minScale);
             this.set("maxScale", defaults.maxScale);
             this.set("refreshTime", defaults.refreshTime);
+            this.set("time", defaults.time);
             this.set("graphics", []);
             this.set("noGeo", []);
             // listeners
@@ -267,13 +269,22 @@ function (
 				distance : radius
             };
         },
+        _getTimestamp: function(){
+            var days = parseInt(this.get("time"), 10) || 5;
+            var d = new Date();
+            d.setDate(d.getDate() - days);
+            return Math.round(d.getTime() / 1000);
+        },
         _constructQuery: function () {
+            var unix_timestamp = this._getTimestamp();
             var radius = this._getRadius();
             this.query = {
                 client_id: this.key,
                 count: this.limit,
 				lat: radius.lat,
 				lng: radius.lng,
+                min_timestamp: unix_timestamp,
+                max_timestamp: Math.round(new Date().getTime() / 1000),
 				distance: radius.distance,
                 page: 1,
                 format: "json"

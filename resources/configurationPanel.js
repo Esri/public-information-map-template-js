@@ -311,6 +311,42 @@
             {
                "type":"paragraph",
                "value":"Show this layer by default."
+            },
+            {
+               "type":"string",
+               "fieldName":"instagramTime",
+               "tooltip":"Photos uploaded within the past",
+               "label":"Photos uploaded within the past",
+               "options":[
+                  {
+                     "label":"Day",
+                     "value":1
+                  },
+                  {
+                     "label":"2 Days",
+                     "value":2
+                  },
+                  {
+                     "label":"3 Days",
+                     "value":3
+                  },
+                  {
+                     "label":"4 Days",
+                     "value":4
+                  },
+                  {
+                     "label":"5 Days",
+                     "value":5
+                  },
+                  {
+                     "label":"6 Days",
+                     "value":6
+                  },
+                  {
+                     "label":"Week",
+                     "value":7
+                  }
+               ]
             }
          ]
       },
@@ -343,6 +379,30 @@
                "label":"Search Keywords",
                "tooltip":"Search Keywords",
                "placeHolder":""
+            },
+            {
+               "type":"string",
+               "fieldName":"flickrTime",
+               "tooltip":"Photos uploaded within the past",
+               "label":"Photos uploaded within the past",
+               "options":[
+                  {
+                     "label":"All Time",
+                     "value":"all_time"
+                  },
+                  {
+                     "label":"Month",
+                     "value":"this_month"
+                  },
+                  {
+                     "label":"Week",
+                     "value":"this_week"
+                  },
+                  {
+                     "label":"Day",
+                     "value":"today"
+                  }
+               ]
             }
          ]
       },
@@ -484,9 +544,11 @@
       "swipeInvertPlacement":false,
       "enableInstagram":true,
       "instagramVisible":false,
+      "instagramTime":5,
       "enableFlickr":true,
       "flickrVisible":false,
       "flickrSearch":"",
+      "flickrTime":"all_time",
       "enableTwitter":true,
       "twitterVisible":false,
       "twitterSearch":"",

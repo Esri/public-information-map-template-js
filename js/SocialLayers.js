@@ -153,6 +153,7 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.instagram,
+                        settings: 'instagram_cog',
                         visibility: this._instagramLayer.featureLayer.visible,
                         layerObject: this._instagramLayer.featureLayer
                     });
@@ -184,7 +185,56 @@ define([
                 this.layerInfos = this.layerInfos.concat(this.socialLayerInfos);
             },
             configureSocial: function(){
-              // flickr enabled
+                // instagram enabled
+                if(this.config.enableInstagram){
+                    if(!this.config.instagramTime){
+                        this.config.instagramTime = 5;
+                    }
+                    // Instagram Dialog
+                    var igContent = '';
+                    igContent += '<div class="' + this.socialCSS.dialogContent + '">';
+                    igContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.igSettingsInfo + '</div>';
+                    igContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.igTime + '</div>';
+                    igContent += '<div class="' + this.socialCSS.layerSettingsSelect + '"><select id="instagram_search_time">';
+                    igContent += this._createInstagramOption(1);
+                    igContent += this._createInstagramOption(2);
+                    igContent += this._createInstagramOption(3);
+                    igContent += this._createInstagramOption(4);
+                    igContent += this._createInstagramOption(5);
+                    igContent += this._createInstagramOption(6);
+                    igContent += this._createInstagramOption(7);
+                    igContent += '</select></div>';
+                    igContent += '<div id="instagram_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
+                    igContent += '</div>';
+                    var instagramDialogNode = domConstruct.create('div', {
+                        innerHTML: igContent
+                    });
+                    // dialog node
+                    domConstruct.place(instagramDialogNode, document.body, 'last');
+                    // dialog
+                    this._instagramDialog = new Dialog({
+                        title: this.config.i18n.social.instagramSettings,
+                        draggable: false
+                    }, instagramDialogNode);
+                    // settings icon
+                    var instagramCog = dom.byId('instagram_cog');
+                    if(instagramCog){
+                        domAttr.set(instagramCog, 'title', this.config.i18n.general.settings);
+                        on(instagramCog, 'click', lang.hitch(this, function(evt){
+                            this._instagramDialog.show();
+                            event.stop(evt);
+                        }));
+                    }
+                    // instagram settings search nodes
+                    var igSearchNode = dom.byId('instagram_search_submit');
+                    if(igSearchNode){
+                        // instagram search button click
+                        on(igSearchNode, 'click', lang.hitch(this, function(){
+                            this._updateInstagramSearch();
+                        }));
+                    }
+                }
+                // flickr enabled
                 if(this.config.enableFlickr){
                     // Flickr Dialog
                     var flContent = '';
@@ -192,6 +242,13 @@ define([
                     flContent += '<div class="' + this.socialCSS.layerSettingsDescription + '">' + this.config.i18n.social.flSettingsInfo + '</div>';
                     flContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.searchTerms + '</div>';
                     flContent += '<input id="flickr_search_input" class="' + this.socialCSS.layerSettingsInput + '" type="text" value="' + this.config.flickrSearch + '">';
+                    flContent += '<div class="' + this.socialCSS.layerSettingsHeader + '">' + this.config.i18n.social.ytTime + '</div>';
+                    flContent += '<div class="' + this.socialCSS.layerSettingsSelect + '"><select id="flickr_search_time">';
+                    flContent += this._createFlickrOption('all_time', this.config.i18n.social.all_time);
+                    flContent += this._createFlickrOption('this_month', this.config.i18n.social.this_month);
+                    flContent += this._createFlickrOption('this_week', this.config.i18n.social.this_week);
+                    flContent += this._createFlickrOption('today', this.config.i18n.social.today);
+                    flContent += '</select></div>';
                     flContent += '<div id="flickr_search_submit" class="' + this.socialCSS.layerSettingsSubmit + '">' + this.config.i18n.social.search + '</div>';
                     flContent += '</div>';
                     var flickrDialogNode = domConstruct.create('div', {
@@ -404,6 +461,28 @@ define([
                     this._updateYouTubeFilter();
                 }
             },
+            _createInstagramOption: function(value){
+                var html = '<option ';
+                html += 'value = "' + value + '"';
+                if(parseInt(value, 10) === parseInt(this.config.instagramTime)){
+                    html += ' selected';
+                }
+                html += '>';
+                html += value;
+                html += '</option>';
+                return html;
+            },
+            _createFlickrOption: function(value, text){
+                var html = '<option ';
+                html += 'value = "' + value + '"';
+                if(value === this.config.flickrTime){
+                    html += ' selected';
+                }
+                html += '>';
+                html += text;
+                html += '</option>';
+                return html;
+            },
             _createYouTubeOption: function(value, text){
                 var html = '<option ';
                 html += 'value = "' + value + '"';
@@ -460,6 +539,16 @@ define([
                 // set layerInfo title
                 this._setLayerInfoTitle(this._youtubeLayer.featureLayer, newTitle);
             },
+            _updateInstagramSearch: function(inputNode){
+                this._instagramLayer.clear();
+                this._instagramLayer.show();
+                var igSearchTime = dom.byId('instagram_search_time');
+                if(igSearchTime){
+                    this._instagramLayer.set('time', igSearchTime.value);   
+                }
+                this._instagramLayer.update(0);
+                this._instagramDialog.hide();
+            },
             _updateTwitterSearch: function(inputNode){
                 this._twitterLayer.clear();
                 this._twitterLayer.show();
@@ -471,6 +560,10 @@ define([
                 this._flickrLayer.clear();
                 this._flickrLayer.show();
                 this._flickrLayer.set('searchTerm', inputNode.value);
+                var flSearchTime = dom.byId('flickr_search_time');
+                if(flSearchTime){
+                    this._flickrLayer.set('time', flSearchTime.value);   
+                }
                 this._flickrLayer.update(0);
                 this._flickrDialog.hide();
             },

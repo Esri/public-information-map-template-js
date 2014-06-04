@@ -47,6 +47,7 @@ define([
                 minScale: null,
                 maxScale: null,
                 symbol: null,
+                time: null, // today, this_week, this_month, all_time
                 infoTemplate: null,
                 dateFrom: '',
                 dateTo: '',
@@ -75,6 +76,7 @@ define([
                 this.set("dateFrom", defaults.dateFrom);
                 this.set("dateTo", defaults.dateTo);
                 this.set("key", defaults.key);
+                this.set("time", defaults.time);
                 this.set("minScale", defaults.minScale);
                 this.set("maxScale", defaults.maxScale);
                 this.set("refreshTime", defaults.refreshTime);
@@ -279,12 +281,32 @@ define([
                     maxPoint: maxPoint
                 };
             },
+            _getTimestamp: function(){
+                var t = this.get("time");
+                var d = new Date();
+                switch(t){
+                    case "today":
+                        d.setHours(d.getHours() - 24);
+                        return Math.round(d.getTime() / 1000);
+                    case "this_week":
+                        d.setDate(d.getDate() - 7);
+                        return Math.round(d.getTime() / 1000);
+                    case "this_month":
+                        d.setMonth(d.getMonth() - 1);
+                        return Math.round(d.getTime() / 1000);
+                    case "all_time":
+                        return null;
+                    default:
+                        return null;
+                }
+            },
             _constructQuery: function () {
                 var search = lang.trim(this.searchTerm);
                 if (search.length === 0) {
                     search = "";
                 }
                 var radius = this._getRadius();
+                var unix_timestamp = this._getTimestamp();
                 this.query = {
                     bbox: radius.minPoint.x + "," + radius.minPoint.y + "," + radius.maxPoint.x + "," + radius.maxPoint.y,
                     extras: "description, date_upload, owner_name, geo, url_q",
@@ -299,6 +321,10 @@ define([
                     page: 1,
                     format: "json"
                 };
+                if(unix_timestamp){
+                    this.query.min_upload_date = unix_timestamp;
+                    this.query.max_upload_date = Math.round(new Date().getTime() / 1000);
+                }
                 if (this.dateTo && this.dateFrom) {
                     this.query.max_taken_date = Math.round(this.dateTo / 1000);
                     this.query.min_taken_date = Math.round(this.dateFrom / 1000);
