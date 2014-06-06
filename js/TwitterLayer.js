@@ -335,25 +335,18 @@ function (
                 content: content,
                 callbackParamName: "callback",
                 preventCache: true,
-                load: lang.hitch(this, function (data) {
+                failOk: true,
+                handle: lang.hitch(this, function (data) {
                     if(data.errors && data.errors.length > 0){
                         var errors = data.errors;
-                        // each error
-                        for(var i = 0; i < errors.length; i++){
-                            // auth error
-                            if(errors[i].code === 215){
-                                this._updateEnd();
-                                this._error(errors);
-                                this.set("authorized", false);
-                            }
-                        }
+                        this._error(errors);
                     }
-                    else if(data && data.signedIn === false){
-                        this._updateEnd();
+                    if(data && data.signedIn === false){
                         this.set("authorized", false);
                         this.emit("authorize", {
                             authorized: false
                         });
+                        this._updateEnd();
                     }
                     else if (data.statuses && data.statuses.length > 0) {
                         if(!this.get("authorized")){
@@ -372,17 +365,9 @@ function (
                         }
                     } else {
                         // No results found, try another search term
-                        this._updateEnd();
                         this.set("authorized", true);
+                        this._updateEnd();
                     }
-                }),
-                error: lang.hitch(this, function (e) {
-                    if (deferred.canceled) {
-                        console.log('Twitter::Search Cancelled');
-                    } else {
-                        console.log('Twitter::Search error' + ": " + e.message.toString());
-                    }
-                    this._error(e);
                 })
             });
             this._deferreds.push(deferred);
@@ -503,7 +488,6 @@ function (
             this.setVisibility(this.get("visible"));
         },
         _error: function(e){
-            this._updateEnd();
             this.emit("error", e);
         },
         _updateEnd: function () {
