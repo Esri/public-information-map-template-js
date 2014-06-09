@@ -66,15 +66,6 @@ define({
     //Defaults to arcgis.com. Set this value to your portal or organization host name.
     "sharinghost": location.protocol + "//" + "www.arcgis.com",
     //When true the template will query arcgis.com for default settings for helper services, units etc. If you 
-    //want to use custom settings for units or any of the helper services set queryForOrg to false then enter
-    //default values for any items you need using the helper services and units properties. 
-    "queryForOrg": true,
-    // This template is localized. Keep true.
-    "localize": true,
-    // custom URL parameters for this template
-    "urlItems": [
-        "extent"
-    ],
     "units": null,
     "helperServices": {
         "geometry": {

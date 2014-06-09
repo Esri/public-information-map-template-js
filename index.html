@@ -113,14 +113,16 @@
     <script type="text/javascript" src="//jsdev.arcgis.com/3.10/init.js"></script>
     <script type="text/javascript">
         require([
+            "application/templateOptions",
             "application/template",
             "application/main"
         ], function(
+            templateOptions,
             Template,
             Main
         ){
             // create the template. This will take care of all the logic required for template applications 
-            var myTemplate = new Template();
+            var myTemplate = new Template(templateOptions);
             // create my main application. Start placing your logic in the main.js file.
             var myApp = new Main();
             // start template
