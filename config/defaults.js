@@ -6,7 +6,7 @@ define({
     "webmap": "df8bcc10430f48878b01c96e907a1fc3",
     "oauthappid": null,
     //Enter the url to the proxy if needed by the applcation. See the "Using the proxy page" help topic for details
-    // //developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
+    //developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
     "proxyurl": "",
     //Example of a template specific property. If your template had several color schemes
     //you could define the default here and setup configuration settings to allow users to choose a different
@@ -29,14 +29,8 @@ define({
     "enableMoreInfo": true,
     "defaultBasemap": "topo",
     "nextBasemap": "hybrid",
-    "notesLayer": {
-        "id": "mapNotes_7330"
-    },
-    "swipeLayer": {
-        "id": "Weather_Warnings_Watches_Advisories_Statements_2563"
-    },
-    "swipeType":"vertical",
-    "swipeInvertPlacement":true,
+    "swipeType": "vertical",
+    "swipeInvertPlacement": true,
     "hideNotesLayerPopups": true,
     "enableInstagram": true,
     "instagramVisible": false,
@@ -56,8 +50,8 @@ define({
     "youtubeTime": "all_time", // today, this_week, this_month, all_time
     "bitlyLogin": "esri",
     "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
-    "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
-    "twitterSigninUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/sign_in.php",
+    "twitterUrl": location.protocol + "//utility.arcgis.com/tproxy/proxy/1.1/search/tweets.json",
+    "twitterSigninUrl": location.protocol + "//utility.arcgis.com/tproxy/signin",
     "flickr_key": "404ebea7d5bc27aa5251d1207620e99b",
     "webcams_key": "65939add1ebe8bc9cc4180763f5df2ca",
     "instagram_key": "288c36a1a42c49de9a2480a05d054619",
