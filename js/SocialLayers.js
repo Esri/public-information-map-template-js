@@ -81,6 +81,7 @@ define([
                     this._youtubeLayer = new YouTubeLayer({
                         map: this.map,
                         time: this.config.youtubeTime,
+                        searchTerm: this.config.youtubeSearch,
                         visible: this.config.youtubeVisible,
                         key: this.config.youtube_key
                     });
