@@ -4,7 +4,7 @@
             error: "Kan ikke oprette kort"
         },
         report: {
-            flag: "Mark\ér som upassende",
+            flag: "Markér som upassende",
             error: "Fejl",
             success: "Markeret",
             loading: "Indlæser &Hjælp;"
@@ -26,15 +26,27 @@
             twitterSignIn: "Log ind på Twitter",
             webcams: "Webcams",
             instagram: "Instagram",
+            instagramSettings: "Instagram-indstillinger",
+            igTime: "Overført inden for de seneste dage",
+            youtube: "YouTube",
+            youtubeSettings: "YouTube-indstillinger",
+            ytSettingsInfo: "Vis brugergenererede videoer inkl. netværks- og professionelt indhold.",
+            ytTime: "Tidligere overført",
+            today: "Dag",
+            this_week: "Uge",
+            this_month: "Måned",
+            all_time: "Altid",
             moreInfo: "Flere oplysninger",
             searchTerms: "Søgetermer",
             search: "Søg",
-            flSettingsInfo: "Return\ér resultater, der svarer til et fotos titel, beskrivelse eller nøgleord.",
+            flSettingsInfo: "Returnér resultater, der svarer til et fotos titel, beskrivelse eller nøgleord.",
             twSettingsInfo: "Se, hvad der sker lige nu.",
+            igSettingsInfo: "Instagram er en hurtig, smuk og sjov måde at dele sit liv med venner og familie.",
             advancedOperators: "Tip: brug <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">operatorer</a> til at oprette avancerede søgninger.",
             tweetsFilteredBy: "tweets filtreret af:",
             photosFilteredBy: "fotos filtreret af:",
-            twitterAccountStatus: "Aktiv\ér Twitter-laget til at se din status."
+            videosFilteredBy: "videoer filtreret af:",
+            twitterAccountStatus: "Aktivér Twitter-laget til at se din status."
         },
         general: {
             map: "Kort",
