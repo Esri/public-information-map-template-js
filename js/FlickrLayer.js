@@ -52,7 +52,7 @@ define([
                 dateFrom: '',
                 dateTo: '',
                 key: '',
-                baseurl: location.protocol === "https:" ? "https://secure.flickr.com/services/rest/" : "http://api.flickr.com/services/rest/",
+                baseurl: "https://api.flickr.com/services/rest/",
                 refreshTime: 4000
             },
             constructor: function (options) {
