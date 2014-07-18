@@ -49,8 +49,6 @@ define([
                 symbol: null,
                 time: null, // today, this_week, this_month, all_time
                 infoTemplate: null,
-                dateFrom: '',
-                dateTo: '',
                 key: '',
                 baseurl: "https://api.flickr.com/services/rest/",
                 refreshTime: 4000
@@ -73,8 +71,6 @@ define([
                 this.set("searchTerm", defaults.searchTerm);
                 this.set("symbol", defaults.symbol);
                 this.set("infoTemplate", defaults.infoTemplate);
-                this.set("dateFrom", defaults.dateFrom);
-                this.set("dateTo", defaults.dateTo);
                 this.set("key", defaults.key);
                 this.set("time", defaults.time);
                 this.set("minScale", defaults.minScale);
@@ -86,6 +82,7 @@ define([
                 // listeners
                 this.watch("searchTerm", this.update);
                 this.watch("visible", this._visible);
+                this.watch("time", this.update);
                 // private vars
                 this._deferreds = [];
                 this._events = [];
@@ -324,10 +321,6 @@ define([
                 if(unix_timestamp){
                     this.query.min_upload_date = unix_timestamp;
                     this.query.max_upload_date = Math.round(new Date().getTime() / 1000);
-                }
-                if (this.dateTo && this.dateFrom) {
-                    this.query.max_taken_date = Math.round(this.dateTo / 1000);
-                    this.query.min_taken_date = Math.round(this.dateFrom / 1000);
                 }
                 // make the actual Flickr API call
                 this.pageCount = 1;

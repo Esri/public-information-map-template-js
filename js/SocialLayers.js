@@ -127,6 +127,7 @@ define([
                     this._flickrLayer = new FlickrLayer({
                         map: this.map,
                         visible: this.config.flickrVisible,
+                        time: this.config.flickrTime,
                         searchTerm: this.config.flickrSearch,
                         key: this.config.flickr_key
                     });
