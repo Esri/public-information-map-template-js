@@ -78,7 +78,9 @@ input[type=text]::-ms-clear {
     padding-left: 0;
 }
 /* Panels */
-
+.panel-container img{
+    max-width: 100%;
+}
 .panel-title {
     margin: 10px;
     font-weight: 700;
