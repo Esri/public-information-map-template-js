@@ -26,6 +26,7 @@ define({
     "enableOverviewMap": true,
     "openOverviewMap": false,
     "enableModifiedDate": true,
+    "enableViewsCount": true,
     "enableMoreInfo": true,
     "defaultBasemap": "topo",
     "nextBasemap": "hybrid",

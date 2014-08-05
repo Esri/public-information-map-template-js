@@ -1,7 +1,8 @@
 define({
     root: ({
         map: {
-            error: "Unable to create map"
+            error: "Unable to create map",
+            views: "views."
         },
         report: {
             flag: "Flag as innapropriate",

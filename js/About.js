@@ -7,6 +7,7 @@ define([
     "dojo/on",
     "esri/geometry/Extent",
     "dojo/window",
+    "dojo/number",
     "dojo/date/locale"
 ],
     function (
@@ -18,6 +19,7 @@ define([
         on,
         Extent,
         win,
+        number,
         locale
     ) {
         return declare("", null, {
@@ -48,10 +50,21 @@ define([
                 if(this.config.enableModifiedDate){
                     this._setModifiedDate();  
                 }
+                // views
+                if(this.config.enableViewsCount){
+                    this._setViewsCount();  
+                }
                 // more information link
                 if(this.config.enableMoreInfo){
                     this._moreInfoLink();
                 }
+            },
+            _setViewsCount: function(){
+                var node = dom.byId('views_count');
+                if(node && this.item && this.item.hasOwnProperty('numViews')){
+                    // set count
+                    node.innerHTML = number.format(this.item.numViews) + " " + this.config.i18n.map.views;
+                }                
             },
             _setModifiedDate: function(){
                 var node = dom.byId('date_modified');

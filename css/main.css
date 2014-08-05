@@ -110,12 +110,14 @@ input[type=text]::-ms-clear {
 }
 .panel-more-info,
 .panel-modified-date,
+.panel-views-count,
 .panel-summary,
 .panel-description {
     color: #666;
     line-height: 24px;
 }
 .panel-modified-date,
+.panel-views-count,
 .panel-summary {
     padding: 0 20px 5px 10px;
 }

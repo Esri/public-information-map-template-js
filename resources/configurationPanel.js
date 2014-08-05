@@ -138,6 +138,12 @@
             },
             {
                "type":"boolean",
+               "fieldName":"enableViewsCount",
+               "label":"Enable Views Count",
+               "tooltip":"Enable Views Count"
+            },
+            {
+               "type":"boolean",
                "fieldName":"enableMoreInfo",
                "label":"Enable More Information link",
                "tooltip":"Enable More Information link"
@@ -535,6 +541,7 @@
       "enableLocateButton":true,
       "enableBasemapToggle":true,
       "enableShareDialog":true,
+      "enableViewsCount": true,
       "enableBookmarks":true,
       "enableOverviewMap":true,
       "openOverviewMap":false,

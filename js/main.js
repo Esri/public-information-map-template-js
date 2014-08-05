@@ -62,6 +62,7 @@ function(
                 panelSummary: "panel-summary",
                 panelDescription: "panel-description",
                 panelModified: "panel-modified-date",
+                panelViews: "panel-views-count",
                 panelMoreInfo: "panel-more-info",
                 pointerEvents: "pointer-events",
                 iconRight: "icon-right",
@@ -198,6 +199,9 @@ function(
                     content += '<div class="' + this.css.panelSummary + '" id="summary"></div>';
                     if(this.config.enableModifiedDate){
                         content += '<div class="' + this.css.panelModified + '" id="date_modified"></div>';
+                    }
+                    if(this.config.enableViewsCount){
+                        content += '<div class="' + this.css.panelViews + '" id="views_count"></div>'; 
                     }
                     if(this.config.enableMoreInfo){
                         content += '<div class="' + this.css.panelMoreInfo + '" id="more_info_link"></div>';
