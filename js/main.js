@@ -401,7 +401,15 @@ function(
                             map: this.map,
                             layers: [ layer ]
                         }, "swipeDiv");
-                        layerSwipe.startup();    
+                        layerSwipe.startup();
+                        on(layer, 'visibility-change', lang.hitch(this, function(evt){
+                            if(evt.visible){
+                                layerSwipe.set("enabled", true);
+                            }
+                            else{
+                                layerSwipe.set("enabled", false);
+                            }
+                        }));
                     }
                 }));  
             }
