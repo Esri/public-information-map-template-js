@@ -16,7 +16,8 @@ define([
     "esri/geometry/Point",
     "esri/request",
     "esri/graphic",
-    "esri/symbols/PictureMarkerSymbol"
+    "esri/symbols/PictureMarkerSymbol",
+    "dojo/domReady!"
 ],
 function (
     declare, array, lang, dojo,
@@ -197,20 +198,22 @@ function (
             this.map.removeLayer(this.featureLayer);
         },
         update: function (ms) {
-            if(this.featureLayer && this.featureLayer.visibleAtMapScale && this.featureLayer.visible){
-                if(this._refreshTimer){
-                    clearTimeout(this._refreshTimer);
+            ready(lang.hitch(this, function(){
+                if(this.featureLayer && this.featureLayer.visibleAtMapScale && this.featureLayer.visible){
+                    if(this._refreshTimer){
+                        clearTimeout(this._refreshTimer);
+                    }
+                    // default to refresh time
+                    var refresh = this.refreshTime;
+                    // use param time if set
+                    if(typeof ms !== 'undefined'){
+                        refresh = ms;
+                    }
+                    this._refreshTimer = setTimeout(lang.hitch(this, function() {
+                        this._constructQuery();
+                    }), refresh);
                 }
-                // default to refresh time
-                var refresh = this.refreshTime;
-                // use param time if set
-                if(typeof ms !== 'undefined'){
-                    refresh = ms;
-                }
-                this._refreshTimer = setTimeout(lang.hitch(this, function() {
-                    this._constructQuery();
-                }), refresh);
-            }
+            }));
         },
         clear: function () {
             // remove timer
