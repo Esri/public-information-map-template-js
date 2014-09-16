@@ -197,9 +197,10 @@ define([
             /* Private Functions */
             /* ---------------- */
             _stripTags: function (str) {
-                return domConstruct.create("div", {
+                var text = domConstruct.create("div", {
                     innerHTML: str
                 }).textContent;
+                return text || '';
             },
             _setExtentChecked: function () {
                 domAttr.set(this._extentInput, 'checked', this.get("useExtent"));
