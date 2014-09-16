@@ -20,7 +20,8 @@ define([
     "esri/urlUtils",
     "dijit/Dialog",
     "dojo/number",
-    "dojo/_base/event"
+    "dojo/_base/event",
+    "dojo/io-query"
 ],
     function (
         Evented,
@@ -36,7 +37,8 @@ define([
         urlUtils,
         Dialog,
         number,
-        event
+        event,
+        ioQuery
     ) {
         var Widget = declare("esri.dijit.ShareDialog", [_WidgetBase, _TemplatedMixin, Evented], {
             templateString: dijitTemplate,
@@ -52,7 +54,7 @@ define([
                 summary: '',
                 hashtags: '',
                 mailURL: 'mailto:%20?subject=${title}&body=${summary}%20${url}',
-                facebookURL: "https://www.facebook.com/sharer/sharer.php?s=100&p[url]=${url}&p[images][0]=${image}&p[title]=${title}&p[summary]=${summary}",
+                facebookURL: "https://www.facebook.com/sharer/sharer.php?u=${url}",
                 twitterURL: "https://twitter.com/intent/tweet?url=${url}&text=${title}&hashtags=${hashtags}",
                 googlePlusURL: "https://plus.google.com/share?url=${url}",
                 bitlyAPI: location.protocol === "https:" ? "https://api-ssl.bitly.com/v3/shorten" : "http://api.bit.ly/v3/shorten",
@@ -194,6 +196,11 @@ define([
             /* ---------------- */
             /* Private Functions */
             /* ---------------- */
+            _stripTags: function (str) {
+                return domConstruct.create("div", {
+                    innerHTML: str
+                }).textContent;
+            },
             _setExtentChecked: function () {
                 domAttr.set(this._extentInput, 'checked', this.get("useExtent"));
             },
@@ -201,9 +208,9 @@ define([
                 var value = domAttr.get(this._extentInput, 'checked');
                 this.set("useExtent", value);
             },
-            _useExtentChanged: function(){
+            _useExtentChanged: function () {
                 this._updateUrl();
-                this._shareLink();  
+                this._shareLink();
             },
             _setSizeOptions: function () {
                 // clear select menu
@@ -268,6 +275,14 @@ define([
                         }
                         url += i + '=' + urlObject.query[i];
                     }
+                }
+                //Remove edit=true from the query parameters
+                if (location.href.indexOf("?") > -1) {
+                    var queryUrl = location.href;
+                    var urlParams = ioQuery.queryToObject(window.location.search.substring(1)),
+                        newParams = lang.clone(urlParams);
+                    delete newParams.edit; //Remove edit parameter
+                    url = queryUrl.substring(0, queryUrl.indexOf("?") + 1) + ioQuery.objectToQuery(newParams);
                 }
                 // update url
                 this.set("url", url);
@@ -363,6 +378,14 @@ define([
             _shareLink: function () {
                 if (this.get("bitlyAPI") && this.get("bitlyLogin") && this.get("bitlyKey")) {
                     var currentUrl = this.get("url");
+                    //Remove edit=true from the query parameters
+                    if (location.href.indexOf("?") > -1) {
+                        var queryUrl = location.href;
+                        var urlParams = ioQuery.queryToObject(window.location.search.substring(1)),
+                            newParams = lang.clone(urlParams);
+                        delete newParams.edit; //Remove edit parameter
+                        currentUrl = queryUrl.substring(0, queryUrl.indexOf("?") + 1) + ioQuery.objectToQuery(newParams);
+                    }
                     // not already shortened
                     if (currentUrl !== this._shortened) {
                         // set shortened
@@ -395,7 +418,7 @@ define([
                     url: encodeURIComponent(this.get("bitlyUrl") ? this.get("bitlyUrl") : this.get("url")),
                     image: encodeURIComponent(this.get("image")),
                     title: encodeURIComponent(this.get("title")),
-                    summary: encodeURIComponent(this.get("summary")),
+                    summary: encodeURIComponent(this._stripTags(this.get("summary"))),
                     hashtags: encodeURIComponent(this.get("hashtags"))
                 });
                 // email link
