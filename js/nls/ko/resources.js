@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "맵을 생성할 수 없음"
+            error: "맵을 생성할 수 없음",
+            views: "보기"
         },
         report: {
             flag: "부적합으로 플래그 지정",
@@ -30,7 +31,7 @@
             igTime: "과거 기간에 업로드됨",
             youtube: "YouTube",
             youtubeSettings: "YouTube 설정",
-            ytSettingsInfo: "네트워크 및 전문 컨텐츠를 비롯한 사용자 생성 동영상을 봅니다.",
+            ytSettingsInfo: "네트워크 및 전문 콘텐츠를 비롯한 사용자 생성 동영상을 봅니다.",
             ytTime: "과거 기간에 업로드됨",
             today: "일",
             this_week: "주",

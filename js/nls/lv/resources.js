@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Nevar izveidot karti"
+            error: "Nevar izveidot kartes",
+            views: "skati."
         },
         report: {
             flag: "Atzīmēt kā nepiemērotu",

@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Kan ikke opprette kart"
+            error: "Kan ikke opprette kart",
+            views: "visninger."
         },
         report: {
             flag: "Flagg som upassende",

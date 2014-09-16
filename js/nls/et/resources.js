@@ -1,10 +1,11 @@
 ﻿define(
      ({
         map: {
-            error: "Kaarti ei saa luua"
+            error: "Kaarti ei saa luua",
+            views: "vaatamisi."
         },
         report: {
-            flag: "Märgi kohatuks",
+            flag: "Märgi mittesobilikuks",
             error: "Viga",
             success: "Märgitud",
             loading: "Laadimine&hellip;"
@@ -36,7 +37,7 @@
             this_week: "Nädal",
             this_month: "Kuu",
             all_time: "Kogu aeg",
-            moreInfo: "Veel teavet",
+            moreInfo: "Detailsem info",
             searchTerms: "Otsinguterminid",
             search: "Otsi",
             flSettingsInfo: "Tagastatakse foto pealkirjale, kirjeldustele või siltidele vastavad tulemused.",
@@ -45,7 +46,7 @@
             advancedOperators: "Näpunäide: kasutage täpsemate otsingute loomiseks <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">tehtemärke</a>.",
             tweetsFilteredBy: "säutsud on filtreeritud:",
             photosFilteredBy: "fotod on filtreeritud:",
-            videosFilteredBy: "videote filtreerimisalus:",
+            videosFilteredBy: "videomaterjali filtreerimine:",
             twitterAccountStatus: "Luba Twitteri kihti, et näha enda staatust."
         },
         general: {

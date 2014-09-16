@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Imposibil de creat harta"
+            error: "Imposibil de creat harta",
+            views: "vizualizări."
         },
         report: {
             flag: "Marcare drept inadecvat",

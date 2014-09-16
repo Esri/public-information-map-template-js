@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Karte kann nicht erstellt werden"
+            error: "Karte kann nicht erstellt werden",
+            views: "Aufrufe."
         },
         report: {
             flag: "Als ungeeignet kennzeichnen",

@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Žemėlapio sukurti nepavyko"
+            error: "Žemėlapio sukurti nepavyko",
+            views: "peržiūros."
         },
         report: {
             flag: "Pažymėkite kaip netinkamą",

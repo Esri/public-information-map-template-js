@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Impossible de créer la carte"
+            error: "Impossible de créer la carte",
+            views: "vues."
         },
         report: {
             flag: "Signaler comme inapproprié",

@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Kan kaart niet maken"
+            error: "Kan kaart niet maken",
+            views: "weergaven."
         },
         report: {
             flag: "Markeren als ongeschikt",

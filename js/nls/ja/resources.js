@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "マップを作成できません"
+            error: "マップを作成できません",
+            views: "ビュー。"
         },
         report: {
             flag: "不適切を示すフラグ",

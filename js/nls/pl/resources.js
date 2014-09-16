@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Nie można utworzyć mapy"
+            error: "Nie można utworzyć",
+            views: "widoków mapy."
         },
         report: {
             flag: "Oflaguj jako niewłaściwe",

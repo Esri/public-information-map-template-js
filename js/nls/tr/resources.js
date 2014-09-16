@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Harita oluşturulamıyor"
+            error: "Harita oluşturulamıyor",
+            views: "görünümler."
         },
         report: {
             flag: "Uygunsuz olarak işaretle",

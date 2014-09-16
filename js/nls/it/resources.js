@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Impossibile creare la mappa"
+            error: "Impossibile creare la mappa",
+            views: "viste."
         },
         report: {
             flag: "Contrassegna come non appropriato",

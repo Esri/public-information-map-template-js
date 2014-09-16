@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "Karttaa ei voi luoda"
+            error: "Karttaa ei voi luoda",
+            views: "näkymät."
         },
         report: {
             flag: "Merkitse sopimattomaksi",

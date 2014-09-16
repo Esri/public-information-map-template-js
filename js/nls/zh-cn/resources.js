@@ -1,7 +1,8 @@
 ﻿define(
      ({
         map: {
-            error: "无法创建地图"
+            error: "无法创建地图",
+            views: "视图。"
         },
         report: {
             flag: "标记为不适用",
