@@ -636,11 +636,11 @@ function(
             //can be defined for the popup like modifying the highlight symbol, margin etc.
             arcgisUtils.createMap(itemInfo, "mapDiv", {
                 mapOptions: {
-                    infoWindow: customPopup,
-                    editable: false
+                    infoWindow: customPopup
                     //Optionally define additional map config here for example you can
                     //turn the slider off, display info windows, disable wraparound 180, slider position and more.
                 },
+                editable: false,
                 usePopupManager: true,
                 bingMapsKey: this.config.bingmapskey
             }).then(lang.hitch(this, function (response) {
