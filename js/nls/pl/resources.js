@@ -31,7 +31,7 @@
             igTime: "Przesłane w ciągu ostatnich dni",
             youtube: "YouTube",
             youtubeSettings: "Ustawienia serwisu YouTube",
-            ytSettingsInfo: "Zapoznaj się z materiałami wideo utworzonymi przez użytkowników zawierające zasoby sieciowe oraz profesjonalne.",
+            ytSettingsInfo: "Zapoznaj się z materiałami wideo utworzonymi przez użytkowników, które zawierają zasoby sieciowe oraz profesjonalne.",
             ytTime: "Przesłane w ciągu ostatnich",
             today: "Dzień",
             this_week: "Tydzień",

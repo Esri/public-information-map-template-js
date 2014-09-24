@@ -19,7 +19,7 @@
         social: {
             flickr: "Flickr",
             mediaLayers: "שכבות מדיה",
-            mediaLayersDescription: "הצג תורמים מתוך הציבור על המפה.",
+            mediaLayersDescription: "הצג תרומות מהציבור על המפה.",
             flickrSettings: "הגדרות Flickr",
             twitter: "טוויטר",
             twitterSettings: "הגדרות טוויטר",
@@ -59,7 +59,7 @@
             about: "אודות",
             find: "מיקוד, עיר ועוד.",
             moreInfo: "מידע נוסף",
-            dateModified: "שונה לאחרונהשונה לאחרונה",
+            dateModified: "שונה לאחרונה",
             noSearchResult: "לא נמצאו תוצאות",
             switchAccount: "החלף חשבון",
             signIn: "התחבר",
