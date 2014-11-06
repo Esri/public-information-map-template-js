@@ -14,7 +14,7 @@ define({
     "title": "",
     "summary": "",
     "defaultPanel": "legend",
-    "enableDialogModal": true,
+    "enableDialogModal": false,
     "dialogModalContent": "",
     "dialogModalTitle": "",
     "enableSummaryInfo": true,
