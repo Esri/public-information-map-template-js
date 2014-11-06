@@ -386,6 +386,20 @@ function(
             });
             // hide loading div
             this._hideLoadingIndicator();
+
+            // dialog modal
+            if(this.config.enableDialogModal){
+                require(["dijit/Dialog"], lang.hitch(this, function(Dialog){
+                    var dialogContent = this.config.dialogModalContent;
+                    var dialogModal = new Dialog({
+                        title: this.config.dialogModalTitle || "Access and Use Constraints",
+                        content: dialogContent,
+                        style: "width: 375px"
+                    });
+                    dialogModal.show();
+                }));    
+            }
+
             // swipe layer
             if(this.config.swipeLayer && this.config.swipeLayer.id){
                 // get swipe tool
@@ -468,6 +482,10 @@ function(
                 // title attribute
                 domAttr.set(node, "title", this.config.title);
             }
+        },
+        _setDialogModalContent: function(content) {
+            // set dialog modal content
+            this.config.dialogModalContent = content;
         },
         _createGeocoderOptions: function() {
             var hasEsri = false, esriIdx, geocoders = lang.clone(this.config.helperServices.geocode);
@@ -657,6 +675,8 @@ function(
                 this._setTitle(this.config.title || response.itemInfo.item.title);
                 // title bar title
                 this._setTitleBar();
+                // dialog modal content
+                this._setDialogModalContent(this.config.dialogModalContent || response.itemInfo.item.licenseInfo);
                 // map loaded
                 if (this.map.loaded) {
                     this._init();

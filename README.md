@@ -22,6 +22,7 @@ The template can be configured using the following options:
 - **Legend:** Display a legend.
 - **Bookmarks:** Webmap bookmarks can be used to navigate the map.
 - **About:** Display information about the application. The dialog can also be set to open on startup.
+- **Access and Use Constraints:** Display Access and Use Constraints for the webmap in a pop-up dialog when the map opens.
 
 ## Instructions
 
