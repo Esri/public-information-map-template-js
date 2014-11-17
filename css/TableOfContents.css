@@ -22,12 +22,8 @@
     float: left;
     padding: 12px 0;
     margin: 0;
-    text-overflow: ellipsis;
     width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
     line-height: 16px;
-    height: 16px;
     border: 1px solid transparent;
     vertical-align: middle;
 }
