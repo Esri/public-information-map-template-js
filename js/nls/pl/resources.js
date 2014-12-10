@@ -43,7 +43,7 @@
             flSettingsInfo: "Zwrócone wyniki, które pasują do tytułu, opisu lub znaczników zdjęcia.",
             twSettingsInfo: "Zobacz, co się teraz dzieje",
             igSettingsInfo: "Instagram to szybki, estetyczny i ciekawy sposób na dzielenie się nowymi wydarzeniami z życia z przyjaciółmi i rodziną.",
-            advancedOperators: "Wskazówka: w celu stworzenia procesów wyszukiwania zaawansowanego, skorzystaj z <a target="_blank" href="https://support.twitter.com/articles/71577-using-advanced-search">operatorów</a>.",
+            advancedOperators: "Wskazówka: w celu stworzenia procesów wyszukiwania zaawansowanego, skorzystaj z <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">operatorów</a>.",
             tweetsFilteredBy: "Filtrowanie wpisów w serwisie Twitter według:",
             photosFilteredBy: "Filtrowanie zdjęć według:",
             videosFilteredBy: "Filtrowanie filmów wideo:",
@@ -66,5 +66,4 @@
             settings: "Ustawienia"
         }
     })
-
 );

@@ -1,5 +1,5 @@
 define({
-    "root": ({
+    root: ({
         "widgets": {
             "ShareDialog": {
                 "title": "Share",

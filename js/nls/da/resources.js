@@ -66,5 +66,4 @@
             settings: "Indstillinger"
         }
     })
-
 );

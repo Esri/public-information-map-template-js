@@ -28,7 +28,7 @@
             webcams: "Webcams.travel",
             instagram: "Instagram",
             instagramSettings: "인스타그램 설정",
-            igTime: "과거 기간에 업로드됨",
+            igTime: "최근 몇 일 이내에 업로드됨",
             youtube: "YouTube",
             youtubeSettings: "YouTube 설정",
             ytSettingsInfo: "네트워크 및 전문 콘텐츠를 비롯한 사용자 생성 동영상을 봅니다.",
@@ -66,5 +66,4 @@
             settings: "설정"
         }
     })
-
 );
