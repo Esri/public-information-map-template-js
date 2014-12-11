@@ -315,14 +315,24 @@ function(
                 }, 'BasemapToggle');
                 BT.startup();
                 /* Start temporary until after JSAPI 4.0 is released */
-                var layers = this.map.getLayersVisibleAtScale(this.map.getScale());
-                on.once(this.map, 'basemap-change', lang.hitch(this, function () {
-                    for (var i = 0; i < layers.length; i++) {
-                        if (layers[i]._basemapGalleryLayerType) {
-                            var layer = this.map.getLayer(layers[i].id);
-                            this.map.removeLayer(layer);
-                        }
+                var bmLayers = [],
+                  mapLayers = this.map.getLayersVisibleAtScale(this.map.getScale());
+                if (mapLayers) {
+                  for (var i = 0; i < mapLayers.length; i++) {
+                    if (mapLayers[i]._basemapGalleryLayerType) {
+                      var bmLayer = this.map.getLayer(mapLayers[i].id);
+                      if (bmLayer) {
+                        bmLayers.push(bmLayer);
+                      }
                     }
+                  }
+                }
+                on.once(this.map, 'basemap-change', lang.hitch(this, function () {
+                  if (bmLayers && bmLayers.length) {
+                    for (var i = 0; i < bmLayers.length; i++) {
+                      this.map.removeLayer(bmLayers[i]);
+                    }
+                  }
                 }));
                 /* END temporary until after JSAPI 4.0 is released */
             }
