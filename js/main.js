@@ -330,7 +330,7 @@ function(
                 on.once(this.map, 'basemap-change', lang.hitch(this, function () {
                   if (bmLayers && bmLayers.length) {
                     for (var i = 0; i < bmLayers.length; i++) {
-                      this.map.removeLayer(bmLayers[i]);
+                      bmLayers[i].setVisibility(false);
                     }
                   }
                 }));
