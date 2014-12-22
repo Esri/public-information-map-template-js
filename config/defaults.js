@@ -31,6 +31,7 @@ define({
     "enableModifiedDate": true,
     "enableViewsCount": true,
     "enableMoreInfo": true,
+    "enablePrintButton": false,
     "defaultBasemap": "topo",
     "nextBasemap": "hybrid",
     "swipeType": "vertical",
