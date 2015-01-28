@@ -244,12 +244,14 @@ function (
             });
         },
         _layerEvent: function(layer, index) {
-            // layer visibility changes
-            var visChange = on(layer, 'visibility-change', lang.hitch(this, function(evt) {
-                // update checkbox and layer visibility classes
-                this._toggleVisible(index, evt.visible);
-            }));
-            this._layerEvents.push(visChange);
+            if(layer){
+              // layer visibility changes
+              var visChange = on(layer, 'visibility-change', lang.hitch(this, function(evt) {
+                  // update checkbox and layer visibility classes
+                  this._toggleVisible(index, evt.visible);
+              }));
+              this._layerEvents.push(visChange);
+            }
         },
         _featureCollectionVisible: function(layer, index, visible){
             // all layers either visible or not
