@@ -41,7 +41,7 @@
             searchTerms: "Поиск терминов",
             search: "Поиск",
             flSettingsInfo: "Возвращает результаты соответствующие заголовку фотографий, описанию и тегам.",
-            twSettingsInfo: "Посмотрите, что случилось прямо сейчас.",
+            twSettingsInfo: "Посмотрите, что происходит прямо сейчас.",
             igSettingsInfo: "Instagram - это веселый, быстрый, прекрасный способ поделиться событиями своей жизни с друзьями и семьей.",
             advancedOperators: "Подсказка: используйте <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">operators</a> для создания усовершенствованных поисковых запросов.",
             tweetsFilteredBy: "твиты отфильтрованы по:",

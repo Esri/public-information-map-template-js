@@ -3,7 +3,7 @@
         "widgets": {
             "ShareDialog": {
                 "title": "Partajare",
-                "heading": "Partajare această hartă",
+                "heading": "Se partajează această hartă",
                 "url": "Link către hartă",
                 "embed": "Încorporare hartă",
                 "extent": "Partajare extindere curentă a hărţii",

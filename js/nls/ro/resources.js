@@ -1,7 +1,7 @@
 ﻿define(
      ({
         map: {
-            error: "Imposibil de creat harta",
+            error: "Nu se poate crea harta",
             views: "vizualizări."
         },
         report: {

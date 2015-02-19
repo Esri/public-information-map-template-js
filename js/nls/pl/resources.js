@@ -1,7 +1,7 @@
 ﻿define(
      ({
         map: {
-            error: "Nie można utworzyć",
+            error: "Nie można utworzyć mapy",
             views: "widoków mapy."
         },
         report: {
@@ -37,7 +37,7 @@
             this_week: "Tydzień",
             this_month: "Miesiąc",
             all_time: "Wszystkie okresy",
-            moreInfo: "Dodatkowe informacje",
+            moreInfo: "Więcej informacji",
             searchTerms: "Słowa kluczowe",
             search: "Wyszukaj",
             flSettingsInfo: "Zwrócone wyniki, które pasują do tytułu, opisu lub znaczników zdjęcia.",
@@ -62,7 +62,7 @@
             dateModified: "Ostatnia modyfikacja",
             noSearchResult: "Nie znaleziono wyników",
             switchAccount: "Przełącz konto",
-            signIn: "Logowanie",
+            signIn: "Zaloguj się",
             settings: "Ustawienia"
         }
     })
