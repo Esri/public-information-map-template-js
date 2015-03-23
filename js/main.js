@@ -18,6 +18,8 @@ define([
     "esri/dijit/Search",
     "esri/dijit/Popup",
     "esri/dijit/Legend",
+    "esri/tasks/locator",
+    "esri/layers/FeatureLayer",
     "application/About",
     "application/SocialLayers",
     "esri/dijit/OverviewMap",
@@ -41,6 +43,8 @@ define([
     Search,
     Popup,
     Legend,
+    Locator,
+    FeatureLayer,
     About,
     SocialLayers,
     OverviewMap,
@@ -506,20 +510,92 @@ define([
         // set dialog modal content
         this.config.dialogModalContent = content;
       },
+      _templateSearchOptions: function(w){
+        var sources = [];
+        var searchLayers;
+        //setup geocoders defined in common config 
+        if (this.config.helperServices.geocode) {
+          var geocoders = lang.clone(this.config.helperServices.geocode);
+          array.forEach(geocoders, lang.hitch(this, function(geocoder) {
+            if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
+              // use the default esri locator from the search widget
+              geocoder = lang.clone(w.sources[0]);
+              geocoder.hasEsri = true;
+              sources.push(geocoder);
+            } else if (esriLang.isDefined(geocoder.singleLineFieldName)) {
+              //Add geocoders with a singleLineFieldName defined 
+              geocoder.locator = new Locator(geocoder.url);
+              sources.push(geocoder);
+            }
+          }));
+        }
+        //Add search layers defined on the web map item 
+        if (this.config.itemInfo.itemData && this.config.itemInfo.itemData.applicationProperties && this.config.itemInfo.itemData.applicationProperties.viewing && this.config.itemInfo.itemData.applicationProperties.viewing.search) {
+          var searchOptions = this.config.itemInfo.itemData.applicationProperties.viewing.search;
+          array.forEach(searchOptions.layers, lang.hitch(this, function(searchLayer) {
+            //we do this so we can get the title specified in the item
+            var operationalLayers = this.config.itemInfo.itemData.operationalLayers;
+            var layer = null;
+            array.some(operationalLayers, function(opLayer) {
+              if (opLayer.id === searchLayer.id) {
+                layer = opLayer;
+                return true;
+              }
+            });
+            if (layer && layer.url) {
+              var source = {};
+              var url = layer.url;
+              if (esriLang.isDefined(searchLayer.subLayer)) {
+                url = url + "/" + searchLayer.subLayer;
+                array.some(layer.layerObject.layerInfos, function(info) {
+                  if (info.id == searchLayer.subLayer) {
+                    return true;
+                  }
+                });
+              }
+              source.featureLayer = new FeatureLayer(url);
+              source.name = layer.title || layer.name;
+              source.exactMatch = searchLayer.field.exactMatch;
+              source.searchFields = [searchLayer.field.name];
+              source.placeholder = searchOptions.hintText;
+              sources.push(source);
+              searchLayers = true;
+            }
+          }));
+        }
+        //set the first non esri layer as active if search layers are defined. 
+        var activeIndex = 0;
+        if (searchLayers) {
+          array.some(sources, function(s, index) {
+            if (!s.hasEsri) {
+              activeIndex = index;
+              return true;
+            }
+          });
+        }
+        // get back the sources and active index
+        return {
+          sources: sources,
+          activeSourceIndex: activeIndex
+        };
+      },
       // create geocoder widgets
       _createGeocoders: function () {
         // get options
         var createdOptions = {
-          // todo
-          // addLayersFromMap: true,
           map: this.map
         };
         // desktop size geocoder
         this._geocoder = new Search(createdOptions, dom.byId("geocoderSearch"));
-        this._geocoder.startup();
         // mobile sized geocoder
         this._mobileGeocoder = new Search(createdOptions, dom.byId("geocoderMobile"));
+        var templateOptions = this._templateSearchOptions(this._geocoder);
+        this._geocoder.set("sources", templateOptions.sources);
+        this._mobileGeocoder.set("sources", templateOptions.sources);
+        this._geocoder.set("activeSourceIndex", templateOptions.activeSourceIndex);
+        this._mobileGeocoder.set("activeSourceIndex", templateOptions.activeSourceIndex);
         this._mobileGeocoder.startup();
+        this._geocoder.startup();
         // geocoder results
         on(this._mobileGeocoder, 'search-results', lang.hitch(this, function (response) {
           this._hideMobileGeocoder();
