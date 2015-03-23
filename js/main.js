@@ -15,7 +15,7 @@ define([
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapToggle",
-    "esri/dijit/Geocoder",
+    "esri/dijit/Search",
     "esri/dijit/Popup",
     "esri/dijit/Legend",
     "application/About",
@@ -38,7 +38,7 @@ define([
     domClass,
     TableOfContents, ShareDialog, Drawer, DrawerMenu,
     HomeButton, LocateButton, BasemapToggle,
-    Geocoder,
+    Search,
     Popup,
     Legend,
     About,
@@ -506,120 +506,39 @@ define([
         // set dialog modal content
         this.config.dialogModalContent = content;
       },
-      _createGeocoderOptions: function () {
-        var hasEsri = false,
-          esriIdx, geocoders = lang.clone(this.config.helperServices.geocode);
-        // default options
-        var options = {
-          map: this.map,
-          autoNavigate: true,
-          autoComplete: true,
-          arcgisGeocoder: {
-            placeholder: this.config.i18n.general.find
-          },
-          geocoders: null
-        };
-        //only use geocoders with a url defined
-        geocoders = array.filter(geocoders, function (geocoder) {
-          if (geocoder.url) {
-            return true;
-          } else {
-            return false;
-          }
-        });
-        // at least 1 geocoder defined
-        if (geocoders.length) {
-          // each geocoder
-          array.forEach(geocoders, lang.hitch(this, function (geocoder) {
-            // if esri geocoder
-            if (geocoder.url && geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
-              hasEsri = true;
-              geocoder.name = "Esri World Geocoder";
-              geocoder.outFields = "Match_addr, stAddr, City";
-              geocoder.singleLineFieldName = "SingleLine";
-              geocoder.esri = true;
-              geocoder.placefinding = true;
-              geocoder.placeholder = this.config.i18n.general.find;
-            }
-          }));
-          //only use geocoders with a singleLineFieldName that allow placefinding unless its custom
-          geocoders = array.filter(geocoders, function (geocoder) {
-            if (geocoder.name && geocoder.name === "Custom") {
-              return (esriLang.isDefined(geocoder.singleLineFieldName));
-            } else {
-              return (esriLang.isDefined(geocoder.singleLineFieldName) && esriLang.isDefined(geocoder.placefinding) && geocoder.placefinding);
-            }
-          });
-          // if we have an esri geocoder
-          if (hasEsri) {
-            for (var i = 0; i < geocoders.length; i++) {
-              if (esriLang.isDefined(geocoders[i].esri) && geocoders[i].esri === true) {
-                esriIdx = i;
-                break;
-              }
-            }
-          }
-          // set autoComplete
-          options.autoComplete = hasEsri;
-          // set esri options
-          if (hasEsri) {
-            options.minCharacters = 0;
-            options.maxLocations = 5;
-            options.searchDelay = 100;
-          }
-          //If the World geocoder is primary enable auto complete 
-          if (hasEsri && esriIdx === 0) {
-            options.arcgisGeocoder = geocoders.splice(0, 1)[0]; //geocoders[0];
-            if (geocoders.length > 0) {
-              options.geocoders = geocoders;
-            }
-          } else {
-            options.arcgisGeocoder = false;
-            options.geocoders = geocoders;
-          }
-        }
-        return options;
-      },
       // create geocoder widgets
       _createGeocoders: function () {
         // get options
-        var createdOptions = this._createGeocoderOptions();
-        // desktop geocoder options
-        var desktopOptions = lang.mixin({}, createdOptions, {
-          theme: this.css.desktopGeocoderTheme
-        });
-        // mobile geocoder options
-        var mobileOptions = lang.mixin({}, createdOptions, {
-          theme: this.css.mobileGeocoderTheme
-        });
+        var createdOptions = {
+          // todo
+          // addLayersFromMap: true,
+          map: this.map
+        };
         // desktop size geocoder
-        this._geocoder = new Geocoder(desktopOptions, dom.byId("geocoderSearch"));
+        this._geocoder = new Search(createdOptions, dom.byId("geocoderSearch"));
         this._geocoder.startup();
-        // geocoder results
-        on(this._geocoder, 'find-results', lang.hitch(this, function (response) {
-          if (!response.results || !response.results.results || !response.results.results.length) {
-            alert(this.config.i18n.general.noSearchResult);
-          }
-        }));
         // mobile sized geocoder
-        this._mobileGeocoder = new Geocoder(mobileOptions, dom.byId("geocoderMobile"));
+        this._mobileGeocoder = new Search(createdOptions, dom.byId("geocoderMobile"));
         this._mobileGeocoder.startup();
         // geocoder results
-        on(this._mobileGeocoder, 'find-results', lang.hitch(this, function (response) {
-          if (!response.results || !response.results.results || !response.results.results.length) {
-            alert(this.config.i18n.general.noSearchResult);
-          }
+        on(this._mobileGeocoder, 'search-results', lang.hitch(this, function (response) {
           this._hideMobileGeocoder();
         }));
         // keep geocoder values in sync
         this._geocoder.watch("value", lang.hitch(this, function () {
           var value = arguments[2];
-          this._mobileGeocoder.set("value", value);
+          var current = this._mobileGeocoder.value;
+          if(current !== value){
+            this._mobileGeocoder.set("value", value);
+          }
         }));
         // keep geocoder values in sync
         this._mobileGeocoder.watch("value", lang.hitch(this, function () {
           var value = arguments[2];
-          this._geocoder.set("value", value);
+          var current = this._geocoder.value;
+          if(current !== value){
+            this._geocoder.set("value", value);
+          }
         }));
         // geocoder nodes
         this._mobileGeocoderIconNode = dom.byId("mobileGeocoderIcon");
