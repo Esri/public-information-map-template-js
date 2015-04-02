@@ -14,6 +14,7 @@ define([
     "esri/geometry/mathUtils",
     "esri/geometry/webMercatorUtils",
     "esri/geometry/Point",
+    "esri/geometry/Polygon",
     "esri/request",
     "esri/graphic",
     "esri/symbols/PictureMarkerSymbol",
@@ -30,6 +31,7 @@ function (
     mathUtils,
     webMercatorUtils,
     Point,
+    Polygon,
     esriRequest,
     Graphic,
     PictureMarkerSymbol
@@ -451,15 +453,37 @@ function (
                 }
 				// if this feature needs to be filtered
 				if(filter){
-                    //console.log('filtered', result);
 					return;
 				}
                 this._dataIds[result.id] = true;
                 var geoPoint = null;
+                var place = result.place;
+                var g;
                 if (result.geo) {
-                    var g = result.geo.coordinates;
+                    g = result.geo.coordinates;
                     geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
                 }
+                else if(result.coordinates){
+                    g = result.coordinates;
+                    geoPoint = Point(parseFloat(g[0]), parseFloat(g[1]));
+                }
+                // use twitter places if available
+                else if(place && place.place_type && place.bounding_box && place.bounding_box.type === "Polygon"){
+                  // only use points of interests and neighborhoods
+                  if(place.place_type === "poi" || place.place_type === "neighborhood"){
+                    // create polygon
+                    var poly = new Polygon(place.bounding_box.coordinates);
+                    if(poly){
+                      // get extent of polygon
+                      var extent = poly.getExtent();
+                      if(extent){
+                        // get center of extent
+                        geoPoint = extent.getCenter();
+                      }
+                    }
+                  }
+                }
+                // if we got a point to use
                 if (geoPoint && geoPoint.hasOwnProperty('x') && geoPoint.hasOwnProperty('y')) {
                     // convert the Point to WebMercator projection
                     var a = webMercatorUtils.geographicToWebMercator(geoPoint);
