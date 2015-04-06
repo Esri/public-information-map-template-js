@@ -440,15 +440,30 @@ define([
         }
         return false;
       },
-      _getSeconds: function (duration) {
-        var total = 0;
+      _formatTime: function (duration) {
         var hours = duration.match(/(\d+)H/);
         var minutes = duration.match(/(\d+)M/);
         var seconds = duration.match(/(\d+)S/);
-        if (hours) total += parseInt(hours[1]) * 3600;
-        if (minutes) total += parseInt(minutes[1]) * 60;
-        if (seconds) total += parseInt(seconds[1]);
-        return total;
+        var str = "";
+        if (hours && hours[1]) {
+          if (hours[1].length == 1) {
+            str += "0";
+          }
+          str += hours[1] + ":";
+        }
+        if (minutes && minutes[1]) {
+          if (minutes[1].length == 1) {
+            str += "0";
+          }
+          str += minutes[1] + ":";
+        }
+        if (seconds && seconds[1]) {
+          if (seconds[1].length == 1) {
+            str += "0";
+          }
+          str += seconds[1];
+        }
+        return str;
       },
       _mapResults: function (j) {
         var b = [];
@@ -474,8 +489,7 @@ define([
           result.thumbnail = result.snippet.thumbnails.default.url;
           if (result.contentDetails && result.contentDetails.duration) {
             var duration = result.contentDetails.duration;
-            var s = this._getSeconds(duration);
-            result.seconds = this._parseSeconds(s);
+            result.seconds = this._formatTime(duration);
           }
           // eliminate geo photos which we already have on the map
           if (this._dataIds[result.id]) {
@@ -543,21 +557,6 @@ define([
           graphics: b,
           noGeo: ng
         });
-      },
-      _parseSeconds: function (sec) {
-        var hr = Math.floor(sec / 3600);
-        var min = Math.floor((sec - (hr * 3600)) / 60);
-        sec -= ((hr * 3600) + (min * 60));
-        sec += '';
-        min += '';
-        while (min.length < 2) {
-          min = '0' + min;
-        }
-        while (sec.length < 2) {
-          sec = '0' + sec;
-        }
-        hr = (hr) ? ':' + hr : '';
-        return hr + min + ':' + sec;
       },
       _parseURL: function (text) {
         return text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (url) {
