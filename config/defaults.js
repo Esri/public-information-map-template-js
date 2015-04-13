@@ -58,8 +58,8 @@ define({
   "youtubeVisible": false,
   "youtubeSearch": "",
   "youtubeTime": "all_time", // today, this_week, this_month, all_time
-  "bitlyLogin": "esri",
-  "bitlyKey": "R_65fd9891cd882e2a96b99d4bda1be00e",
+  "bitlyLogin": "arcgis",
+  "bitlyKey": "R_b8a169f3a8b978b9697f64613bf1db6d",
   "twitterUrl": location.protocol + "//utility.arcgis.com/tproxy/proxy/1.1/search/tweets.json",
   "twitterSigninUrl": location.protocol + "//utility.arcgis.com/tproxy/signin",
   "flickr_key": "404ebea7d5bc27aa5251d1207620e99b",
