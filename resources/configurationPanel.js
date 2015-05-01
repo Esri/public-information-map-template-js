@@ -596,7 +596,7 @@
     "nextBasemap":"hybrid",
     "defaultBasemap":"topo",
     "swipeType":"vertical",
-    "swipeInvertPlacement":false,
+    "swipeInvertPlacement":true,
     "enableInstagram":true,
     "instagramVisible":false,
     "instagramTime":5,
