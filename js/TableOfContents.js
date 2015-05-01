@@ -1,401 +1,713 @@
 define([
-    "dojo/Evented",
-    "dojo/_base/declare",
-    "dojo/_base/lang",
-    "dojo/has",
-    "esri/kernel",
-    "dijit/_WidgetBase",
-    "dijit/_TemplatedMixin",
-    "dojo/on",
-    // load template    
-    "dojo/text!application/dijit/templates/TableOfContents.html",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dojo/dom-construct",
-    "dojo/_base/event",
-    "dojo/_base/array"
+  "dojo/_base/array",
+  "dojo/_base/declare",
+  "dojo/_base/lang",
+
+  "dojo/Evented",
+  "dojo/Deferred",
+  "dojo/on",
+
+  "dojo/dom-class",
+  "dojo/dom-style",
+  "dojo/dom-construct",
+  "dojo/dom-attr",
+
+  "dijit/_WidgetBase",
+  "dijit/_TemplatedMixin",
+
+  "esri/promiseList",
+
+  "dojo/text!application/dijit/templates/TableOfContents.html"
 ],
-function (
-    Evented,
-    declare,
-    lang,
-    has, esriNS,
+  function (
+    array, declare, lang,
+    Evented, Deferred, on,
+    domClass, domStyle, domConstruct, domAttr,
     _WidgetBase, _TemplatedMixin,
-    on,
-    dijitTemplate,
-    domClass, domStyle, domConstruct,
-    event,
-    array
-) {
-    var Widget = declare("esri.dijit.TableOfContents", [_WidgetBase, _TemplatedMixin, Evented], {
-        templateString: dijitTemplate,
-        // defaults
-        options: {
-            theme: "TableOfContents",
-            map: null,
-            layers: null,
-            visible: true
-        },
-        // lifecycle: 1
-        constructor: function(options, srcRefNode) {
-            // mix in settings and defaults
-            var defaults = lang.mixin({}, this.options, options);
-            // widget node
-            this.domNode = srcRefNode;
-            // properties
-            this.set("map", defaults.map);
-            this.set("layers", defaults.layers);
-            this.set("theme", defaults.theme);
-            this.set("visible", defaults.visible);
-            // listeners
-            this.watch("theme", this._updateThemeWatch);
-            this.watch("visible", this._visible);
-            this.watch("layers", this._refreshLayers);
-            this.watch("map", this.refresh);
-            // classes
-            this.css = {
-                container: "toc-container",
-                layer: "toc-layer",
-                firstLayer: "toc-first-layer",
-                title: "toc-title",
-                titleContainer: "toc-title-container",
-                content: "toc-content",
-                titleCheckbox: "toc-checkbox",
-                checkboxCheck: "icon-check-1",
-                titleText: "toc-text",
-                accountText: "toc-account",
-                visible: "toc-visible",
-                settingsIcon: "icon-cog",
-                settings: "toc-settings",
-                actions: "toc-actions",
-                account: "toc-account",
-                clear: "clear"
-            };
-        },
-        // start widget. called by user
-        startup: function() {
-            // map not defined
-            if (!this.map) {
-                this.destroy();
-                console.log('TableOfContents::map required');
-            }
-            // when map is loaded
-            if (this.map.loaded) {
-                this._init();
-            } else {
-                on.once(this.map, "load", lang.hitch(this, function() {
-                    this._init();
-                }));
-            }
-        },
-        // connections/subscriptions will be cleaned up during the destroy() lifecycle phase
-        destroy: function() {
-            this._removeEvents();
-            this.inherited(arguments);
-        },
-        /* ---------------- */
-        /* Public Events */
-        /* ---------------- */
-        // load
-        // toggle
-        // expand
-        // collapse
-        /* ---------------- */
-        /* Public Functions */
-        /* ---------------- */
-        show: function() {
-            this.set("visible", true);
-        },
-        hide: function() {
-            this.set("visible", false);
-        },
-        refresh: function() {
-            this._createList();
-        },
-        /* ---------------- */
-        /* Private Functions */
-        /* ---------------- */
-        _createList: function() {
-            var layers = this.get("layers");
-            this._nodes = [];
-            // kill events
-            this._removeEvents();
-            // clear node
-            this._layersNode.innerHTML = '';
-            // if we got layers
-            if (layers && layers.length) {
-                for (var i = 0; i < layers.length; i++) {
-                    var layer = layers[i];
-                    // ceckbox class
-                    var titleCheckBoxClass = this.css.titleCheckbox;
-                    // layer class
-                    var layerClass = this.css.layer;
-                    // first layer
-                    if (i === (layers.length - 1)) {
-                        layerClass += ' ';
-                        layerClass += this.css.firstLayer;
-                    }
-                    if (layer.visibility) {
-                        layerClass += ' ';
-                        layerClass += this.css.visible;
-                        titleCheckBoxClass += ' ';
-                        titleCheckBoxClass += this.css.checkboxCheck;
-                    }
-                    // layer node
-                    var layerDiv = domConstruct.create("div", {
-                        className: layerClass
-                    });
-                    domConstruct.place(layerDiv, this._layersNode, "first");
-                    // title of layer
-                    var titleDiv = domConstruct.create("div", {
-                        className: this.css.title
-                    });
-                    domConstruct.place(titleDiv, layerDiv, "last");
-                    // title container
-                    var titleContainerDiv = domConstruct.create("div", {
-                        className: this.css.titleContainer
-                    });
-                    domConstruct.place(titleContainerDiv, titleDiv, "last");
-                    // Title checkbox
-                    var titleCheckbox = domConstruct.create("div", {
-                        className: titleCheckBoxClass
-                    });
-                    domConstruct.place(titleCheckbox, titleContainerDiv, "last");
-                    // Title text
-                    var titleText = domConstruct.create("div", {
-                        className: this.css.titleText,
-                        title: layer.title,
-                        innerHTML: layer.title
-                    });
-                    domConstruct.place(titleText, titleContainerDiv, "last");
-                    // Account text
-                    var accountText;
-                    if(layer.account){
-                        accountText = domConstruct.create("a", {
-                            className: this.css.accountText,
-                            id: layer.account
-                        });
-                        domConstruct.place(accountText, titleText, "last");
-                    }
-                    // settings
-                    var settingsDiv, settingsIcon;
-                    if(layer.settings){
-                        settingsDiv = domConstruct.create("div", {
-                            className: this.css.settings,
-                            id: layer.settings
-                        });
-                        domConstruct.place(settingsDiv, titleContainerDiv, "last");
-                        // settings icon
-                        settingsIcon = domConstruct.create("div", {
-                            className: this.css.settingsIcon
-                        });
-                        domConstruct.place(settingsIcon, settingsDiv, "last");
-                    }
-                    // clear css
-                    var clearCSS = domConstruct.create("div", {
-                        className: this.css.clear
-                    });
-                    domConstruct.place(clearCSS, titleContainerDiv, "last");
-                    // lets save all the nodes for events
-                    var nodesObj = {
-                        checkbox: titleCheckbox,
-                        title: titleDiv,
-                        titleContainer: titleContainerDiv,
-                        titleText: titleText,
-                        accountText: accountText,
-                        settingsIcon: settingsIcon,
-                        settingsDiv: settingsDiv,
-                        layer: layerDiv
-                    };
-                    this._nodes.push(nodesObj);
-                    // create click event
-                    this._checkboxEvent(i);
-                }
-                this._setLayerEvents();
-            }
-        },
-        _refreshLayers: function(){
-            this.refresh();
-        },
-        _removeEvents: function() {
-            var i;
-            // checkbox click events
-            if (this._checkEvents && this._checkEvents.length) {
-                for (i = 0; i < this._checkEvents.length; i++) {
-                    this._checkEvents[i].remove();
-                }
-            }
-            // layer visibility events
-            if (this._layerEvents && this._layerEvents.length) {
-                for (i = 0; i < this._layerEvents.length; i++) {
-                    this._layerEvents[i].remove();
-                }
-            }
-            this._checkEvents = [];
-            this._layerEvents = [];
-        },
-        _toggleVisible: function(index, visible) {
-            // update checkbox and layer visibility classes
-            domClass.toggle(this._nodes[index].layer, this.css.visible, visible);
-            domClass.toggle(this._nodes[index].checkbox, this.css.checkboxCheck, visible);
-            this.emit("toggle", {
-                index: index,
-                visible: visible
-            });
-        },
-        _layerEvent: function(layer, index) {
-            if(layer){
-              // layer visibility changes
-              var visChange = on(layer, 'visibility-change', lang.hitch(this, function(evt) {
-                  // update checkbox and layer visibility classes
-                  this._toggleVisible(index, evt.visible);
-              }));
-              this._layerEvents.push(visChange);
-            }
-        },
-        _featureCollectionVisible: function(layer, index, visible){
-            // all layers either visible or not
-            var equal;
-            // feature collection layers turned on by default
-            var visibleLayers = layer.visibleLayers;
-            // feature collection layers
-            var layers = layer.featureCollection.layers;
-            // if we have layers set
-            if(visibleLayers && visibleLayers.length){
-                // check if all layers have same visibility
-                equal = array.every(visibleLayers, function(item){
-                    // check if current layer has same as first layer
-                    return layers[item].layerObject.visible === visible;
-                });
-            }
-            else {
-                // check if all layers have same visibility
-                equal = array.every(layers, function(item){
-                    // check if current layer has same as first layer
-                    return item.layerObject.visible === visible;
-                });
-            }
-            // all are the same
-            if(equal){
-                this._toggleVisible(index, visible);
-            }
-        },
-        _createFeatureLayerEvent: function(layer, index, i){
-            var layers = layer.featureCollection.layers;
-            // layer visibility changes
-            var visChange = on(layers[i].layerObject, 'visibility-change', lang.hitch(this, function(evt) {
-                var visible = evt.visible;
-                this._featureCollectionVisible(layer, index, visible);
+    promiseList,
+    dijitTemplate
+  ) {
+    return declare([_WidgetBase, _TemplatedMixin, Evented], {
+
+      templateString: dijitTemplate,
+
+      options: {
+        theme: "TableOfContents",
+        map: null,
+        layers: null,
+        subLayers: true,
+        removeUnderscores: true,
+        visible: true
+      },
+
+      // lifecycle: 1
+      constructor: function (options, srcRefNode) {
+        // mix in settings and defaults
+        var defaults = lang.mixin({}, this.options, options);
+        // widget node
+        this.domNode = srcRefNode;
+        // properties
+        this.set(defaults);
+        // classes
+        this.css = {
+          container: "tocContainer",
+          list: "tocList",
+          subList: "tocSubList",
+          subListLayer: "tocSubListLayer",
+          layer: "tocLayer",
+          layerScaleInvisible: "tocScaleInvisible",
+          title: "tocTitle",
+          titleContainer: "tocTitleContainer",
+          checkbox: "tocCheckbox",
+          label: "tocLabel",
+          settings: "tocSettings",
+          settingsIcon: "esriIconSettings2",
+          icon: "esriIcon",
+          customContent: "tocCustomContent",
+          clear: "tocClear"
+        };
+      },
+
+      postCreate: function () {
+        var _self = this;
+        // when checkbox is clicked
+        this.own(on(this._layersNode, "." + this.css.checkbox + ":change", function () {
+          var data, subData;
+          // layer index
+          data = domAttr.get(this, "data-layer-index");
+          // subLayer index
+          subData = domAttr.get(this, "data-sublayer-index");
+          // toggle layer visibility
+          _self._toggleLayer(data, subData);
+        }));
+      },
+
+      // start widget. called by user
+      startup: function () {
+        if (this.map) {
+          // when map is loaded
+          if (this.map.loaded) {
+            this._init();
+          } else {
+            on.once(this.map, "load", lang.hitch(this, function () {
+              this._init();
             }));
-            this._layerEvents.push(visChange);
-        },
-        _featureLayerEvent: function(layer, index){
-            // feature collection layers
-            var layers = layer.featureCollection.layers;
-            if(layers && layers.length){
-                // make event for each layer
-                for(var i = 0; i < layers.length; i++){
-                    this._createFeatureLayerEvent(layer, index, i);
-                }
-            }
-        },
-        _setLayerEvents: function() {
-            // this function sets up all the events for layers
-            var layers = this.get("layers");
-            var layerObject;
-            if (layers && layers.length) {
-                // get all layers
-                for (var i = 0; i < layers.length; i++) {
-                    var layer = layers[i];
-                    // if it is a feature collection with layers
-                    if (layer.featureCollection && layer.featureCollection.layers && layer.featureCollection.layers.length) {
-                        this._featureLayerEvent(layer, i);
-                    } else {
-                        // 1 layer object
-                        layerObject = layer.layerObject;
-                        this._layerEvent(layerObject, i);
-                    }
-                }
-            }
-        },
-        _toggleLayer: function(layerIndex) {
-            // all layers
-            if (this.layers && this.layers.length) {
-                var newVis;
-                var layer = this.layers[layerIndex];
-                var layerObject = layer.layerObject;
-                var featureCollection = layer.featureCollection;
-                var visibleLayers;
-                var i;
-                if (featureCollection) {
-                    // visible feature layers
-                    visibleLayers = layer.visibleLayers;
-                    // new visibility
-                    newVis = !layer.visibility;
-                    // set visibility for layer reference
-                    layer.visibility = newVis;
-                    // toggle all feature collection layers
-                    if (visibleLayers && visibleLayers.length) {
-                        // toggle visible sub layers
-                        for (i = 0; i < visibleLayers.length; i++) {
-                            layerObject = featureCollection.layers[visibleLayers[i]].layerObject;
-                            // toggle to new visibility
-                            layerObject.setVisibility(newVis);
-                        }
-                    }
-                    else{
-                        // toggle all sub layers
-                        for (i = 0; i < featureCollection.layers.length; i++) {
-                            layerObject = featureCollection.layers[i].layerObject;
-                            // toggle to new visibility
-                            layerObject.setVisibility(newVis);
-                        } 
-                    }
-                } else if(layerObject) {
-                    newVis = !layer.layerObject.visible;
-                    layer.visibility = newVis;
-                    layerObject.setVisibility(newVis);
-                }
-            }
-        },
-        _checkboxEvent: function(index) {
-            // when checkbox is clicked
-            var checkEvent = on(this._nodes[index].checkbox, 'click', lang.hitch(this, function(evt) {
-                // toggle layer visibility
-                this._toggleLayer(index);
-                event.stop(evt);
-            }));
-            this._checkEvents.push(checkEvent);
-            // when title is clicked
-            var titleEvent = on(this._nodes[index].titleText, 'click', lang.hitch(this, function(evt) {
-                // toggle layer visibility
-                this._toggleLayer(index);
-                event.stop(evt);
-            }));
-            this._checkEvents.push(titleEvent);
-        },
-        _init: function() {
-            this._visible();
-            this._createList();
-            this.set("loaded", true);
-            this.emit("load", {});
-        },
-        _updateThemeWatch: function() {
-            var oldVal = arguments[1];
-            var newVal = arguments[2];
-            domClass.remove(this.domNode, oldVal);
-            domClass.add(this.domNode, newVal);
-        },
-        _visible: function() {
-            if (this.get("visible")) {
-                domStyle.set(this.domNode, 'display', 'block');
-            } else {
-                domStyle.set(this.domNode, 'display', 'none');
-            }
+          }
+        } else {
+          this._init();
         }
+      },
+
+      // connections/subscriptions will be cleaned up during the destroy() lifecycle phase
+      destroy: function () {
+        this._removeEvents();
+        this.inherited(arguments);
+      },
+
+      /* ---------------- */
+      /* Public Events */
+      /* ---------------- */
+      // load
+      // toggle
+
+      /* ---------------- */
+      /* Public Functions */
+      /* ---------------- */
+
+      show: function () {
+        this.set("visible", true);
+      },
+
+      hide: function () {
+        this.set("visible", false);
+      },
+
+      refresh: function () {
+        // all layer info
+        var layers = this.layers;
+        // store nodes here
+        this._nodes = [];
+        // kill events
+        this._removeEvents();
+        // clear node
+        this._layersNode.innerHTML = "";
+        var promises = [];
+        // if we got layers
+        if (layers && layers.length) {
+          for (var i = 0; i < layers.length; i++) {
+            promises.push(this._layerLoaded(i));
+          }
+        }
+        // wait for layers to load or fail
+        var pL = new promiseList(promises).always(lang.hitch(this, function (response) {
+          this._loadedLayers = response;
+          this._createLayerNodes();
+          this._setLayerEvents();
+        }));
+        // return promise
+        return pL;
+      },
+
+      /* ---------------- */
+      /* Private Functions */
+      /* ---------------- */
+
+      _layerLoaded: function (layerIndex) {
+        var layers = this.layers;
+        var layerInfo = layers[layerIndex];
+        var layer;
+        if (this.map) {
+          layer = this.map.getLayer(layerInfo.id);
+        } else {
+          layer = layerInfo.layerObject || layerInfo;
+        }
+        // returned event
+        var evt = {
+          layer: layer,
+          layerInfo: layerInfo,
+          layerIndex: layerIndex
+        };
+        var def = new Deferred();
+        if (layer) {
+          if (layer.loaded) {
+            // nothing to do
+            def.resolve(evt);
+          } else if (layer.loadError) {
+            def.reject(layer.loadError);
+          } else {
+            var loadedEvent, errorEvent;
+            // once layer is loaded
+            loadedEvent = on.once(layer, "load", lang.hitch(this, function () {
+              errorEvent.remove();
+              def.resolve(evt);
+            }));
+            // error occurred loading layer
+            errorEvent = on.once(layer, "error", lang.hitch(this, function (error) {
+              loadedEvent.remove();
+              def.reject(error);
+            }));
+          }
+        } else {
+          def.resolve(evt);
+        }
+        return def.promise;
+      },
+
+      _checkboxStatus: function (layerInfo) {
+        return layerInfo.visibility || false;
+      },
+
+      _WMSVisible: function (layerInfo, subLayerInfo) {
+        var checked = false;
+        var visibleLayers = [];
+        if (layerInfo && layerInfo.layerObject) {
+          visibleLayers = layerInfo.layerObject.visibleLayers;
+        }
+        var found = array.indexOf(visibleLayers, subLayerInfo.name);
+        if (found !== -1) {
+          checked = true;
+        }
+        return checked;
+      },
+
+      _subCheckboxStatus: function (layerInfo, subLayerInfo) {
+        var checked = false;
+        switch (layerInfo.layerType) {
+        case "KML":
+          checked = subLayerInfo.visible;
+          break;
+        case "WMS":
+          checked = this._WMSVisible(layerInfo, subLayerInfo);
+          break;
+        default:
+          checked = subLayerInfo.defaultVisibility;
+        }
+        return checked;
+      },
+
+      _getLayerTitle: function (e) {
+        var title = "";
+        // get best title
+        if (e.layerInfo && e.layerInfo.title) {
+          title = e.layerInfo.title;
+        } else if (e.layer && e.layer.name) {
+          title = e.layer.name;
+        } else if (e.layerInfo && e.layerInfo.id) {
+          title = e.layerInfo.id;
+        }
+        // optionally remove underscores
+        if (this.removeUnderscores) {
+          title = title.replace(/_/g, " ");
+        }
+        return title;
+      },
+
+      _createLayerNodes: function () {
+        var loadedLayers = this._loadedLayers;
+        // create nodes for each layer
+        for (var i = 0; i < loadedLayers.length; i++) {
+          var response = loadedLayers[i];
+          if (response) {
+            var layer = response.layer;
+            var layerIndex = response.layerIndex;
+            var layerInfo = response.layerInfo;
+            if (layerInfo) {
+              var subLayers;
+              // layer node
+              var layerNode = domConstruct.create("li", {
+                className: this.css.layer
+              });
+              // currently visible layer
+              if (!layer.visibleAtMapScale) {
+                domClass.add(layerNode, this.css.layerScaleInvisible);
+              }
+              domConstruct.place(layerNode, this._layersNode, "first");
+              // title of layer
+              var titleNode = domConstruct.create("div", {
+                className: this.css.title
+              }, layerNode);
+              // nodes for subLayers
+              var subNodes = [];
+              var layerType = layerInfo.layerType;
+              // get parent layer checkbox status
+              var status = this._checkboxStatus(layerInfo);
+              // title container
+              var titleContainerNode = domConstruct.create("div", {
+                className: this.css.titleContainer
+              }, titleNode);
+              var id = this.id + "_checkbox_" + layerIndex;
+              // Title checkbox
+              var checkboxNode = domConstruct.create("input", {
+                type: "checkbox",
+                id: id,
+                "data-layer-index": layerIndex,
+                checked: status,
+                className: this.css.checkbox
+              }, titleContainerNode);
+              // optional settings icon
+              var settingsNode;
+              if (layerInfo.settingsId) {
+                settingsNode = domConstruct.create("div", {
+                  id: layerInfo.settingsId,
+                  className: this.css.icon + " " + this.css.settingsIcon + " " + this.css.settings,
+                }, titleContainerNode);
+              }
+              // Title text
+              var title = this._getLayerTitle(response);
+              var labelNode = domConstruct.create("label", {
+                for: id,
+                className: this.css.label,
+                textContent: title
+              }, titleContainerNode);
+              // clear css
+              var clearNode = domConstruct.create("div", {
+                className: this.css.clear
+              }, titleContainerNode);
+              // optional custom content
+              var customContentNode;
+              if (layerInfo.customContentId) {
+                customContentNode = domConstruct.create("div", {
+                  id: layerInfo.customContentId,
+                  className: this.css.customContent
+                }, titleNode);
+              }
+              // lets save all the nodes for events
+              var nodesObj = {
+                checkbox: checkboxNode,
+                title: titleNode,
+                titleContainer: titleContainerNode,
+                label: labelNode,
+                layer: layerNode,
+                clear: clearNode,
+                settings: settingsNode,
+                customContent: customContentNode,
+                subNodes: subNodes
+              };
+              this._nodes[layerIndex] = nodesObj;
+              if (layer) {
+                // subLayers from thier info. Also WMS layers
+                subLayers = layer.layerInfos;
+                // KML subLayers
+                if (layerType === "KML") {
+                  subLayers = layer.folders;
+                }
+                // if we have more than one subLayer and layer is of valid type for subLayers
+                if (this.subLayers && layerType !== "ArcGISTiledMapServiceLayer" && subLayers && subLayers.length) {
+                  // create subLayer list
+                  var subListNode = domConstruct.create("ul", {
+                    className: this.css.subList
+                  }, layerNode);
+                  // create each subLayer item
+                  for (var j = 0; j < subLayers.length; j++) {
+                    // subLayer info
+                    var subLayer = subLayers[j];
+                    var subLayerIndex;
+                    var parentId = -1;
+                    // Dynamic Map Service
+                    if (layerType === "ArcGISMapServiceLayer") {
+                      subLayerIndex = subLayer.id;
+                      parentId = subLayer.parentLayerId;
+                    }
+                    // KML
+                    else if (layerType === "KML") {
+                      subLayerIndex = subLayer.id;
+                      parentId = subLayer.parentFolderId;
+                    }
+                    // WMS
+                    else if (layerType === "WMS") {
+                      subLayerIndex = subLayer.name;
+                      parentId = -1;
+                    }
+                    // place subLayers not in the root
+                    if (parentId !== -1) {
+                      subListNode = domConstruct.create("ul", {
+                        className: this.css.subList
+                      }, this._nodes[layerIndex].subNodes[parentId].subLayer);
+                    }
+                    // default checked state
+                    var subChecked = this._subCheckboxStatus(layerInfo, subLayer);
+                    var subId = this.id + "_checkbox_sub_" + layerIndex + "_" + subLayerIndex;
+                    // list item node
+                    var subLayerNode = domConstruct.create("li", {
+                      className: this.css.subListLayer
+                    }, subListNode);
+                    // title of subLayer layer
+                    var subTitleNode = domConstruct.create("div", {
+                      className: this.css.title
+                    }, subLayerNode);
+                    // subLayer title container
+                    var subTitleContainerNode = domConstruct.create("div", {
+                      className: this.css.titleContainer
+                    }, subTitleNode);
+                    // subLayer checkbox
+                    var subCheckboxNode = domConstruct.create("input", {
+                      type: "checkbox",
+                      id: subId,
+                      "data-layer-index": layerIndex,
+                      "data-sublayer-index": subLayerIndex,
+                      checked: subChecked,
+                      className: this.css.checkbox
+                    }, subTitleContainerNode);
+                    // subLayer Title text
+                    var subTitle = subLayer.name || "";
+                    var subLabelNode = domConstruct.create("label", {
+                      for: subId,
+                      className: this.css.label,
+                      textContent: subTitle
+                    }, subTitleContainerNode);
+                    // subLayer clear css
+                    var subClearNode = domConstruct.create("div", {
+                      className: this.css.clear
+                    }, subTitleContainerNode);
+                    // object of subLayer nodes
+                    var subNode = {
+                      subList: subListNode,
+                      subLayer: subLayerNode,
+                      subTitle: subTitleNode,
+                      subTitleContainer: subTitleContainerNode,
+                      subCheckbox: subCheckboxNode,
+                      subLabel: subLabelNode,
+                      subClear: subClearNode
+                    };
+                    // add node to array
+                    subNodes[subLayerIndex] = subNode;
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+      _removeEvents: function () {
+        var i;
+        // layer visibility events
+        if (this._layerEvents && this._layerEvents.length) {
+          for (i = 0; i < this._layerEvents.length; i++) {
+            this._layerEvents[i].remove();
+          }
+        }
+        this._layerEvents = [];
+      },
+
+      _toggleVisible: function (index, subIndex, visible) {
+        // if its a sublayer
+        if (subIndex !== null) {
+          // update checkbox and layer visibility classes
+          domAttr.set(this._nodes[index].subNodes[subIndex].subCheckbox, "checked", visible);
+        }
+        // parent layer
+        else {
+          // update checkbox and layer visibility classes
+          domAttr.set(this._nodes[index].checkbox, "checked", visible);
+        }
+        // emit event
+        this.emit("toggle", {
+          layerIndex: index,
+          subLayerIndex: subIndex,
+          visible: visible
+        });
+      },
+
+      // todo 3.0: out of scale range for sublayers
+      _layerVisChangeEvent: function (response, featureCollection, subLayerIndex) {
+        var layer;
+        // layer is a feature collection
+        if (featureCollection) {
+          // all subLayers
+          var fcLayers = layer.featureCollection.layers;
+          // current layer object to setup event for
+          layer = fcLayers[subLayerIndex].layerObject;
+        } else {
+          // layer object for event
+          layer = response.layer;
+        }
+        // layer visibility changes
+        var visChange = on(layer, "visibility-change", lang.hitch(this, function (evt) {
+          if (featureCollection) {
+            this._featureCollectionVisible(response.layerIndex, evt.visible);
+          } else {
+            // update checkbox and layer visibility classes
+            this._toggleVisible(response.layerIndex, null, evt.visible);
+          }
+        }));
+        this._layerEvents.push(visChange);
+        if (!featureCollection) {
+          // scale visibility changes
+          var scaleVisChange = on(layer, "scale-visibility-change", lang.hitch(this, function (evt) {
+            var visible = evt.target.visibleAtMapScale;
+            domClass.toggle(this._nodes[response.layerIndex].layer, this.css.layerScaleInvisible, !visible);
+          }));
+          this._layerEvents.push(scaleVisChange);
+        }
+      },
+
+      _layerEvent: function (response) {
+        var layerInfo = response.layerInfo;
+        var layerType = layerInfo.layerType;
+        var layerIndex = response.layerIndex;
+        var layer = response.layer;
+        // feature collection layer
+        if (layerInfo.featureCollection && layerInfo.featureCollection.layers && layerInfo.featureCollection.layers.length) {
+          // feature collection layers
+          var fsLayers = layerInfo.featureCollection.layers;
+          if (fsLayers && fsLayers.length) {
+            // make event for each layer
+            for (var i = 0; i < fsLayers.length; i++) {
+              // layer visibility changes
+              this._layerVisChangeEvent(response, true, i);
+            }
+          }
+        } else {
+          // layer visibility changes
+          this._layerVisChangeEvent(response);
+          // if we have a map service
+          if (this.subLayers && layerType === "ArcGISMapServiceLayer") {
+            var subVisChange = on(layer, "visible-layers-change", lang.hitch(this, function (evt) {
+              // new visible layers
+              var visibleLayers = evt.visibleLayers;
+              // all subLayer info
+              var layerInfos = layer.layerInfos;
+              // go through all subLayers
+              for (var i = 0; i < layerInfos.length; i++) {
+                var subLayerIndex = layerInfos[i].id;
+                // is subLayer in visible layers array
+                var found = array.indexOf(visibleLayers, subLayerIndex);
+                // not found
+                if (found === -1) {
+                  layerInfos[subLayerIndex].defaultVisibility = false;
+                  this._toggleVisible(layerIndex, subLayerIndex, false);
+                }
+                // found
+                else {
+                  layerInfos[subLayerIndex].defaultVisibility = true;
+                  this._toggleVisible(layerIndex, subLayerIndex, true);
+                }
+              }
+            }));
+            this._layerEvents.push(subVisChange);
+          }
+          // todo 3.0: need event for wms sublayer toggles
+          // todo 3.0: need event for KML sublayer toggles
+        }
+      },
+
+      _toggleLayer: function (layerIndex, subLayerIndex) {
+        // all layers
+        if (this.layers && this.layers.length) {
+          var newVis;
+          var layerInfo = this.layers[parseInt(layerIndex, 10)];
+          var layerType = layerInfo.layerType;
+          var layer = layerInfo.layerObject;
+          var featureCollection = layerInfo.featureCollection;
+          var visibleLayers;
+          var i;
+          // feature collection layer
+          if (featureCollection) {
+            // new visibility
+            newVis = !layerInfo.visibility;
+            // set visibility for layer reference
+            layerInfo.visibility = newVis;
+            // toggle all sub layers
+            for (i = 0; i < featureCollection.layers.length; i++) {
+              var fcLayer = featureCollection.layers[i].layerObject;
+              // toggle to new visibility
+              fcLayer.setVisibility(newVis);
+            }
+          }
+          // layer
+          else if (layer) {
+            // we're toggling a sublayer
+            if (subLayerIndex !== null) {
+              // Map Service Layer
+              if (layerType === "ArcGISMapServiceLayer") {
+                subLayerIndex = parseInt(subLayerIndex, 10);
+                var layerInfos = layer.layerInfos;
+                // array for setting visible layers
+                visibleLayers = [-1];
+                newVis = !layerInfos[subLayerIndex].defaultVisibility;
+                // reverse current visibility of sublayer
+                layerInfos[subLayerIndex].defaultVisibility = newVis;
+                // for each sublayer
+                for (i = 0; i < layerInfos.length; i++) {
+                  var info = layerInfos[i];
+                  // push to visible layers if it's visible
+                  if (info.defaultVisibility) {
+                    visibleLayers.push(info.id);
+                    var negative = array.lastIndexOf(visibleLayers, -1);
+                    if (negative !== -1) {
+                      visibleLayers.splice(negative, 1);
+                    }
+                  }
+                }
+                layer.setVisibleLayers(visibleLayers);
+              }
+              // KML Layer
+              else if (layerType === "KML") {
+                subLayerIndex = parseInt(subLayerIndex, 10);
+                var folders = layer.folders;
+                // for each sublayer
+                for (i = 0; i < folders.length; i++) {
+                  var folder = folders[i];
+                  if (folder.id === subLayerIndex) {
+                    layer.setFolderVisibility(folder, !folder.visible);
+                    break;
+                  }
+                }
+              } else if (layerType === "WMS") {
+                visibleLayers = layer.visibleLayers;
+                var found = array.indexOf(visibleLayers, subLayerIndex);
+                if (found === -1) {
+                  visibleLayers.push(subLayerIndex);
+                } else {
+                  visibleLayers.splice(found, 1);
+                }
+                layer.setVisibleLayers(visibleLayers);
+              }
+            }
+            // parent map layer
+            else {
+              // reverse current visibility of parent layer
+              newVis = !layer.visible;
+              // new visibility of parent layer
+              layerInfo.visibility = newVis;
+              layer.setVisibility(newVis);
+            }
+          }
+          // Just layer object
+          else {
+            newVis = !layerInfo.visible;
+            layerInfo.setVisibility(newVis);
+          }
+        }
+      },
+
+      _featureCollectionVisible: function (index, visible) {
+        var layer = this.layers[index];
+        // all layers either visible or not
+        var equal;
+        // feature collection layers turned on by default
+        var visibleLayers = layer.visibleLayers;
+        // feature collection layers
+        var layers = layer.featureCollection.layers;
+        // if we have layers set
+        if (visibleLayers && visibleLayers.length) {
+          // check if all layers have same visibility
+          equal = array.every(visibleLayers, function (item) {
+            // check if current layer has same as first layer
+            return layers[item].layerObject.visible === visible;
+          });
+        } else {
+          // check if all layers have same visibility
+          equal = array.every(layers, function (item) {
+            // check if current layer has same as first layer
+            return item.layerObject.visible === visible;
+          });
+        }
+        // all are the same
+        if (equal) {
+          this._toggleVisible(index, null, visible);
+        }
+      },
+
+      _setLayerEvents: function () {
+        // this function sets up all the events for layers
+        var layers = this._loadedLayers;
+        if (layers && layers.length) {
+          // get all layers
+          for (var i = 0; i < layers.length; i++) {
+            var response = layers[i];
+            // create necessary events
+            this._layerEvent(response);
+          }
+        }
+      },
+
+      _init: function () {
+        this._visible();
+        this.refresh().always(lang.hitch(this, function () {
+          this.set("loaded", true);
+          this.emit("load", {});
+        }));
+      },
+
+      _visible: function () {
+        if (this.visible) {
+          domStyle.set(this.domNode, "display", "block");
+        } else {
+          domStyle.set(this.domNode, "display", "none");
+        }
+      },
+
+      /* stateful properties */
+
+      _setThemeAttr: function (newVal) {
+        domClass.remove(this.domNode, this.theme);
+        domClass.add(this.domNode, newVal);
+        this._set("theme", newVal);
+      },
+
+      _setMapAttr: function (newVal) {
+        this._set("map", newVal);
+        if (this._created) {
+          this.refresh();
+        }
+      },
+
+      _setLayersAttr: function (newVal) {
+        this._set("layers", newVal);
+        if (this._created) {
+          this.refresh();
+        }
+      },
+
+      _setVisibleAttr: function (newVal) {
+        this._set("visible", newVal);
+        if (this._created) {
+          this._visible();
+        }
+      }
+
     });
-    if (has("extend-esri")) {
-        lang.setObject("dijit.TableOfContents", Widget, esriNS);
-    }
-    return Widget;
-});
+
+  });

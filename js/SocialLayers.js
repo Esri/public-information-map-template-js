@@ -67,6 +67,7 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.webcams,
+                        id: this._webcamsLayer.featureLayer.id,
                         visibility: this._webcamsLayer.featureLayer.visible,
                         layerObject: this._webcamsLayer.featureLayer
                     });
@@ -88,7 +89,8 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.youtube,
-                        settings: 'youtube_cog',
+                        settingsId: 'youtube_cog',
+                        id: this._youtubeLayer.featureLayer.id,
                         visibility: this._youtubeLayer.featureLayer.visible,
                         layerObject: this._youtubeLayer.featureLayer
                     });
@@ -110,8 +112,9 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.twitter,
-                        settings: 'twitter_cog',
-                        account: 'twitter_auth_status',
+                        settingsId: 'twitter_cog',
+                        customContentId: 'twitter_auth_status',
+                        id: this._twitterLayer.featureLayer.id,
                         visibility: this._twitterLayer.featureLayer.visible,
                         layerObject: this._twitterLayer.featureLayer
                     });
@@ -134,7 +137,8 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.flickr,
-                        settings: 'flickr_cog',
+                        settingsId: 'flickr_cog',
+                        id: this._flickrLayer.featureLayer.id,
                         visibility: this._flickrLayer.featureLayer.visible,
                         layerObject: this._flickrLayer.featureLayer
                     });
@@ -155,7 +159,8 @@ define([
                     // legend info
                     this.socialLayers.push({
                         title: this.config.i18n.social.instagram,
-                        settings: 'instagram_cog',
+                        settingsId: 'instagram_cog',
+                        id: this._instagramLayer.featureLayer.id,
                         visibility: this._instagramLayer.featureLayer.visible,
                         layerObject: this._instagramLayer.featureLayer
                     });

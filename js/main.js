@@ -189,6 +189,7 @@ define([
               layers: socialTocLayers
             }, socialTocNode);
             socialToc.startup();
+            this._socialToc = socialToc;
           }
         }
       },
@@ -392,8 +393,17 @@ define([
         this._initLegend();
         // startup toc
         this._initTOC();
-        // set social dialogs
-        this.configureSocial();
+        if(this._socialToc){
+          if(this._socialToc.loaded){
+            this.configureSocial();
+          }
+          else{
+            on(this._socialToc, "load", lang.hitch(this, function(){
+              // set social dialogs
+              this.configureSocial();
+            }));
+          }
+        }
         // on body click containing underlay class
         on(document.body, '.dijitDialogUnderlay:click', function () {
           // get all dialogs

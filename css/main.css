@@ -482,6 +482,10 @@ input[type=text]::-ms-clear {
   font-weight: normal;
 }
 
+.calcite .dialog-content .layer-settings-submit{
+  padding: 4px 8px;
+}
+
 .calcite .esriPrint a,
 .calcite .esriPrint a:visited,
 .calcite .esriPrint a:hover,
