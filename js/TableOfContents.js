@@ -71,7 +71,7 @@ define([
       postCreate: function () {
         var _self = this;
         // when checkbox is clicked
-        this.own(on(this._layersNode, "." + this.css.checkbox + ":change", function () {
+        this.own(on(this._layersNode, "." + this.css.checkbox + ":click", function () {
           var data, subData;
           // layer index
           data = domAttr.get(this, "data-layer-index");
@@ -295,10 +295,10 @@ define([
               // Title text
               var title = this._getLayerTitle(response);
               var labelNode = domConstruct.create("label", {
-                for: id,
                 className: this.css.label,
                 textContent: title
               }, titleContainerNode);
+              domAttr.set(labelNode, "for", id);
               // clear css
               var clearNode = domConstruct.create("div", {
                 className: this.css.clear
@@ -391,10 +391,10 @@ define([
                     // subLayer Title text
                     var subTitle = subLayer.name || "";
                     var subLabelNode = domConstruct.create("label", {
-                      for: subId,
                       className: this.css.label,
                       textContent: subTitle
                     }, subTitleContainerNode);
+                    domAttr.set(subLabelNode, "for", subId);
                     // subLayer clear css
                     var subClearNode = domConstruct.create("div", {
                       className: this.css.clear

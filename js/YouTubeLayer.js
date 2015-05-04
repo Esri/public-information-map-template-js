@@ -486,7 +486,9 @@ define([
           result.descriptionText = this._parseURL(result.snippet.description);
           result.height = 90;
           result.width = 120;
-          result.thumbnail = result.snippet.thumbnails.default.url;
+          if (result.snippet && result.snippet.thumbnails && result.snippet.thumbnails['default']) {
+            result.thumbnail = result.snippet.thumbnails['default'].url;
+          }
           if (result.contentDetails && result.contentDetails.duration) {
             var duration = result.contentDetails.duration;
             result.seconds = this._formatTime(duration);
