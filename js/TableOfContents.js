@@ -95,6 +95,7 @@ define([
           }
         } else {
           this._init();
+
         }
       },
 
@@ -143,6 +144,7 @@ define([
           this._loadedLayers = response;
           this._createLayerNodes();
           this._setLayerEvents();
+          this.emit("refresh", {});
         }));
         // return promise
         return pL;
@@ -430,6 +432,15 @@ define([
         this._layerEvents = [];
       },
 
+      _setMapEvents: function () {
+        this.own(on(this.map, "layer-add", lang.hitch(this, function () {
+          this.refresh();
+        })));
+        this.own(on(this.map, "layer-remove", lang.hitch(this, function () {
+          this.refresh();
+        })));
+      },
+
       _toggleVisible: function (index, subIndex, visible) {
         // if its a sublayer
         if (subIndex !== null) {
@@ -665,6 +676,7 @@ define([
 
       _init: function () {
         this._visible();
+        this._setMapEvents();
         this.refresh().always(lang.hitch(this, function () {
           this.set("loaded", true);
           this.emit("load", {});

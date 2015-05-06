@@ -403,6 +403,10 @@ define([
               this.configureSocial();
             }));
           }
+          on(this._socialToc, "refresh", lang.hitch(this, function(){
+            // set social dialogs
+            this.configureSocial();
+          }));
         }
         // on body click containing underlay class
         on(document.body, '.dijitDialogUnderlay:click', function () {
