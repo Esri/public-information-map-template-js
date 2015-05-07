@@ -291,7 +291,7 @@ define([
               if (layerInfo.settingsId) {
                 settingsNode = domConstruct.create("div", {
                   id: layerInfo.settingsId,
-                  className: this.css.icon + " " + this.css.settingsIcon + " " + this.css.settings,
+                  className: this.css.icon + " " + this.css.settingsIcon + " " + this.css.settings
                 }, titleContainerNode);
               }
               // Title text
