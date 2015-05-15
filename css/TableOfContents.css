@@ -1,5 +1,6 @@
 .TableOfContents .tocList {
   background-color: #ededed;
+  border-top: 1px solid #e0e0e0;
 }
 
 .TableOfContents .tocList ul {
@@ -30,10 +31,6 @@
   line-height: 20px;
   background-color: #f8f8f8;
   color: #555;
-}
-
-.TableOfContents .tocLayer:first-child .tocTitle {
-  border-top: 1px solid #e0e0e0;
 }
 
 .TableOfContents .tocLabel {

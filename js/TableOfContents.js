@@ -494,9 +494,6 @@ define([
 
       _layerEvent: function (response) {
         var layerInfo = response.layerInfo;
-        var layerType = layerInfo.layerType;
-        var layerIndex = response.layerIndex;
-        var layer = response.layer;
         // feature collection layer
         if (layerInfo.featureCollection && layerInfo.featureCollection.layers && layerInfo.featureCollection.layers.length) {
           // feature collection layers
@@ -511,32 +508,7 @@ define([
         } else {
           // layer visibility changes
           this._layerVisChangeEvent(response);
-          // if we have a map service
-          if (this.subLayers && layerType === "ArcGISMapServiceLayer") {
-            var subVisChange = on(layer, "visible-layers-change", lang.hitch(this, function (evt) {
-              // new visible layers
-              var visibleLayers = evt.visibleLayers;
-              // all subLayer info
-              var layerInfos = layer.layerInfos;
-              // go through all subLayers
-              for (var i = 0; i < layerInfos.length; i++) {
-                var subLayerIndex = layerInfos[i].id;
-                // is subLayer in visible layers array
-                var found = array.indexOf(visibleLayers, subLayerIndex);
-                // not found
-                if (found === -1) {
-                  layerInfos[subLayerIndex].defaultVisibility = false;
-                  this._toggleVisible(layerIndex, subLayerIndex, false);
-                }
-                // found
-                else {
-                  layerInfos[subLayerIndex].defaultVisibility = true;
-                  this._toggleVisible(layerIndex, subLayerIndex, true);
-                }
-              }
-            }));
-            this._layerEvents.push(subVisChange);
-          }
+          // todo 3.0: need to figure out way to support togglling map service sublayers outside of widget
           // todo 3.0: need event for wms sublayer toggles
           // todo 3.0: need event for KML sublayer toggles
         }
@@ -590,7 +562,32 @@ define([
                     }
                   }
                 }
-                layer.setVisibleLayers(visibleLayers);
+                //Now that the array of visibleLayer IDs is assembled,
+                //strip off IDs of invisible child layers, and
+                //IDs of group layers (group layer IDs should not be submitted 
+                //in .setVisible() or loss of toggle control madness ensues.
+                //Remove layers whos parents are not visible:
+                var no_invisible_parents = [];
+                for (i = 0; i < visibleLayers.length; i++) {
+                  var id = visibleLayers[i];
+                  var hasParentsInVisibleArray = this._allIDsPresent(layer, id, visibleLayers);
+                  if (hasParentsInVisibleArray) {
+                    no_invisible_parents.push(id);
+                  }
+                }
+                var no_groups = [];
+                for (var j = 0; j < no_invisible_parents.length; j++) {
+                  var lyrInfo = this._getLayerInfo(layer, no_invisible_parents[j]);
+                  if (lyrInfo && lyrInfo.subLayerIds === null) {
+                    no_groups.push(no_invisible_parents[j]);
+                  }
+                }
+                // note: set -1 if array is empty.
+                if (!no_groups.length) {
+                  no_groups = [-1];
+                }
+                // set visible sublayers which are not grouped
+                layer.setVisibleLayers(no_groups);
               }
               // KML Layer
               else if (layerType === "KML") {
@@ -671,6 +668,53 @@ define([
             this._layerEvent(response);
           }
         }
+      },
+
+      _allIDsPresent: function (layerObject, layerID, arrayOfIDs) {
+        //Returns false if any IDs are not present in the supplied array of IDs.
+        var parentIds = this._walkUpLayerIDs(layerObject, layerID);
+        //If any of the parentIDs are NOT in the arrayOfIDs return false:
+        for (var i = 0; i < parentIds.length; i++) {
+          if (array.indexOf(arrayOfIDs, parentIds[i]) === -1) {
+            return false;
+          }
+        }
+        return true;
+      },
+
+      _walkUpLayerIDs: function (layerObject, layerID) {
+        //returns array of layerIDs of all parents of layerID
+        var layerInfo = this._getLayerInfo(layerObject, layerID);
+        var parentLayerInfo;
+        var parentLayerIDs = [];
+        if (layerInfo) {
+          //If the current layerInfo layerInfo doesn't have a parent,
+          //then we're at the top of the hierarchy and should return the result.
+          while (layerInfo.parentLayerId !== -1) {
+            //A parent exists, save the info and add to the array:
+            parentLayerInfo = this._getLayerInfo(layerObject, layerInfo.parentLayerId);
+            if (parentLayerInfo) {
+              parentLayerIDs.push(parentLayerInfo.id);
+            }
+            //Move up hierarchy: reassign the layerInfo to the parent. Loop.
+            layerInfo = parentLayerInfo;
+          }
+        }
+        return parentLayerIDs;
+      },
+
+      _getLayerInfo: function (layerObject, layerID) {
+        //Get the layerInfo for layerID from the layerObject:
+        var info;
+        for (var i = 0; i < layerObject.layerInfos.length; i++) {
+          var layerInfo = layerObject.layerInfos[i];
+          if (layerInfo.id === layerID) {
+            //we have our desired layerInfo.
+            info = layerInfo;
+            break;
+          }
+        }
+        return info;
       },
 
       _init: function () {
