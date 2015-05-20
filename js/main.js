@@ -2,6 +2,7 @@ define([
     "dojo/_base/declare",
     "dojo/_base/lang",
     "esri/arcgis/utils",
+    "dojo/json",
     "dojo/dom-construct",
     "dojo/dom",
     "dojo/on",
@@ -30,6 +31,7 @@ define([
     declare,
     lang,
     arcgisUtils,
+    JSON,
     domConstruct,
     dom,
     on,
@@ -388,17 +390,16 @@ define([
         this._initLegend();
         // startup toc
         this._initTOC();
-        if(this._socialToc){
-          if(this._socialToc.loaded){
+        if (this._socialToc) {
+          if (this._socialToc.loaded) {
             this.configureSocial();
-          }
-          else{
-            on(this._socialToc, "load", lang.hitch(this, function(){
+          } else {
+            on(this._socialToc, "load", lang.hitch(this, function () {
               // set social dialogs
               this.configureSocial();
             }));
           }
-          on(this._socialToc, "refresh", lang.hitch(this, function(){
+          on(this._socialToc, "refresh", lang.hitch(this, function () {
             // set social dialogs
             this.configureSocial();
           }));
@@ -429,32 +430,65 @@ define([
             dialogModal.show();
           }));
         }
-
         // swipe layer
-        if (this.config.swipeLayer && this.config.swipeLayer.id) {
-          // get swipe tool
-          require(["esri/dijit/LayerSwipe"], lang.hitch(this, function (LayerSwipe) {
-            // get layer
+        if (this.config.swipeLayer) {
+          // swipe layers
+          var layers = [];
+          if (lang.isString(this.config.swipeLayer)) {
+            this.config.swipeLayer = JSON.parse(this.config.swipeLayer);
+          }
+          // multiple swipe layers
+          if (lang.isArray(this.config.swipeLayer)) {
+            for (var j = 0; j < this.config.swipeLayer.length; j++) {
+              var lyr = this.map.getLayer(this.config.swipeLayer[j].id);
+              if (lyr) {
+                layers.push(lyr);
+              }
+            }
+          }
+          // one swipe layer
+          else if (this.config.swipeLayer.id) {
             var layer = this.map.getLayer(this.config.swipeLayer.id);
             if (layer) {
+              layers.push(layer);
+            }
+          }
+          // we have swipe layers
+          if (layers.length) {
+            // get swipe tool
+            require(["esri/dijit/LayerSwipe"], lang.hitch(this, function (LayerSwipe) {
               // create swipe
               var layerSwipe = new LayerSwipe({
                 type: this.config.swipeType,
                 theme: "PIMSwipe",
                 invertPlacement: this.config.swipeInvertPlacement,
                 map: this.map,
-                layers: [layer]
+                layers: layers
               }, "swipeDiv");
               layerSwipe.startup();
-              on(layer, 'visibility-change', lang.hitch(this, function (evt) {
-                if (evt.visible) {
-                  layerSwipe.set("enabled", true);
-                } else {
-                  layerSwipe.set("enabled", false);
+              // return true if one layer is visible
+              function layerVisible() {
+                  var visible = false;
+                  for (var k = 0; k < layers.length; k++) {
+                    if (layers[k].visible) {
+                      visible = true;
+                      break;
+                    }
+                  }
+                  return visible;
                 }
-              }));
-            }
-          }));
+                // event for visibility change
+              function layerVisEvent(layer) {
+                  on(layer, 'visibility-change', lang.hitch(this, function (evt) {
+                    layerSwipe.set("enabled", layerVisible());
+                  }));
+                }
+                // events for layer visibility change
+              for (var m = 0; m < layers.length; m++) {
+                layerVisEvent(layers[m]);
+              }
+            }));
+          }
         }
         // drawer size check
         this._drawer.resize();
@@ -522,9 +556,9 @@ define([
       // create geocoder widgets
       _createGeocoders: function () {
         var searchSources = new SearchSources({
-            map: this.map,
-            geocoders: this.config.helperServices.geocode || [],
-            itemData: this.config.itemInfo.itemData
+          map: this.map,
+          geocoders: this.config.helperServices.geocode || [],
+          itemData: this.config.itemInfo.itemData
         });
         // get options
         var createdOptions = searchSources.createOptions();
@@ -542,7 +576,7 @@ define([
         this._geocoder.watch("value", lang.hitch(this, function () {
           var value = arguments[2];
           var current = this._mobileGeocoder.value;
-          if(current !== value){
+          if (current !== value) {
             this._mobileGeocoder.set("value", value);
           }
         }));
@@ -550,7 +584,7 @@ define([
         this._mobileGeocoder.watch("value", lang.hitch(this, function () {
           var value = arguments[2];
           var current = this._geocoder.value;
-          if(current !== value){
+          if (current !== value) {
             this._geocoder.set("value", value);
           }
         }));
@@ -607,8 +641,8 @@ define([
         arcgisUtils.createMap(itemInfo, "mapDiv", {
           mapOptions: {
             infoWindow: customPopup
-            //Optionally define additional map config here for example you can
-            //turn the slider off, display info windows, disable wraparound 180, slider position and more.
+              //Optionally define additional map config here for example you can
+              //turn the slider off, display info windows, disable wraparound 180, slider position and more.
           },
           editable: false,
           usePopupManager: true,
