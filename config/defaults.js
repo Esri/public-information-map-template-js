@@ -39,6 +39,13 @@ define({
     "fields": [],
     "id": ""
   }],
+  "locationSearch": true,
+  //When searchExtent is true the locator will prioritize results within the current map extent.
+  "searchExtent": false,
+  "searchLayers":[{
+      "id": "",
+      "fields": []
+  }],
   "swipeType": "vertical",
   "swipeInvertPlacement": false,
   "hideNotesLayerPopups": true,

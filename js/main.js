@@ -555,11 +555,19 @@ define([
       },
       // create geocoder widgets
       _createGeocoders: function () {
-        var searchSources = new SearchSources({
+        var searchOptions = {
           map: this.map,
           geocoders: this.config.helperServices.geocode || [],
           itemData: this.config.itemInfo.itemData
-        });
+        };
+        if (this.config.searchConfig) {
+          searchOptions.applicationConfiguredSources = this.config.searchConfig.sources || [];
+        } else {
+          var configuredSearchLayers = (this.config.searchLayers instanceof Array) ? this.config.searchLayers : JSON.parse(this.config.searchLayers);
+          searchOptions.configuredSearchLayers = configuredSearchLayers;
+          searchOptions.geocoders = this.config.locationSearch ? this.config.helperServices.geocode : [];
+        }
+        var searchSources = new SearchSources(searchOptions);
         // get options
         var createdOptions = searchSources.createOptions();
         // desktop size geocoder
