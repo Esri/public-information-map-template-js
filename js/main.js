@@ -640,6 +640,7 @@ define([
               //turn the slider off, display info windows, disable wraparound 180, slider position and more.
           },
           editable: false,
+          layerMixins: this.config.layerMixins || [],
           usePopupManager: true,
           bingMapsKey: this.config.bingmapskey
         }).then(lang.hitch(this, function (response) {

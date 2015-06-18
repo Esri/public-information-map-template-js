@@ -7,6 +7,9 @@
           "type":"webmap",
           "label":"Select a map"
         }
+        ,{
+               "type": "appproxies"
+            }
       ]
     },
     {  
