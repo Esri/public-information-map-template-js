@@ -9,7 +9,7 @@ define([
     "dojo/dom-style",
     "dojo/dom-attr",
     "dojo/dom-class",
-    "application/TableOfContents",
+    "esri/dijit/LayerList",
     "application/ShareDialog",
     "application/Drawer",
     "application/DrawerMenu",
@@ -38,7 +38,7 @@ define([
     domStyle,
     domAttr,
     domClass,
-    TableOfContents, ShareDialog, Drawer, DrawerMenu, SearchSources,
+    LayerList, ShareDialog, Drawer, DrawerMenu, SearchSources,
     HomeButton, LocateButton, BasemapToggle,
     Search,
     Popup,
@@ -152,11 +152,11 @@ define([
       },
       _initTOC: function () {
         // layers
-        var tocNode = dom.byId('TableOfContents'),
+        var tocNode = dom.byId('LayerList'),
           socialTocNode, tocLayers, socialTocLayers, toc, socialToc;
         if (tocNode) {
           tocLayers = this.layers;
-          toc = new TableOfContents({
+          toc = new LayerList({
             map: this.map,
             layers: tocLayers
           }, tocNode);
@@ -169,7 +169,7 @@ define([
           content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.social.mediaLayers + '</div>';
           content += '<div class="' + this.css.panelContainer + '">';
           content += '<div class="' + this.css.panelDescription + '">' + this.config.i18n.social.mediaLayersDescription + '</div>';
-          content += '<div id="MediaTableOfContents"></div>';
+          content += '<div id="MediaLayerList"></div>';
           content += '</div>';
           // get node to insert
           var node = dom.byId('social_media_layers');
@@ -177,11 +177,11 @@ define([
             node.innerHTML = content;
           }
           // get toc node for social layers
-          socialTocNode = dom.byId('MediaTableOfContents');
+          socialTocNode = dom.byId('MediaLayerList');
           // if node exists
           if (socialTocNode) {
             socialTocLayers = this.socialLayers;
-            socialToc = new TableOfContents({
+            socialToc = new LayerList({
               map: this.map,
               layers: socialTocLayers
             }, socialTocNode);
@@ -265,7 +265,7 @@ define([
           content = '';
           content += '<div class="' + this.css.panelHeader + '">' + this.config.i18n.general.layers + '</div>';
           content += '<div class="' + this.css.panelContainer + '">';
-          content += '<div id="TableOfContents"></div>';
+          content += '<div id="LayerList"></div>';
           content += '</div>';
           content += '<div id="social_media_layers"></div>';
           // menu info
@@ -390,20 +390,7 @@ define([
         this._initLegend();
         // startup toc
         this._initTOC();
-        if (this._socialToc) {
-          if (this._socialToc.loaded) {
-            this.configureSocial();
-          } else {
-            on(this._socialToc, "load", lang.hitch(this, function () {
-              // set social dialogs
-              this.configureSocial();
-            }));
-          }
-          on(this._socialToc, "refresh", lang.hitch(this, function () {
-            // set social dialogs
-            this.configureSocial();
-          }));
-        }
+        this.configureSocial();
         // on body click containing underlay class
         on(document.body, '.dijitDialogUnderlay:click', function () {
           // get all dialogs
@@ -661,7 +648,7 @@ define([
           //any custom options you defined for the template. In this example that is the 'theme' property.
           //Here' we'll use it to update the application to match the specified color theme.
           this.map = response.map;
-          this.layers = response.itemInfo.itemData.operationalLayers;
+          this.layers = arcgisUtils.getLayerList(response);
           this.item = response.itemInfo.item;
           this.bookmarks = response.itemInfo.itemData.bookmarks;
           this.layerInfos = arcgisUtils.getLegendLayers(response);

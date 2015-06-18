@@ -74,6 +74,16 @@ input[type=text]::-ms-clear {
 .esriRTL .icon-right {
   float: left;
 }
+
+.layerListIcon {
+  padding: 10px;
+  margin: 0 10px 0 0;
+}
+
+.esriRTL .layerListIcon {
+  padding: 10px;
+  margin: 0 0 0 10px;
+}
 /* Overview Map */
 
 .esriOverviewMap.ovwBL .ovwContainer {
@@ -482,7 +492,7 @@ input[type=text]::-ms-clear {
   font-weight: normal;
 }
 
-.calcite .dialog-content .layer-settings-submit{
+.calcite .dialog-content .layer-settings-submit {
   padding: 4px 8px;
 }
 
