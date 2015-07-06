@@ -144,7 +144,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
       array.forEach(configSource, lang.hitch(this, function (source) {
         if (source.locator) {
           source.locator = new Locator(source.url);
-        } else if (source.featureLayer) {
+        } else { //feature layer
           var featureLayer = null;
           if (source.flayerId) {
             featureLayer = this.map.getLayer(source.flayerId);
