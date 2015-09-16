@@ -110,6 +110,10 @@
                 location: package_path + '/..'
             }]
         };
+        var urlLocale = location.search.match(/locale=([\w\-]+)/) ? RegExp.$1 : null;
+        if(urlLocale){
+          dojoConfig.locale = urlLocale;
+        }
     </script>
     <script type="text/javascript" src="//jsdev.arcgis.com/3.15"></script>
     <script type="text/javascript">

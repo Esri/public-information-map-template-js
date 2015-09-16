@@ -248,6 +248,10 @@ define([
                 if (urlObject.query.folderid) {
                     delete urlObject.query.folderid;
                 }
+                // remove locale
+                if (urlObject.query.locale) {
+                    delete urlObject.query.locale;
+                }
                 // include extent in url
                 if (this.get("useExtent") && map) {
                     // get map extent in geographic
