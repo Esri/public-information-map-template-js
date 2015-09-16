@@ -31,6 +31,8 @@ define({
   //Note that we've included a placeholder nls folder and a resource file with one error string
   //to show how to setup the strings file.
   "queryForLocale": true,
+  // support sending credentials with AJAX requests to specific domains. This will allow editing of feature services secured with web-tier authentication
+  "webTierSecurity": false,
   // These are the options specified for querying items within the group. Modify these to get more items. You can also call the public template.queryGroupItems() method with these options as a parameter.
   "groupParams": {
     q: "group:\"${groupid}\" AND -type:\"Code Attachment\"",
