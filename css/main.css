@@ -899,7 +899,7 @@ input[type=text]::-ms-clear {
 .app-loading .loading-indicator {
   display: block;
   background-position: center center;
-  background-image: url(../images/ajax-loader.gif);
+  background-image: url(../images/loading.gif);
   background-repeat: no-repeat;
 }
 
