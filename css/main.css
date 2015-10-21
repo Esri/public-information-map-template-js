@@ -75,15 +75,6 @@ input[type=text]::-ms-clear {
   float: left;
 }
 
-.layerListIcon {
-  padding: 10px;
-  margin: 0 10px 0 0;
-}
-
-.esriRTL .layerListIcon {
-  padding: 10px;
-  margin: 0 0 0 10px;
-}
 /* Overview Map */
 
 .esriOverviewMap.ovwBL .ovwContainer {
@@ -636,7 +627,7 @@ input[type=text]::-ms-clear {
 /* Drawer Menu */
 
 .drawer-menu-container {
-  width: 280px;
+  width: 100%;
 }
 
 .drawer-menu-panels .panel {
