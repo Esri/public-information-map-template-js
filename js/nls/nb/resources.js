@@ -42,7 +42,7 @@
             search: "Søk",
             flSettingsInfo: "Returner resultater som samsvarer med et bildes tittel, beskrivelse eller merker.",
             twSettingsInfo: "Se hva som skjer akkurat nå.",
-            igSettingsInfo: "Instagram er en rask, pen og morsom måte å dele ditt med venner og familie med.",
+            igSettingsInfo: "Instagram er en rask, pen og morsom måte å dele livet ditt med venner og familie med.",
             advancedOperators: "Tips: Bruk <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">operatorer</a> til å opprette avanserte søk.",
             tweetsFilteredBy: "tweets filtrert etter::",
             photosFilteredBy: "bilder filtrert etter:",

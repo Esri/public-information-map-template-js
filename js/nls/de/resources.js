@@ -56,7 +56,7 @@
             featured: "Ausgewählte Positionen",
             layers: "Layer",
             share: "Freigeben",
-            about: "Info zu",
+            about: "Info",
             find: "Postleitzahl, Stadt usw.",
             moreInfo: "Weitere Informationen",
             dateModified: "Zuletzt geändert",
