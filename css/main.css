@@ -167,6 +167,8 @@ input[type=text]::-ms-clear {
 
 .twitter-auth-status {
   cursor: pointer;
+  margin-bottom: 10px;
+  display: inline-block;
 }
 
 #twitter_legend_auth a {
