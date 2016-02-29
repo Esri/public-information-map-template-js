@@ -6,10 +6,10 @@
         {  
           "type":"webmap",
           "label":"Select a map"
+        },
+        {  
+          "type":"appproxies"
         }
-        ,{
-               "type": "appproxies"
-            }
       ]
     },
     {  
@@ -49,6 +49,10 @@
       "category":"<b>Choose Swipe Layer</b>",
       "fields":[  
         {  
+          "type":"paragraph",
+          "value":"A swipe layer can be confgiured to allow for dragging the layer from the side of the map to reveal it's data."
+        },
+        {  
           "type":"multilayerandfieldselector",
           "fieldName":"swipeLayer",
           "label":"Swipe Layer(s)"
@@ -81,8 +85,12 @@
       ]
     },
     {  
-      "category":"<b>General</b>",
+      "category":"<b>Details</b>",
       "fields":[  
+        {  
+          "type":"paragraph",
+          "value":"Provide general information about your application with a title nad description."
+        },
         {  
           "type":"string",
           "fieldName":"title",
@@ -121,8 +129,12 @@
       ]
     },
     {  
-      "category":"<b>Options</b>",
+      "category":"<b>Configuration Options</b>",
       "fields":[  
+        {  
+          "type":"paragraph",
+          "value":"Enable or disable features in your application."
+        },
         {  
           "type":"boolean",
           "fieldName":"enableSummaryInfo",
@@ -249,6 +261,10 @@
       "category":"<b>Basemap Widget</b>",
       "fields":[  
         {  
+          "type":"paragraph",
+          "value":"Choose which basemaps can be toggled on your application."
+        },
+        {  
           "type":"string",
           "fieldName":"defaultBasemap",
           "tooltip":"Default selected basemap for this map.",
@@ -342,10 +358,8 @@
       "category":"<b>Instagram Options</b>",
       "fields":[  
         {  
-          "type":"boolean",
-          "fieldName":"enableInstagram",
-          "label":"Enable Instagram Layer",
-          "tooltip":"Enable Instagram Layer"
+          "type":"paragraph",
+          "value":"Configure Instagram Layer options for your application."
         },
         {  
           "type":"paragraph",
@@ -353,13 +367,19 @@
         },
         {  
           "type":"boolean",
-          "fieldName":"instagramVisible",
-          "label":"Visible",
-          "tooltip":"Check this box to make the layer visible by default."
+          "fieldName":"enableInstagram",
+          "label":"Enable Instagram Layer",
+          "tooltip":"Enable Instagram Layer"
         },
         {  
           "type":"paragraph",
           "value":"Show this layer by default."
+        },
+        {  
+          "type":"boolean",
+          "fieldName":"instagramVisible",
+          "label":"Visible",
+          "tooltip":"Check this box to make the layer visible by default."
         },
         {  
           "type":"string",
@@ -403,10 +423,8 @@
       "category":"<b>Flickr Options</b>",
       "fields":[  
         {  
-          "type":"boolean",
-          "fieldName":"enableFlickr",
-          "label":"Enable Flickr Layer",
-          "tooltip":"Enable Flickr Layer"
+          "type":"paragraph",
+          "value":"Configure Flickr Layer options for your application."
         },
         {  
           "type":"paragraph",
@@ -414,13 +432,19 @@
         },
         {  
           "type":"boolean",
-          "fieldName":"flickrVisible",
-          "label":"Visible",
-          "tooltip":"Check this box to make the layer visible by default."
+          "fieldName":"enableFlickr",
+          "label":"Enable Flickr Layer",
+          "tooltip":"Enable Flickr Layer"
         },
         {  
           "type":"paragraph",
           "value":"Show this layer by default."
+        },
+        {  
+          "type":"boolean",
+          "fieldName":"flickrVisible",
+          "label":"Visible",
+          "tooltip":"Check this box to make the layer visible by default."
         },
         {  
           "type":"string",
@@ -459,6 +483,14 @@
       "category":"<b>Twitter Options</b>",
       "fields":[  
         {  
+          "type":"paragraph",
+          "value":"Configure Twitter Layer options for your application."
+        },
+        {  
+          "type":"paragraph",
+          "value":"View Tweets on this map."
+        },
+        {  
           "type":"boolean",
           "fieldName":"enableTwitter",
           "label":"Enable Twitter Layer",
@@ -466,7 +498,7 @@
         },
         {  
           "type":"paragraph",
-          "value":"View Tweets on this map."
+          "value":"Show this layer by default."
         },
         {  
           "type":"boolean",
@@ -476,7 +508,7 @@
         },
         {  
           "type":"paragraph",
-          "value":"Show this layer by default."
+          "value":"Use the following twitter search query. See <a href=\"http://support.twitter.com/articles/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced search</a> for more information."
         },
         {  
           "type":"string",
@@ -484,16 +516,20 @@
           "label":"Search Keywords",
           "tooltip":"Search Keywords",
           "placeHolder":""
-        },
-        {  
-          "type":"paragraph",
-          "value":"<a href=\"http://support.twitter.com/articles/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced search</a>."
         }
       ]
     },
     {  
       "category":"<b>Webcams.travel Options</b>",
       "fields":[  
+        {  
+          "type":"paragraph",
+          "value":"Configure Webcams Layer options for your application."
+        },
+        {  
+          "type":"paragraph",
+          "value":"View up-to-date webcam photos from <a href=\"http://www.webcams.travel/\" target=\"_blank\">Webcams.travel</a>."
+        },
         {  
           "type":"boolean",
           "fieldName":"enableWebcams",
@@ -502,23 +538,27 @@
         },
         {  
           "type":"paragraph",
-          "value":"View up-to-date webcam photos from <a href=\"http://www.webcams.travel/\" target=\"_blank\">Webcams.travel</a>."
+          "value":"Show this layer by default."
         },
         {  
           "type":"boolean",
           "fieldName":"webcamsVisible",
           "label":"Visible",
           "tooltip":"Check this box to make the layer visible by default."
-        },
-        {  
-          "type":"paragraph",
-          "value":"Show this layer by default."
         }
       ]
     },
     {  
       "category":"<b>YouTube Options</b>",
       "fields":[  
+        {  
+          "type":"paragraph",
+          "value":"Configure YouTube Layer options for your application."
+        },
+        {  
+          "type":"paragraph",
+          "value":"View user contributed videos from YouTube."
+        },
         {  
           "type":"boolean",
           "fieldName":"enableYouTube",
@@ -527,17 +567,13 @@
         },
         {  
           "type":"paragraph",
-          "value":"View user contributed videos from YouTube."
+          "value":"Show this layer by default."
         },
         {  
           "type":"boolean",
           "fieldName":"youtubeVisible",
           "label":"Visible",
           "tooltip":"Check this box to make the layer visible by default."
-        },
-        {  
-          "type":"paragraph",
-          "value":"Show this layer by default."
         },
         {  
           "type":"string",
@@ -575,6 +611,10 @@
     {  
       "category":"Search Settings",
       "fields":[  
+        {  
+          "type":"paragraph",
+          "value":"Specify which locators and layers can be searched in your application."
+        },
         {  
           "type":"search",
           "fieldName":"searchConfig",
