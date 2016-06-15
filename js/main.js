@@ -1,5 +1,6 @@
 define([
     "dojo/_base/declare",
+    "dojo/_base/kernel",
     "dojo/_base/lang",
     "esri/arcgis/utils",
     "dojo/json",
@@ -29,6 +30,7 @@ define([
 ],
   function (
     declare,
+    kernel,
     lang,
     arcgisUtils,
     JSON,
@@ -88,6 +90,9 @@ define([
         this._showDrawerSize = 850;
       },
       startup: function (config) {
+        
+        document.documentElement.lang = kernel.locale;
+        
         // config will contain application and user defined info for the template such as i18n strings, the web map id
         // and application id
         // any url parameters and any application specific configuration information.
@@ -161,6 +166,11 @@ define([
             layers: tocLayers
           }, tocNode);
           toc.startup();
+          if(this._mapLegend) {
+            on(toc, "toggle", lang.hitch(this, function () {
+              this._mapLegend.refresh();
+            }));
+          }
         }
         // if we have social layers
         if (this.socialLayers && this.socialLayers.length) {
@@ -186,6 +196,11 @@ define([
               layers: socialTocLayers
             }, socialTocNode);
             socialToc.startup();
+            if(this._mapLegend) {
+              on(socialToc, "toggle", lang.hitch(this, function () {
+                this._mapLegend.refresh();
+              }));
+            }
             this._socialToc = socialToc;
           }
         }
@@ -548,6 +563,8 @@ define([
           itemData: this.config.itemInfo.itemData
         };
         if (this.config.searchConfig) {
+          searchOptions.enableSearchingAll = this.config.searchConfig.enableSearchingAll;
+          searchOptions.activeSourceIndex = this.config.searchConfig.activeSourceIndex;
           searchOptions.applicationConfiguredSources = this.config.searchConfig.sources || [];
         } else {
           var configuredSearchLayers = (this.config.searchLayers instanceof Array) ? this.config.searchLayers : JSON.parse(this.config.searchLayers);

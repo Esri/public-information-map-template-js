@@ -12,6 +12,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
         //When true we restrict world locator to the map extent
         geocoders: [],
         esriSource: null,
+        enableSearchingAll: true,
         //Geocoders defined in helper services
         itemData: null,
         //web map item info includes operational layers and info about searches configured on web map
@@ -27,6 +28,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
       return {
         map: this.map,
         sources: this._createSources(),
+        enableSearchingAll: this.enableSearchingAll,
         activeSourceIndex: this._getActiveSource()
       };
     },
@@ -55,15 +57,20 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
 
     _getActiveSource: function () {
       var activeIndex = 0;
-      if (this.sources && this.sources.length > 1) {
-        activeIndex = "all";
+      if (this.hasOwnProperty("activeSourceIndex")) {
+        activeIndex = this.activeSourceIndex;
       }
-      array.some(this.sources, function (s, index) {
-        if (!s.hasEsri && s.featureLayer) {
-          activeIndex = index;
-          return true;
+      else{
+        if (this.sources && this.enableSearchingAll && this.sources.length > 1) {
+          activeIndex = "all";
         }
-      });
+        array.some(this.sources, function (s, index) {
+          if (!s.hasEsri && s.featureLayer) {
+            activeIndex = index;
+            return true;
+          }
+        });
+      }
       return activeIndex;
     },
     _createHelperServiceSources: function () {

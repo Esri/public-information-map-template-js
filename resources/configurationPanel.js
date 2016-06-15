@@ -105,7 +105,12 @@
           "label":"Application Summary",
           "tooltip":"Map Summary",
           "placeHolder":"My Map"
-        },
+        }
+      ]
+    },
+    {  
+      "category":"<b>Configuration Options</b>",
+      "fields":[  
         {  
           "type":"string",
           "fieldName":"defaultPanel",
@@ -125,12 +130,7 @@
               "value":"layers"
             }
           ]
-        }
-      ]
-    },
-    {  
-      "category":"<b>Configuration Options</b>",
-      "fields":[  
+        },
         {  
           "type":"paragraph",
           "value":"Enable or disable features in your application."
