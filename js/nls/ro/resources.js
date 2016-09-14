@@ -27,7 +27,8 @@ define({
     "webcams": "Camere web. Călătorii",
     "instagram": "Instagram",
     "instagramSettings": "Setări Instagram",
-    "igTime": "Încărcat în intervalul numărului de zile",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "Setări YouTube",
     "ytSettingsInfo": "Vizualizaţi clipuri video generate de utilizatori, inclusiv conţinut din reţea şi profesional.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "tweeturi filtrate după:",
     "photosFilteredBy": "Fotografii filtrate după:",
     "videosFilteredBy": "clipuri video filtrate după:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "Activaţi stratul tematic Twitter pentru a vă vedea starea."
   },
   "general": {

@@ -46,7 +46,7 @@ define([
         symbol: null,
         infoTemplate: null,
         key: null,
-        url: 'http://api.webcams.travel/rest',
+        url: "https://webcamstravel.p.mashape.com",
         refreshTime: 4000
       },
       constructor: function (options) {
@@ -99,7 +99,7 @@ define([
         }
         // default infoTemplate
         if (!this.infoTemplate) {
-          this.set("infoTemplate", new InfoTemplate('Webcam', '<div class="' + this._css.container + '"><div class="' + this._css.title + '">${title}</div><a tabindex="0" class="' + this._css.imageAnchor + '" href="${url}" target="_blank"><img width="128" height="96" class="' + this._css.image + '" src="${thumbnail_url}" /></a><div class="' + this._css.location + '">${city}, ${country}</div><div class="' + this._css.date + '">${dateformatted}</div><div class="' + this._css.logo + '"><a href="http://www.webcams.travel" target="_blank"><img src="http://www.webcams.travel/img/linking/logo_125x30.jpg" border="0" alt="Webcams worldwide - Webcams.travel"/></a></div><div class="' + this._css.credits + '">Webcams provided by <a href="http://www.webcams.travel/" target="_blank">webcams.travel</a></div></div>'));
+          this.set("infoTemplate", new InfoTemplate('Webcam', '<div class="' + this._css.container + '"><div class="' + this._css.title + '">${title}</div><a tabindex="0" class="' + this._css.imageAnchor + '" href="${url}" target="_blank"><img width="${thumbnail_width}" height="${thumbnail_height}" class="' + this._css.image + '" src="${thumbnail_url}" /></a><div class="' + this._css.location + '">${city}, ${region} ${country}</div><div class="' + this._css.date + '">${dateformatted}</div><div class="' + this._css.logo + '"><a href="http://www.webcams.travel" target="_blank"><img src="http://www.webcams.travel/img/linking/logo_125x30.jpg" border="0" alt="Webcams worldwide - Webcams.travel"/></a></div><div class="' + this._css.credits + '">Webcams provided by <a href="http://www.webcams.travel/" target="_blank">webcams.travel</a></div></div>'));
         }
         // layer
         this.featureCollection = {
@@ -140,7 +140,8 @@ define([
           // query when map loads
           if (this.map.loaded) {
             this._init();
-          } else {
+          }
+          else {
             var onLoad = on.once(this.map, "load", lang.hitch(this, function () {
               this._init();
             }));
@@ -186,7 +187,7 @@ define([
             refresh = ms;
           }
           this._refreshTimer = setTimeout(lang.hitch(this, function () {
-            this._constructQuery();
+            this._sendRequest();
           }), refresh);
         }
       },
@@ -196,7 +197,6 @@ define([
           clearTimeout(this._refreshTimer);
         }
         // cancel any outstanding requests
-        this.query = null;
         array.forEach(this._deferreds, function (def) {
           def.cancel();
         });
@@ -217,7 +217,8 @@ define([
       setVisibility: function (val) {
         if (val) {
           this.show();
-        } else {
+        }
+        else {
           this.hide();
         }
       },
@@ -249,55 +250,48 @@ define([
           });
         }
       },
-      _constructQuery: function () {
+      _constructUrl: function () {
         var extent = this.map.geographicExtent;
+        var url = "";
         if (extent) {
-          this.query = {
-            devid: this.key,
-            sw_lat: extent.ymin,
-            sw_lng: extent.xmin,
-            ne_lat: extent.ymax,
-            ne_lng: extent.xmax,
-            zoom: this.map.getLevel(),
-            per_page: this.limit,
-            format: "json",
-            method: "wct.map.bbox",
-            page: 1
-          };
-          // make the actual API call
-          this.pageCount = 1;
-          this._sendRequest(this.url, this.query);
+          url += this.url + "/webcams/map/";
+          url += extent.ymax; // ne_lat
+          url += ",";
+          url += extent.xmax; // ne_lng
+          url += ",";
+          url += extent.ymin; // sw_lat
+          url += ",";
+          url += extent.xmin; // sw_lng
+          url += ",";
+          url += this.map.getLevel(); // zoom
         }
+        return url;
       },
-      _sendRequest: function (url, content) {
+      _sendRequest: function () {
         // get the results for each page
         var deferred = esriRequest({
-          url: url,
+          url: this._constructUrl(),
           handleAs: "json",
           timeout: 10000,
-          content: content,
+          content: {
+            "show": "webcams:basic,image,location,url",
+            "lang": "en",
+            "mashape-key": this.key
+          },
           callbackParamName: "callback",
           preventCache: true,
           load: lang.hitch(this, function (data) {
-            if (data.status === 'ok') {
-              if (data.webcams.webcam.length > 0) {
+            if (data.status === "OK") {
+              if (data.result.total > 0) {
                 this._mapResults(data);
-                // display results for multiple pages
-                if ((this.autopage) && (this.maxpage > this.pageCount) && (data.webcams.length === this.limit) && (this.query)) {
-                  this.pageCount++;
-                  this.query.page++;
-                  this._sendRequest(this.url, this.query);
-                } else {
-                  this._updateEnd();
-                }
-              } else {
+                this._updateEnd();
+              }
+              else {
                 // No results found, try another search term
                 this._updateEnd();
               }
-            } else {
-              if (data.code === 100) {
-                console.log('Webcams::' + data.code + ' - ' + this.title + ': ' + data.message);
-              }
+            }
+            else {
               // No results found, try another search term
               this._updateEnd();
             }
@@ -305,7 +299,8 @@ define([
           error: lang.hitch(this, function (e) {
             if (deferred.canceled) {
               console.log('Webcams::Search Cancelled');
-            } else {
+            }
+            else {
               console.log('Webcams::Search error' + ": " + e.message.toString());
             }
             this._error(e);
@@ -321,23 +316,30 @@ define([
         }
         var b = [];
         var ng = [];
-        var k = j.webcams.webcam;
+        var k = j.result.webcams;
         array.forEach(k, lang.hitch(this, function (result) {
           // add date to result
-          var date = new Date(parseInt(result.last_update * 1000, 10));
+          var date = new Date(parseInt(result.image.update * 1000, 10));
           result.dateformatted = this._formatDate(date);
           // eliminate geo photos which we already have on the map
-          if (this._dataIds[result.webcamid]) {
+          if (this._dataIds[result.id]) {
             return;
           }
-          this._dataIds[result.webcamid] = true;
+          this._dataIds[result.id] = true;
           var geoPoint = null;
-          if (result.latitude) {
-            var g = [result.latitude, result.longitude];
+          if (result.location.latitude) {
+            var g = [result.location.latitude, result.location.longitude];
             geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
           }
+          result.thumbnail_url = result.image.current.thumbnail;
+          result.thumbnail_width = result.image.sizes.thumbnail.width;
+          result.thumbnail_height = result.image.sizes.thumbnail.height;
+          result.city = result.location.city;
+          result.region = result.location.region;
+          result.country = result.location.country_code;
+          result.url = result.url.current.desktop;
           // webcam icon
-          var symbol = new PictureMarkerSymbol(result.daylight_icon_url, 32, 32);
+          var symbol = new PictureMarkerSymbol(result.image.daylight.icon, 32, 32);
           // if point is set
           if (geoPoint && geoPoint.hasOwnProperty('x') && geoPoint.hasOwnProperty('y')) {
             // convert the Point to WebMercator projection
@@ -345,7 +347,8 @@ define([
             // make the Point into a Graphic
             var graphic = new Graphic(a, symbol, result, this.infoTemplate);
             b.push(graphic);
-          } else {
+          }
+          else {
             ng.push(result);
           }
         }));
@@ -373,7 +376,6 @@ define([
         this.emit("error", e);
       },
       _updateEnd: function () {
-        this.query = null;
         this.emit("update-end", {});
       }
     });

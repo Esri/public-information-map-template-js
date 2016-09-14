@@ -259,6 +259,7 @@ define([
           content += '<div class="' + this.css.panelContainer + '">';
           content += '<div class="' + this.css.panelPadding + '">';
           content += '<div id="twitter_legend_auth"></div>';
+          content += '<div id="instagram_legend_auth"></div>';
           content += '<div id="LegendDiv"></div>';
           content += '</div>';
           content += '</div>';
@@ -393,6 +394,17 @@ define([
           // responsive overview size
           on(this.map, 'resize', lang.hitch(this, function () {
             this._resizeOverviewMap();
+          }));
+        }
+        // Scalebar
+        if (this.config.enableScalebar) {
+          require([
+            "esri/dijit/Scalebar",
+          ], lang.hitch(this, function(Scalebar) {
+            var scalebar = new Scalebar({
+              map: this.map,
+              attachTo: "bottom-left"
+            });
           }));
         }
         // geocoders

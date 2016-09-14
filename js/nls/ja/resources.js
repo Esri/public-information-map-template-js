@@ -27,7 +27,8 @@ define({
     "webcams": "観光用 Web カメラ",
     "instagram": "Instagram",
     "instagramSettings": "Instagram の設定",
-    "igTime": "過去の次の日数以内にアップロードされました",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube の設定",
     "ytSettingsInfo": "ネットワーク コンテンツおよび商用コンテンツを含む、ユーザによって作成されたビデオを表示します。",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "ツイートのフィルタ:",
     "photosFilteredBy": "写真のフィルタ:",
     "videosFilteredBy": "ビデオのフィルタ:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "Twitter レイヤでステータスを表示できるようにします。"
   },
   "general": {

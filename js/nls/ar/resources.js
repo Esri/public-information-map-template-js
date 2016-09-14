@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "إعدادات Instagram",
-    "igTime": "التحميل داخل عدد الايام السابقة",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "إعدادات YouTube",
     "ytSettingsInfo": "يتضمن عرض مقاطع الفيديو الشبكة والمحتويات الاحترافية.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "يتم تنقية التغريدات بواسطة:",
     "photosFilteredBy": "يتم تنقية الصور بواسطة:",
     "videosFilteredBy": "تتم تصفية مقاطع الفيديو بواسطة:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "قم بتمكين طبقة Twitter لرؤية حالتك."
   },
   "general": {

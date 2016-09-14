@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "인스타그램 설정",
-    "igTime": "최근 몇 일 이내에 업로드됨",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube 설정",
     "ytSettingsInfo": "네트워크 및 전문 콘텐츠를 비롯한 사용자 생성 동영상을 봅니다.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "트윗 필터링 기준:",
     "photosFilteredBy": "사진 필터링 기준:",
     "videosFilteredBy": "동영상 필터링 기준:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "상태를 보려면 Twitter 레이어를 활성화하세요."
   },
   "general": {

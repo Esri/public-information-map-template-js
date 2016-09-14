@@ -27,7 +27,8 @@ define({
     "webcams": "מצלמות רשת.נסיעה",
     "instagram": "אינסטגרם",
     "instagramSettings": "הגדרות אינסטגרם",
-    "igTime": "הועלה לפני מספר ימים",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "יוטיוב",
     "youtubeSettings": "הגדרות יוטיוב",
     "ytSettingsInfo": "סרטונים שנוצרו על ידי משתמשים וכוללים רשת ותוכן מקצועי.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "סינון ציוצים על ידי:",
     "photosFilteredBy": "סינון תמונות על ידי:",
     "videosFilteredBy": "קטעי וידאו מסוננים על ידי:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "אפשר את שכבת הציוצים כדי לראות את הסטטוס שלך."
   },
   "general": {

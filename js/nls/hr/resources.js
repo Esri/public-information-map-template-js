@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Postavke Instagrama",
-    "igTime": "Poslano u prethodnih nekoliko dana",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "Postavke YouTubea",
     "ytSettingsInfo": "Prikaz videozapisa korisnika uključujući mrežni i profesionalni sadržaj.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "tweetovi filtrirani prema:",
     "photosFilteredBy": "fotografije filtrirane prema:",
     "videosFilteredBy": "videozapisi filtrirani prema:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "Omogućite Twitter sloj da vidite svoj status."
   },
   "general": {

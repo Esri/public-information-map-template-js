@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagram-asetukset",
-    "igTime": "Lähetetty edellisen päivien määrän kuluessa",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube-asetukset",
     "ytSettingsInfo": "Näytä käyttäjän luomat videot, mukaan lukien verkko- ja ammattikäyttösisältö.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "twiittien suodatusperuste:",
     "photosFilteredBy": "valokuvien suodatusperuste:",
     "videosFilteredBy": "videoiden suodatusperuste:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "Ota Twitter-karttataso käyttöön, jotta näet tilasi."
   },
   "general": {

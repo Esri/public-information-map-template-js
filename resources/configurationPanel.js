@@ -89,7 +89,7 @@
       "fields":[  
         {  
           "type":"paragraph",
-          "value":"Provide general information about your application with a title nad description."
+          "value":"Provide general information about your application with a title and description."
         },
         {  
           "type":"string",
@@ -158,6 +158,12 @@
           "fieldName":"enableMoreInfo",
           "label":"Enable More Information link",
           "tooltip":"Enable More Information link"
+        },
+        {  
+          "type":"boolean",
+          "fieldName":"enableScalebar",
+          "label":"Enable Scalebar on the map",
+          "tooltip":"Enable Scalebar on the map"
         },
         {  
           "type":"boolean",
@@ -380,42 +386,6 @@
           "fieldName":"instagramVisible",
           "label":"Visible",
           "tooltip":"Check this box to make the layer visible by default."
-        },
-        {  
-          "type":"string",
-          "fieldName":"instagramTime",
-          "tooltip":"Photos uploaded within the past",
-          "label":"Photos uploaded within the past",
-          "options":[  
-            {  
-              "label":"Day",
-              "value":1
-            },
-            {  
-              "label":"2 Days",
-              "value":2
-            },
-            {  
-              "label":"3 Days",
-              "value":3
-            },
-            {  
-              "label":"4 Days",
-              "value":4
-            },
-            {  
-              "label":"5 Days",
-              "value":5
-            },
-            {  
-              "label":"6 Days",
-              "value":6
-            },
-            {  
-              "label":"Week",
-              "value":7
-            }
-          ]
         }
       ]
     },
@@ -508,7 +478,7 @@
         },
         {  
           "type":"paragraph",
-          "value":"Use the following twitter search query. See <a href=\"http://support.twitter.com/articles/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced search</a> for more information."
+          "value": "Use the following twitter search query. See <a href=\"http://support.twitter.com/articles/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced search</a> and the query operators section of <a href=\"https://dev.twitter.com/rest/public/search\" target=\"_blank\">this topic</a> for more information."
         },
         {  
           "type":"string",
@@ -641,6 +611,7 @@
     "enableBookmarks":true,
     "enableOverviewMap":true,
     "openOverviewMap":false,
+    "enableScalebar": false,
     "enablePrintButton":false,
     "nextBasemap":"hybrid",
     "defaultBasemap":"topo",
@@ -648,7 +619,6 @@
     "swipeInvertPlacement":false,
     "enableInstagram":true,
     "instagramVisible":false,
-    "instagramTime":5,
     "enableFlickr":true,
     "flickrVisible":false,
     "flickrSearch":"",

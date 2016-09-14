@@ -51,7 +51,6 @@ define({
   "hideNotesLayerPopups": true,
   "enableInstagram": true,
   "instagramVisible": false,
-  "instagramTime": "",
   "enableFlickr": true,
   "flickrVisible": false,
   "flickrSearch": "",
@@ -71,7 +70,8 @@ define({
   "twitterSigninUrl": location.protocol + "//utility.arcgis.com/tproxy/signin",
   "flickr_key": "404ebea7d5bc27aa5251d1207620e99b",
   "webcams_key": "65939add1ebe8bc9cc4180763f5df2ca",
-  "instagram_key": "288c36a1a42c49de9a2480a05d054619",
+  "instagramClientId": "47ce2d7ea1494adb98708f4b47319227",
+  "instagramSigninUrl": "https://www.instagram.com/oauth/authorize",
   "youtube_key": "AIzaSyBvrlsx50mxX_W-Ra2cJ8PB0jKt0jACZfg",
   /*
     "bannedUsersService": location.protocol + "//services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",

@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams",
     "instagram": "Instagram",
     "instagramSettings": "Instagram-indstillinger",
-    "igTime": "Overført inden for de seneste dage",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube-indstillinger",
     "ytSettingsInfo": "Vis brugergenererede videoer inkl. netværks- og professionelt indhold.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "tweets filtreret af:",
     "photosFilteredBy": "fotos filtreret af:",
     "videosFilteredBy": "videoer filtreret af:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "Aktivér Twitter-laget til at se din status."
   },
   "general": {

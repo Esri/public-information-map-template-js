@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagrami sätted",
-    "igTime": "Üles laaditud viimaste päevade jooksul",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube seaded",
     "ytSettingsInfo": "Kuva kasutaja loodud videod, sh professionaalne ja võrgusisu.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "säutsud on filtreeritud:",
     "photosFilteredBy": "fotod on filtreeritud:",
     "videosFilteredBy": "videomaterjali filtreerimine:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "Luba Twitteri kihti, et näha enda staatust."
   },
   "general": {

@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagram 设置",
-    "igTime": "在过去几天中上传的内容",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube 设置",
     "ytSettingsInfo": "查看用户生成的视频，其中包括网络和专业内容。",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "推文过滤依据:",
     "photosFilteredBy": "照片过滤依据:",
     "videosFilteredBy": "视频过滤条件:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "启用 Twitter 图层查看状态。"
   },
   "general": {

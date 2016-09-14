@@ -27,7 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Thiết lập Instagram",
-    "igTime": "Tải lên trong số ngày qua",
+    "instagramUser": "Instagram Account",
+    "instagramSignIn": "Sign in to Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "Thiết lập YouTube",
     "ytSettingsInfo": "Xem video do người dùng tạo bao gồm nội dung trên mạng và nội dung chuyên nghiệp.",
@@ -46,6 +47,7 @@ define({
     "tweetsFilteredBy": "lọc bài đăng theo:",
     "photosFilteredBy": "lọc ảnh theo:",
     "videosFilteredBy": "lọc video theo:",
+    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
     "twitterAccountStatus": "Bật lớp Twitter để xem trạng thái của bạn."
   },
   "general": {
