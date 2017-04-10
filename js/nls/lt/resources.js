@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagram nustatymai",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Instagram paskyra",
+    "instagramSignIn": "Prisijungti prie Twitter",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube nustatymai",
     "ytSettingsInfo": "Peržiūrėkite vartotojų sukurtus vaizdo įrašus, įskaitant tinklo ir profesionalų turinį.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "tweet žinutės filtruojamos pagal:",
     "photosFilteredBy": "fotografijos filtruojamos pagal:",
     "videosFilteredBy": "vaizdo įrašai, filtruoti pagal:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Įjunkite Instagram sluoksnį, kad matytumėte savo būseną.",
     "twitterAccountStatus": "Įjunkite Twitter sluoksnį savo būsenos matymui."
   },
   "general": {

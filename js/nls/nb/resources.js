@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagram-innstillinger",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Instagram-konto",
+    "instagramSignIn": "Logg på Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube-innstillinger",
     "ytSettingsInfo": "Se på brukergenererte videoer, inkludert nettverksinnhold og profesjonelt innhold.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "tweets filtrert etter::",
     "photosFilteredBy": "bilder filtrert etter:",
     "videosFilteredBy": "videoer filtrert etter:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Aktiver Instagram-laget for å vise statusen.",
     "twitterAccountStatus": "La Twitter-laget få se statusen din."
   },
   "general": {

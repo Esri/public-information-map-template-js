@@ -70,6 +70,7 @@ function (
             this.set("symbol", defaults.symbol);
             this.set("infoTemplate", defaults.infoTemplate);
             this.set("key", defaults.key);
+            this.set("token", defaults.token);
             this.set("url", defaults.url);
             this.set("minScale", defaults.minScale);
             this.set("maxScale", defaults.maxScale);

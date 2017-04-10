@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Ustawienia serwisu Instagram",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Konto w serwisie Instagram",
+    "instagramSignIn": "Zaloguj się do serwisu Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "Ustawienia serwisu YouTube",
     "ytSettingsInfo": "Zapoznaj się z materiałami wideo utworzonymi przez użytkowników, które zawierają zasoby sieciowe oraz profesjonalne.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "Filtrowanie wpisów w serwisie Twitter według:",
     "photosFilteredBy": "Filtrowanie zdjęć według:",
     "videosFilteredBy": "Filtrowanie filmów wideo:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Zezwól na wyświetlanie Twojego statusu w warstwie Instagram.",
     "twitterAccountStatus": "Zezwól na wyświetlanie Twojego statusu w warstwie Twitter."
   },
   "general": {

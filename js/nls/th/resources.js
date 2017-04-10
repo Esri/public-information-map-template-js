@@ -27,8 +27,8 @@ define({
     "webcams": "เว็บแคม.ท่องเที่ยว",
     "instagram": "Instagram",
     "instagramSettings": "การตั้งค่าอินสตาแกรม",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "บัยชีอินสตาแกรม",
+    "instagramSignIn": "เข้าระบบอินสตาแกรม",
     "youtube": "ยูทูบ",
     "youtubeSettings": "การตั้งค่ายูทูบ",
     "ytSettingsInfo": "ดูวิดีโอที่ผู้ใช้สร้างขึ้น รวมทั้งเน็ตเวิร์กและเนื้อหาที่เชื่อถือได้",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "กรองทวีตโดย:",
     "photosFilteredBy": "กรองรูปภาพโดย:",
     "videosFilteredBy": "วิดีโอที่กรองด้วย:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "เปิดอินสตาแกรมเพื่อจะได้เห็นสถานะของคุณ",
     "twitterAccountStatus": "กำหนดให้ชั้นข้อมูลทวิตเตอร์มองเห็นสถานะของคุณ"
   },
   "general": {

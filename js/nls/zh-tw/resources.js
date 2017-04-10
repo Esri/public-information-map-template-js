@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagram 設定",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Instagram 帳號",
+    "instagramSignIn": "登錄到 Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube 設定",
     "ytSettingsInfo": "查看使用者生成的影片，其中包括網路和專業內容。",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "推文篩選依據:",
     "photosFilteredBy": "照片篩選依據:",
     "videosFilteredBy": "影片篩選條件:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "啟用 Instagram 圖層以查看您的狀態。",
     "twitterAccountStatus": "啟用 Twitter 圖層以查看您的狀態。"
   },
   "general": {

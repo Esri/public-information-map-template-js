@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagram postavke",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Instagram nalog",
+    "instagramSignIn": "Prijavite se na Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube postavke",
     "ytSettingsInfo": "Prikažite video zapise generisane od strane korisnika uključujući mrežni i profesionalni sadržaj.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "filtriraj tvitove po:",
     "photosFilteredBy": "filtriraj fotografije po:",
     "videosFilteredBy": "filtriraj video zapise po:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Omogućite da Instagram sloj može da vidi vaš status.",
     "twitterAccountStatus": "Omogućite da Twitter sloj može da vidi vaš status."
   },
   "general": {

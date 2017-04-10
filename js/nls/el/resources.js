@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Ρυθμίσεις Instagram",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Λογαριασμός Instagram",
+    "instagramSignIn": "Είσοδος στο Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "Ρυθμίσεις YouTube",
     "ytSettingsInfo": "Προβάλετε βίντεο δημιουργημένα από χρήστες που περιλαμβάνουν περιεχόμενο δικτύου και επαγγελματικό περιεχόμενο.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "φιλτράρισμα tweet κατά:",
     "photosFilteredBy": "φιλτράρισμα φωτογραφιών κατά:",
     "videosFilteredBy": "φιλτράρισμα βίντεο κατά:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Ενεργοποιήστε το επίπεδο του Instagram, για να δείτε την κατάστασή σας.",
     "twitterAccountStatus": "Ενεργοποιήστε το επίπεδο του Twitter για να δείτε την κατάστασή σας."
   },
   "general": {

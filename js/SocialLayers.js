@@ -38,9 +38,10 @@ define([
     Dialog,
     keys
   ) {
-  
+
   var INSTAGRAM_ACCESS_TOKEN = "instagram_access_token";
-  
+  var TWITTER_ACCESS_TOKEN = "twitter_access_token";
+
     function parseParms(str) {
         var pieces = str.replace("#", "").split("&"), data = {}, i, parts;
         // process each query pair
@@ -53,7 +54,7 @@ define([
         }
         return data;
     }
-  
+
   // Feature test
   function lsTest(){
       var test = 'test';
@@ -65,7 +66,7 @@ define([
           return false;
       }
   }
-  
+
     return declare("", null, {
       initSocial: function () {
         // css classes for social layers
@@ -133,9 +134,14 @@ define([
         }
         // twitter enabled
         if (this.config.enableTwitter) {
+          var twitterToken = "";
+          if(lsTest()){
+            twitterToken = localStorage.getItem(TWITTER_ACCESS_TOKEN) || "";
+          }
           // Twitter
           this._twitterLayer = new TwitterLayer({
             map: this.map,
+            token: twitterToken,
             visible: this.config.twitterVisible,
             searchTerm: this.config.twitterSearch,
             url: this.config.twitterUrl
@@ -189,14 +195,14 @@ define([
         }
         // instagram enabled
         if (this.config.enableInstagram) {
-          var token = "";
+          var instagramToken = "";
           if(lsTest()){
-            token = localStorage.getItem(INSTAGRAM_ACCESS_TOKEN) || "";
+            instagramToken = localStorage.getItem(INSTAGRAM_ACCESS_TOKEN) || "";
           }
           // Instagram
           this._instagramLayer = new InstagramLayer({
             map: this.map,
-            token: token,
+            token: instagramToken,
             key: this.config.instagramClientId,
             visible: this.config.instagramVisible
           });
@@ -292,13 +298,13 @@ define([
           if (this._instagramStatus2Node) {
             // sign in click
             on(this._instagramStatus2Node, 'a:click', lang.hitch(this, function (evt) {
-              this._instagramSignIn(evt);
+              this._instagramSwitchAccount(evt);
             }));
           }
           if (this._instagramStatus3Node) {
             // sign in click
             on(this._instagramStatus3Node, 'a:click', lang.hitch(this, function (evt) {
-              this._twitterSignIn(evt);
+              this._instagramSignIn(evt);
             }));
           }
           // authorize check
@@ -700,30 +706,62 @@ define([
         }
       },
       _twitterSignIn: function (evt) {
+        if(lsTest()){
+          localStorage.removeItem(TWITTER_ACCESS_TOKEN);
+        }
+        this._twitterLayer.set("token", "");
         // force sign in
         if (this._twitterLayer.get("authorized")) {
           // authorized user
           this._twitterWindow(this.config.twitterSigninUrl, true);
+          setTimeout(lang.hitch(this, function(){
+            this._twitterLayer.clear();
+            this._twitterLayer.update(0);
+          }), 500);
         } else {
           // unauthorized user
           this._twitterWindow(this.config.twitterSigninUrl);
         }
-        event.stop(evt);
+        if(evt){
+          event.stop(evt);
+        }
+      },
+      _instagramSwitchAccount: function(evt){
+        if (this._instagramLayer.get("authorized")) {
+          event.stop(evt);
+          var logoutWindow = window.open("https://instagram.com/accounts/logout");
+          setTimeout(lang.hitch(this, function(){
+            if(lsTest()){
+              localStorage.removeItem(INSTAGRAM_ACCESS_TOKEN);
+            }
+            this._instagramLayer.set("token", "");
+            this._instagramLayer.clear();
+            this._instagramLayer.update(0);
+            logoutWindow.close();
+          }), 1000);
+        }
+        else{
+          this._instagramSignIn(evt);
+        }
       },
       _instagramSignIn: function(evt){
         if(lsTest()){
           localStorage.removeItem(INSTAGRAM_ACCESS_TOKEN);
         }
+        this._instagramLayer.set("token", "");
+        this._instagramLayer.update(0);
         this._instagramWindow();
-        event.stop(evt);
+        if(evt){
+          event.stop(evt);
+        }
       },
       _instagramWindow: function () {
         var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-        
+
         var redirect_uri = encodeURIComponent(location.protocol + "//www.arcgis.com/apps/PublicInformation/instagram-callback.html?redirect=" + location.protocol + "//" + location.host + package_path + "/instagram-callback.html");
-        
+
         var page = this.config.instagramSigninUrl + "/?client_id=" + this.config.instagramClientId + "&redirect_uri=" + redirect_uri + "&response_type=token&scope=public_content";
-        
+
         var w = screen.width / 2;
         var h = screen.height / 1.5;
         var left = (screen.width / 2) - (w / 2);
@@ -762,7 +800,12 @@ define([
           }
           window.open(page, "twoAuth", 'scrollbars=yes, resizable=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left, true);
           var twitterLayer = this._twitterLayer;
-          window.twitterCallback = function () {
+          window.twitterCallback = function (query) {
+            var access_token = query.access_token || "";
+            if(lsTest()){
+              localStorage.setItem(TWITTER_ACCESS_TOKEN, access_token);
+            }
+            twitterLayer.set("token", access_token);
             twitterLayer.update(0);
           };
         }

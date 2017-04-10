@@ -9,7 +9,7 @@ define([
     "dijit/a11yclick",
     "dijit/_TemplatedMixin",
     "dojo/on",
-     // load template
+    // load template
     "dojo/text!application/dijit/templates/ShareDialog.html",
     "dojo/i18n!application/nls/ShareDialog",
     "dojo/dom-class",
@@ -53,28 +53,26 @@ define([
                 facebookURL: "https://www.facebook.com/sharer/sharer.php?u=${url}",
                 twitterURL: "https://twitter.com/intent/tweet?url=${url}&text=${title}&hashtags=${hashtags}",
                 googlePlusURL: "https://plus.google.com/share?url=${url}",
-                bitlyAPI: location.protocol === "https:" ? "https://api-ssl.bitly.com/v3/shorten" : "http://api.bit.ly/v3/shorten",
-                bitlyLogin: "",
-                bitlyKey: "",
+                shortenAPI: "https://arcg.is/prod/shorten",
                 embedSizes: [{
                     "width": "100%",
                     "height": "640px"
-            }, {
+                }, {
                     "width": "100%",
                     "height": "480px"
-            }, {
+                }, {
                     "width": "100%",
                     "height": "320px"
-            }, {
+                }, {
                     "width": "800px",
                     "height": "600px"
-            }, {
+                }, {
                     "width": "640px",
                     "height": "480px"
-            }, {
+                }, {
                     "width": "480px",
                     "height": "320px"
-            }]
+                }]
             },
             // lifecycle: 1
             constructor: function (options, srcRefNode) {
@@ -95,9 +93,7 @@ define([
                 this.set("facebookURL", defaults.facebookURL);
                 this.set("twitterURL", defaults.twitterURL);
                 this.set("googlePlusURL", defaults.googlePlusURL);
-                this.set("bitlyAPI", defaults.bitlyAPI);
-                this.set("bitlyLogin", defaults.bitlyLogin);
-                this.set("bitlyKey", defaults.bitlyKey);
+                this.set("shortenAPI", defaults.shortenAPI);
                 this.set("image", defaults.image);
                 this.set("title", defaults.title);
                 this.set("summary", defaults.summary);
@@ -109,7 +105,7 @@ define([
                 this.watch("visible", this._visible);
                 this.watch("embedSizes", this._setSizeOptions);
                 this.watch("embed", this._updateEmbed);
-                this.watch("bitlyUrl", this._updateBitlyUrl);
+                this.watch("shortenUrl", this._updateshortenUrl);
                 this.watch("useExtent", this._useExtentChanged);
                 // classes
                 this.css = {
@@ -231,8 +227,8 @@ define([
             _updateUrl: function () {
                 // nothing currently shortened
                 this._shortened = null;
-                // no bitly shortened
-                this.set("bitlyUrl", null);
+                // no shorten shortened
+                this.set("shortenUrl", null);
                 // vars
                 var map = this.get("map"),
                     url = this.get("url"),
@@ -361,46 +357,40 @@ define([
                 var es = '<iframe width="' + this.get("embedWidth") + '" height="' + this.get("embedHeight") + '" src="' + this.get("url") + '" frameborder="0" scrolling="no"></iframe>';
                 this.set("embed", es);
             },
-            _updateBitlyUrl: function () {
-                var bitly = this.get("bitlyUrl");
-                if (bitly) {
-                    domAttr.set(this._shareMapUrlText, "value", bitly);
-                    domAttr.set(this._linkButton, "href", bitly);
+            _updateshortenUrl: function () {
+                var shorten = this.get("shortenUrl");
+                if (shorten) {
+                    domAttr.set(this._shareMapUrlText, "value", shorten);
+                    domAttr.set(this._linkButton, "href", shorten);
                 }
             },
             _shareLink: function () {
-                if (this.get("bitlyAPI") && this.get("bitlyLogin") && this.get("bitlyKey")) {
-                    var currentUrl = this.get("url");
-                    // not already shortened
-                    if (currentUrl !== this._shortened) {
-                        // set shortened
-                        this._shortened = currentUrl;
-                        // make request
-                        esriRequest({
-                            url: this.get("bitlyAPI"),
-                            callbackParamName: "callback",
-                            content: {
-                                uri: currentUrl,
-                                login: this.get("bitlyLogin"),
-                                apiKey: this.get("bitlyKey"),
-                                f: "json"
-                            },
-                            load: lang.hitch(this, function (response) {
-                                if (response && response.data && response.data.url) {
-                                    this.set("bitlyUrl", response.data.url);
-                                }
-                            }),
-                            error: function (error) {
-                                console.log(error);
-                            }
-                        });
+                var currentUrl = this.get("url");
+
+                this._shortened = currentUrl;
+                // make request
+                return esriRequest({
+                    url: this.get("shortenAPI"),
+                    callbackParamName: "callback",
+                    content: {
+                        longUrl: currentUrl,
+                        f: "json"
+                    },
+                    load: lang.hitch(this, function (response) {
+                        if (response && response.data && response.data.url) {
+                            this.set("shortenUrl", response.data.url);
+                            this._shareMapUrlText.select();
+                        }
+                    }),
+                    error: function (error) {
+                        console.log(error);
                     }
-                }
+                });
             },
             _configureShareLink: function (Link, isMail) {
                 // replace strings
                 var fullLink = string.substitute(Link, {
-                    url: encodeURIComponent(this.get("bitlyUrl") ? this.get("bitlyUrl") : this.get("url")),
+                    url: encodeURIComponent(this.get("shortenUrl") ? this.get("shortenUrl") : this.get("url")),
                     image: encodeURIComponent(this.get("image")),
                     title: encodeURIComponent(this.get("title")),
                     summary: encodeURIComponent(this._stripTags(this.get("summary"))),

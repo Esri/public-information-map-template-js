@@ -365,8 +365,6 @@ define([
         if (this.config.enableShareDialog) {
           this._ShareDialog = new ShareDialog({
             theme: this.css.iconRight,
-            bitlyLogin: this.config.bitlyLogin,
-            bitlyKey: this.config.bitlyKey,
             map: this.map,
             image: this.config.sharinghost + '/sharing/rest/content/items/' + this.item.id + '/info/' + this.item.thumbnail,
             title: this.config.title,

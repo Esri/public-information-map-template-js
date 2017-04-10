@@ -271,92 +271,16 @@
           "value":"Choose which basemaps can be toggled on your application."
         },
         {  
-          "type":"string",
+          "type":"basemaps",
           "fieldName":"defaultBasemap",
           "tooltip":"Default selected basemap for this map.",
-          "label":"Default Basemap",
-          "options":[  
-            {  
-              "label":"Streets",
-              "value":"streets"
-            },
-            {  
-              "label":"Satellite",
-              "value":"satellite"
-            },
-            {  
-              "label":"Hybrid",
-              "value":"hybrid"
-            },
-            {  
-              "label":"Terrain",
-              "value":"terrain"
-            },
-            {  
-              "label":"Topographic",
-              "value":"topo"
-            },
-            {  
-              "label":"Gray",
-              "value":"gray"
-            },
-            {  
-              "label":"Dark Gray",
-              "value":"dark-gray"
-            },
-            {  
-              "label":"Oceans",
-              "value":"oceans"
-            },
-            {  
-              "label":"National Geographic",
-              "value":"national-geographic"
-            },
-            {  
-              "label":"OpenStreetMap",
-              "value":"osm"
-            }
-          ]
+          "label":"Default Basemap"
         },
         {  
-          "type":"string",
+          "type":"basemaps",
           "fieldName":"nextBasemap",
           "tooltip":"Next selected basemap for this map.",
-          "label":"Next Basemap",
-          "options":[  
-            {  
-              "label":"Streets",
-              "value":"streets"
-            },
-            {  
-              "label":"Satellite",
-              "value":"satellite"
-            },
-            {  
-              "label":"Hybrid",
-              "value":"hybrid"
-            },
-            {  
-              "label":"Topographic",
-              "value":"topo"
-            },
-            {  
-              "label":"Gray",
-              "value":"gray"
-            },
-            {  
-              "label":"Oceans",
-              "value":"oceans"
-            },
-            {  
-              "label":"National Geographic",
-              "value":"national-geographic"
-            },
-            {  
-              "label":"OpenStreetMap",
-              "value":"osm"
-            }
-          ]
+          "label":"Next Basemap"
         }
       ]
     },

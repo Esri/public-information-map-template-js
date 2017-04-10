@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Instagram Ayarları",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Instagram Hesabı",
+    "instagramSignIn": "Instagram'a giriş yapın",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube Ayarları",
     "ytSettingsInfo": "Kullanıcı tarafından üretilen videoları ağ ve profesyonel içerik de dahil görüntüleyin.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "tweet filtreleme ölçütü:",
     "photosFilteredBy": "fotoğraf filtreleme ölçütü:",
     "videosFilteredBy": "Video filtreleme kriteri:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Durumunuzu görmek için Instagram katmanını etkinleştirin.",
     "twitterAccountStatus": "Durumunuzu görmek için Twitter katmanını etkinleştirin."
   },
   "general": {

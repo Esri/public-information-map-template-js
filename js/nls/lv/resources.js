@@ -27,8 +27,8 @@ define({
     "webcams": "Tīmekļa kameras, ceļošana",
     "instagram": "Instagram",
     "instagramSettings": "Instagram iestatījumi",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Instagram konts",
+    "instagramSignIn": "Pierakstīties Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube iestatījumi",
     "ytSettingsInfo": "Skatieties lietotāja izveidotus video, tostarp tīkla un profesionāla līmeņa saturu.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "īsziņas filtrētas pēc:",
     "photosFilteredBy": "fotogrāfijas filtrētas pēc:",
     "videosFilteredBy": "video filtrēti pēc:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Iespējot Instagram slāni, lai redzētu jūsu statusu.",
     "twitterAccountStatus": "Iespējot Twitter slāni redzēt jūsu statusu."
   },
   "general": {

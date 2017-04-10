@@ -27,8 +27,8 @@ define({
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
     "instagramSettings": "Nastavení Instagramu",
-    "instagramUser": "Instagram Account",
-    "instagramSignIn": "Sign in to Instagram",
+    "instagramUser": "Účet Instagram",
+    "instagramSignIn": "Přihlaste se k účtu na Instagramu",
     "youtube": "YouTube",
     "youtubeSettings": "Nastavení YouTube",
     "ytSettingsInfo": "Umožňuje zobrazovat uživatelsky vytvářená videa včetně televizního a profesionálního obsahu.",
@@ -47,7 +47,7 @@ define({
     "tweetsFilteredBy": "tweety se filtrují podle:",
     "photosFilteredBy": "fotografie se filtrují podle:",
     "videosFilteredBy": "videa se filtovaná podle:",
-    "instagramAccountStatus": "Enable the Instagram layer to see your status.",
+    "instagramAccountStatus": "Povolte vrstvě Instagram zjišťovat váš stav.",
     "twitterAccountStatus": "Chcete-li vidět váš stav, aktivujte vrstvu Twitter."
   },
   "general": {

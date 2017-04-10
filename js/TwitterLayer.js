@@ -45,6 +45,7 @@ function (
             visible: true,
             maxpage: 5,
             limit: 100,
+            token: "",
             title: 'Twitter',
             id: 'twitter',
             datePattern: "MMM d, yyyy",
@@ -80,6 +81,7 @@ function (
             this.set("dateFrom", defaults.dateFrom);
             this.set("dateTo", defaults.dateTo);
             this.set("key", defaults.key);
+            this.set("token", defaults.token);
             this.set("minScale", defaults.minScale);
             this.set("maxScale", defaults.maxScale);
             this.set("refreshTime", defaults.refreshTime);
@@ -332,12 +334,15 @@ function (
             this._sendRequest(this.url, this.query);
         },
         _sendRequest: function (url, content) {
+            var params = lang.mixin({}, content, {
+                access_token: this.token
+            });
             // get the results for each page
             var deferred = esriRequest({
                 url: url,
                 handleAs: "json",
                 timeout: 10000,
-                content: content,
+                content: params,
                 callbackParamName: "callback",
                 preventCache: true,
                 failOk: true,
