@@ -121,7 +121,7 @@ function (
             }
             // default infoTemplate
             if (!this.infoTemplate) {
-                this.set("infoTemplate", new InfoTemplate('Twitter', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//twitter.com/${user_screen_name}/status/${id_str}" target="_blank"><img class="' + this._css.image + '" src="${user_profile_image_url_https}" width="40" height="40"></a><div class="' + this._css.followButton + '"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=${user_screen_name}&lang=${dojo_locale}&show_count=false&show_screen_name=false" style="width:60px; height:20px;"></iframe></div><div class="' + this._css.username + '">${name}</div><div class="' + this._css.user + '"><a target="_blank" href="${protocol}//twitter.com/${user_screen_name}">&#64;${user_screen_name}</a></div><div class="' + this._css.clear + '"></div><div class="' + this._css.content + '">${textFormatted}</div><div class="' + this._css.date + '"><a target="_blank" href="${protocol}//twitter.com/${user_screen_name}/status/${id_str}">${dateformatted}</a></div><div class="' + this._css.actions + '"><a class="' + this._css.actionReply + '" href="https://twitter.com/intent/tweet?in_reply_to=${id_str}&lang=${dojo_locale}"></a><a class="' + this._css.actionRetweet + '" href="https://twitter.com/intent/retweet?tweet_id=${id_str}&lang=${dojo_locale}"></a><a class="' + this._css.actionFavorite + '" href="https://twitter.com/intent/favorite?tweet_id=${id_str}&lang=${dojo_locale}"></a></div></div>'));
+                this.set("infoTemplate", new InfoTemplate('Twitter', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="https://twitter.com/${user_screen_name}/status/${id_str}" target="_blank"><img class="' + this._css.image + '" src="${user_profile_image_url_https}" width="40" height="40"></a><div class="' + this._css.followButton + '"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=${user_screen_name}&lang=${dojo_locale}&show_count=false&show_screen_name=false" style="width:60px; height:20px;"></iframe></div><div class="' + this._css.username + '">${name}</div><div class="' + this._css.user + '"><a target="_blank" href="https://twitter.com/${user_screen_name}">&#64;${user_screen_name}</a></div><div class="' + this._css.clear + '"></div><div class="' + this._css.content + '">${textFormatted}</div><div class="' + this._css.date + '"><a target="_blank" href="https://twitter.com/${user_screen_name}/status/${id_str}">${dateformatted}</a></div><div class="' + this._css.actions + '"><a class="' + this._css.actionReply + '" href="https://twitter.com/intent/tweet?in_reply_to=${id_str}&lang=${dojo_locale}"></a><a class="' + this._css.actionRetweet + '" href="https://twitter.com/intent/retweet?tweet_id=${id_str}&lang=${dojo_locale}"></a><a class="' + this._css.actionFavorite + '" href="https://twitter.com/intent/favorite?tweet_id=${id_str}&lang=${dojo_locale}"></a></div></div>'));
             }
             // layer
             this.featureCollection = {
@@ -145,7 +145,7 @@ function (
                     "geometryType": "esriGeometryPoint"
                 }
             };
-            script.get(location.protocol + '//platform.twitter.com/widgets.js', {}).then(function () {}, function (err) {
+            script.get('https://platform.twitter.com/widgets.js', {}).then(function () {}, function (err) {
                 console.log(err.toString());
             });
             // layer
@@ -274,7 +274,7 @@ function (
         _parseUsername: function (text) {
             return text.replace(/[@]+[A-Za-z0-9-_]+/g, function (u) {
                 var username = u.replace("@", "");
-                return '<a target="_blank" href="' + location.protocol + '//twitter.com/' + username + '">' + u + '</a>';
+                return '<a target="_blank" href="https://twitter.com/' + username + '">' + u + '</a>';
             });
         },
         _parseHashtag: function (text) {
@@ -413,8 +413,6 @@ function (
                 // add date to result
                 var date = new Date(result.created_at);
                 result.dateformatted = this._formatDate(date);
-                // add location protocol to result
-                result.protocol = location.protocol;
                 // user items
                 result.user_profile_image_url_https = result.user.profile_image_url_https;
                 result.user_screen_name = result.user.screen_name;

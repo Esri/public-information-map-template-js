@@ -477,8 +477,6 @@ define([
           // add date to result
           var date = new Date(result.snippet.publishedAt);
           result.dateformatted = this._formatDate(date);
-          // add location protocol to result
-          result.protocol = location.protocol;
           result.link = "https://www.youtube.com/watch?v=" + result.id;
           result.channel_link = "https://www.youtube.com/channel/" + result.snippet.channelId;
           result.full_name = result.snippet.channelTitle;

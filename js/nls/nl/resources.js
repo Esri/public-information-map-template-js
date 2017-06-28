@@ -31,7 +31,7 @@ define({
     "instagramSignIn": "Aanmelden bij Instagram",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube-instellingen",
-    "ytSettingsInfo": "Bekijk door gebruikers gegenereerde video's inclusief netwerk- en professionele inhoud.",
+    "ytSettingsInfo": "Bekijk door gebruikers gegenereerde video's inclusief netwerk- en professionele content.",
     "ytTime": "Geüpload binnen de afgelopen",
     "today": "Dag",
     "this_week": "Week",

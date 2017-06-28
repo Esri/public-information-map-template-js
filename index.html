@@ -4,8 +4,6 @@
     <title>Public Information Map</title>
     <meta charset="utf-8" />
     <meta name="fragment" content="!">
-    <!--Define the versions of IE that will be used to render the page. See Microsoft documentation for details. Optional.-->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,9 +21,8 @@
     <meta property="og:image" content="images/item.png" />
     <meta property="og:site_name" content="esri" />
     <!-- End Facebook -->
-    <!--Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol-->
-    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.20/esri/css/esri.css" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:300,400,700" />
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/3.21/esri/css/esri.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:300,400,700" />
     <!--Load any application specific styles-->
     <link rel="stylesheet" type="text/css" href="css/dijit.css" />
     <link rel="stylesheet" type="text/css" href="css/fontello.css" />
@@ -115,7 +112,7 @@
           dojoConfig.locale = RegExp.$1;
         }
     </script>
-    <script type="text/javascript" src="//js.arcgis.com/3.20"></script>
+    <script type="text/javascript" src="https://js.arcgis.com/3.21"></script>
     <script type="text/javascript">
         require([
             "config/templateConfig",

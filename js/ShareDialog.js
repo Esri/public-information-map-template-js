@@ -259,7 +259,7 @@ define([
                     urlObject.query.extent = null;
                 }
                 // create base url
-                url = window.location.protocol + '//' + window.location.host + window.location.pathname;
+                url = 'https://' + window.location.host + window.location.pathname;
                 // each param
                 for (var i in urlObject.query) {
                     if (urlObject.query[i]) {

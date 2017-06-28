@@ -758,7 +758,7 @@ define([
       _instagramWindow: function () {
         var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
 
-        var redirect_uri = encodeURIComponent(location.protocol + "//www.arcgis.com/apps/PublicInformation/instagram-callback.html?redirect=" + location.protocol + "//" + location.host + package_path + "/instagram-callback.html");
+        var redirect_uri = encodeURIComponent( "https://www.arcgis.com/apps/PublicInformation/instagram-callback.html?redirect=" + "https://" + location.host + package_path + "/instagram-callback.html");
 
         var page = this.config.instagramSigninUrl + "/?client_id=" + this.config.instagramClientId + "&redirect_uri=" + redirect_uri + "&response_type=token&scope=public_content";
 
@@ -782,7 +782,7 @@ define([
       },
       _twitterWindow: function (page, forceLogin) {
         var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-        var redirect_uri = encodeURIComponent(location.protocol + '//' + location.host + package_path + '/twitter-callback.html');
+        var redirect_uri = encodeURIComponent('https://' + location.host + package_path + '/twitter-callback.html');
         var w = screen.width / 2;
         var h = screen.height / 1.5;
         var left = (screen.width / 2) - (w / 2);

@@ -42,9 +42,9 @@ define({
   "locationSearch": true,
   //When searchExtent is true the locator will prioritize results within the current map extent.
   "searchExtent": false,
-  "searchLayers":[{
-      "id": "",
-      "fields": []
+  "searchLayers": [{
+    "id": "",
+    "fields": []
   }],
   "swipeType": "vertical",
   "swipeInvertPlacement": false,
@@ -66,22 +66,22 @@ define({
   "youtubeTime": "all_time", // today, this_week, this_month, all_time
   "bitlyLogin": "arcgis",
   "bitlyKey": "R_b8a169f3a8b978b9697f64613bf1db6d",
-  "twitterUrl": location.protocol + "//utility.arcgis.com/tproxy/proxy/1.1/search/tweets.json",
-  "twitterSigninUrl": location.protocol + "//utility.arcgis.com/tproxy/signin",
+  "twitterUrl": "https://utility.arcgis.com/tproxy/proxy/1.1/search/tweets.json",
+  "twitterSigninUrl": "https://utility.arcgis.com/tproxy/signin",
   "flickr_key": "404ebea7d5bc27aa5251d1207620e99b",
   "webcams_key": "65939add1ebe8bc9cc4180763f5df2ca",
   "instagramClientId": "47ce2d7ea1494adb98708f4b47319227",
   "instagramSigninUrl": "https://www.instagram.com/oauth/authorize",
   "youtube_key": "AIzaSyBvrlsx50mxX_W-Ra2cJ8PB0jKt0jACZfg",
   /*
-    "bannedUsersService": location.protocol + "//services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
-    "bannedWordsService": location.protocol + "//tmservices1.esri.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
-    "flagMailServer": location.protocol + "//tmappsevents.esri.com/Website/pim_fai/fai.php",
+    "bannedUsersService": "https://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
+    "bannedWordsService": "https://tmservices1.esri.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
+    "flagMailServer": "https://tmappsevents.esri.com/Website/pim_fai/fai.php",
     */
   //Enter the url to your organizations bing maps key if you want to use bing basemaps
   "bingmapskey": "",
   //Defaults to arcgis.com. Set this value to your portal or organization host name.
-  "sharinghost": location.protocol + "//" + "www.arcgis.com",
+  "sharinghost": "https://www.arcgis.com",
   //When true the template will query arcgis.com for default settings for helper services, units etc. If you 
   "units": null,
   "helperServices": {
@@ -96,6 +96,6 @@ define({
     },
     "geocode": [{
       "url": null
-           }]
+    }]
   }
 });

@@ -33,7 +33,7 @@ define([
     hash
 ) {
     var OAuthHelper = {
-        portal: location.protocol + "//www.arcgis.com",
+        portal: "https://www.arcgis.com",
         init: function (parameters) {
             /**
              * parameters = {

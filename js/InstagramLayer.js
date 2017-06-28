@@ -105,7 +105,7 @@ function (
             }
             // default infoTemplate
             if (!this.infoTemplate) {
-                this.set("infoTemplate", new InfoTemplate('Instagram', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${link}" target="_blank"><img class="' + this._css.image + '" width="${width}" height="${height}" src="${thumbnail}"></a><div class="' + this._css.content + '">${descriptionText}</div><div class="' + this._css.location + '">${location_name}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${location.protocol}//instagram.com/${username}" target="_blank">${full_name}</a></div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
+                this.set("infoTemplate", new InfoTemplate('Instagram', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${link}" target="_blank"><img class="' + this._css.image + '" width="${width}" height="${height}" src="${thumbnail}"></a><div class="' + this._css.content + '">${descriptionText}</div><div class="' + this._css.location + '">${location_name}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="https://instagram.com/${username}" target="_blank">${full_name}</a></div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
             }
             // layer
             this.featureCollection = {
@@ -372,8 +372,6 @@ function (
                 result.dateformatted = this._formatDate(date);
                 // text
                 result.descriptionText = result.caption? result.caption.text : '';
-                // add location protocol to result
-                result.protocol = location.protocol;
                 result.thumbnail = result.images.thumbnail.url;
                 result.width = result.images.thumbnail.width;
                 result.height = result.images.thumbnail.height;

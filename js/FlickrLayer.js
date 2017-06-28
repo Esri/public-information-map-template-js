@@ -109,7 +109,7 @@ define([
                 }
                 // default infoTemplate
                 if (!this.infoTemplate) {
-                    this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="${protocol}//www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_q}" height="${height_q}" src="${url_q}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="${protocol}//www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${descriptionText}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
+                    this.set("infoTemplate", new InfoTemplate('Flickr', '<div class="' + this._css.container + '"><a tabindex="0" class="' + this._css.imageAnchor + '" href="https://www.flickr.com/photos/${owner}/${id}/in/photostream" target="_blank"><img class="' + this._css.image + '" width="${width_q}" height="${height_q}" src="${url_q}"></a><div class="' + this._css.title + '">${title}</div><div class="' + this._css.ownername + '"><a tabindex="0" href="https://www.flickr.com/photos/${owner}/" target="_blank">${ownername}</a></div><div class="' + this._css.content + '">${descriptionText}</div><div class="' + this._css.date + '">${dateformatted}</div></div>'));
                 }
                 // layer
                 this.featureCollection = {
@@ -396,15 +396,13 @@ define([
                     // add social media type/id for filtering
                     result.smType = this.id;
                     result.filterType = 4;
-                    result.filterContent = location.protocol + '//www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
+                    result.filterContent = 'https://www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
                     result.filterAuthor = result.owner;
                     // add date to result
                     var date = new Date(parseInt(result.dateupload * 1000, 10));
                     result.dateformatted = this._formatDate(date);
                     // text
                     result.descriptionText = result.description._content;
-                    // add location protocol to result
-                    result.protocol = location.protocol;
                     // eliminate geo photos which we already have on the map
                     if (this._dataIds[result.id]) {
                         return;
