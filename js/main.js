@@ -449,10 +449,15 @@ define([
           if (lang.isString(this.config.swipeLayer)) {
             this.config.swipeLayer = JSON.parse(this.config.swipeLayer);
           }
+
+          function parseLayerId(id) {
+            return typeof id === "string" ? id.split(".")[0] : "";
+          }
+
           // multiple swipe layers
           if (lang.isArray(this.config.swipeLayer)) {
             for (var j = 0; j < this.config.swipeLayer.length; j++) {
-              var lyr = this.map.getLayer(this.config.swipeLayer[j].id);
+              var lyr = this.map.getLayer(parseLayerId(this.config.swipeLayer[j].id));
               if (lyr) {
                 layers.push(lyr);
               }
@@ -460,7 +465,7 @@ define([
           }
           // one swipe layer
           else if (this.config.swipeLayer.id) {
-            var layer = this.map.getLayer(this.config.swipeLayer.id);
+            var layer = this.map.getLayer(parseLayerId(this.config.swipeLayer.id));
             if (layer) {
               layers.push(layer);
             }
