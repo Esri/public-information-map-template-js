@@ -401,7 +401,8 @@ define([
           ], lang.hitch(this, function(Scalebar) {
             var scalebar = new Scalebar({
               map: this.map,
-              attachTo: "bottom-left"
+              attachTo: "bottom-left",
+              scalebarUnit: this.config.units
             });
           }));
         }
