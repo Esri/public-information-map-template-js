@@ -1,7 +1,11 @@
 define({
   "map": {
     "error": "Žemėlapio sukurti nepavyko",
-    "views": "peržiūros."
+    "views": "peržiūros.",
+    "licenseError": {
+      "message": "Jūsų paskyra nelicencijuota naudoti ne viešas konfigūruojamas aplikacijas. Kreipkitės į organizacijos administratorių, kad paskirtų jums vartotojo tipą, kuris turi svarbiausias aplikacijas, arba suteiktų jums papildomą svarbiausių aplikacijų licenciją.",
+      "title": "Nelicencijuota"
+    }
   },
   "report": {
     "flag": "Pažymėkite kaip netinkamą",
@@ -11,7 +15,7 @@ define({
   },
   "mapNotes": {
     "notesUnavailable": "Aprašo nėra",
-    "bookmarks": "Žymės",
+    "bookmarks": "Žymos",
     "zoomTo": "Padidinkite šią vietą ir sužinokite daugiau.",
     "untitledNote": "Bevardis"
   },

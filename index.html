@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Public Information Map</title>
     <meta charset="utf-8" />
-    <meta name="fragment" content="!">
     <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -14,14 +14,15 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
     <!-- SEO -->
     <meta name="Keywords" content="Public Information Map, Map, Esri" />
-    <meta name="Description" content="A fully configurable and responsive web mapping application that highlights areas of interest through data, map notes, and/or social content to a wide audience." />
+    <meta name="Description" content="A fully configurable and responsive web mapping application that highlights areas of interest through data, map notes, and/or social content to a wide audience."
+    />
     <!-- End SEO -->
     <!-- Facebook -->
     <meta property="og:title" content="Public Information Map" />
     <meta property="og:image" content="images/item.png" />
     <meta property="og:site_name" content="esri" />
     <!-- End Facebook -->
-    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/3.22/esri/css/esri.css" />
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/3.27/esri/css/esri.css" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:300,400,700" />
     <!--Load any application specific styles-->
     <link rel="stylesheet" type="text/css" href="css/dijit.css" />
@@ -34,13 +35,14 @@
     <link rel="stylesheet" type="text/css" href="css/geocoder.css" />
     <link rel="stylesheet" type="text/css" href="css/ShareDialog.css" />
     <link rel="stylesheet" type="text/css" href="css/FlickrLayer.css" />
-	<link rel="stylesheet" type="text/css" href="css/TwitterLayer.css" />
-	<link rel="stylesheet" type="text/css" href="css/WebcamsLayer.css" />
-	<link rel="stylesheet" type="text/css" href="css/InstagramLayer.css" />
+    <link rel="stylesheet" type="text/css" href="css/TwitterLayer.css" />
+    <link rel="stylesheet" type="text/css" href="css/WebcamsLayer.css" />
+    <link rel="stylesheet" type="text/css" href="css/InstagramLayer.css" />
     <link rel="stylesheet" type="text/css" href="css/YoutubeLayer.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/fontello-ie7.css" /><![endif]-->
 </head>
+
 <body class="calcite app-loading">
     <!--The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. -->
     <div class="loading-indicator">
@@ -83,17 +85,23 @@
                 <div id="LocateButton"></div>
                 <div id="HomeButton"></div>
             </div>
-            <div id="BasemapToggle"></div>
+            <div class="top-right-buttons">
+                <div id="BasemapToggle"></div>
+                <div id="printButton"></div>
+            </div>
             <div id="mapDiv" dir="ltr">
                 <div id="swipeDiv"></div>
             </div>
-            <div id="printButton"></div>
         </div>
     </div>
     <script type="text/javascript">
+        var webgl = location.search.match(/webgl=([\w-]+)/) ? (RegExp.$1).toLowerCase() === "false" ? 0 : 1 : 1;
         var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
         var dojoConfig = {
             async: true,
+            has: {
+                "esri-featurelayer-webgl": webgl
+            },
             //The location.pathname.replace() logic below may look confusing but all its doing is
             // enabling us to load the api from a CDN and load local modules from the correct location.
             packages: [{
@@ -109,51 +117,37 @@
         };
         // Have to handle a locale parameter before dojo is loaded
         if (location.search.match(/locale=([\w-]+)/)) {
-          dojoConfig.locale = RegExp.$1;
+            dojoConfig.locale = RegExp.$1;
         }
     </script>
-    <script type="text/javascript" src="https://js.arcgis.com/3.22"></script>
+    <script type="text/javascript" src="https://js.arcgis.com/3.27"></script>
     <script type="text/javascript">
         require([
             "config/templateConfig",
             "application/template",
             "application/main"
-        ], function(
+        ], function (
             templateOptions,
             Template,
             Main
-        ){
-            // create the template. This will take care of all the logic required for template applications
-            var myTemplate = new Template(templateOptions);
-            // create my main application. Start placing your logic in the main.js file.
-            var myApp = new Main();
-            // start template
-            myTemplate.startup().then(function(config) {
-                // The config object contains the following properties: helper services, (optionally)
-                // i18n, appid, webmap and any custom values defined by the application.
-                // In this example we have one called theme.
-                myApp.startup(config);
-            }, function(error) {
-                // something went wrong. Let's report it.
-                myApp.reportError(error);
+        ) {
+                // create the template. This will take care of all the logic required for template applications
+                var myTemplate = new Template(templateOptions);
+                // create my main application. Start placing your logic in the main.js file.
+                var myApp = new Main();
+                // start template
+                myTemplate.startup().then(function (config) {
+                    // The config object contains the following properties: helper services, (optionally)
+                    // i18n, appid, webmap and any custom values defined by the application.
+                    // In this example we have one called theme.
+                    myApp.startup(config);
+                }, function (error) {
+                    // something went wrong. Let's report it.
+                    myApp.reportError(error);
+                });
             });
-        });
-    </script>
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-215788-4']);
-         //_gaq.push(['_setDomainName', 'esri.com']);
-        _gaq.push(['_trackPageview']);
-        _gaq.push(['_trackPageLoadTime']);
-        (function() {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
     </script>
     <!--[if lt IE 9]><script type="text/javascript" src="js/respond.min.js"></script><![endif]-->
 </body>
+
 </html>

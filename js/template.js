@@ -67,6 +67,7 @@ define([
     groupInfoConfig: {},
     itemConfig: {},
     customUrlConfig: {},
+    sharedThemeConfig: {},
     commonUrlItems: ["webmap", "appid", "group", "oauthappid"],
     constructor: function (templateConfig) {
       // template settings
@@ -119,7 +120,7 @@ define([
       // default value is arcgis.com.
       this._initializeApplication();
       // check if signed in. Once we know if we're signed in, we can get appConfig, orgConfig and create a portal if needed.
-      this._checkSignIn().always(lang.hitch(this, function () {
+      this._checkSignIn().always(lang.hitch(this, function (response) {
         // execute these tasks async
         all({
           // get localization
@@ -141,9 +142,18 @@ define([
             groupInfo: this.queryGroupInfo(),
             // group items
             groupItems: this.queryGroupItems(),
+            // shared themes
+            sharedTheme: this.querySharedTheme()
           }).then(lang.hitch(this, function () {
             // mixin all new settings from item, group info and group items.
             this._mixinAll();
+            // If app is private and logged in user doesn't have essential apps let them know.
+            if ((this.config.appResponse && this.config.appResponse.item.access !== "public")) { // check app access
+              if (response && response.code && response.code === "IdentityManagerBase.1") {
+                var licenseMessage = "<h1>" + this.i18nConfig.i18n.map.licenseError.title + "</h1><p>" + this.i18nConfig.i18n.map.licenseError.message + "</p>";
+                deferred.reject(new Error(licenseMessage));
+              }
+            }
             // We have all we need, let's set up a few things
             this._completeApplication();
             deferred.resolve(this.config);
@@ -158,13 +168,13 @@ define([
       // existing web map extent with the application item extent when set.
       if (this.config.appid && this.config.application_extent && this.config.application_extent.length > 0 && this.config.itemInfo && this.config.itemInfo.item && this.config.itemInfo.item.extent) {
         this.config.itemInfo.item.extent = [
-              [
-                  parseFloat(this.config.application_extent[0][0]), parseFloat(this.config.application_extent[0][1])
-              ],
-              [
-                  parseFloat(this.config.application_extent[1][0]), parseFloat(this.config.application_extent[1][1])
-              ]
-          ];
+          [
+            parseFloat(this.config.application_extent[0][0]), parseFloat(this.config.application_extent[0][1])
+          ],
+          [
+            parseFloat(this.config.application_extent[1][0]), parseFloat(this.config.application_extent[1][1])
+          ]
+        ];
       }
       // Set the geometry helper service to be the app default.
       if (this.config.helperServices && this.config.helperServices.geometry && this.config.helperServices.geometry.url) {
@@ -173,9 +183,9 @@ define([
     },
     _mixinAll: function () {
       /*
-      mix in all the settings we got!
-      {} <- i18n <- organization <- application <- group info <- group items <- webmap <- custom url params <- standard url params.
-      */
+        mix in all the settings we got!
+        {} <- i18n <- organization <- application <- group info <- group items <- webmap <- custom url params <- standard url params.
+        */
       lang.mixin(this.config, this.i18nConfig, this.orgConfig, this.appConfig, this.groupInfoConfig, this.groupItemConfig, this.itemConfig, this.customUrlConfig, this.urlConfig);
     },
     _createPortal: function () {
@@ -200,14 +210,14 @@ define([
           if (item) {
             if (typeof item === "string") {
               switch (item.toLowerCase()) {
-              case "true":
-                obj[items[i]] = true;
-                break;
-              case "false":
-                obj[items[i]] = false;
-                break;
-              default:
-                obj[items[i]] = item;
+                case "true":
+                  obj[items[i]] = true;
+                  break;
+                case "false":
+                  obj[items[i]] = false;
+                  break;
+                default:
+                  obj[items[i]] = item;
               }
             } else {
               obj[items[i]] = item;
@@ -237,8 +247,10 @@ define([
     },
     _initializeApplication: function () {
       // If this app is hosted on an Esri environment.
-      if (this.templateConfig.esriEnvironment) {
-        var appLocation, instance;
+      var overwrite = this.config.overwritesharing || false;
+      if (this.templateConfig.esriEnvironment && !overwrite) {
+        var appLocation,
+          instance;
         // Check to see if the app is hosted or a portal. If the app is hosted or a portal set the
         // sharing url and the proxy. Otherwise use the sharing url set it to arcgis.com.
         // We know app is hosted (or portal) if it has /apps/ or /home/ in the url.
@@ -250,9 +262,11 @@ define([
         if (appLocation !== -1) {
           // hosted or portal
           instance = location.pathname.substr(0, appLocation); //get the portal instance name
-          this.config.sharinghost = "https://" + location.host + instance;
-          this.config.proxyurl = "https://" + location.host + instance + "/sharing/proxy";
+          this.config.sharinghost = location.protocol + "//" + location.host + instance;
+          this.config.proxyurl = location.protocol + "//" + location.host + instance + "/sharing/proxy";
         }
+      } else {
+        this.config.sharinghost = location.protocol + "//" + this.config.sharinghost;
       }
       arcgisUtils.arcgisUrl = this.config.sharinghost + "/sharing/rest/content/items";
       // Define the proxy url for the app
@@ -262,7 +276,9 @@ define([
       }
     },
     _checkSignIn: function () {
-      var deferred, signedIn, oAuthInfo;
+      var deferred,
+        signedIn,
+        oAuthInfo;
       deferred = new Deferred();
       //If there's an oauth appid specified register it
       if (this.config.oauthappid) {
@@ -273,16 +289,27 @@ define([
         });
         IdentityManager.registerOAuthInfos([oAuthInfo]);
       }
-      // check sign-in status
-      signedIn = IdentityManager.checkSignInStatus(this.config.sharinghost + "/sharing");
-      // resolve regardless of signed in or not.
-      signedIn.promise.always(function () {
-        deferred.resolve();
-      });
+      // check app access or signed-in status
+      if (this.config.oauthappid && this.templateConfig.esriEnvironment) {
+        signedIn = IdentityManager.checkAppAccess(this.config.sharinghost + "/sharing", this.config.oauthappid);
+        signedIn.always(function (response) {
+          deferred.resolve(response);
+        });
+      } else {
+        signedIn = IdentityManager.checkSignInStatus(this.config.sharinghost + "/sharing");
+        // resolve regardless of signed in or not.
+        signedIn.promise.always(function (response) {
+          deferred.resolve(response);
+        });
+      }
+
       return deferred.promise;
     },
     _queryLocalization: function () {
-      var deferred, dirNode, classes, rtlClasses;
+      var deferred,
+        dirNode,
+        classes,
+        rtlClasses;
       deferred = new Deferred();
       if (this.templateConfig.queryForLocale) {
         require(["dojo/i18n!application/nls/resources"], lang.hitch(this, function (appBundle) {
@@ -323,7 +350,9 @@ define([
     },
     queryGroupItems: function (options) {
       var deferred = new Deferred(),
-        error, defaultParams, params;
+        error,
+        defaultParams,
+        params;
       // If we want to get the group info
       if (this.templateConfig.queryForGroupItems) {
         if (this.config.group) {
@@ -365,7 +394,8 @@ define([
     },
     queryGroupInfo: function () {
       var deferred = new Deferred(),
-        error, params;
+        error,
+        params;
       // If we want to get the group info
       if (this.templateConfig.queryForGroupInfo) {
         if (this.config.group) {
@@ -393,7 +423,8 @@ define([
       return deferred.promise;
     },
     queryItem: function () {
-      var deferred, cfg = {};
+      var deferred,
+        cfg = {};
       // Get details about the specified web map. If the web map is not shared publicly users will
       // be prompted to log-in by the Identity Manager.
       deferred = new Deferred();
@@ -506,18 +537,17 @@ define([
           },
           callbackParamName: "callback"
         }).then(lang.hitch(this, function (response) {
-          if (this.templateConfig.webTierSecurity) {
-            var trustedHost;
-            if (response.authorizedCrossOriginDomains && response.authorizedCrossOriginDomains.length > 0) {
-              for (var i = 0; i < response.authorizedCrossOriginDomains.length; i++) {
-                trustedHost = response.authorizedCrossOriginDomains[i];
-                // add if trusted host is not null, undefined, or empty string
-                if (esriLang.isDefined(trustedHost) && trustedHost.length > 0) {
-                  esriConfig.defaults.io.corsEnabledServers.push({
-                    host: trustedHost,
-                    withCredentials: true
-                  });
-                }
+          // Iterate over the list of authorizedCrossOriginDomains
+          // and add each as a javascript obj to the corsEnabledServers
+          var trustedHost;
+          if (response.authorizedCrossOriginDomains && response.authorizedCrossOriginDomains.length) {
+            for (var i = 0; i < response.authorizedCrossOriginDomains.length; i++) {
+              trustedHost = response.authorizedCrossOriginDomains[i];
+              if (esriLang.isDefined(trustedHost) && trustedHost.length > 0) {
+                esriConfig.defaults.io.corsEnabledServers.push({
+                  host: response.authorizedCrossOriginDomains[i],
+                  withCredentials: true
+                });
               }
             }
           }
@@ -534,14 +564,34 @@ define([
             // use feet/miles only for the US and if nothing is set for a user
             cfg.units = "english";
           }
+
+          // If it has the useVectorBasemaps property and its true then use the
+          // vectorBasemapGalleryGroupQuery otherwise use the default
+          var basemapGalleryGroupQuery = response.basemapGalleryGroupQuery;
+          if (response.hasOwnProperty("useVectorBasemaps") && response.useVectorBasemaps === true && response.vectorBasemapGalleryGroupQuery) {
+            basemapGalleryGroupQuery = response.vectorBasemapGalleryGroupQuery;
+          }
+
+          var q = this._parseQuery(basemapGalleryGroupQuery);
+          cfg.basemapgroup = {
+            id: null,
+            title: null,
+            owner: null
+          };
+          if (q.id) {
+            cfg.basemapgroup.id = q.id;
+          } else if (q.title && q.owner) {
+            cfg.basemapgroup.title = q.title;
+            cfg.basemapgroup.owner = q.owner;
+          }
           // Get the helper services (routing, print, locator etc)
           cfg.helperServices = response.helperServices;
           // are any custom roles defined in the organization?
-          if (response.user && esriLang.isDefined(response.user.roleId)) {
+          /*if (response.user && esriLang.isDefined(response.user.roleId)) {
             if (response.user.privileges) {
               cfg.userPrivileges = response.user.privileges;
             }
-          }
+          }*/
           this.orgConfig = cfg;
           deferred.resolve(cfg);
         }), function (error) {
@@ -554,6 +604,107 @@ define([
         deferred.resolve();
       }
       return deferred.promise;
+    },
+    _parseQuery: function (queryString) {
+
+      var regex = /(AND|OR)?\W*([a-z]+):/ig,
+        fields = {},
+        fieldName,
+        fieldIndex,
+        result = regex.exec(queryString);
+      while (result) {
+        fieldName = result && result[2];
+        fieldIndex = result ? (result.index + result[0].length) : -1;
+
+        result = regex.exec(queryString);
+
+        fields[fieldName] = queryString.substring(fieldIndex, result ? result.index : queryString.length).replace(/^\s+|\s+$/g, "").replace(/\"/g, ""); //remove extra quotes in title
+      }
+      return fields;
+    },
+    querySharedTheme: function () {
+      var deferred = new Deferred();
+      if (this.config && this.config.sharedTheme) {
+        esriConfig.defaults.io.corsEnabledServers.push("opendata.arcgis.com");
+        var sharedThemeStatus = this._getSharedThemeStatus(this.config.sharedTheme);
+        this._getSharedThemeObject(sharedThemeStatus).then(function (response) {
+          deferred.resolve(response);
+        }, function () {
+          var error = new Error("Unable to get theme");
+          deferred.reject(error);
+        });
+
+      } else if (this.config && this.config.sharedThemeItem) {
+        arcgisUtils.getItem(this.config.sharedThemeItem).then(lang.hitch(this, function (response) {
+          if (response && response.itemData && response.itemData.data) {
+            this.config.sharedThemeConfig = response.itemData.data;
+          }
+          deferred.resolve();
+        }), function (error) {
+          deferred.reject(error);
+        });
+
+
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    },
+    _getSharedThemeStatus: function (input) {
+      // we have a theme url param get  theming
+      var result = {};
+      if (/\d+/.test(input)) { // numeric theme value
+        result.status = "siteId";
+        result.output = input;
+      } else if (input === "current") {
+        result.status = "domain";
+        result.output = window.location.href;
+      } // leaving out appid for now
+      return result;
+    },
+    _getSharedThemeObject: function (sharedThemeStatus) {
+      var deferred = new Deferred();
+      var requestUrl = this._generateRequestUrl(sharedThemeStatus);
+      // if the status is site id or domain lookup make an external API call to opendatadev.arcgis.com
+      if (sharedThemeStatus.status === "siteId" || sharedThemeStatus.status === "domain") {
+        var themeRequest = esriRequest({
+          url: requestUrl,
+          handleAs: "json"
+        });
+        themeRequest.then(lang.hitch(this, function (response) {
+          // return for a domain call is an array so adjust the call slightly
+          if (sharedThemeStatus.status === "domain" && response && response.data && response.data.length && response.data.length > 0) {
+            this.config.sharedThemeConfig = response.data[0];
+          } else if (response && response.data) {
+            this.config.sharedThemeConfig = response.data;
+          }
+          deferred.resolve();
+        }), function (error) {
+          deferred.reject(error);
+        });
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    },
+    _generateRequestUrl: function (status) {
+      var requestUrl;
+      switch (status.status) {
+        // "https://opendata.arcgis.com/api/v2/sites/" + status.output;
+        case "siteId":
+          requestUrl = "https://opendata.arcgis.com/api/v2/sites/" + status.output;
+          break;
+        case "domain":
+          //"https://opendatadev.arcgis.com/api/v2/sites?filter%5Burl%5D=" + status.output;
+          requestUrl = status.output;
+          requestUrl = "https://opendata.arcgis.com/api/v2/sites?filter%5Burl%5D=" + status.output;
+          break;
+        case "appId":
+          break;
+        default:
+      }
+      return requestUrl;
     }
+
   });
 });

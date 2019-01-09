@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <script>
     function loadHandler() {
@@ -10,14 +9,13 @@
           opener.require("esri/kernel").id.setOAuthResponseHash(location.hash);
           close();
         }
-      } else {
+      }
+      else {
         close();
       }
     }
   </script>
 </head>
-
 <body onload="loadHandler();">
 </body>
-
 </html>

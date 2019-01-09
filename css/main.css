@@ -463,13 +463,6 @@ input[type=text]::-ms-clear {
   position: relative;
 }
 
-#printButton {
-  position: absolute;
-  top: 160px;
-  right: 20px;
-  z-index: 35;
-}
-
 .esriPrint,
 .dijitToggleButton,
 .dijitButton,
@@ -501,16 +494,28 @@ input[type=text]::-ms-clear {
   padding: 6px 12px;
 }
 
-.BasemapToggle {
+.top-right-buttons {
   position: absolute;
   top: 65px;
   right: 20px;
   z-index: 35;
 }
 
-.esriRTL .BasemapToggle {
+.esriRTL .top-right-buttons {
   right: auto;
   left: 20px;
+}
+
+.BasemapToggle,
+.esriPrint {
+  margin-bottom: 10px;
+  float: right;
+  clear: both;
+}
+
+.esriRTL .BasemapToggle,
+.esriRTL .esriPrint {
+  float: left;
 }
 
 .BasemapToggle .toggleButton {

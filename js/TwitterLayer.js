@@ -264,7 +264,9 @@ function (
                 this.update(0);
             }));
             this._events.push(visChange);
-            this.update();
+            setTimeout(lang.hitch(this, function(){
+                this.update(0);
+            }), 0);
         },
         _parseURL: function (text) {
             return text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (url) {
@@ -345,42 +347,42 @@ function (
                 content: params,
                 callbackParamName: "callback",
                 preventCache: true,
-                failOk: true,
-                handle: lang.hitch(this, function (data) {
-                    if(data.errors && data.errors.length > 0){
-                        var errors = data.errors;
-                        this._error(errors);
-                    }
-                    if(data && data.signedIn === false){
-                        this.set("authorized", false);
-                        this.emit("authorize", {
-                            authorized: false
-                        });
-                        this._updateEnd();
-                    }
-                    else if (data.statuses && data.statuses.length > 0) {
-                        if(!this.get("authorized")){
-                            this.set("authorized", true);
-                            this.emit("authorize", {
-                                authorized: true
-                            });
-                        }
-                        this._mapResults(data);
-                        // display results for multiple pages
-                        if ((this.get("autopage")) && (this.get("maxpage") > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {
-                            this.pageCount++;
-                            this._sendRequest(this.get("url") + data.search_metadata.next_results);
-                        } else {
-                            this._updateEnd();
-                        }
-                    } else {
-                        // No results found, try another search term
-                        this.set("authorized", true);
-                        this._updateEnd();
-                    }
-                })
-            });
+                failOk: true
+            }).then(lang.hitch(this, this._handleRequest)).otherwise(lang.hitch(this, this._handleRequest));
             this._deferreds.push(deferred);
+        },
+        _handleRequest: function(data){
+            if(data.errors && data.errors.length > 0){
+                var errors = data.errors;
+                this._error(errors);
+            }
+            if(data && data.signedIn === false){
+                this.set("authorized", false);
+                this.emit("authorize", {
+                    authorized: false
+                });
+                this._updateEnd();
+            }
+            else if (data.statuses && data.statuses.length > 0) {
+                if(!this.get("authorized")){
+                    this.set("authorized", true);
+                    this.emit("authorize", {
+                        authorized: true
+                    });
+                }
+                this._mapResults(data);
+                // display results for multiple pages
+                if ((this.get("autopage")) && (this.get("maxpage") > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {
+                    this.pageCount++;
+                    this._sendRequest(this.get("url") + data.search_metadata.next_results);
+                } else {
+                    this._updateEnd();
+                }
+            } else {
+                // No results found, try another search term
+                this.set("authorized", true);
+                this._updateEnd();
+            }
         },
 		_findWordInText: function (word, text) {
             if(word && text) {

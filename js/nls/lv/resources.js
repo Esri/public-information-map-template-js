@@ -1,7 +1,11 @@
 define({
   "map": {
     "error": "Nevar izveidot kartes",
-    "views": "skati."
+    "views": "skati.",
+    "licenseError": {
+      "message": "Jūsu kontam nav licences, lai izmantotu konfigurējamās lietotnes, kas nav publiskas. Pieprasiet savas organizācijas administratoram piešķirt jums lietotāja veidu, kurā iekļauts lietotņu komplekts Essential Apps vai papildinājumlietotņu Essential Apps licence.",
+      "title": "Nav licences"
+    }
   },
   "report": {
     "flag": "Atzīmēt kā nepiemērotu",

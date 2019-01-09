@@ -401,8 +401,8 @@ define([
           ], lang.hitch(this, function(Scalebar) {
             var scalebar = new Scalebar({
               map: this.map,
-              attachTo: "bottom-left",
-              scalebarUnit: this.config.units
+              scalebarUnit: this.config.units,
+              attachTo: "bottom-left"
             });
           }));
         }
@@ -416,7 +416,15 @@ define([
         this._initLegend();
         // startup toc
         this._initTOC();
-        this.configureSocial();
+        if (this._socialToc) {
+          if (this._socialToc.loaded) {
+            this.configureSocial()
+          } else {
+            on.once(this._socialToc, 'load', lang.hitch(this, function () {
+              this.configureSocial()
+            }));
+          }
+        }
         // on body click containing underlay class
         on(document.body, '.dijitDialogUnderlay:click', function () {
           // get all dialogs

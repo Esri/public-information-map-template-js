@@ -245,7 +245,9 @@ define([
           this.update(0);
         }));
         this._events.push(visChange);
-        this.update(0);
+        setTimeout(lang.hitch(this, function(){
+            this.update(0);
+        }), 0);
       },
       // Format Date Object
       _formatDate: function (dateObj) {

@@ -1,7 +1,11 @@
 define({
   "map": {
     "error": "Kaarti ei saa luua",
-    "views": "vaatamisi."
+    "views": "vaatamisi.",
+    "licenseError": {
+      "message": "Teie kontol puudub litsents konfigureeritavate rakenduste kasutamiseks, mis ei ole avalikud. Paluge oma organisatsiooni administraatoril määrata teile kasutajatüüp, mis sisaldab olulisi rakendusi või oluliste rakenduse lisalitsentsi.",
+      "title": "Litsents puudub"
+    }
   },
   "report": {
     "flag": "Märgi mittesobilikuks",
@@ -42,7 +46,7 @@ define({
     "search": "Otsi",
     "flSettingsInfo": "Tagastatakse foto pealkirjale, kirjeldustele või siltidele vastavad tulemused.",
     "twSettingsInfo": "Näete, mis parasjagu toimub.",
-    "igSettingsInfo": "Instagram kiire, kaunis ja lõbus viis jagada oma elusündmusi pere ja sõpradega.",
+    "igSettingsInfo": "Instagram on kiire, kaunis ja lõbus viis jagada oma elusündmusi pere ning sõpradega.",
     "advancedOperators": "Näpunäide: kasutage täpsemate otsingute loomiseks <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">tehtemärke</a>.",
     "tweetsFilteredBy": "säutsud on filtreeritud:",
     "photosFilteredBy": "fotod on filtreeritud:",

@@ -52,7 +52,6 @@ define([
                 mailURL: 'mailto:%20?subject=${title}&body=${summary}%20${url}',
                 facebookURL: "https://www.facebook.com/sharer/sharer.php?u=${url}",
                 twitterURL: "https://twitter.com/intent/tweet?url=${url}&text=${title}&hashtags=${hashtags}",
-                googlePlusURL: "https://plus.google.com/share?url=${url}",
                 shortenAPI: "https://arcg.is/prod/shorten",
                 embedSizes: [{
                     "width": "100%",
@@ -92,7 +91,6 @@ define([
                 this.set("mailURL", defaults.mailURL);
                 this.set("facebookURL", defaults.facebookURL);
                 this.set("twitterURL", defaults.twitterURL);
-                this.set("googlePlusURL", defaults.googlePlusURL);
                 this.set("shortenAPI", defaults.shortenAPI);
                 this.set("image", defaults.image);
                 this.set("title", defaults.title);
@@ -117,7 +115,6 @@ define([
                     linkIcon: "icon-link share-dialog-icon",
                     facebookIcon: "icon-facebook-squared-1 share-dialog-icon",
                     twitterIcon: "icon-twitter-1 share-dialog-icon",
-                    gplusIcon: "icon-gplus share-dialog-icon",
                     emailIcon: "icon-mail share-dialog-icon",
                     mapSizeLabel: "map-size-label",
                     shareMapURL: "share-map-url",
@@ -313,10 +310,6 @@ define([
                 // twitter click
                 this.own(on(this._twitterButton, a11yclick, lang.hitch(this, function () {
                     this._configureShareLink(this.get("twitterURL"));
-                })));
-                // google plus click
-                this.own(on(this._gpulsButton, a11yclick, lang.hitch(this, function () {
-                    this._configureShareLink(this.get("googlePlusURL"));
                 })));
                 // email click
                 this.own(on(this._emailButton, a11yclick, lang.hitch(this, function () {
