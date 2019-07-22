@@ -1,44 +1,37 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8" />
-  <title>OAuth Popup Callback</title>
-  <style type="text/css">
-    html,
-    body {
-      height: 100%;
-      width: 100%;
-      margin: 0px;
-      padding: 0px;
-      font-family: Lucida Sans, Lucida Grande, Arial !important;
-      font-size: 14px;
-    }
-  </style>
-  <script type="text/javascript" src="https://js.arcgis.com/3.27"></script>
-  <script type="text/javascript">
-    require([
-      "esri/urlUtils",
-      "dojo/domReady!"
-    ], function (urlUtils) {
-      var url = document.location.href;
-      var urlObject = urlUtils.urlToObject(url);
-      urlObject.query = urlObject.query || {};
-      var redirect = urlObject.query.redirect;
-      if (redirect) {
-        location.href = redirect + location.hash;
+  <head>
+    <meta charset="utf-8" />
+    <title>OAuth Popup Callback</title>
+    <style type="text/css">
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        font-family: Lucida Sans, Lucida Grande, Arial !important;
+        font-size: 14px;
       }
-      else {
-        window.opener.instagramCallback(location.hash);
-        window.close();
-      }
-    });
+    </style>
+    <script type="text/javascript" src="https://js.arcgis.com/3.29"></script>
+    <script type="text/javascript">
+      require(["esri/urlUtils", "dojo/domReady!"], function(urlUtils) {
+        var url = document.location.href;
+        var urlObject = urlUtils.urlToObject(url);
+        urlObject.query = urlObject.query || {};
+        var redirect = urlObject.query.redirect;
+        if (redirect) {
+          location.href = redirect + location.hash;
+        } else {
+          window.opener.instagramCallback(location.hash);
+          window.close();
+        }
+      });
+    </script>
+  </head>
 
-  </script>
-</head>
-
-<body>
-  <!--OAuth Popup Callback-->
-</body>
-
+  <body>
+    <!--OAuth Popup Callback-->
+  </body>
 </html>

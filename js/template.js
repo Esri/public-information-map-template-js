@@ -79,6 +79,7 @@ define([
       this.config = defaults;
       // Gets parameters from the URL, convert them to an object and remove HTML tags.
       this.urlObject = this._createUrlParamsObject();
+      this.config.urlValues = this.urlObject;
     },
     startup: function () {
       var promise = this._init();
@@ -131,7 +132,8 @@ define([
           portal: this._createPortal(),
           // get org data
           org: this.queryOrganization()
-        }).then(lang.hitch(this, function () {
+        }).then(lang.hitch(this, function (appResults) {
+
           // mixin all new settings from org and app
           this._mixinAll();
           // then execute these async
@@ -154,6 +156,7 @@ define([
                 deferred.reject(new Error(licenseMessage));
               }
             }
+
             // We have all we need, let's set up a few things
             this._completeApplication();
             deferred.resolve(this.config);
@@ -247,8 +250,7 @@ define([
     },
     _initializeApplication: function () {
       // If this app is hosted on an Esri environment.
-      var overwrite = this.config.overwritesharing || false;
-      if (this.templateConfig.esriEnvironment && !overwrite) {
+      if (this.templateConfig.esriEnvironment) {
         var appLocation,
           instance;
         // Check to see if the app is hosted or a portal. If the app is hosted or a portal set the
@@ -265,8 +267,6 @@ define([
           this.config.sharinghost = location.protocol + "//" + location.host + instance;
           this.config.proxyurl = location.protocol + "//" + location.host + instance + "/sharing/proxy";
         }
-      } else {
-        this.config.sharinghost = location.protocol + "//" + this.config.sharinghost;
       }
       arcgisUtils.arcgisUrl = this.config.sharinghost + "/sharing/rest/content/items";
       // Define the proxy url for the app
@@ -302,7 +302,6 @@ define([
           deferred.resolve(response);
         });
       }
-
       return deferred.promise;
     },
     _queryLocalization: function () {
@@ -564,34 +563,27 @@ define([
             // use feet/miles only for the US and if nothing is set for a user
             cfg.units = "english";
           }
-
-          // If it has the useVectorBasemaps property and its true then use the
-          // vectorBasemapGalleryGroupQuery otherwise use the default
-          var basemapGalleryGroupQuery = response.basemapGalleryGroupQuery;
-          if (response.hasOwnProperty("useVectorBasemaps") && response.useVectorBasemaps === true && response.vectorBasemapGalleryGroupQuery) {
-            basemapGalleryGroupQuery = response.vectorBasemapGalleryGroupQuery;
-          }
-
-          var q = this._parseQuery(basemapGalleryGroupQuery);
-          cfg.basemapgroup = {
+          //Get the basemap group for the organization
+          var q = this._parseQuery(response.basemapGalleryGroupQuery);
+          this.orgConfig.basemapgroup = {
             id: null,
             title: null,
             owner: null
           };
           if (q.id) {
-            cfg.basemapgroup.id = q.id;
+            this.orgConfig.basemapgroup.id = q.id;
           } else if (q.title && q.owner) {
-            cfg.basemapgroup.title = q.title;
-            cfg.basemapgroup.owner = q.owner;
+            this.orgConfig.basemapgroup.title = q.title;
+            this.orgConfig.basemapgroup.owner = q.owner;
           }
           // Get the helper services (routing, print, locator etc)
           cfg.helperServices = response.helperServices;
           // are any custom roles defined in the organization?
-          /*if (response.user && esriLang.isDefined(response.user.roleId)) {
+          if (response.user && esriLang.isDefined(response.user.roleId)) {
             if (response.user.privileges) {
               cfg.userPrivileges = response.user.privileges;
             }
-          }*/
+          }
           this.orgConfig = cfg;
           deferred.resolve(cfg);
         }), function (error) {

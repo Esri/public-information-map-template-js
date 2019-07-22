@@ -3,7 +3,7 @@ define({
     "error": "Žemėlapio sukurti nepavyko",
     "views": "peržiūros.",
     "licenseError": {
-      "message": "Jūsų paskyra nelicencijuota naudoti ne viešas konfigūruojamas aplikacijas. Kreipkitės į organizacijos administratorių, kad paskirtų jums vartotojo tipą, kuris turi svarbiausias aplikacijas, arba suteiktų jums papildomą svarbiausių aplikacijų licenciją.",
+      "message": "Jūsų paskyra nelicencijuota naudoti ne viešas konfigūruojamas aplikacijas. Kreipkitės į organizacijos administratorių, kad paskirtų jums naudotojo tipą, kuris turi svarbiausias aplikacijas, arba suteiktų jums papildomą svarbiausių aplikacijų licenciją.",
       "title": "Nelicencijuota"
     }
   },
@@ -35,7 +35,7 @@ define({
     "instagramSignIn": "Prisijungti prie Twitter",
     "youtube": "YouTube",
     "youtubeSettings": "YouTube nustatymai",
-    "ytSettingsInfo": "Peržiūrėkite vartotojų sukurtus vaizdo įrašus, įskaitant tinklo ir profesionalų turinį.",
+    "ytSettingsInfo": "Peržiūrėkite naudotojų sukurtus vaizdo įrašus, įskaitant tinklo ir profesionalų turinį.",
     "ytTime": "Nusiųsta per paskutinį laikotarpį",
     "today": "Diena",
     "this_week": "Savaitė",

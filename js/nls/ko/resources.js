@@ -15,12 +15,12 @@ define({
   },
   "mapNotes": {
     "notesUnavailable": "설명 이용 불가",
-    "bookmarks": "책갈피",
+    "bookmarks": "북마크",
     "zoomTo": "이 위치를 확대/축소하고 자세한 정보를 확인합니다.",
     "untitledNote": "제목 없음"
   },
   "social": {
-    "flickr": "Flickr",
+    "flickr": "플리커",
     "mediaLayers": "미디어 레이어",
     "mediaLayersDescription": "맵의 공개 부분에서 기여를 표시합니다.",
     "flickrSettings": "Flickr 설정",
@@ -30,7 +30,7 @@ define({
     "twitterSignIn": "Twitter에 로그인",
     "webcams": "Webcams.travel",
     "instagram": "Instagram",
-    "instagramSettings": "인스타그램 설정",
+    "instagramSettings": "Instagram 설정",
     "instagramUser": "Instagram 계정",
     "instagramSignIn": "Instagram에 로그인",
     "youtube": "YouTube",
@@ -46,7 +46,7 @@ define({
     "search": "검색",
     "flSettingsInfo": "사진 제목, 설명 또는 태그와 일치하는 결과를 반환합니다.",
     "twSettingsInfo": "지금 일어나는 상황을 살펴보세요.",
-    "igSettingsInfo": "인스타그램은 자신의 삶을 친구나 가족과 공유할 수 있는 빠르고 재미있는 서비스입니다.",
+    "igSettingsInfo": "Instagram은 자신의 삶을 친구나 가족과 공유할 수 있는 빠르고 재미있는 서비스입니다.",
     "advancedOperators": "팁: 고급 검색을 하려면 <a target=\"_blank\" href=\"https://support.twitter.com/articles/71577-using-advanced-search\">연산자</a>를 사용하세요.",
     "tweetsFilteredBy": "트윗 필터링 기준:",
     "photosFilteredBy": "사진 필터링 기준:",

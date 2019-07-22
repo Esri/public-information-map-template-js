@@ -194,7 +194,8 @@ define([
           });
         }
         // instagram enabled
-        if (this.config.enableInstagram) {
+        //if (this.config.enableInstagram) {
+        if (false) {
           var instagramToken = "";
           if(lsTest()){
             instagramToken = localStorage.getItem(INSTAGRAM_ACCESS_TOKEN) || "";
@@ -249,7 +250,8 @@ define([
       },
       configureSocial: function () {
         // instagram enabled
-        if (this.config.enableInstagram) {
+        // if (this.config.enableInstagram) {
+        if (false) {
           // Instagram Dialog
           var igContent = '';
           igContent += '<div class="' + this.socialCSS.dialogContent + '">';

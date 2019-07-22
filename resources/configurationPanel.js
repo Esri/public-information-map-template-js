@@ -226,28 +226,6 @@
     "category": "<b>Social Media Feeds</b>",
     "fields": [{
       "type": "subcategory",
-      "label": "Instagram Options"
-    }, {
-      "type": "paragraph",
-      "value": "Configure Instagram Layer options for your application."
-    }, {
-      "type": "paragraph",
-      "value": "View Instagram photos on the map."
-    }, {
-      "type": "boolean",
-      "fieldName": "enableInstagram",
-      "label": "Enable Instagram Layer",
-      "tooltip": "Enable Instagram Layer"
-    }, {
-      "type": "paragraph",
-      "value": "Show this layer by default."
-    }, {
-      "type": "boolean",
-      "fieldName": "instagramVisible",
-      "label": "Visible",
-      "tooltip": "Check this box to make the layer visible by default."
-    }, {
-      "type": "subcategory",
       "label": "Flickr Options"
     }, {
       "type": "paragraph",
