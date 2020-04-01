@@ -105,7 +105,7 @@ define([
                 }
                 // default symbol
                 if (!this.symbol) {
-                    this.set("symbol", new PictureMarkerSymbol('images/map/flickr25x30.png', 25, 30).setOffset(0, 7));
+                    this.set("symbol", new PictureMarkerSymbol('images/map/flickr_64.png', 32, 32));
                 }
                 // default infoTemplate
                 if (!this.infoTemplate) {

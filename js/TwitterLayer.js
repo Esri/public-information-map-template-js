@@ -117,7 +117,7 @@ function (
             }
             // default symbol
             if (!this.symbol) {
-                this.set("symbol", new PictureMarkerSymbol('images/map/twitter25x30.png', 25, 30).setOffset(0,7));
+                this.set("symbol", new PictureMarkerSymbol('images/map/Twitter_Social_Icon_Rounded_Square_Color_64.png', 32, 32));
             }
             // default infoTemplate
             if (!this.infoTemplate) {
@@ -407,7 +407,7 @@ function (
             var ng = [];
             var k = j.statuses;
             array.forEach(k, lang.hitch(this, function (result) {
-                // add social media type/id for filtering                
+                // add social media type/id for filtering
                 result.smType = this.id;
                 result.filterType = 2;
                 result.filterContent = 'https://twitter.com/#!/' + result.user.id_str + '/status/' + result.id_str;

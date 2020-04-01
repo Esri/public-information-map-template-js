@@ -106,7 +106,7 @@ define([
         }
         // default symbol
         if (!this.symbol) {
-          this.set("symbol", new PictureMarkerSymbol('images/map/youtube25x30.png', 25, 30).setOffset(0, 7));
+          this.set("symbol", new PictureMarkerSymbol('images/map/yt_icon_rgb_64.png', 32, 23));
         }
         // default infoTemplate
         if (!this.infoTemplate) {

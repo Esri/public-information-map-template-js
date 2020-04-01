@@ -42,7 +42,7 @@ The template can be configured using the following options:
 - ArcGIS Online Example: `"sharinghost": "https://" + “<your organization name>.maps.arcgis.com`
 - Portal Example where `arcgis` is the name of the Web Adaptor: `"sharinghost": "https://" + "webadaptor.domain.com/arcgis"`
 
-4.  If you are using Portal or a local install of the ArcGIS API for JavaScript, change all references to the ArcGIS API for JavaScript in index.html to refer to your local copy of the API. Search for the references containing `"https://js.arcgis.com/3.29"` and replace this portion of the reference with the url to your local install.
+4.  If you are using Portal or a local install of the ArcGIS API for JavaScript, change all references to the ArcGIS API for JavaScript in index.html to refer to your local copy of the API. Search for the references containing `"https://js.arcgis.com/3.32"` and replace this portion of the reference with the url to your local install.
 
 - For example: `"https://webadaptor.domain.com/arcgis/jsapi/jsapi"` where `arcgis` is the name of your Web Adaptor.
 

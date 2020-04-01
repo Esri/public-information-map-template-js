@@ -99,7 +99,7 @@ define([
         }
         // default infoTemplate
         if (!this.infoTemplate) {
-          this.set("infoTemplate", new InfoTemplate('Webcam', '<div class="' + this._css.container + '"><div class="' + this._css.title + '">${title}</div><a tabindex="0" class="' + this._css.imageAnchor + '" href="${url}" target="_blank"><img width="${thumbnail_width}" height="${thumbnail_height}" class="' + this._css.image + '" src="${thumbnail_url}" /></a><div class="' + this._css.location + '">${city}, ${region} ${country}</div><div class="' + this._css.date + '">${dateformatted}</div><div class="' + this._css.logo + '"><a href="http://www.webcams.travel" target="_blank"><img src="http://www.webcams.travel/img/linking/logo_125x30.jpg" border="0" alt="Webcams worldwide - Webcams.travel"/></a></div><div class="' + this._css.credits + '">Webcams provided by <a href="http://www.webcams.travel/" target="_blank">webcams.travel</a></div></div>'));
+          this.set("infoTemplate", new InfoTemplate('Webcam', '<div class="' + this._css.container + '"><div class="' + this._css.title + '">${title}</div><a tabindex="0" class="' + this._css.imageAnchor + '" href="${url}" target="_blank"><img width="${thumbnail_width}" height="${thumbnail_height}" class="' + this._css.image + '" src="${thumbnail_url}" /></a><div class="' + this._css.location + '">${city}, ${region} ${country}</div><div class="' + this._css.date + '">${dateformatted}</div><div class="' + this._css.credits + '">Webcams provided by <a href="http://www.windy.com/webcams" target="_blank">Windy.com</a></div></div>'));
         }
         // layer
         this.featureCollection = {
