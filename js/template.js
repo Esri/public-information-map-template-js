@@ -77,9 +77,9 @@ define([
       this.templateConfig = lang.mixin(defaultTemplateConfig, templateConfig);
       // config will contain application and user defined info for the application such as i18n strings the web map id and application id, any url parameters and any application specific configuration information.
       this.config = defaults;
+      this.config.isIE = this._detectIESupport();
       // Gets parameters from the URL, convert them to an object and remove HTML tags.
       this.urlObject = this._createUrlParamsObject();
-      this.config.urlValues = this.urlObject;
     },
     startup: function () {
       var promise = this._init();
@@ -120,6 +120,19 @@ define([
       // The sharing url defines where to search for the web map and application content. The
       // default value is arcgis.com.
       this._initializeApplication();
+      if (this.urlObject && this.urlObject.query && this.urlObject.query.previewImage && this.urlObject.query.previewImage === "true" && this.urlObject.query.webmap) {
+        // Get preview image and show until map is loaded then hide
+        var preview = document.getElementById("previewImage");
+        domClass.remove(preview, "hidden");
+        domClass.add(preview, "fade");
+        var imagesrc = this.config.sharinghost + "/sharing/rest/content/items/" + this.urlObject.query.webmap + "/resources/preview-image.png";
+        preview.style.backgroundImage = "url(" + imagesrc + ")";
+
+        preview.onerror = function () {
+          domClass.add(preview, "hidden");
+        };
+      }
+
       // check if signed in. Once we know if we're signed in, we can get appConfig, orgConfig and create a portal if needed.
       this._checkSignIn().always(lang.hitch(this, function (response) {
         // execute these tasks async
@@ -132,8 +145,7 @@ define([
           portal: this._createPortal(),
           // get org data
           org: this.queryOrganization()
-        }).then(lang.hitch(this, function (appResults) {
-
+        }).then(lang.hitch(this, function () {
           // mixin all new settings from org and app
           this._mixinAll();
           // then execute these async
@@ -149,14 +161,25 @@ define([
           }).then(lang.hitch(this, function () {
             // mixin all new settings from item, group info and group items.
             this._mixinAll();
-            // If app is private and logged in user doesn't have essential apps let them know.
+            if (response && response.message && response.message === "User is not signed in.") {
+              // Not signed in check for short org url
+              var withinFrame = window.location !== window.parent.location;
+
+              if (this.config.appResponse && this.config.appResponse.item && this.config.appResponse.item.contentOrigin && this.config.appResponse.item.contentOrigin === "other" && !withinFrame) {
+                var appUrl = this._getAppUrl();
+                deferred.reject({
+                  error: "application:origin-other",
+                  appUrl: appUrl
+                });
+              }
+            }
+
             if ((this.config.appResponse && this.config.appResponse.item.access !== "public")) { // check app access
               if (response && response.code && response.code === "IdentityManagerBase.1") {
                 var licenseMessage = "<h1>" + this.i18nConfig.i18n.map.licenseError.title + "</h1><p>" + this.i18nConfig.i18n.map.licenseError.message + "</p>";
                 deferred.reject(new Error(licenseMessage));
               }
             }
-
             // We have all we need, let's set up a few things
             this._completeApplication();
             deferred.resolve(this.config);
@@ -186,9 +209,9 @@ define([
     },
     _mixinAll: function () {
       /*
-        mix in all the settings we got!
-        {} <- i18n <- organization <- application <- group info <- group items <- webmap <- custom url params <- standard url params.
-        */
+      mix in all the settings we got!
+      {} <- i18n <- organization <- application <- group info <- group items <- webmap <- custom url params <- standard url params.
+      */
       lang.mixin(this.config, this.i18nConfig, this.orgConfig, this.appConfig, this.groupInfoConfig, this.groupItemConfig, this.itemConfig, this.customUrlConfig, this.urlConfig);
     },
     _createPortal: function () {
@@ -251,8 +274,7 @@ define([
     _initializeApplication: function () {
       // If this app is hosted on an Esri environment.
       if (this.templateConfig.esriEnvironment) {
-        var appLocation,
-          instance;
+        var appLocation, instance;
         // Check to see if the app is hosted or a portal. If the app is hosted or a portal set the
         // sharing url and the proxy. Otherwise use the sharing url set it to arcgis.com.
         // We know app is hosted (or portal) if it has /apps/ or /home/ in the url.
@@ -264,8 +286,8 @@ define([
         if (appLocation !== -1) {
           // hosted or portal
           instance = location.pathname.substr(0, appLocation); //get the portal instance name
-          this.config.sharinghost = location.protocol + "//" + location.host + instance;
-          this.config.proxyurl = location.protocol + "//" + location.host + instance + "/sharing/proxy";
+          this.config.sharinghost = "https://" + location.host + instance;
+          this.config.proxyurl = "https://" + location.host + instance + "/sharing/proxy";
         }
       }
       arcgisUtils.arcgisUrl = this.config.sharinghost + "/sharing/rest/content/items";
@@ -275,10 +297,23 @@ define([
         esriConfig.defaults.io.alwaysUseProxy = false;
       }
     },
+    _getAppUrl: function () {
+      var location = window.location;
+      var hostname = location.hostname;
+      var newOrigin = "//www.arcgis.com";
+      if (hostname.indexOf("devext.arcgis.com") !== -1) {
+        newOrigin = "//devext.arcgis.com";
+      } else if (hostname.indexOf("qaext.arcgis.com") !== -1) {
+        newOrigin = "//qaext.arcgis.com";
+      }
+      var appurl = location.protocol + newOrigin + location.pathname;
+      if (location && location.search) {
+        appurl = appurl + location.search;
+      }
+      return appurl;
+    },
     _checkSignIn: function () {
-      var deferred,
-        signedIn,
-        oAuthInfo;
+      var deferred, signedIn, oAuthInfo;
       deferred = new Deferred();
       //If there's an oauth appid specified register it
       if (this.config.oauthappid) {
@@ -305,10 +340,7 @@ define([
       return deferred.promise;
     },
     _queryLocalization: function () {
-      var deferred,
-        dirNode,
-        classes,
-        rtlClasses;
+      var deferred, dirNode, classes, rtlClasses;
       deferred = new Deferred();
       if (this.templateConfig.queryForLocale) {
         require(["dojo/i18n!application/nls/resources"], lang.hitch(this, function (appBundle) {
@@ -349,9 +381,7 @@ define([
     },
     queryGroupItems: function (options) {
       var deferred = new Deferred(),
-        error,
-        defaultParams,
-        params;
+        error, defaultParams, params;
       // If we want to get the group info
       if (this.templateConfig.queryForGroupItems) {
         if (this.config.group) {
@@ -393,8 +423,7 @@ define([
     },
     queryGroupInfo: function () {
       var deferred = new Deferred(),
-        error,
-        params;
+        error, params;
       // If we want to get the group info
       if (this.templateConfig.queryForGroupInfo) {
         if (this.config.group) {
@@ -422,8 +451,7 @@ define([
       return deferred.promise;
     },
     queryItem: function () {
-      var deferred,
-        cfg = {};
+      var deferred, cfg = {};
       // Get details about the specified web map. If the web map is not shared publicly users will
       // be prompted to log-in by the Identity Manager.
       deferred = new Deferred();
@@ -536,17 +564,18 @@ define([
           },
           callbackParamName: "callback"
         }).then(lang.hitch(this, function (response) {
-          // Iterate over the list of authorizedCrossOriginDomains
-          // and add each as a javascript obj to the corsEnabledServers
-          var trustedHost;
-          if (response.authorizedCrossOriginDomains && response.authorizedCrossOriginDomains.length) {
-            for (var i = 0; i < response.authorizedCrossOriginDomains.length; i++) {
-              trustedHost = response.authorizedCrossOriginDomains[i];
-              if (esriLang.isDefined(trustedHost) && trustedHost.length > 0) {
-                esriConfig.defaults.io.corsEnabledServers.push({
-                  host: response.authorizedCrossOriginDomains[i],
-                  withCredentials: true
-                });
+          if (this.templateConfig.webTierSecurity) {
+            var trustedHost;
+            if (response.authorizedCrossOriginDomains && response.authorizedCrossOriginDomains.length > 0) {
+              for (var i = 0; i < response.authorizedCrossOriginDomains.length; i++) {
+                trustedHost = response.authorizedCrossOriginDomains[i];
+                // add if trusted host is not null, undefined, or empty string
+                if (esriLang.isDefined(trustedHost) && trustedHost.length > 0) {
+                  esriConfig.defaults.io.corsEnabledServers.push({
+                    host: trustedHost,
+                    withCredentials: true
+                  });
+                }
               }
             }
           }
@@ -563,18 +592,24 @@ define([
             // use feet/miles only for the US and if nothing is set for a user
             cfg.units = "english";
           }
-          //Get the basemap group for the organization
-          var q = this._parseQuery(response.basemapGalleryGroupQuery);
-          this.orgConfig.basemapgroup = {
+          // If it has the useVectorBasemaps property and its true then use the
+          // vectorBasemapGalleryGroupQuery otherwise use the default
+          var basemapGalleryGroupQuery = response.basemapGalleryGroupQuery;
+          if (response.hasOwnProperty("useVectorBasemaps") && response.useVectorBasemaps === true && response.vectorBasemapGalleryGroupQuery) {
+            basemapGalleryGroupQuery = response.vectorBasemapGalleryGroupQuery;
+          }
+
+          var q = this._parseQuery(basemapGalleryGroupQuery);
+          cfg.basemapgroup = {
             id: null,
             title: null,
             owner: null
           };
           if (q.id) {
-            this.orgConfig.basemapgroup.id = q.id;
+            cfg.basemapgroup.id = q.id;
           } else if (q.title && q.owner) {
-            this.orgConfig.basemapgroup.title = q.title;
-            this.orgConfig.basemapgroup.owner = q.owner;
+            cfg.basemapgroup.title = q.title;
+            cfg.basemapgroup.owner = q.owner;
           }
           // Get the helper services (routing, print, locator etc)
           cfg.helperServices = response.helperServices;
@@ -678,6 +713,19 @@ define([
         deferred.resolve();
       }
       return deferred.promise;
+    },
+    _detectIESupport: function () {
+      var isIE = false;
+      if (navigator && navigator.userAgent) {
+        var match = /\b(MSIE |Trident.*?rv:|Edge\/)(\d+)/.exec(navigator.userAgent);
+        if (match && match.length && match.length === 3) {
+          var version = parseInt(match[2]);
+          if (version <= 19) {
+            isIE = true;
+          }
+        }
+      }
+      return isIE;
     },
     _generateRequestUrl: function (status) {
       var requestUrl;
