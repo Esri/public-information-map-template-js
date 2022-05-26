@@ -58,14 +58,14 @@ define({
     "youtubeVisible": false,
     "youtubeSearch": "",
     "youtubeTime": "all_time", // today, this_week, this_month, all_time
-    "youtube_key": "AIzaSyBvrlsx50mxX_W-Ra2cJ8PB0jKt0jACZfg",
+    "youtube_key": null,
     "enableDialogModal": false,
     "dialogModalContent": "",
     "dialogModalTitle": "",
     "twitterUrl": "https://utility.arcgis.com/tproxy/proxy/1.1/search/tweets.json",
     "twitterSigninUrl": "https://utility.arcgis.com/tproxy/signin",
-    "flickr_key": "404ebea7d5bc27aa5251d1207620e99b",
-    "webcams_key": "L0mSb0kxVHmsh2ZeMGs2CqmGERjap1h9oBTjsn3DXhiErQhFiF",
+    "flickr_key": null,
+    "webcams_key": null,
     "enablePrintButton": false,
     //Enter the url to your organizations bing maps key if you want to use bing basemaps
     "bingmapskey": "",
